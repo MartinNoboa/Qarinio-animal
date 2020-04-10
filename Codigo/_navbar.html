@@ -1,44 +1,29 @@
-<nav>
-    <ul id="dropdown1" class="dropdown-content">
-        <li><a href="#!" class="black-text">Iniciar Sesión</a></li>
-        <li><a href="#!" class="black-text">Crear Cuenta</a></li>
-    </ul>
-	<div class="nav-wrapper red">
-		<a href="index.php" class="brand-logo"><img class="circular" src="QA.jpg" alt="" height="100px"></a>
-		<a href="#" data-target="mobile-demo" class="sidenav-trigger">
-		  	<i class="material-icons">menu</i>
-        </a> 
-        <ul id="nav-mobile" class="right hide-on-large-only">
-            <a href="#"><i class="material-icons right">account_circle</i></a>
-        </ul>
-        <p class="valign-wrapper">
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="catalogo.php">Nuestros Perros <i class="fas fa-dog"></i></a></li>
-                <li><a href="comoAyudar.php">¿Cómo ayudar? <i class="fas fa-hands-helping"></i></a></li>
-                <li><a href="quienesSomos.php">¿Quiénes somos? <i class="fas fa-people-carry"></i></a></li>
-                <li><a href="contactanos.php">Contáctanos <i class="fas fa-comments"></i></a></li>
-                <li><a href="#">Blog <i class="fas fa-rss"></i></a></li>
-                <li><a href="preguntasFrecuentes.php">FAQ <i class="fas fa-question"></i></a></li>
-                <li><a class="dropdown-trigger" href="#!" data-target="dropdown1"><i class="material-icons right iconButton" >account_circle</i>Mi Cuenta</a></li>
-            </ul>
-        </p>
+<nav class="uk-navbar-container" uk-navbar>
+    <div class="uk-navbar-left">
+       <a class="uk-navbar-item uk-logo" href="index.php"><img src="img/QA.jpg" class="uk-height-small uk-border-rounded"></a>
+
     </div>
-  </nav>
-
-  <ul class="sidenav waves-effect waves-light" id="mobile-demo">
-    <li><a href="catalogo.php"><i class="fas fa-dog"></i> Nuestros Perros</a></li>
-    <li><a href="comoAyudar.php"><i class="fas fa-hands-helping"></i>¿Cómo ayudar?</a></li>   
-    <li><a href="quienesSomos.php"><i class="fas fa-people-carry"></i>¿Quiénes somos?</a></li>
-    <li><a href="contactanos.php"><i class="fas fa-comments"></i>Contáctanos</a></li>
-    <li><a href="#"><i class="fas fa-rss"></i>Blog</a></li>
-    <li><a href="preguntasFrecuentes.php"><i class="fas fa-dog"></i>FAQ</a></li>
-  </ul>
-
-  
-<div class="fixed-action-btn">
-  <a class="btn-floating btn-large waves-effect waves-light blue-grey" href="#"><i class="fas fa-chevron-up"></i></a>
-</div>
-<br>
+    <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav">
+                <li><a href="catalogo.php">Nuestros Perros <i class="fas fa-dog uk-margin-small-left"></i></a></li>
+                <li><a href="comoAyudar.php">¿Cómo ayudar? <i class="fas fa-hands-helping uk-margin-small-left"></i></a></li>
+                <li><a href="quienesSomos.php">¿Quiénes somos? <i class="fas fa-people-carry uk-margin-small-left"></i></a></li>
+                <li><a href="contactanos.php">Contáctanos <i class="fas fa-comments uk-margin-small-left"></i></a></li>
+                <li><a href="#">Blog <i class="fas fa-rss uk-margin-small-left"></i></a></li>
+                <li><a href="preguntasFrecuentes.php">Pregutnas Frecuentes <i class="fas fa-question uk-margin-small-left"></i></a></li>
+                <li>
+                  <a href="#!" ><i class="fas fa-user-circle uk-margin-small-right" ></i>Mi Cuenta</a>
+                  <div class="uk-navbar-dropdown uk-width-auto uk-height-auto">
+                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                        <li class="uk-text-center"><a href="iniciarSesion.php">Iniciar Sesion</a></li>
+                        <li class="uk-text-center"><a href="crearCuenta.php" uk-toggle">Crear Cuenta</a></li>
+                    </ul>
+                  </div>
+                </li>
+            <li><a href=""></a></li>
+        </ul>
+    </div>
+</nav>
 
 
 

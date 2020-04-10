@@ -3,11 +3,11 @@
     include("_navbar.html");
 ?>
 
-<div class="container">
+<div class="uk-container">
 <h2>Nuestros Perros</h2>
-    <div class="row">
+    <div class="uk-child-width-1-3@m" uk-grid>
     <?php
-        $img = "Mario.jpg";
+        $img = "img/maybe.jpg";
         $name = "Mario";
         
         $d1=new DateTime(null);
@@ -17,8 +17,14 @@
         $age = $diff;
 
         include("_tarjetaPerro.html");
+        
+        $img = "img/Mario.jpg";
         include("_tarjetaPerro.html");
+        
+        $img = "img/Nico.jpg";
         include("_tarjetaPerro.html");
+        
+        $img = "img/Paco.jpg";
         include("_tarjetaPerro.html");
         include("_tarjetaPerro.html");
         include("_tarjetaPerro.html");
@@ -30,21 +36,5 @@
 </div>
 
 
-<div id="modal1" class="modal">
-  <div class="modal-content">
-    <h4>Modal Header</h4>
-    <p>A bunch of text</p>
-  </div>
-  <div class="modal-footer">
-    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-  </div>
-</div>
-
 
 <?php include("_footer.html"); ?>
-<script>
-  $(document).ready(function(){
-    $('.materialboxed').materialbox();
-    $('.modal').modal();
-  });
-</script>

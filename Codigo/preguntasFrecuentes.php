@@ -2,9 +2,9 @@
     include("_header.html");
     include("_navbar.html");
 ?>
-<div class = "container">
+<div class = "uk-container">
   <h1>Preguntas Frecuentes</h1>
-  <div class = "divider"></div>
+  <div class = "uk-divider"></div>
   <ul class="collapsible">
     <li>
       <div class="collapsible-header"><i class="material-icons">mood</i>Me encontre un perro en la calle, ¿Cómo lo ayudo?</div>
@@ -44,9 +44,4 @@
 </div>
 
 <?php include("_footer.html"); ?>
-<script>
-   $(document).ready(function(){
-    $('.collapsible').collapsible();
-  });
-       
-</script>
+
