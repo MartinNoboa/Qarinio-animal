@@ -63,3 +63,43 @@ function insertIntoDb($dml, ...$args){
     closeDb($conDb);
     return $id;
 }
+
+function recuperarUsuarios(){
+    $sql = "SELECT u.usuario,u.nombre,r.nombre from usuario u, rol r, desempenia d WHERE u.id=d.usuario_id AND r.id=d.rol_id";
+    return sqlqry($sql);
+}
+
+function autenticar($username, $password){
+    //Recupera los permisos del usuario (desemenia es la relación entre usuario y rol)
+    $query = "	SELECT p.nombre as per, u.nombre as nom
+				FROM 	`usuario` u, `desempenia` d, `rol` r, `obtiene` o, `permiso` p
+				WHERE 	u.id = d.usuario_id
+				AND 	d.rol_id = r.id
+                AND     o.rol_id = r.id
+				AND 	o.permiso_id = p.id
+				AND 	usuario='$username'";
+    $result = sqlqry($query);
+
+    //Recupera unicamente el password del usuario para poder verificarlo
+    $passQuery = " 	SELECT u.password as passHash
+					FROM 	`usuario` as u
+					WHERE 	usuario='$username'";
+    $passHash = mysqli_fetch_object(sqlqry($passQuery))->passHash;
+
+    //asigna los permisos del usuario a la sesión
+    if (password_verify($password, $passHash)) {
+        while ($row = mysqli_fetch_array($result, MYSQLI_BOTH)) {
+            //asigna permisos
+            if ($row['per'] == 'registrar') {
+                $_SESSION['registrar'] = 1;
+                echo 'registrar';
+            }
+            if ($row['per'] == 'ver') {
+                $_SESSION['ver'] = 1;
+                echo 'ver';
+            }
+            //asigna el nombre de usuario
+            $_SESSION['nombre'] = $row['nom'];
+        }
+    }
+}
