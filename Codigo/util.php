@@ -103,3 +103,30 @@ function autenticar($username, $password){
         }
     }
 }
+
+function crearCuenta($nombre, $apellido, $email, $telefono, $callePrincipal, $calleSecundaria, $numeroExterior, $numeroInterior, $cp, $colonia, $ciudad, $estado, $fechaNacimiento, $contrasenia, $rol){
+    //Busca el email en la base de datos, si este existe, detiene la función
+    $q = "  SELECT u.email 
+            FROM usuario as u
+            WHERE usuario='$email'";
+    if(sqlqry($q)->num_rows>=1){
+        die("Error: Ya existe un usuario registrado con el correo ". $email);
+    }
+
+    //convierte la contraseña a un hash con las medidas de seguridad default actuales (esto cambia con el tiempo)
+    $contrasenia = password_hash($contrasenia, PASSWORD_DEFAULT);
+    //SQL para insertar un usuario
+    $dml = "INSERT INTO usuario (nombre, apellido, email, telefono, callePrincipal, calleSecundaria, numeroExterior, numeroInterior, cp, colonia, ciudad, estado, fechaNacimiento, contrasenia)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+    //Usa una función para correr el código SQL de manera segura. Regresa el id del registro insertado
+    $uId= insertIntoDb($dml, $nombre, $apellido, $email, $telefono, $callePrincipal, $calleSecundaria, $numeroExterior, $numeroInterior, $cp, $colonia, $ciudad, $estado, $fechaNacimiento, $contrasenia);
+    //Recupera el id de el rol a asignar
+    $rId = mysqli_fetch_object(sqlqry("SELECT id FROM `rol` WHERE nombre='$rol'"))->id;
+    //SQL para asignar rol a usuario
+    $dml = "INSERT INTO usuario_rol (usuario_id, rol_id) VALUES (?,?)";
+    //Usa la función de insertar para agregar rol
+    insertIntoDb($dml, $uId, $rId);
+
+    return 1;
+}
