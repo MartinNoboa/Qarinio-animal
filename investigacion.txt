@@ -1,3 +1,8 @@
+﻿¿En qué consiste el acceso basado en roles?
+Esta es una función de seguridad para poder controlar el acceso a usuarios a diferentes tareas.
+La gestión de estos se implementan a través de privilegios. 
+
+
 Investiga y describe 6 sistemas, 3 conocidos que empleen RBAC y 3 desconocidos que no,
 junto con su funcionamiento general.
 
@@ -15,9 +20,31 @@ o grupos de usuarios de Google Cloud para gestionar cualquier objeto de Kubernet
 3) Amazon Web Services (AWS), también cuenta con su módulo de RBAC, llamado Amazon Cognito, el cual
 asigna roles a los usuarios registrados de tu apliación con AWS
 
+4)Qariño Animal(https://qarino-animal.es.tl/): Es un sistema el cual te permite adoptar perros pero este no tiene asignado
+ningun rol,no cuenta con modulos en el cual a cada usuario le permita hacer y ver cosas diferentes
+
+5)Fubox(https://ofertaschinas.store/) Sistema para realizar compras de articulos varios, este no cuenta con roles,
+ya que ninguna persona puede tener una cuenta para asi poder ver todas sus comprar hechas mediante esta pagina, solo existe un
+administrador 
+
+6)Sistema para un restaurant de Queretaro:Este sistema no tiene ningun rol ya que el empleados puede ver la informacion de sus demas 
+compañeros de trabajo y todos tienen los mismos accesos, desed el gerente hasta el mesero
+
+
+Desventajas de este modelo modelo.
+Una de las principales desventajas de RBAC es algo llamado explosión de rol, cuando los roles van creciendo y estos son diferentes la gestión de todos los roles se vuelve complejo 
+RBAC no puede usar información contextual.
+
+Ventajas de este modelo modelo.:
+El costo asociado con la administración y su monitores de la red es menor que otros modelos de control de accesos
+El tiempo de adaptación de nuevos usuarios se reduce ya que estos solo verán sus accesos y no los de otros 
+Los sistemas de seguridad e integridad de la informas se mejoran.
+Para los administradores es menos probable que cometan errores ya que los permisos no son asociados manualmente 
 
 Referencias:
 
 [1] https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles
 [2] https://cloud.google.com/kubernetes-engine/docs/how-to/role-based-access-control
 [3] https://docs.aws.amazon.com/cognito/latest/developerguide/role-based-access-control.html
+[4]https://tesis.ipn.mx/jspui/bitstream/123456789/8304/1/IMPLCONT.pdf
+[5]https://docs.oracle.com/cd/E24842_01/html/E23286/rbac-1.html
