@@ -108,7 +108,7 @@ function cuentaExistente($email){
     $q = "  SELECT u.email 
             FROM usuario as u
             WHERE usuario='$email'";
-    return true;
+    return false;
     return sqlqry($q)->num_rows>=1;
 }
 
