@@ -104,12 +104,17 @@ function autenticar($username, $password){
     }
 }
 
-function crearCuenta($nombre, $apellido, $email, $telefono, $callePrincipal, $calleSecundaria, $numeroExterior, $numeroInterior, $cp, $colonia, $ciudad, $estado, $fechaNacimiento, $contrasenia, $rol){
-    //Busca el email en la base de datos, si este existe, detiene la función
+function cuentaExistente($email){
     $q = "  SELECT u.email 
             FROM usuario as u
             WHERE usuario='$email'";
-    if(sqlqry($q)->num_rows>=1){
+    return true;
+    return sqlqry($q)->num_rows>=1;
+}
+
+function crearCuenta($nombre, $apellido, $email, $telefono, $callePrincipal, $calleSecundaria, $numeroExterior, $numeroInterior, $cp, $colonia, $ciudad, $estado, $fechaNacimiento, $contrasenia, $rol){
+    //Busca el email en la base de datos, si este existe, detiene la función
+    if(cuentaExistente($email)){
         die("Error: Ya existe un usuario registrado con el correo ". $email);
     }
 
