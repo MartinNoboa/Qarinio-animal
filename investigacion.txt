@@ -1,0 +1,23 @@
+Investiga y describe 6 sistemas, 3 conocidos que empleen RBAC y 3 desconocidos que no,
+junto con su funcionamiento general.
+
+1) La plataforma de la nube Azure, de Microsoft, cuenta con distintos roles que se pueden asignar a usuarios, grupos,
+e identidades. Además, Azure permite crear tus propios roles personalizados. [1]
+Algunos de sus roles son:
+    - Contributor
+    - Owner
+    - Reader
+    - User Access Administrator
+
+2) Kubernetes, de Google, cuenta con un módulo de RBAC. Permite configurar los permisos de usuarios
+o grupos de usuarios de Google Cloud para gestionar cualquier objeto de Kubernetes. [2]
+
+3) Amazon Web Services (AWS), también cuenta con su módulo de RBAC, llamado Amazon Cognito, el cual
+asigna roles a los usuarios registrados de tu apliación con AWS
+
+
+Referencias:
+
+[1] https://docs.microsoft.com/en-us/azure/role-based-access-control/built-in-roles
+[2] https://cloud.google.com/kubernetes-engine/docs/how-to/role-based-access-control
+[3] https://docs.aws.amazon.com/cognito/latest/developerguide/role-based-access-control.html
