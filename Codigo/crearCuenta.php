@@ -6,8 +6,6 @@
         $key = limpia_entrada($key);
     }
 
-    //print_r($_POST);
-
     if(!isset($_SESSION["createState"])||$_SESSION["createState"]>3||$_SESSION["createState"]<0) {
         $_SESSION["createState"] = 0;
     }
@@ -27,12 +25,6 @@
         "estado",
         "fechaNacimiento"
     ];
-
-print_r($_SESSION);
-echo "<br>";
-print_r($_POST);
-echo "<br>";
-print_r(verificaCampos($_POST, $camposRequeridos)?"true":"false");
 
     if(isset($_POST["submit"])) {
         if (($_POST["submit"] == "Continuar" || $_POST["submit"] == "Terminar") && isset($_POST['email']) && $_SESSION["createState"] < 2) {
@@ -168,7 +160,6 @@ print_r(verificaCampos($_POST, $camposRequeridos)?"true":"false");
       <?php endif; ?>
 
       <?php
-      echo $_SESSION["createState"];
       switch($_SESSION["createState"]){
           case 0:
               echo "<input class='uk-input' type='submit' name='submit' value='Continuar'>";

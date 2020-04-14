@@ -85,16 +85,15 @@ function autenticar($email, $password){
 					WHERE 	email='$email'";
 
     $passHash = sqlqry($passQuery)->fetch_object();
+
     if($passHash){
         $passHash=$passHash->passHash;
     } else{
         $passHash="";
     }
 
-    print_r($passHash);
      //asigna los permisos del usuario a la sesión
     if (password_verify($password, $passHash)) {
-        echo "golasd";
         //Recupera los permisos del usuario
         $query = "	SELECT p.privilegio as priv, u.nombre as nom
 				FROM 	`usuario` u, `usuario_rol` ur, `rol` r, `privilegio_rol` pr, `privilegios` p
@@ -109,11 +108,9 @@ function autenticar($email, $password){
             //asigna permisos
             if ($row['priv'] == 'registrar') {
                 $_SESSION['registrar'] = 1;
-                echo 'registrar';
             }
             if ($row['priv'] == 'ver') {
                 $_SESSION['ver'] = 1;
-                echo 'ver';
             }
             //asigna el nombre de usuario
             $_SESSION['nombre'] = $row['nom'];
