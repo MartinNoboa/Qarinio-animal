@@ -2,85 +2,189 @@
     include_once ("util.php");
     include("_header.html");
     include("_navbar.html");
-    print_r($_POST);
+    foreach($_POST as &$key){
+        $key = limpia_entrada($key);
+    }
 
-    if(!isset($_POST["email"]) || $_POST["email"]==""){
-        $_SESSION["error"] = "Por favor ingresa un correo";
-    } else if(cuentaExistente($_POST["email"])) {
-        $_SESSION["error"] = "El usuario ya existe";
-    } else{
+    //print_r($_POST);
+
+    if(!isset($_SESSION["createState"])||$_SESSION["createState"]>3||$_SESSION["createState"]<0) {
+        $_SESSION["createState"] = 0;
+    }
+    if(!isset($_SESSION["error"])) {
         $_SESSION["error"] = false;
     }
+
+    $camposRequeridos = [
+        "nombre",
+        "apellido",
+        "telefono",
+        "callePrincipal",
+        "numeroExterior",
+        "cp",
+        "colonia",
+        "ciudad",
+        "estado",
+        "fechaNacimiento"
+    ];
+
+print_r($_SESSION);
+echo "<br>";
+print_r($_POST);
+echo "<br>";
+print_r(verificaCampos($_POST, $camposRequeridos)?"true":"false");
+
+    if(isset($_POST["submit"])) {
+        if (($_POST["submit"] == "Continuar" || $_POST["submit"] == "Terminar") && isset($_POST['email']) && $_SESSION["createState"] < 2) {
+            if ($_POST["email"] == "") {
+                $_SESSION["error"] = "Por favor ingresa un correo";
+                $_SESSION["createState"] = 0;
+            } else if (cuentaExistente($_POST["email"])) {
+                $_SESSION["error"] = "El usuario ya existe";
+                $_SESSION["createState"] = 0;
+            } else {
+                if ($_SESSION["createState"] != 0 && !verificaCampos($_POST, $camposRequeridos)) {
+                    $_SESSION["error"] = "Debes llenar todos los campos requeridos";
+                    $_SESSION["createState"] = 1;
+                } elseif ($_SESSION["createState"] == 2 && !verificaCampos($_POST, ["contrasenia, verifContrasenia"])) {
+                    $_SESSION["error"] = "Por favor ingresa una contraseña";
+                } else {
+                    $_SESSION["createState"]++;
+                    $_SESSION["error"] = false;
+                }
+            }
+        } elseif ($_POST["submit"] == "Regresar" && $_SESSION["createState"] > 0) {
+            $_SESSION["createState"]--;
+        }
+
+        if ($_SESSION["createState"] == 2 && $_POST["submit"] == "Terminar") {
+            $datosCuenta = [
+                $_POST["nombre"],
+                $_POST["apellido"],
+                $_POST["email"],
+                $_POST["telefono"],
+                $_POST["callePrincipal"],
+                $_POST["calleSecundaria"],
+                $_POST["numeroExterior"],
+                $_POST["numeroInterior"],
+                $_POST["cp"],
+                $_POST["colonia"],
+                $_POST["ciudad"],
+                $_POST["estado"],
+                $_POST["fechaNacimiento"],
+                $_POST["contrasenia"],
+                "registrado"
+            ];
+            if(crearCuenta(...$datosCuenta)){
+                $_SESSION["mensaje"]="Se ha creado la sesión con éxito";
+                $_SESSION["createState"]=null;
+                autenticar($_POST["email"], $_POST["contrasenia"]);
+                header("location:index.php");
+            } else{
+                $_SESSION["error"] = "Hubo un error al crear la cuenta";
+            }
+            //$res = crearCuenta($_POST["nombre"], $_POST["apellido"], $_POST["email"], $_POST["telefono"], $_POST["callePrincipal"], $_POST["calleSecundaria"], $_POST["numeroExterior"], $_POST["numeroInterior"], $_POST["cp"], $_POST["colonia"], $_POST["ciudad"], $_POST["estado"], $_POST["fechaNacimiento"], $_POST["contrasenia"], "registrado");
+        }
+    }
+
 ?>
 
 <div class = "uk-container">
   <form method="post" action="crearCuenta.php">
     <legend class="uk-legend">Crear Cuenta</legend>
-      <div class="uk-margin">
-          <label class="uk-form-label">Nombre: </label>
-          <input class="uk-input" type="text" name="nombre" placeholder="Nombre" <?= isset($_POST["nombre"])?"value='{$_POST['nombre']}'":"" ?>>
-      </div>
-      <div class="uk-margin">
-          <label class="uk-form-label">Apellido(s):</label>
-          <input class="uk-input" type="text" name="apellido" placeholder="Apellido(s)"  <?= isset($_POST["apellido"])?"value='{$_POST['apellido']}'":"" ?>>
-      </div>
-      <div class="uk-margin">
-          <label class="uk-form-label">Email:</label>
-          <input class="uk-input" type="email" name="email" placeholder="Correo"  <?= isset($_POST["email"])?"value='{$_POST['email']}'":"" ?> <?= (isset($_POST["email"])AND!$_SESSION["error"])?"disabled":"" ?>>
+      <div <?= $_SESSION["createState"]==2?"hidden":"" ?>>
+          <div class="uk-margin">
+              <label class="uk-form-label">Nombre: </label>
+              <input class="uk-input" type="text" name="nombre" placeholder="Nombre" <?= isset($_POST["nombre"])?"value='{$_POST['nombre']}'":"" ?>>
+          </div>
+          <div class="uk-margin">
+              <label class="uk-form-label">Apellido(s):</label>
+              <input class="uk-input" type="text" name="apellido" placeholder="Apellido(s)"  <?= isset($_POST["apellido"])?"value='{$_POST['apellido']}'":"" ?>>
+          </div>
+          <div class="uk-margin">
+              <label class="uk-form-label">Email:</label>
+              <input class="uk-input" type="email" name="email" placeholder="Correo"  <?= isset($_POST["email"])?"value='{$_POST['email']}'":"" ?>  <?= ($_SESSION["createState"]!=0)?"readonly":"" ?>>
+          </div>
       </div>
 
-    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-    <!-- Solo mostrar esto si el email NO está en uso -->
-    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-      <?php if(!$_SESSION["error"]): ?>
-      <div class="uk-margin">
-          <label class="uk-form-label">Teléfono:</label>
-          <input class="uk-input" type="tel" name="telefono" placeholder="123 456 7890">
+      <div <?= $_SESSION["createState"]!=1?"hidden":"" ?>>
+
+          <!-- ############################################
+               Solo mostrar esto si el email NO está en uso
+               ############################################ -->
+          <div class="uk-margin">
+              <label class="uk-form-label">Teléfono:</label>
+              <input class="uk-input" type="tel" name="telefono" placeholder="123 456 7890" <?= isset($_POST["telefono"])?"value='{$_POST['telefono']}'":"" ?>>
+          </div>
+          <div class="uk-margin">
+              <label class="uk-form-label">Calle Principal:</label>
+              <input class="uk-input" type="text" name="callePrincipal" placeholder="Calle 1" <?= isset($_POST["callePrincipal"])?"value='{$_POST['callePrincipal']}'":"" ?>>
+          </div>
+          <div class="uk-margin">
+              <label class="uk-form-label">Calle Secundaria:</label>
+              <input class="uk-input" type="text" name="calleSecundaria" placeholder="Calle 2" <?= isset($_POST["calleSecundaria"])?"value='{$_POST['calleSecundaria']}'":"" ?>>
+          </div>
+          <div class="uk-margin">
+              <label class="uk-form-label">Número Exterior:</label>
+              <input class="uk-input" type="number" name="numeroExterior" placeholder="123" <?= isset($_POST["numeroExterior"])?"value='{$_POST['numeroExterior']}'":"" ?>>
+          </div>
+          <div class="uk-margin">
+              <label class="uk-form-label">Número Interior:</label>
+              <input class="uk-input" type="number" name="numeroInterior" placeholder="42"<?= isset($_POST["numeroInterior"])?"value='{$_POST['numeroInterior']}'":"" ?>>
+          </div>
+          <div class="uk-margin">
+              <label class="uk-form-label">Código Postal:</label>
+              <input class="uk-input" type="text" name="cp" placeholder="11560" <?= isset($_POST["cp"])?"value='{$_POST['cp']}'":"" ?>>
+          </div>
+          <div class="uk-margin">
+              <label class="uk-form-label">Colonia:</label>
+              <input class="uk-input" type="text" name="colonia" placeholder="Colonia" <?= isset($_POST["colonia"])?"value='{$_POST['colonia']}'":"" ?>>
+          </div>
+          <div class="uk-margin">
+              <label class="uk-form-label">Ciudad:</label>
+              <input class="uk-input" type="text" name="ciudad" placeholder="Querétaro" <?= isset($_POST["ciudad"])?"value='{$_POST['ciudad']}'":"" ?>>
+          </div>
+          <div class="uk-margin">
+              <label class="uk-form-label">Estado:</label>
+              <input class="uk-input" type="text" name="estado" placeholder="Estado" <?= isset($_POST["estado"])?"value='{$_POST['estado']}'":"" ?>>
+          </div>
+          <div class="uk-margin">
+              <label class="uk-form-label">Fecha de Nacimiento:</label>
+              <input class="uk-input" type="date" name="fechaNacimiento" placeholder="Fecha de Nacimiento" <?= isset($_POST["fechaNacimiento"])?"value='{$_POST['fechaNacimiento']}'":"" ?>>
+          </div>
       </div>
-      <div class="uk-margin">
-          <label class="uk-form-label">Calle Principal:</label>
-          <input class="uk-input" type="text" name="callePrincipal" placeholder="Calle 1">
+      <div <?= $_SESSION["createState"]!=2?"hidden":"" ?>>
+          <div class="uk-margin">
+              <label class="uk-form-label">Contraseña:</label>
+              <input class="uk-input" type="password" name="contrasenia" placeholder="">
+          </div>
+          <div class="uk-margin">
+              <label class="uk-form-label">Verifica Tu contraseña:</label>
+              <input class="uk-input" type="password" name="verifContrasenia" placeholder="">
+          </div>
       </div>
-      <div class="uk-margin">
-          <label class="uk-form-label">Calle Secundaria:</label>
-          <input class="uk-input" type="text" name="calleSecundaria" placeholder="Calle 2">
-      </div>
-      <div class="uk-margin">
-          <label class="uk-form-label">Número Exterior:</label>
-          <input class="uk-input" type="number" name="numeroExterior" placeholder="123">
-      </div>
-      <div class="uk-margin">
-          <label class="uk-form-label">Número Interior:</label>
-          <input class="uk-input" type="number" name="numeroInterior" placeholder="42">
-      </div>
-      <div class="uk-margin">
-          <label class="uk-form-label">Código Postal:</label>
-          <input class="uk-input" type="text" name="cp" placeholder="11560">
-      </div>
-      <div class="uk-margin">
-          <label class="uk-form-label">Colonia:</label>
-          <input class="uk-input" type="text" name="colonia" placeholder="Colonia">
-      </div>
-      <div class="uk-margin">
-          <label class="uk-form-label">Ciudad:</label>
-          <input class="uk-input" type="text" name="ciudad" placeholder="Querétaro">
-      </div>
-      <div class="uk-margin">
-          <label class="uk-form-label">Estado:</label>
-          <input class="uk-input" type="text" name="estado" placeholder="Estado">
-      </div>
-      <div class="uk-margin">
-          <label class="uk-form-label">Fecha de Nacimiento:</label>
-          <input class="uk-input" type="date" name="fechaNacimiento" placeholder="Frcha de Nacimiento">
-      </div>
-      <?php elseif(isset($_POST["email"])): ?>
+      <?php if($_SESSION["error"]): ?>
       <h3 class="uk-alert-danger">Error: <?= $_SESSION["error"] ?> </h3>
       <?php endif; ?>
-      <div class="uk-margin">
-          <input class="uk-input" type="submit" name="submit" value="Regresar">
-          <input class="uk-input" type="submit" name="submit" value="Continuar">
-      </div>
 
+      <?php
+      echo $_SESSION["createState"];
+      switch($_SESSION["createState"]){
+          case 0:
+              echo "<input class='uk-input' type='submit' name='submit' value='Continuar'>";
+              break;
+          case 1:
+              echo "<input class='uk-input' type='submit' name='submit' value='Regresar'>";
+              echo "<input class='uk-input' type='submit' name='submit' value='Continuar'>";
+              break;
+          case 2:
+              echo "<input class='uk-input' type='submit' name='submit' value='Regresar'>";
+              echo "<input class='uk-input' type='submit' name='submit' value='Terminar'>";
+              break;
+          default:
+              break;
+      }
+      ?>
 
   </form>
 </div>
@@ -91,3 +195,4 @@
 <?php
   include("_footer.html");
 ?>
+      <div class="uk-margin">

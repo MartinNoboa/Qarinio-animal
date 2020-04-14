@@ -12,7 +12,7 @@
                 <li><a href="#">Blog <i class="fas fa-rss uk-margin-small-left"></i></a></li>
                 <li><a href="preguntasFrecuentes.php">Pregutnas Frecuentes <i class="fas fa-question uk-margin-small-left"></i></a></li>
                 <li>
-                  <a href="#!" ><i class="fas fa-user-circle uk-margin-small-right" ></i>Mi Cuenta</a>
+                  <a href="#!" ><i class="fas fa-user-circle uk-margin-small-right" ></i><?= isset($_SESSION["nombre"])?$_SESSION["nombre"]:"Mi Cuenta" ?></a>
                   <div class="uk-navbar-dropdown uk-width-auto uk-height-auto">
                     <ul class="uk-nav uk-navbar-dropdown-nav">
                         <li class="uk-text-center"><a href="iniciarSesion.php">Iniciar Sesion</a></li>

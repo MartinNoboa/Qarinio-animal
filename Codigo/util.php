@@ -6,7 +6,7 @@ function connectDb(){
     $servername = 'localhost';
     $username = "root";
     $password = "";
-    $dbname = "qarinioAnimal";
+    $dbname = "qarinio_animal";
 
     $con = mysqli_connect($servername, $username, $password, $dbname);
 
@@ -19,6 +19,15 @@ function connectDb(){
 }
 function closeDb($mysqli){
     mysqli_close($mysqli);
+}
+
+function verificaCampos($arr, $camposRequeridos){
+    foreach ($camposRequeridos as $campo){
+        if(!isset($arr[$campo]) || $arr[$campo]==""){
+            return false;
+        }
+    }
+    return true;
 }
 
 //Función que conecta a la bd, realiza un query y vuelve a cerrar la bd. Recibe el SQL del query y regresa un objeto mysqli result
@@ -65,50 +74,58 @@ function insertIntoDb($dml, ...$args){
 }
 
 function recuperarUsuarios(){
-    $sql = "SELECT u.usuario,u.nombre,r.nombre from usuario u, rol r, desempenia d WHERE u.id=d.usuario_id AND r.id=d.rol_id";
+    $sql = "SELECT u.nombre,u.nombre,r.rol from usuario u, rol r, usuario_rol ur WHERE u.idUsuario=ur.idUsuario AND r.idRol=ur.idRol";
     return sqlqry($sql);
 }
 
-function autenticar($username, $password){
-    //Recupera los permisos del usuario (desemenia es la relación entre usuario y rol)
-    $query = "	SELECT p.nombre as per, u.nombre as nom
-				FROM 	`usuario` u, `desempenia` d, `rol` r, `obtiene` o, `permiso` p
-				WHERE 	u.id = d.usuario_id
-				AND 	d.rol_id = r.id
-                AND     o.rol_id = r.id
-				AND 	o.permiso_id = p.id
-				AND 	usuario='$username'";
-    $result = sqlqry($query);
-
+function autenticar($email, $password){
     //Recupera unicamente el password del usuario para poder verificarlo
-    $passQuery = " 	SELECT u.password as passHash
-					FROM 	`usuario` as u
-					WHERE 	usuario='$username'";
-    $passHash = mysqli_fetch_object(sqlqry($passQuery))->passHash;
+    $passQuery = " 	SELECT contrasenia as passHash
+					FROM 	usuario
+					WHERE 	email='$email'";
 
-    //asigna los permisos del usuario a la sesión
+    $passHash = sqlqry($passQuery)->fetch_object();
+    if($passHash){
+        $passHash=$passHash->passHash;
+    } else{
+        $passHash="";
+    }
+
+    print_r($passHash);
+     //asigna los permisos del usuario a la sesión
     if (password_verify($password, $passHash)) {
+        echo "golasd";
+        //Recupera los permisos del usuario
+        $query = "	SELECT p.privilegio as priv, u.nombre as nom
+				FROM 	`usuario` u, `usuario_rol` ur, `rol` r, `privilegio_rol` pr, `privilegios` p
+				WHERE 	u.idUsuario = ur.idUsuario
+				AND 	ur.idRol = r.idRol
+                AND     pr.idRol = r.idRol
+				AND 	pr.idPrivilegio = p.idPrivilegio
+				AND 	email='$email'";
+        $result = sqlqry($query);
+
         while ($row = mysqli_fetch_array($result, MYSQLI_BOTH)) {
             //asigna permisos
-            if ($row['per'] == 'registrar') {
+            if ($row['priv'] == 'registrar') {
                 $_SESSION['registrar'] = 1;
                 echo 'registrar';
             }
-            if ($row['per'] == 'ver') {
+            if ($row['priv'] == 'ver') {
                 $_SESSION['ver'] = 1;
                 echo 'ver';
             }
             //asigna el nombre de usuario
             $_SESSION['nombre'] = $row['nom'];
         }
-    }
+        return 1;
+    } else{return 0;}
 }
 
 function cuentaExistente($email){
     $q = "  SELECT u.email 
             FROM usuario as u
-            WHERE usuario='$email'";
-    return false;
+            WHERE email='$email'";
     return sqlqry($q)->num_rows>=1;
 }
 
@@ -121,17 +138,19 @@ function crearCuenta($nombre, $apellido, $email, $telefono, $callePrincipal, $ca
     //convierte la contraseña a un hash con las medidas de seguridad default actuales (esto cambia con el tiempo)
     $contrasenia = password_hash($contrasenia, PASSWORD_DEFAULT);
     //SQL para insertar un usuario
-    $dml = "INSERT INTO usuario (nombre, apellido, email, telefono, callePrincipal, calleSecundaria, numeroExterior, numeroInterior, cp, colonia, ciudad, estado, fechaNacimiento, contrasenia)
+    $dml = "INSERT INTO usuario (nombre, apellido, email, telefono, callePrincipal, calleSecundaria, numeroExterior, numeroInterior, CodigoPostal, colonia, ciudad, estado, fechaNacimiento, contrasenia)
             VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     //Usa una función para correr el código SQL de manera segura. Regresa el id del registro insertado
     $uId= insertIntoDb($dml, $nombre, $apellido, $email, $telefono, $callePrincipal, $calleSecundaria, $numeroExterior, $numeroInterior, $cp, $colonia, $ciudad, $estado, $fechaNacimiento, $contrasenia);
     //Recupera el id de el rol a asignar
-    $rId = mysqli_fetch_object(sqlqry("SELECT id FROM `rol` WHERE nombre='$rol'"))->id;
+    $rId = mysqli_fetch_object(sqlqry("SELECT idRol FROM `rol` WHERE rol='$rol'"))->idRol;
     //SQL para asignar rol a usuario
-    $dml = "INSERT INTO usuario_rol (usuario_id, rol_id) VALUES (?,?)";
+    $dml = "INSERT INTO usuario_rol (idUsuario, idRol) VALUES (?,?)";
     //Usa la función de insertar para agregar rol
     insertIntoDb($dml, $uId, $rId);
 
     return 1;
 }
+
+

@@ -23,6 +23,12 @@
 </div>
 <!-- Compiled and minified JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+<?php if(isset($_SESSION["error"]) && $_SESSION["error"]!=""): ?>
+    <script>
+        window.onload = function() {
+            UIkit.notification({message: '<?= $_SESSION["error"] ?>', status: "danger"})
+        }
+    </script>
+<?php $_SESSION["error"]=NULL; endif; ?>
 </body>
 </html>
