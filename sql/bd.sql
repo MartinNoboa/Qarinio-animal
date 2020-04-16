@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-04-2020 a las 02:10:09
+-- Tiempo de generación: 16-04-2020 a las 02:17:58
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -22,6 +22,31 @@ SET time_zone = "+00:00";
 -- Base de datos: `bd_qarinoanimal`
 --
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `caracteristicas`
+--
+
+CREATE TABLE `caracteristicas` (
+  `idPerro` int(7) NOT NULL,
+  `idCondicion` int(2) NOT NULL,
+  `idPersonalidad` int(2) NOT NULL,
+  `idRaza` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `condiciones_medicas`
+--
+
+CREATE TABLE `condiciones_medicas` (
+  `idCondicion` int(4) NOT NULL,
+  `condicion` varchar(30) NOT NULL,
+  `descripcion` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Volcado de datos para la tabla `condiciones_medicas`
 --
@@ -35,6 +60,146 @@ INSERT INTO `condiciones_medicas` (`idCondicion`, `condicion`, `descripcion`) VA
 (6, 'Enfermedad', ''),
 (7, 'Obesidad', ''),
 (8, 'Desnutricion', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `donacion`
+--
+
+CREATE TABLE `donacion` (
+  `numeroTransaccion` int(20) NOT NULL,
+  `idDonacion` int(1) NOT NULL,
+  `idUsuario` int(5) NOT NULL,
+  `fechaDonacion` int(11) NOT NULL,
+  `monto` float NOT NULL,
+  `razon` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `maneja`
+--
+
+CREATE TABLE `maneja` (
+  `idSucursal` int(1) NOT NULL,
+  `idAdministrador` int(5) NOT NULL,
+  `fechaAsignacion` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `perros`
+--
+
+CREATE TABLE `perros` (
+  `idPerro` int(7) NOT NULL,
+  `nombre` varchar(30) NOT NULL,
+  `tamaino` varchar(20) NOT NULL,
+  `edadEstimadaLlegada` int(3) DEFAULT NULL,
+  `fechaLLegada` date NOT NULL,
+  `sexo` varchar(10) NOT NULL,
+  `historia` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `privilegios`
+--
+
+CREATE TABLE `privilegios` (
+  `idPrivilegio` int(2) NOT NULL,
+  `privilegio` varchar(30) NOT NULL,
+  `descripcion` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `privilegios`
+--
+
+INSERT INTO `privilegios` (`idPrivilegio`, `privilegio`, `descripcion`) VALUES
+(1, 'ver', 'Usuario puede navegar la pagina '),
+(2, 'adoptar', ''),
+(3, 'registrar', ''),
+(4, 'editar', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `privilegio_rol`
+--
+
+CREATE TABLE `privilegio_rol` (
+  `idPrivilegio` int(2) NOT NULL,
+  `idRol` int(2) NOT NULL,
+  `fechaCreacion` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `privilegio_rol`
+--
+
+INSERT INTO `privilegio_rol` (`idPrivilegio`, `idRol`, `fechaCreacion`) VALUES
+(1, 3, '2020-04-13 22:54:52'),
+(2, 3, '2020-04-13 22:54:52'),
+(3, 2, '2020-04-13 22:55:10'),
+(4, 1, '2020-04-13 22:55:10');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `respuestas`
+--
+
+CREATE TABLE `respuestas` (
+  `idRespuestas` int(7) NOT NULL,
+  `noPregunta` int(2) NOT NULL,
+  `respuesta` text NOT NULL,
+  `fechaRespuesta` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `rol`
+--
+
+CREATE TABLE `rol` (
+  `idRol` int(2) NOT NULL,
+  `rol` varchar(30) NOT NULL,
+  `descripcion` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `rol`
+--
+
+INSERT INTO `rol` (`idRol`, `rol`, `descripcion`) VALUES
+(1, 'admin', 'Administrador de la pagina'),
+(2, 'operador', 'Personas de servicio social/ voluntarios'),
+(3, 'registrado', 'Usuario que ha creado cuenta');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `solicitud`
+--
+
+CREATE TABLE `solicitud` (
+  `idUsuario` int(5) NOT NULL,
+  `idPerros` int(7) NOT NULL,
+  `idRespuestas` int(7) NOT NULL,
+  `fecha` datetime NOT NULL,
+  `estadoFormulario` varchar(30) NOT NULL,
+  `estadoEntrevista` varchar(30) NOT NULL,
+  `estadoPago` varchar(30) NOT NULL,
+  `fechaPago` datetime NOT NULL,
+  `metodoPago` varchar(20) NOT NULL,
+  `numTransaccion` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -62,6 +227,18 @@ CREATE TABLE `sucursal` (
 INSERT INTO `sucursal` (`idSucursal`, `telefono`, `callePrincipal`, `calleSecundaria`, `numeroExterior`, `numeroInterior`, `codigoPostal`, `colonia`, `ciudad`, `estado`) VALUES
 (1, '4421231234', 'Av Ferrocarril', '', 63, 0, 76800, 'La Cañada', 'Queretaro', 'Queretaro');
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipo_donacion`
+--
+
+CREATE TABLE `tipo_donacion` (
+  `idDonacion` int(1) NOT NULL,
+  `nombre` varchar(30) NOT NULL,
+  `descripcion` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Volcado de datos para la tabla `tipo_donacion`
 --
@@ -69,6 +246,18 @@ INSERT INTO `sucursal` (`idSucursal`, `telefono`, `callePrincipal`, `calleSecund
 INSERT INTO `tipo_donacion` (`idDonacion`, `nombre`, `descripcion`) VALUES
 (1, 'enEspecie', 'Comida, juguetes , materiales'),
 (2, 'Monetaria', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipo_personalidad`
+--
+
+CREATE TABLE `tipo_personalidad` (
+  `idPersonalidad` int(2) NOT NULL,
+  `personalidad` varchar(30) NOT NULL,
+  `descripcion` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `tipo_personalidad`
@@ -85,6 +274,18 @@ INSERT INTO `tipo_personalidad` (`idPersonalidad`, `personalidad`, `descripcion`
 (8, 'Independiente', 'Prefiere pasar tiempo solo'),
 (9, 'JuguetonAgresivo', ''),
 (10, 'Energetico', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipo_raza`
+--
+
+CREATE TABLE `tipo_raza` (
+  `idRaza` int(3) NOT NULL,
+  `raza` varchar(30) NOT NULL,
+  `descripcion` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `tipo_raza`
@@ -229,15 +430,114 @@ INSERT INTO `usuario` (`idUsuario`, `nombre`, `apellido`, `email`, `telefono`, `
 (109, 'Patricia', 'Raymond', 'habitant.morbi@feugiattellus.ca', '1817002188', '411-1303 Auctor. Av.', 'Apartado núm.: 154, 3816 Eu Carretera', 709, 233, 30295, 'CentroSur', 'Moroleon', 'Guanajuato', '1967-02-09', '739DB81A-DACC-5B9A-DCB0-10D44BC071B0'),
 (110, 'Bert', 'Williams', 'eu@nullaIntegerurna.ca', '2147483647', '6385 Duis Avenida', 'Apartado núm.: 853, 3007 Eu Calle', 6439, 33, 61038, 'Juriquilla', 'Queretaro', 'Guanajuato', '1921-10-26', '1F12700F-9B7E-832C-E711-3D475D0944C8');
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario_rol`
+--
+
+CREATE TABLE `usuario_rol` (
+  `idUsuario` int(5) NOT NULL,
+  `idRol` int(2) NOT NULL,
+  `fechaCreacion` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `caracteristicas`
+--
+ALTER TABLE `caracteristicas`
+  ADD KEY `idPerro_perro` (`idPerro`),
+  ADD KEY `condicion_perro` (`idCondicion`),
+  ADD KEY `raza_perro` (`idRaza`),
+  ADD KEY `personalidad_perro` (`idPersonalidad`);
+
+--
+-- Indices de la tabla `condiciones_medicas`
+--
+ALTER TABLE `condiciones_medicas`
+  ADD PRIMARY KEY (`idCondicion`);
+
+--
+-- Indices de la tabla `donacion`
+--
+ALTER TABLE `donacion`
+  ADD KEY `idDonacion_usuario` (`idDonacion`),
+  ADD KEY `idUsuario_donacion` (`idUsuario`);
+
+--
+-- Indices de la tabla `maneja`
+--
+ALTER TABLE `maneja`
+  ADD KEY `admin_sucursal` (`idAdministrador`),
+  ADD KEY `sucursal_sucursal` (`idSucursal`);
+
+--
+-- Indices de la tabla `perros`
+--
+ALTER TABLE `perros`
+  ADD PRIMARY KEY (`idPerro`),
+  ADD KEY `idPerro` (`idPerro`);
+
+--
+-- Indices de la tabla `privilegios`
+--
+ALTER TABLE `privilegios`
+  ADD PRIMARY KEY (`idPrivilegio`);
+
+--
+-- Indices de la tabla `privilegio_rol`
+--
+ALTER TABLE `privilegio_rol`
+  ADD KEY `idPrivilegio` (`idPrivilegio`),
+  ADD KEY `idRol` (`idRol`);
+
+--
+-- Indices de la tabla `respuestas`
+--
+ALTER TABLE `respuestas`
+  ADD PRIMARY KEY (`idRespuestas`);
+
+--
+-- Indices de la tabla `rol`
+--
+ALTER TABLE `rol`
+  ADD PRIMARY KEY (`idRol`);
+
+--
+-- Indices de la tabla `solicitud`
+--
+ALTER TABLE `solicitud`
+  ADD KEY `idUsuario` (`idUsuario`),
+  ADD KEY `idPerros` (`idPerros`),
+  ADD KEY `idRespuestas` (`idRespuestas`);
 
 --
 -- Indices de la tabla `sucursal`
 --
 ALTER TABLE `sucursal`
   ADD PRIMARY KEY (`idSucursal`);
+
+--
+-- Indices de la tabla `tipo_donacion`
+--
+ALTER TABLE `tipo_donacion`
+  ADD PRIMARY KEY (`idDonacion`);
+
+--
+-- Indices de la tabla `tipo_personalidad`
+--
+ALTER TABLE `tipo_personalidad`
+  ADD PRIMARY KEY (`idPersonalidad`);
+
+--
+-- Indices de la tabla `tipo_raza`
+--
+ALTER TABLE `tipo_raza`
+  ADD PRIMARY KEY (`idRaza`);
 
 --
 -- Indices de la tabla `usuario`
@@ -247,8 +547,45 @@ ALTER TABLE `usuario`
   ADD UNIQUE KEY `email` (`email`);
 
 --
+-- Indices de la tabla `usuario_rol`
+--
+ALTER TABLE `usuario_rol`
+  ADD KEY `idUsuario` (`idUsuario`),
+  ADD KEY `idRol` (`idRol`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `condiciones_medicas`
+--
+ALTER TABLE `condiciones_medicas`
+  MODIFY `idCondicion` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT de la tabla `perros`
+--
+ALTER TABLE `perros`
+  MODIFY `idPerro` int(7) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `privilegios`
+--
+ALTER TABLE `privilegios`
+  MODIFY `idPrivilegio` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de la tabla `respuestas`
+--
+ALTER TABLE `respuestas`
+  MODIFY `idRespuestas` int(7) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `rol`
+--
+ALTER TABLE `rol`
+  MODIFY `idRol` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `sucursal`
@@ -257,10 +594,77 @@ ALTER TABLE `sucursal`
   MODIFY `idSucursal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de la tabla `tipo_donacion`
+--
+ALTER TABLE `tipo_donacion`
+  MODIFY `idDonacion` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `tipo_personalidad`
+--
+ALTER TABLE `tipo_personalidad`
+  MODIFY `idPersonalidad` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de la tabla `tipo_raza`
+--
+ALTER TABLE `tipo_raza`
+  MODIFY `idRaza` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   MODIFY `idUsuario` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `caracteristicas`
+--
+ALTER TABLE `caracteristicas`
+  ADD CONSTRAINT `condicion_perro` FOREIGN KEY (`idCondicion`) REFERENCES `condiciones_medicas` (`idCondicion`),
+  ADD CONSTRAINT `idPerro_perro` FOREIGN KEY (`idPerro`) REFERENCES `perros` (`idPerro`),
+  ADD CONSTRAINT `personalidad_perro` FOREIGN KEY (`idPersonalidad`) REFERENCES `tipo_personalidad` (`idPersonalidad`),
+  ADD CONSTRAINT `raza_perro` FOREIGN KEY (`idRaza`) REFERENCES `tipo_raza` (`idRaza`);
+
+--
+-- Filtros para la tabla `donacion`
+--
+ALTER TABLE `donacion`
+  ADD CONSTRAINT `idDonacion_usuario` FOREIGN KEY (`idDonacion`) REFERENCES `tipo_donacion` (`idDonacion`),
+  ADD CONSTRAINT `idUsuario_donacion` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
+
+--
+-- Filtros para la tabla `maneja`
+--
+ALTER TABLE `maneja`
+  ADD CONSTRAINT `admin_sucursal` FOREIGN KEY (`idAdministrador`) REFERENCES `usuario` (`idUsuario`),
+  ADD CONSTRAINT `sucursal_sucursal` FOREIGN KEY (`idSucursal`) REFERENCES `sucursal` (`idSucursal`);
+
+--
+-- Filtros para la tabla `privilegio_rol`
+--
+ALTER TABLE `privilegio_rol`
+  ADD CONSTRAINT `idPrivilegio` FOREIGN KEY (`idPrivilegio`) REFERENCES `privilegios` (`idPrivilegio`),
+  ADD CONSTRAINT `idRol` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`);
+
+--
+-- Filtros para la tabla `solicitud`
+--
+ALTER TABLE `solicitud`
+  ADD CONSTRAINT `idPerros` FOREIGN KEY (`idPerros`) REFERENCES `perros` (`idPerro`),
+  ADD CONSTRAINT `idRespuestas` FOREIGN KEY (`idRespuestas`) REFERENCES `respuestas` (`idRespuestas`),
+  ADD CONSTRAINT `idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
+
+--
+-- Filtros para la tabla `usuario_rol`
+--
+ALTER TABLE `usuario_rol`
+  ADD CONSTRAINT `idRol_usuario` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`),
+  ADD CONSTRAINT `idUsuario_rol` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
