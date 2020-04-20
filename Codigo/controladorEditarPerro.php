@@ -1,18 +1,4 @@
-<div>
-    <div class="uk-card uk-card-default">
-        <div class="uk-card-media-top uk-height-medium dog-card-image" style=<?="background-image:url('".$img."');"?>></div>
-        <div class="uk-card-body">
-            <h3 class="uk-card-title">
-              <span class="card-title"><?= $name." - ".$age ?></span>
-            </h3>
-
-            <a href="#modal-editar" class="uk-button uk-button-text uk-align-left" uk-toggle>Leer más</a>
-
-        </div>
-    </div>
-</div>
-
-<div id="modal-editar" class="uk-modal-container" uk-modal>
+<div id="modal-editar" uk-modal>
     <div class="uk-modal-dialog uk-modal-body">
         <div class="uk-modal-title">
             <h1>Editar Información</h1>
@@ -54,7 +40,7 @@
                 <div class="uk-margin">
                     <label class="uk-form-label" for="form-horizontal-select">Género:</label>
                     <div class="uk-form-controls">
-                        <label><input class="uk-radio" type="radio" name="radio2" checked> Macho</label>
+                        <label><input class="uk-radio" type="radio" name="radio2" checked> Masculino</label>
                         <label><input class="uk-radio" type="radio" name="radio2"> Hembra</label>
                     </div>
                 </div>
