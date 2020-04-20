@@ -21,6 +21,14 @@ function closeDb($mysqli){
     mysqli_close($mysqli);
 }
 
+function check($inp, $ind){
+    if(isset($inp[$ind])){
+        return limpia_entrada($inp[$ind]);
+    } else{
+        return false;
+    }
+}
+
 function verificaCampos($arr, $camposRequeridos){
     foreach ($camposRequeridos as $campo){
         if(!isset($arr[$campo]) || $arr[$campo]==""){
@@ -148,4 +156,46 @@ function crearCuenta($nombre, $apellido, $email, $telefono, $callePrincipal, $ca
     insertIntoDb($dml, $uId, $rId);
 
     return 1;
+}
+
+
+function filterDogs($minA, $maxA, $male, $female, $sort, $order){
+    if($maxA==144){
+        $maxA=9999;
+    }
+
+    $sql = "
+        select 
+               idPerro,
+               nombre,
+               fechaLlegada,
+               TIMESTAMPDIFF(MONTH, DATE_ADD(fechaLlegada, INTERVAL -edadEstimadaLlegadaMeses MONTH), CURDATE()) as edad 
+        FROM perros";
+
+    if($male XOR $female){
+        if($male AND !$female){
+            $sql.= " WHERE sexo='macho'";
+        } else {
+            $sql .= " WHERE sexo='hembra'";
+        }
+    }
+
+    $sql.=" HAVING Edad BETWEEN " . $minA . " AND " . $maxA;
+
+    switch($sort){
+        case "name":
+            $sql.=" ORDER BY nombre";
+            break;
+        case "timeIn":
+            $sql.=" ORDER BY fechaLlegada";
+            break;
+        default:
+            break;
+
+    }
+    if($sort!="" AND $order){
+        $sql.=" ".$order;
+    }
+    echo $sql;
+    return sqlqry($sql);
 }
