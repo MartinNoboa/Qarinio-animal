@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-04-2020 a las 02:17:58
+-- Tiempo de generación: 20-04-2020 a las 23:50:55
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -97,12 +97,68 @@ CREATE TABLE `maneja` (
 CREATE TABLE `perros` (
   `idPerro` int(7) NOT NULL,
   `nombre` varchar(30) NOT NULL,
-  `tamaino` varchar(20) NOT NULL,
+  `tamanio` varchar(20) NOT NULL,
   `edadEstimadaLlegada` int(3) DEFAULT NULL,
   `fechaLLegada` date NOT NULL,
   `sexo` varchar(10) NOT NULL,
   `historia` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `perros`
+--
+
+INSERT INTO `perros` (`idPerro`, `nombre`, `tamanio`, `edadEstimadaLlegada`, `fechaLLegada`, `sexo`, `historia`) VALUES
+(1, 'Paul', 'mediano', 355, '2020-03-05', 'Male', 'POSNGypej'),
+(2, 'Tades', 'pequenio', 9, '2019-05-12', 'Male', 'DKHZJqovx'),
+(3, 'Shelley', 'pequenio', 228, '2019-11-14', 'Male', 'CVXUWciqh'),
+(4, 'Granny', 'grande', 253, '2019-11-20', 'Male', 'YPUXLzpby'),
+(5, 'Cassy', 'mediano', 148, '2019-10-01', 'Female', 'VIWUHlgjj'),
+(6, 'Idalina', 'grande', 120, '2019-10-02', 'Female', 'PZUXOnxwr'),
+(7, 'Pascal', 'mediano', 221, '2019-04-17', 'Male', 'STSZLlkzt'),
+(8, 'Carr', 'pequenio', 308, '2020-01-29', 'Male', 'MOTNTtgfl'),
+(9, 'Karly', 'grande', 56, '2019-07-12', 'Female', 'MLJXKletu'),
+(10, 'Jethro', 'pequenio', 329, '2020-03-19', 'Male', 'JBACVarjc'),
+(11, 'Bree', 'mediano', 326, '2019-06-14', 'Female', 'XGNPJdxri'),
+(12, 'Verney', 'grande', 344, '2020-01-27', 'Male', 'GUBABezxd'),
+(13, 'Rhona', 'pequenio', 203, '2020-03-17', 'Female', 'RRCAAfxob'),
+(14, 'Mendy', 'pequenio', 316, '2019-09-22', 'Male', 'BMLUAhtdx'),
+(15, 'Legra', 'mediano', 273, '2019-05-26', 'Female', 'AYKDJipau'),
+(16, 'Ellyn', 'mediano', 328, '2020-04-07', 'Female', 'SINUUozcu'),
+(17, 'Gerome', 'pequenio', 155, '2019-06-07', 'Male', 'XCGLCpnxj'),
+(18, 'Debbi', 'mediano', 323, '2019-04-21', 'Female', 'GCCJTqdut'),
+(19, 'Constancy', 'grande', 358, '2019-09-28', 'Female', 'ZHAQUwjww'),
+(20, 'Candide', 'pequenio', 349, '2019-11-27', 'Female', 'ORCRNeiok'),
+(21, 'Kai', 'mediano', 209, '2019-11-11', 'Female', 'MJJWYzgjv'),
+(22, 'Muhammad', 'mediano', 146, '2020-01-10', 'Male', 'IOWQKjnqi'),
+(23, 'Adria', 'mediano', 7, '2019-11-27', 'Female', 'RYPQHdjxi'),
+(24, 'Hobey', 'grande', 165, '2019-08-26', 'Male', 'NVOBFjxgw'),
+(25, 'Mollie', 'mediano', 9, '2019-07-21', 'Female', 'SEMQKfese'),
+(26, 'Claudius', 'grande', 341, '2020-02-18', 'Male', 'VPYTUhcza'),
+(27, 'Lorilyn', 'mediano', 308, '2019-07-17', 'Female', 'MNIGFifcf'),
+(28, 'Adara', 'mediano', 210, '2019-11-15', 'Female', 'MVFARliks'),
+(29, 'Lucais', 'pequenio', 287, '2020-01-08', 'Male', 'ALIMVwawp'),
+(30, 'Norry', 'grande', 226, '2019-06-13', 'Male', 'HUAKPuppb'),
+(31, 'Brooks', 'pequenio', 123, '2020-03-28', 'Female', 'XGDNRgsbz'),
+(32, 'Sheridan', 'mediano', 317, '2019-05-27', 'Male', 'ICFGNwsnk'),
+(33, 'Reynolds', 'pequenio', 16, '2020-03-17', 'Male', 'FNMZEfmyq'),
+(34, 'Bonita', 'grande', 261, '2019-05-29', 'Female', 'RVTEEoueq'),
+(35, 'Donia', 'grande', 300, '2019-11-08', 'Female', 'RBLXOwgdw'),
+(36, 'Teddy', 'mediano', 173, '2019-11-08', 'Male', 'HUULLdula'),
+(37, 'Wilmar', 'mediano', 344, '2019-10-11', 'Male', 'FSLPBpwat'),
+(38, 'Bennie', 'pequenio', 268, '2019-05-01', 'Male', 'ZXJELiszn'),
+(39, 'Edin', 'pequenio', 4, '2019-07-12', 'Female', 'KSFCQfufm'),
+(40, 'Brinna', 'mediano', 161, '2020-03-01', 'Female', 'YTPFZzotn'),
+(41, 'Jeth', 'mediano', 267, '2019-11-14', 'Male', 'JDDMOrhuc'),
+(42, 'Arron', 'mediano', 134, '2019-09-15', 'Male', 'ZGYGFqjvi'),
+(43, 'Jayson', 'mediano', 246, '2019-10-07', 'Male', 'YJKHGvmlf'),
+(44, 'Skelly', 'grande', 318, '2019-10-09', 'Male', 'IILRUghpl'),
+(45, 'Ban', 'mediano', 131, '2019-08-12', 'Male', 'DTIJGetjn'),
+(46, 'Oona', 'pequenio', 287, '2019-10-16', 'Female', 'HVRNVvhix'),
+(47, 'Carroll', 'mediano', 68, '2019-08-07', 'Male', 'UODGWlswj'),
+(48, 'Kathrine', 'pequenio', 97, '2020-01-15', 'Female', 'APXHIkwyk'),
+(49, 'Allie', 'mediano', 275, '2019-08-04', 'Male', 'XNCODjgzt'),
+(50, 'Federico', 'pequenio', 7, '2019-10-22', 'Male', 'NVORAjbvl');
 
 -- --------------------------------------------------------
 
@@ -567,7 +623,7 @@ ALTER TABLE `condiciones_medicas`
 -- AUTO_INCREMENT de la tabla `perros`
 --
 ALTER TABLE `perros`
-  MODIFY `idPerro` int(7) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPerro` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT de la tabla `privilegios`
