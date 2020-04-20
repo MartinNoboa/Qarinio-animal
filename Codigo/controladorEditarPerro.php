@@ -38,12 +38,10 @@
                 </div>
 
                 <div class="uk-margin">
-                    <label class="uk-form-label" for="form-horizontal-select">Sexo:</label>
+                    <label class="uk-form-label" for="form-horizontal-select">Género:</label>
                     <div class="uk-form-controls">
-                        <select class="uk-select" id="form-horizontal-select">
-                            <option>Macho(falta conectar db)</option>
-                            <option>Hembra(falta conectar db)</option>
-                        </select>
+                        <label><input class="uk-radio" type="radio" name="radio2" checked> Masculino</label>
+                        <label><input class="uk-radio" type="radio" name="radio2"> Hembra</label>
                     </div>
                 </div>
 
