@@ -6,7 +6,7 @@ function connectDb(){
     $servername = 'localhost';
     $username = "root";
     $password = "";
-    $dbname = "qarinio_animal";
+    $dbname = "bd_qarinio_animal";
 
     $con = mysqli_connect($servername, $username, $password, $dbname);
 
@@ -120,7 +120,7 @@ function autenticar($email, $password){
 }
 
 function cuentaExistente($email){
-    $q = "  SELECT u.email 
+    $q = "  SELECT u.email
             FROM usuario as u
             WHERE email='$email'";
     return sqlqry($q)->num_rows>=1;
@@ -149,5 +149,3 @@ function crearCuenta($nombre, $apellido, $email, $telefono, $callePrincipal, $ca
 
     return 1;
 }
-
-
