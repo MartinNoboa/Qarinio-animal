@@ -168,8 +168,8 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
         select 
                idPerro,
                nombre,
-               fechaLlegada,
-               TIMESTAMPDIFF(MONTH, DATE_ADD(fechaLlegada, INTERVAL -edadEstimadaLlegadaMeses MONTH), CURDATE()) as edad 
+               fechaLLegada,
+               TIMESTAMPDIFF(MONTH, DATE_ADD(fechaLLegada, INTERVAL -edadEstimadaLLegada MONTH), CURDATE()) as edad 
         FROM perros";
 
     if($male XOR $female){
