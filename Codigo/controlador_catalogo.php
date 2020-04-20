@@ -14,7 +14,7 @@ if(mysqli_num_rows($result) > 0){
         //$img = "img/dog".$row["idPerro"].".jpg";
         $img = "img/Mario.jpg";
         $name = $row["nombre"];
-        $test = $row["fechaLlegada"];
+        $test = $row["fechaLLegada"];
 
         $m = $row["edad"];
         $a = ($m-$m%12)/12;
