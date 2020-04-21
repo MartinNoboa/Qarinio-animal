@@ -1,7 +1,7 @@
 //Función que detonará la petición asíncrona como se hace ahora con la librería jquery
 function filtrar() {
     //$.post manda la petición asíncrona por el método post. También existe $.get
-    $.post("controlador_buscar.php", {
+    $.post("controlador_catalogo.php", {
         minAge: $("#minAge").val(),
         maxAge: $("#maxAge").val(),
         sort: $("#sort").val(),
