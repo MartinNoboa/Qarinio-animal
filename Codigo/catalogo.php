@@ -33,7 +33,7 @@
                 <ul class="uk-nav-sub">
                     <li>Ordenar Por</li>
                     <li>
-                        <select id="sort" name="sort">
+                        <select id="sort" name="sort" class="uk-select">
                             <option value="" disabled>Seleccione una opción</option>
                             <option value="name">Nombre</option>
                             <option value="timeIn">Tiempo en el refugio</option>
@@ -43,13 +43,13 @@
                     <li>Orden</li>
                     <li>
                         <label>
-                            <input name="order" type="radio" value="asc"/>
+                            <input class="uk-radio" name="order" type="radio" value="asc"/>
                             <span>Ascendiente</span>
                         </label>
                     </li>
                     <li>
                         <label>
-                            <input name="order" type="radio" value="desc"/>
+                            <input class="uk-radio" name="order" type="radio" value="desc"/>
                             <span>Descendiente</span>
                         </label>
                     </li>
