@@ -3,18 +3,12 @@
     include("_navbar.html");
 ?>
 
-<<<<<<< HEAD
-<div class="uk-container">
-<div class = "uk-container uk-margin-top">
+
+
+<div class="uk-container uk-width-5-6@l uk-width-1-1@s">
     <h2>Nuestros Perros
     <a href="agregarPerro.php" class="uk-icon-link uk-align-right" uk-icon="plus-circle"; ratio = "2"></a>
     </h2>
-</div>
-
-    <div class="uk-child-width-1-3@m" uk-grid>
-=======
-<div class="uk-container uk-width-5-6@l uk-width-1-1@s">
-    <h2>Nuestros Perros</h2>
     <div id="filterMenu" class="uk-height-max-large uk-align-left uk-width-1-4@l uk-width-1-1@s">
         <ul id="listaFiltro" class="uk-nav-primary uk-nav-parent-icon" uk-nav="multiple: true">
             <li class="uk-parent">
@@ -74,7 +68,7 @@
 
 
 
->>>>>>> develop
+
     <?php
         $img = "img/maybe.jpg";
         $name = "Mario";
