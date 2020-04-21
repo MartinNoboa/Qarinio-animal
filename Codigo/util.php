@@ -21,14 +21,6 @@ function closeDb($mysqli){
     mysqli_close($mysqli);
 }
 
-function check($inp, $ind){
-    if(isset($inp[$ind])){
-        return limpia_entrada($inp[$ind]);
-    } else{
-        return false;
-    }
-}
-
 function verificaCampos($arr, $camposRequeridos){
     foreach ($camposRequeridos as $campo){
         if(!isset($arr[$campo]) || $arr[$campo]==""){
@@ -159,6 +151,7 @@ function crearCuenta($nombre, $apellido, $email, $telefono, $callePrincipal, $ca
 }
 
 
+
 function filterDogs($minA, $maxA, $male, $female, $sort, $order){
     if($maxA==144){
         $maxA=9999;
@@ -199,6 +192,7 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
     //echo $sql;
     return sqlqry($sql);
 }
+
 
     
 
