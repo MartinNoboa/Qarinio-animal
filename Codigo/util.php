@@ -196,6 +196,6 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
     if($sort!="" AND $order){
         $sql.=" ".$order;
     }
-    echo $sql;
+    //echo $sql;
     return sqlqry($sql);
 }

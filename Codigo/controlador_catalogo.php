@@ -24,11 +24,14 @@ if(mysqli_num_rows($result) > 0){
 
         $age = '';
         if($a>0){
-            $age = $a.' '.($a==1?'Año':'Años');
+            $age= $a.' '.($a==1?'Año':'Años');
         }
         //El $a <= 3 se puede quitar, solo es preferencia para mostrar los meses solo para perros menores a 3 años
         if($m>0 AND $a<=3){
-            $age = $age.', '.$m.' '.($m==1?'Mes':'Meses');
+            if($a>0){
+                $age.=', ';
+            }
+            $age .= $m.' '.($m==1?'Mes':'Meses');
         }
 
         include("_tarjetaPerro.html");
