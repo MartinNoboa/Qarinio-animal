@@ -204,7 +204,7 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
 
      //función para eliminar una perro 
     //@param id_perro: id del cancion que se va a editar
-  function eliminar_cancion($id_perro) {
+  function eliminar_perro($id_perro) {
     $conexion_bd = connectDb();
       
     //Prepara la consulta
