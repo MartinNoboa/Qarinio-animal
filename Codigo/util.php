@@ -149,3 +149,48 @@ function crearCuenta($nombre, $apellido, $email, $telefono, $callePrincipal, $ca
 
     return 1;
 }
+<<<<<<< HEAD
+=======
+
+
+function filterDogs($minA, $maxA, $male, $female, $sort, $order){
+    if($maxA==144){
+        $maxA=9999;
+    }
+
+    $sql = "
+        select 
+               idPerro,
+               nombre,
+               fechaLLegada,
+               TIMESTAMPDIFF(MONTH, DATE_ADD(fechaLLegada, INTERVAL -edadEstimadaLLegada MONTH), CURDATE()) as edad 
+        FROM perros";
+
+    if($male XOR $female){
+        if($male AND !$female){
+            $sql.= " WHERE sexo='macho'";
+        } else {
+            $sql .= " WHERE sexo='hembra'";
+        }
+    }
+
+    $sql.=" HAVING Edad BETWEEN " . $minA . " AND " . $maxA;
+
+    switch($sort){
+        case "name":
+            $sql.=" ORDER BY nombre";
+            break;
+        case "timeIn":
+            $sql.=" ORDER BY fechaLlegada";
+            break;
+        default:
+            break;
+
+    }
+    if($sort!="" AND $order){
+        $sql.=" ".$order;
+    }
+    //echo $sql;
+    return sqlqry($sql);
+}
+>>>>>>> develop
