@@ -1,4 +1,4 @@
-<?php 
+<?php
     include("_header.html");
     include("_navbar.html");
 ?>
@@ -57,7 +57,8 @@
                 </ul>
             </li>
         </ul>
-        <button id="filtrar">Aplicar</button>
+
+        <button id="filtrar" class="uk-button uk-button-primary uk-align-right">Aplicar</button>
     </div>
 
     <div class="uk-child-width-1-3@m" id="contenido-catalogo" uk-grid>
