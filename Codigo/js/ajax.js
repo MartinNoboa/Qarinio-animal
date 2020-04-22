@@ -13,5 +13,12 @@ function filtrar() {
     });
 }
 
+function editarPerro(id) {
+    console.log(id);
+}
+
 //Asignar al botón buscar, la función buscar()
 document.getElementById("filtrar").onclick = filtrar;
+document.getElementsByClassName('boton-editar').forEach(item => {
+    item.onclick = editarPerro(item.getAttribute("idPerro"));
+});
