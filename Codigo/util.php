@@ -20,6 +20,13 @@ function connectDb(){
 function closeDb($mysqli){
     mysqli_close($mysqli);
 }
+function check($inp, $ind){
+    if(isset($inp[$ind])){
+        return $inp[$ind];
+    } else{
+        return false;
+    }
+}
 
 function verificaCampos($arr, $camposRequeridos){
     foreach ($camposRequeridos as $campo){
