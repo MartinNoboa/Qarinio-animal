@@ -19,6 +19,10 @@ function editarPerro(id) {
 
 //Asignar al botón buscar, la función buscar()
 document.getElementById("filtrar").onclick = filtrar;
-document.getElementsByClassName('boton-editar').forEach(item => {
-    item.onclick = editarPerro(item.getAttribute("idPerro"));
-});
+let botonesEditar = document.getElementsByClassName("boton-editar");
+
+for(btn of botonesEditar) {
+    btn.addEventListener("click", function(b) {
+        editarPerro(b.srcElement.getAttribute("idPerro"));
+    });
+}
