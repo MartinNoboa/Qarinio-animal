@@ -6,8 +6,8 @@ function filtrar() {
         maxAge: $("#maxAge").val(),
         sort: $("#sort").val(),
         order: $('input[name="order"]:checked').val(),
-        macho: $("#macho").val(),
-        hembra: $("#hembra").val(),
+        macho: $("#macho").is(":checked"),
+        hembra: $("#hembra").is(":checked"),
     }).done(function (data) {
         $("#contenido-catalogo").html(data);
         setElEditar();

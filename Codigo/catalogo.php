@@ -15,8 +15,8 @@
                 <a href="#">Filtros</a>
                 <ul class="uk-nav-sub">
                     <li>Genero</li>
-                    <li><label><input class="uk-checkbox" type="checkbox"> Hembra</label></li>
-                    <li><label><input class="uk-checkbox" type="checkbox"> Macho</label></li>
+                    <li><label><input id="hembra" class="uk-checkbox" type="checkbox"> Hembra</label></li>
+                    <li><label><input id="macho" class="uk-checkbox" type="checkbox"> Macho</label></li>
                     <hr>
                     <li>Edad</li>
                     <li>

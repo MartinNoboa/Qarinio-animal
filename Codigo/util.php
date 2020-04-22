@@ -22,7 +22,7 @@ function closeDb($mysqli){
 }
 function check($inp, $ind){
     if(isset($inp[$ind])){
-        return $inp[$ind];
+        return limpia_entrada($inp[$ind]);
     } else{
         return false;
     }
@@ -171,6 +171,10 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
                fechaLLegada,
                TIMESTAMPDIFF(MONTH, DATE_ADD(fechaLLegada, INTERVAL -edadEstimadaLLegada MONTH), CURDATE()) as edad 
         FROM perros";
+
+
+    $female = ($female=="true");
+    $male = ($male=="true");
 
     if($male XOR $female){
         if($male AND !$female){
