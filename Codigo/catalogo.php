@@ -4,7 +4,7 @@
 ?>
 
 
-
+<div id="modal-editar" class="uk-modal-container" uk-modal></div>
 <div class="uk-container uk-width-5-6@l uk-width-1-1@s">
     <h2>Nuestros Perros
     <a href="agregarPerro.php" class="uk-icon-link uk-align-right" uk-icon="plus-circle"; ratio = "2"></a>
@@ -15,8 +15,8 @@
                 <a href="#">Filtros</a>
                 <ul class="uk-nav-sub">
                     <li>Genero</li>
-                    <li><label><input class="uk-checkbox" type="checkbox"> Hembra</label></li>
-                    <li><label><input class="uk-checkbox" type="checkbox"> Macho</label></li>
+                    <li><label><input id="hembra" class="uk-checkbox" type="checkbox"> Hembra</label></li>
+                    <li><label><input id="macho" class="uk-checkbox" type="checkbox"> Macho</label></li>
                     <hr>
                     <li>Edad</li>
                     <li>

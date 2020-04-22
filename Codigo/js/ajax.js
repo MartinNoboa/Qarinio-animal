@@ -6,12 +6,34 @@ function filtrar() {
         maxAge: $("#maxAge").val(),
         sort: $("#sort").val(),
         order: $('input[name="order"]:checked').val(),
-        macho: $("#macho").val(),
-        hembra: $("#hembra").val(),
+        macho: $("#macho").is(":checked"),
+        hembra: $("#hembra").is(":checked"),
     }).done(function (data) {
         $("#contenido-catalogo").html(data);
+        setElEditar();
     });
+}
+
+function editarPerro(id) {
+    $.post("controlador_editar_perro.php", {
+        idPerro: id
+    }).done(function (data) {
+        $("#modal-editar").html(data);
+        UIkit.modal($("#modal-editar")).show();
+    });
+    console.log(id);
 }
 
 //Asignar al botón buscar, la función buscar()
 document.getElementById("filtrar").onclick = filtrar;
+
+function setElEditar() {
+    let botonesEditar = document.getElementsByClassName("boton-editar");
+    for(btn of botonesEditar) {
+        btn.addEventListener("click", function(b) {
+            editarPerro(b.srcElement.getAttribute("idPerro"));
+        });
+    }
+}
+
+setElEditar();

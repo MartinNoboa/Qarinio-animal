@@ -1,7 +1,10 @@
-<div id="modal-editar" uk-modal>
+
     <div class="uk-modal-dialog uk-modal-body">
         <div class="uk-modal-title">
-            <h1>Editar Información</h1>
+                <h1>Editar Información - <?= $_POST["idPerro"]?>
+                <a class="uk-align-right uk-text-danger" href="" uk-icon="icon: trash ;ratio: 2.5"></a>
+                </h1>
+
         </div>
         <div class="uk-modal-body">
             <form class="uk-form-horizontal uk-margin-large">
@@ -40,7 +43,7 @@
                 <div class="uk-margin">
                     <label class="uk-form-label" for="form-horizontal-select">Género:</label>
                     <div class="uk-form-controls">
-                        <label><input class="uk-radio" type="radio" name="radio2" checked> Masculino</label>
+                        <label><input class="uk-radio" type="radio" name="radio2" checked> Macho</label>
                         <label><input class="uk-radio" type="radio" name="radio2"> Hembra</label>
                     </div>
                 </div>
@@ -57,6 +60,4 @@
                 </p>
             </form>
         </div>
-
     </div>
-</div>
