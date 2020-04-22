@@ -1,7 +1,7 @@
-<div id="modal-editar" class="uk-modal-container" uk-modal>
+
     <div class="uk-modal-dialog uk-modal-body">
         <div class="uk-modal-title">
-                <h1>Editar Información
+                <h1>Editar Información - <?= $_POST["idPerro"]?>
                 <a class="uk-align-right uk-text-danger" href="" uk-icon="icon: trash ;ratio: 2.5"></a>
                 </h1>
 
@@ -61,4 +61,3 @@
             </form>
         </div>
     </div>
-</div>
