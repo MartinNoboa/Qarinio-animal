@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-04-2020 a las 23:50:55
+-- Tiempo de generación: 24-04-2020 a las 00:30:28
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -79,6 +79,41 @@ CREATE TABLE `donacion` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `estado`
+--
+
+CREATE TABLE `estado` (
+  `idEstado` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `perro` tinyint(1) NOT NULL,
+  `proceso` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `estado`
+--
+
+INSERT INTO `estado` (`idEstado`, `nombre`, `perro`, `proceso`) VALUES
+(1, 'adoptado', 1, 0),
+(2, 'disponible', 1, 0),
+(3, 'incompleto', 0, 1),
+(4, 'en proceso', 0, 1),
+(5, 'completo', 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado_perro`
+--
+
+CREATE TABLE `estado_perro` (
+  `idPerro` int(5) NOT NULL,
+  `idEstado` int(7) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `maneja`
 --
 
@@ -109,56 +144,58 @@ CREATE TABLE `perros` (
 --
 
 INSERT INTO `perros` (`idPerro`, `nombre`, `tamanio`, `edadEstimadaLlegada`, `fechaLLegada`, `sexo`, `historia`) VALUES
-(1, 'Paul', 'mediano', 355, '2020-03-05', 'macho', 'POSNGypej'),
-(2, 'Tades', 'pequenio', 9, '2019-05-12', 'macho', 'DKHZJqovx'),
-(3, 'Shelley', 'pequenio', 228, '2019-11-14', 'macho', 'CVXUWciqh'),
-(4, 'Granny', 'grande', 253, '2019-11-20', 'macho', 'YPUXLzpby'),
-(5, 'Cassy', 'mediano', 148, '2019-10-01', 'hembra', 'VIWUHlgjj'),
-(6, 'Idalina', 'grande', 120, '2019-10-02', 'hembra', 'PZUXOnxwr'),
-(7, 'Pascal', 'mediano', 221, '2019-04-17', 'macho', 'STSZLlkzt'),
-(8, 'Carr', 'pequenio', 308, '2020-01-29', 'macho', 'MOTNTtgfl'),
-(9, 'Karly', 'grande', 56, '2019-07-12', 'hembra', 'MLJXKletu'),
-(10, 'Jethro', 'pequenio', 329, '2020-03-19', 'macho', 'JBACVarjc'),
-(11, 'Bree', 'mediano', 326, '2019-06-14', 'hembra', 'XGNPJdxri'),
-(12, 'Verney', 'grande', 344, '2020-01-27', 'macho', 'GUBABezxd'),
-(13, 'Rhona', 'pequenio', 203, '2020-03-17', 'hembra', 'RRCAAfxob'),
-(14, 'Mendy', 'pequenio', 316, '2019-09-22', 'macho', 'BMLUAhtdx'),
-(15, 'Legra', 'mediano', 273, '2019-05-26', 'hembra', 'AYKDJipau'),
-(16, 'Ellyn', 'mediano', 328, '2020-04-07', 'hembra', 'SINUUozcu'),
-(17, 'Gerome', 'pequenio', 155, '2019-06-07', 'macho', 'XCGLCpnxj'),
-(18, 'Debbi', 'mediano', 323, '2019-04-21', 'hembra', 'GCCJTqdut'),
-(19, 'Constancy', 'grande', 358, '2019-09-28', 'hembra', 'ZHAQUwjww'),
-(20, 'Candide', 'pequenio', 349, '2019-11-27', 'hembra', 'ORCRNeiok'),
-(21, 'Kai', 'mediano', 209, '2019-11-11', 'hembra', 'MJJWYzgjv'),
-(22, 'Muhammad', 'mediano', 146, '2020-01-10', 'macho', 'IOWQKjnqi'),
-(23, 'Adria', 'mediano', 7, '2019-11-27', 'hembra', 'RYPQHdjxi'),
-(24, 'Hobey', 'grande', 165, '2019-08-26', 'macho', 'NVOBFjxgw'),
-(25, 'Mollie', 'mediano', 9, '2019-07-21', 'hembra', 'SEMQKfese'),
-(26, 'Claudius', 'grande', 341, '2020-02-18', 'macho', 'VPYTUhcza'),
-(27, 'Lorilyn', 'mediano', 308, '2019-07-17', 'hembra', 'MNIGFifcf'),
-(28, 'Adara', 'mediano', 210, '2019-11-15', 'hembra', 'MVFARliks'),
-(29, 'Lucais', 'pequenio', 287, '2020-01-08', 'macho', 'ALIMVwawp'),
-(30, 'Norry', 'grande', 226, '2019-06-13', 'macho', 'HUAKPuppb'),
-(31, 'Brooks', 'pequenio', 123, '2020-03-28', 'hembra', 'XGDNRgsbz'),
-(32, 'Sheridan', 'mediano', 317, '2019-05-27', 'macho', 'ICFGNwsnk'),
-(33, 'Reynolds', 'pequenio', 16, '2020-03-17', 'macho', 'FNMZEfmyq'),
-(34, 'Bonita', 'grande', 261, '2019-05-29', 'hembra', 'RVTEEoueq'),
-(35, 'Donia', 'grande', 300, '2019-11-08', 'hembra', 'RBLXOwgdw'),
-(36, 'Teddy', 'mediano', 173, '2019-11-08', 'macho', 'HUULLdula'),
-(37, 'Wilmar', 'mediano', 344, '2019-10-11', 'macho', 'FSLPBpwat'),
-(38, 'Bennie', 'pequenio', 268, '2019-05-01', 'macho', 'ZXJELiszn'),
-(39, 'Edin', 'pequenio', 4, '2019-07-12', 'hembra', 'KSFCQfufm'),
-(40, 'Brinna', 'mediano', 161, '2020-03-01', 'hembra', 'YTPFZzotn'),
-(41, 'Jeth', 'mediano', 267, '2019-11-14', 'macho', 'JDDMOrhuc'),
-(42, 'Arron', 'mediano', 134, '2019-09-15', 'macho', 'ZGYGFqjvi'),
-(43, 'Jayson', 'mediano', 246, '2019-10-07', 'macho', 'YJKHGvmlf'),
-(44, 'Skelly', 'grande', 318, '2019-10-09', 'macho', 'IILRUghpl'),
-(45, 'Ban', 'mediano', 131, '2019-08-12', 'macho', 'DTIJGetjn'),
-(46, 'Oona', 'pequenio', 287, '2019-10-16', 'hembra', 'HVRNVvhix'),
-(47, 'Carroll', 'mediano', 68, '2019-08-07', 'macho', 'UODGWlswj'),
-(48, 'Kathrine', 'pequenio', 97, '2020-01-15', 'hembra', 'APXHIkwyk'),
-(49, 'Allie', 'mediano', 275, '2019-08-04', 'macho', 'XNCODjgzt'),
-(50, 'Federico', 'pequenio', 7, '2019-10-22', 'macho', 'NVORAjbvl');
+(1, 'Paul', 'mediano', 355, '2020-03-05', 'Male', 'POSNGypej'),
+(2, 'Tades', 'pequenio', 9, '2019-05-12', 'Male', 'DKHZJqovx'),
+(3, 'Shelley', 'pequenio', 228, '2019-11-14', 'Male', 'CVXUWciqh'),
+(4, 'Granny', 'grande', 253, '2019-11-20', 'Male', 'YPUXLzpby'),
+(5, 'Cassy', 'mediano', 148, '2019-10-01', 'Female', 'VIWUHlgjj'),
+(6, 'Idalina', 'grande', 120, '2019-10-02', 'Female', 'PZUXOnxwr'),
+(7, 'Pascal', 'mediano', 221, '2019-04-17', 'Male', 'STSZLlkzt'),
+(8, 'Carr', 'pequenio', 308, '2020-01-29', 'Male', 'MOTNTtgfl'),
+(9, 'Karly', 'grande', 56, '2019-07-12', 'Female', 'MLJXKletu'),
+(10, 'Jethro', 'pequenio', 329, '2020-03-19', 'Male', 'JBACVarjc'),
+(11, 'Bree', 'mediano', 326, '2019-06-14', 'Female', 'XGNPJdxri'),
+(12, 'Verney', 'grande', 344, '2020-01-27', 'Male', 'GUBABezxd'),
+(13, 'Rhona', 'pequenio', 203, '2020-03-17', 'Female', 'RRCAAfxob'),
+(14, 'Mendy', 'pequenio', 316, '2019-09-22', 'Male', 'BMLUAhtdx'),
+(15, 'Legra', 'mediano', 273, '2019-05-26', 'Female', 'AYKDJipau'),
+(16, 'Ellyn', 'mediano', 328, '2020-04-07', 'Female', 'SINUUozcu'),
+(17, 'Gerome', 'pequenio', 155, '2019-06-07', 'Male', 'XCGLCpnxj'),
+(18, 'Debbi', 'mediano', 323, '2019-04-21', 'Female', 'GCCJTqdut'),
+(19, 'Constancy', 'grande', 358, '2019-09-28', 'Female', 'ZHAQUwjww'),
+(20, 'Candide', 'pequenio', 349, '2019-11-27', 'Female', 'ORCRNeiok'),
+(21, 'Kai', 'mediano', 209, '2019-11-11', 'Female', 'MJJWYzgjv'),
+(22, 'Muhammad', 'mediano', 146, '2020-01-10', 'Male', 'IOWQKjnqi'),
+(23, 'Adria', 'mediano', 7, '2019-11-27', 'Female', 'RYPQHdjxi'),
+(24, 'Hobey', 'grande', 165, '2019-08-26', 'Male', 'NVOBFjxgw'),
+(25, 'Mollie', 'mediano', 9, '2019-07-21', 'Female', 'SEMQKfese'),
+(26, 'Claudius', 'grande', 341, '2020-02-18', 'Male', 'VPYTUhcza'),
+(27, 'Lorilyn', 'mediano', 308, '2019-07-17', 'Female', 'MNIGFifcf'),
+(28, 'Adara', 'mediano', 210, '2019-11-15', 'Female', 'MVFARliks'),
+(29, 'Lucais', 'pequenio', 287, '2020-01-08', 'Male', 'ALIMVwawp'),
+(30, 'Norry', 'grande', 226, '2019-06-13', 'Male', 'HUAKPuppb'),
+(31, 'Brooks', 'pequenio', 123, '2020-03-28', 'Female', 'XGDNRgsbz'),
+(32, 'Sheridan', 'mediano', 317, '2019-05-27', 'Male', 'ICFGNwsnk'),
+(33, 'Reynolds', 'pequenio', 16, '2020-03-17', 'Male', 'FNMZEfmyq'),
+(34, 'Bonita', 'grande', 261, '2019-05-29', 'Female', 'RVTEEoueq'),
+(35, 'Donia', 'grande', 300, '2019-11-08', 'Female', 'RBLXOwgdw'),
+(36, 'Teddy', 'mediano', 173, '2019-11-08', 'Male', 'HUULLdula'),
+(37, 'Wilmar', 'mediano', 344, '2019-10-11', 'Male', 'FSLPBpwat'),
+(38, 'Bennie', 'pequenio', 268, '2019-05-01', 'Male', 'ZXJELiszn'),
+(39, 'Edin', 'pequenio', 4, '2019-07-12', 'Female', 'KSFCQfufm'),
+(40, 'Brinna', 'mediano', 161, '2020-03-01', 'Female', 'YTPFZzotn'),
+(41, 'Jeth', 'mediano', 267, '2019-11-14', 'Male', 'JDDMOrhuc'),
+(42, 'Arron', 'mediano', 134, '2019-09-15', 'Male', 'ZGYGFqjvi'),
+(43, 'Jayson', 'mediano', 246, '2019-10-07', 'Male', 'YJKHGvmlf'),
+(44, 'Skelly', 'grande', 318, '2019-10-09', 'Male', 'IILRUghpl'),
+(45, 'Ban', 'mediano', 131, '2019-08-12', 'Male', 'DTIJGetjn'),
+(46, 'Oona', 'pequenio', 287, '2019-10-16', 'Female', 'HVRNVvhix'),
+(47, 'Carroll', 'mediano', 68, '2019-08-07', 'Male', 'UODGWlswj'),
+(48, 'Kathrine', 'pequenio', 97, '2020-01-15', 'Female', 'APXHIkwyk'),
+(49, 'Allie', 'mediano', 275, '2019-08-04', 'Male', 'XNCODjgzt'),
+(50, 'Federico', 'pequenio', 7, '2019-10-22', 'Male', 'NVORAjbvl'),
+(51, 'Homero', 'pequeño', 24, '2020-04-23', 'macho', 'Perro rescatado'),
+(52, 'Homero', 'Mediano', 24, '2020-02-23', 'macho', 'Perro abandonado');
 
 -- --------------------------------------------------------
 
@@ -249,9 +286,9 @@ CREATE TABLE `solicitud` (
   `idPerros` int(7) NOT NULL,
   `idRespuestas` int(7) NOT NULL,
   `fecha` datetime NOT NULL,
-  `estadoFormulario` varchar(30) NOT NULL,
-  `estadoEntrevista` varchar(30) NOT NULL,
-  `estadoPago` varchar(30) NOT NULL,
+  `estadoFormulario` int(11) NOT NULL,
+  `estadoEntrevista` int(11) NOT NULL,
+  `estadoPago` int(11) NOT NULL,
   `fechaPago` datetime NOT NULL,
   `metodoPago` varchar(20) NOT NULL,
   `numTransaccion` int(20) NOT NULL
@@ -394,7 +431,7 @@ INSERT INTO `usuario` (`idUsuario`, `nombre`, `apellido`, `email`, `telefono`, `
 (17, 'Zenaida', 'Vasquez', 'enim@nequesed.co.uk', '2147483647', '161-5502 Habitant C/', 'Apartado núm.: 130, 9549 Donec Avda.', 4823, 196, 31075, 'Juriquilla', 'Queretaro', 'Querataro', '1909-12-20', '23B68797-6508-BEB1-EDF3-E4124BE5AE2A'),
 (18, 'Eugenia', 'Whitaker', 'lorem.ipsum@nec.co.uk', '2147483647', 'Apdo.:412-9296 Dictum C.', 'Apartado núm.: 679, 6269 Nunc Ctra.', 7523, 249, 59865, 'CentroSur', 'Celayork', 'Querataro', '1910-05-15', '379FE189-00A7-D087-2660-5BD9E9354926'),
 (19, 'Kenneth', 'Avila', 'sem.Pellentesque@nullaInteger.co.uk', '2147483647', '137-7899 Lobortis C/', 'Apdo.:127-8987 Porttitor Carretera', 155, 664, 53296, 'CentroSur', 'Queretaro', 'Querataro', '1991-05-07', 'E36F5B5A-3845-02A7-97CA-BBECAED52AB7'),
-(20, 'Connor', 'Valencia', 'ante.ipsum.primis@etmachosuadafames.edu', '2147483647', 'Apdo.:665-700 Ultrices, Avenida', 'Apartado núm.: 890, 6814 Augue. C/', 1721, 644, 48798, 'Tecnologico', 'Queretaro', 'Querataro', '1982-06-14', '95C8EBEA-011D-A612-0901-729288AAAC35'),
+(20, 'Connor', 'Valencia', 'ante.ipsum.primis@etmalesuadafames.edu', '2147483647', 'Apdo.:665-700 Ultrices, Avenida', 'Apartado núm.: 890, 6814 Augue. C/', 1721, 644, 48798, 'Tecnologico', 'Queretaro', 'Querataro', '1982-06-14', '95C8EBEA-011D-A612-0901-729288AAAC35'),
 (21, 'Ian', 'Erickson', 'Morbi.accumsan.laoreet@lorem.edu', '2147483647', '335-9641 Sed Carretera', '710-3115 Ullamcorper. Av.', 9283, 797, 20437, 'CentroSur', 'Celayork', 'Guanajuato', '1905-08-26', '8B3D1950-B868-CA2B-A5B8-F289B2817302'),
 (22, 'Lee', 'Orr', 'Phasellus.at@Aliquamfringillacursus.ca', '2147483647', '7653 Vulputate ', 'Apdo.:706-4611 Lacus. Carretera', 3025, 155, 53344, 'Juriquilla', 'Queretaro', 'Guanajuato', '1992-03-11', 'A855D564-D8BC-1679-04D1-FB7AFB8F7587'),
 (23, 'Cruz', 'Guerra', 'a.dui@fringillapurus.edu', '2147483647', '7413 Magna Calle', 'Apartado núm.: 333, 8063 Ligula Avda.', 9647, 287, 89658, 'CentroSur', 'Celayork', 'Guanajuato', '1931-12-09', '8374ACCB-9116-BE08-B72D-59B8C58AE2D5'),
@@ -410,7 +447,7 @@ INSERT INTO `usuario` (`idUsuario`, `nombre`, `apellido`, `email`, `telefono`, `
 (33, 'Vivian', 'Howe', 'tristique.ac@mauris.edu', '2147483647', 'Apdo.:785-9442 Quisque Calle', 'Apartado núm.: 934, 816 In, ', 7290, 263, 69395, 'CentroSur', 'Celayork', 'Guanajuato', '1936-06-09', '24F1A33C-45B4-22A7-1974-017DB495F7B1'),
 (34, 'Willa', 'Glover', 'vel@VivamusnisiMauris.ca', '2147483647', 'Apartado núm.: 576, 1361 Vestibulum ', 'Apartado núm.: 936, 8175 Nulla Calle', 2274, 461, 92956, 'Juriquilla', 'Celayork', 'Querataro', '1932-09-10', 'D38D13F8-5EA9-B166-A992-69867C4FA055'),
 (35, 'Camille', 'Chan', 'arcu.Curabitur.ut@aliquam.ca', '2147483647', 'Apdo.:722-4982 Vitae ', 'Apdo.:942-9348 Molestie Carretera', 5195, 256, 60234, 'Juriquilla', 'Moroleon', 'Guanajuato', '1952-07-29', '10F22A25-C0EC-5E73-EAA3-15DEE8B4FCF1'),
-(36, 'Shaeleigh', 'Blackwell', 'sagittis@Donecfelisorci.edu', '2147483647', '852 Libero C/', 'Apdo.:800-7947 machosuada Av.', 5201, 4, 58005, 'Juriquilla', 'Moroleon', 'Querataro', '1910-08-19', '418195F4-FD52-F5C6-AAC6-25E71445C745'),
+(36, 'Shaeleigh', 'Blackwell', 'sagittis@Donecfelisorci.edu', '2147483647', '852 Libero C/', 'Apdo.:800-7947 Malesuada Av.', 5201, 4, 58005, 'Juriquilla', 'Moroleon', 'Querataro', '1910-08-19', '418195F4-FD52-F5C6-AAC6-25E71445C745'),
 (37, 'Leandra', 'Perry', 'dolor.sit@et.net', '2147483647', '3868 Nibh. Calle', 'Apdo.:625-1326 Cum C/', 1741, 482, 38069, 'Tecnologico', 'Celayork', 'Guanajuato', '1937-03-20', 'A9B42F41-99EF-5A65-0B8B-40E759A96B4A'),
 (38, 'Cassady', 'Anderson', 'pede@nibhDonec.com', '2147483647', '1234 Aenean Ctra.', 'Apartado núm.: 205, 2796 Mauris, Carretera', 5151, 586, 36610, 'CentroSur', 'Moroleon', 'Querataro', '1998-10-21', '9096CC08-7C8F-71CF-6C66-9BDD3E2571AB'),
 (39, 'Karyn', 'Buck', 'ac@lobortisultrices.ca', '2147483647', 'Apartado núm.: 548, 8678 Euismod Avda.', '637-9444 Nascetur Avda.', 2264, 667, 73989, 'Tecnologico', 'Celayork', 'Querataro', '1967-09-30', '3145881D-88D2-E50E-ED84-E38FBE73485D'),
@@ -452,7 +489,7 @@ INSERT INTO `usuario` (`idUsuario`, `nombre`, `apellido`, `email`, `telefono`, `
 (75, 'Tanner', 'Oneil', 'lorem@tempor.net', '2147483647', '202-4104 Tincidunt Ctra.', '452-7311 Ut, Calle', 9311, 721, 42758, 'Juriquilla', 'Moroleon', 'Querataro', '1924-06-17', '2690D529-74F4-7935-7C42-69FDC10D5F5D'),
 (76, 'Eaton', 'Reed', 'sociis@tortorNunccommodo.net', '2147483647', 'Apdo.:125-9333 Sodales ', 'Apdo.:608-319 Cum Calle', 591, 61, 78751, 'Tecnologico', 'Queretaro', 'Querataro', '1996-10-09', 'AFC52A25-DF05-BF6E-C7AA-F3AC02F1AB4D'),
 (77, 'Abdul', 'Oneil', 'sed@natoquepenatibus.edu', '2147483647', '7024 Vitae Avda.', 'Apdo.:295-7313 Rhoncus C.', 591, 91, 77106, 'CentroSur', 'Moroleon', 'Guanajuato', '1904-06-23', '40C1D75C-5AC5-A0FA-FE69-19AFBFDB3DD0'),
-(78, 'Rose', 'Gomez', 'vulputate@machosuadafamesac.com', '2147483647', '516-2574 Nunc Avenida', 'Apartado núm.: 600, 6214 Neque ', 5623, 381, 88602, 'Tecnologico', 'Queretaro', 'Guanajuato', '1921-02-23', 'E1503B61-D7E0-44C8-5997-5D530B656A52'),
+(78, 'Rose', 'Gomez', 'vulputate@malesuadafamesac.com', '2147483647', '516-2574 Nunc Avenida', 'Apartado núm.: 600, 6214 Neque ', 5623, 381, 88602, 'Tecnologico', 'Queretaro', 'Guanajuato', '1921-02-23', 'E1503B61-D7E0-44C8-5997-5D530B656A52'),
 (79, 'Kirk', 'Cantrell', 'nulla.ante@pedenonummy.ca', '2147483647', '5526 Id Av.', 'Apartado núm.: 436, 9880 Et Carretera', 7606, 147, 47296, 'CentroSur', 'Moroleon', 'Querataro', '1917-10-12', 'CC638C08-7081-6C22-163B-2C4AE1130AD7'),
 (80, 'Cassandra', 'Andrews', 'pede@eutempor.ca', '2147483647', 'Apartado núm.: 686, 9127 Semper Avda.', '6313 Sapien. Ctra.', 8847, 1, 18375, 'Juriquilla', 'Queretaro', 'Guanajuato', '1976-09-12', '27BFEED9-64BD-48EA-7B59-C096F06B4487'),
 (81, 'Hop', 'Bryan', 'mi@esttemporbibendum.edu', '2147483647', 'Apdo.:282-7340 In Avenida', '669 Molestie Av.', 7776, 899, 36166, 'CentroSur', 'Celayork', 'Guanajuato', '1903-07-22', '417BC5B7-F231-A2BF-23F6-8F0A07360826'),
@@ -525,6 +562,19 @@ ALTER TABLE `donacion`
   ADD KEY `idUsuario_donacion` (`idUsuario`);
 
 --
+-- Indices de la tabla `estado`
+--
+ALTER TABLE `estado`
+  ADD PRIMARY KEY (`idEstado`);
+
+--
+-- Indices de la tabla `estado_perro`
+--
+ALTER TABLE `estado_perro`
+  ADD KEY `idPerro` (`idPerro`),
+  ADD KEY `idEstado` (`idEstado`);
+
+--
 -- Indices de la tabla `maneja`
 --
 ALTER TABLE `maneja`
@@ -569,7 +619,10 @@ ALTER TABLE `rol`
 ALTER TABLE `solicitud`
   ADD KEY `idUsuario` (`idUsuario`),
   ADD KEY `idPerros` (`idPerros`),
-  ADD KEY `idRespuestas` (`idRespuestas`);
+  ADD KEY `idRespuestas` (`idRespuestas`),
+  ADD KEY `estadoFormulario` (`estadoFormulario`),
+  ADD KEY `estadoEntrevista` (`estadoEntrevista`),
+  ADD KEY `estadoPago` (`estadoPago`);
 
 --
 -- Indices de la tabla `sucursal`
@@ -620,10 +673,16 @@ ALTER TABLE `condiciones_medicas`
   MODIFY `idCondicion` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT de la tabla `estado`
+--
+ALTER TABLE `estado`
+  MODIFY `idEstado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de la tabla `perros`
 --
 ALTER TABLE `perros`
-  MODIFY `idPerro` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `idPerro` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT de la tabla `privilegios`
@@ -694,6 +753,13 @@ ALTER TABLE `donacion`
   ADD CONSTRAINT `idUsuario_donacion` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
 
 --
+-- Filtros para la tabla `estado_perro`
+--
+ALTER TABLE `estado_perro`
+  ADD CONSTRAINT `estado_perro_ibfk_1` FOREIGN KEY (`idEstado`) REFERENCES `estado` (`idEstado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `estado_perro_ibfk_2` FOREIGN KEY (`idPerro`) REFERENCES `perros` (`idPerro`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Filtros para la tabla `maneja`
 --
 ALTER TABLE `maneja`
@@ -713,7 +779,10 @@ ALTER TABLE `privilegio_rol`
 ALTER TABLE `solicitud`
   ADD CONSTRAINT `idPerros` FOREIGN KEY (`idPerros`) REFERENCES `perros` (`idPerro`),
   ADD CONSTRAINT `idRespuestas` FOREIGN KEY (`idRespuestas`) REFERENCES `respuestas` (`idRespuestas`),
-  ADD CONSTRAINT `idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
+  ADD CONSTRAINT `idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`),
+  ADD CONSTRAINT `solicitud_ibfk_1` FOREIGN KEY (`estadoFormulario`) REFERENCES `estado` (`idEstado`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `solicitud_ibfk_2` FOREIGN KEY (`estadoEntrevista`) REFERENCES `estado` (`idEstado`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `solicitud_ibfk_3` FOREIGN KEY (`estadoPago`) REFERENCES `estado` (`idEstado`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `usuario_rol`
