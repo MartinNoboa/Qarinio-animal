@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 24, 2020 at 02:48 AM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.4
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 24-04-2020 a las 03:06:04
+-- Versión del servidor: 10.4.11-MariaDB
+-- Versión de PHP: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,13 +19,15 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bd_qarinoanimal`
+-- Base de datos: `bd_qarinoanimal`
 --
+CREATE DATABASE IF NOT EXISTS `bd_qarinoanimal` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `bd_qarinoanimal`;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `caracteristicas`
+-- Estructura de tabla para la tabla `caracteristicas`
 --
 
 CREATE TABLE `caracteristicas` (
@@ -37,7 +40,7 @@ CREATE TABLE `caracteristicas` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `condiciones_medicas`
+-- Estructura de tabla para la tabla `condiciones_medicas`
 --
 
 CREATE TABLE `condiciones_medicas` (
@@ -47,7 +50,7 @@ CREATE TABLE `condiciones_medicas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `condiciones_medicas`
+-- Volcado de datos para la tabla `condiciones_medicas`
 --
 
 INSERT INTO `condiciones_medicas` (`idCondicion`, `condicion`, `descripcion`) VALUES
@@ -63,7 +66,7 @@ INSERT INTO `condiciones_medicas` (`idCondicion`, `condicion`, `descripcion`) VA
 -- --------------------------------------------------------
 
 --
--- Table structure for table `donacion`
+-- Estructura de tabla para la tabla `donacion`
 --
 
 CREATE TABLE `donacion` (
@@ -78,7 +81,7 @@ CREATE TABLE `donacion` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `estado`
+-- Estructura de tabla para la tabla `estado`
 --
 
 CREATE TABLE `estado` (
@@ -89,7 +92,7 @@ CREATE TABLE `estado` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `estado`
+-- Volcado de datos para la tabla `estado`
 --
 
 INSERT INTO `estado` (`idEstado`, `nombre`, `perro`, `proceso`) VALUES
@@ -104,7 +107,7 @@ INSERT INTO `estado` (`idEstado`, `nombre`, `perro`, `proceso`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `estado_perro`
+-- Estructura de tabla para la tabla `estado_perro`
 --
 
 CREATE TABLE `estado_perro` (
@@ -113,7 +116,7 @@ CREATE TABLE `estado_perro` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `estado_perro`
+-- Volcado de datos para la tabla `estado_perro`
 --
 
 INSERT INTO `estado_perro` (`idPerro`, `idEstado`) VALUES
@@ -173,7 +176,7 @@ INSERT INTO `estado_perro` (`idPerro`, `idEstado`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `maneja`
+-- Estructura de tabla para la tabla `maneja`
 --
 
 CREATE TABLE `maneja` (
@@ -185,7 +188,7 @@ CREATE TABLE `maneja` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `perros`
+-- Estructura de tabla para la tabla `perros`
 --
 
 CREATE TABLE `perros` (
@@ -199,7 +202,7 @@ CREATE TABLE `perros` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `perros`
+-- Volcado de datos para la tabla `perros`
 --
 
 INSERT INTO `perros` (`idPerro`, `nombre`, `tamanio`, `edadEstimadaLlegada`, `fechaLLegada`, `sexo`, `historia`) VALUES
@@ -259,7 +262,7 @@ INSERT INTO `perros` (`idPerro`, `nombre`, `tamanio`, `edadEstimadaLlegada`, `fe
 -- --------------------------------------------------------
 
 --
--- Table structure for table `privilegios`
+-- Estructura de tabla para la tabla `privilegios`
 --
 
 CREATE TABLE `privilegios` (
@@ -269,7 +272,7 @@ CREATE TABLE `privilegios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `privilegios`
+-- Volcado de datos para la tabla `privilegios`
 --
 
 INSERT INTO `privilegios` (`idPrivilegio`, `privilegio`, `descripcion`) VALUES
@@ -281,7 +284,7 @@ INSERT INTO `privilegios` (`idPrivilegio`, `privilegio`, `descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `privilegio_rol`
+-- Estructura de tabla para la tabla `privilegio_rol`
 --
 
 CREATE TABLE `privilegio_rol` (
@@ -291,7 +294,7 @@ CREATE TABLE `privilegio_rol` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `privilegio_rol`
+-- Volcado de datos para la tabla `privilegio_rol`
 --
 
 INSERT INTO `privilegio_rol` (`idPrivilegio`, `idRol`, `fechaCreacion`) VALUES
@@ -303,7 +306,7 @@ INSERT INTO `privilegio_rol` (`idPrivilegio`, `idRol`, `fechaCreacion`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `respuestas`
+-- Estructura de tabla para la tabla `respuestas`
 --
 
 CREATE TABLE `respuestas` (
@@ -316,7 +319,7 @@ CREATE TABLE `respuestas` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rol`
+-- Estructura de tabla para la tabla `rol`
 --
 
 CREATE TABLE `rol` (
@@ -326,7 +329,7 @@ CREATE TABLE `rol` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `rol`
+-- Volcado de datos para la tabla `rol`
 --
 
 INSERT INTO `rol` (`idRol`, `rol`, `descripcion`) VALUES
@@ -337,7 +340,7 @@ INSERT INTO `rol` (`idRol`, `rol`, `descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `solicitud`
+-- Estructura de tabla para la tabla `solicitud`
 --
 
 CREATE TABLE `solicitud` (
@@ -356,7 +359,7 @@ CREATE TABLE `solicitud` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sucursal`
+-- Estructura de tabla para la tabla `sucursal`
 --
 
 CREATE TABLE `sucursal` (
@@ -373,7 +376,7 @@ CREATE TABLE `sucursal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `sucursal`
+-- Volcado de datos para la tabla `sucursal`
 --
 
 INSERT INTO `sucursal` (`idSucursal`, `telefono`, `callePrincipal`, `calleSecundaria`, `numeroExterior`, `numeroInterior`, `codigoPostal`, `colonia`, `ciudad`, `estado`) VALUES
@@ -382,7 +385,7 @@ INSERT INTO `sucursal` (`idSucursal`, `telefono`, `callePrincipal`, `calleSecund
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tipo_donacion`
+-- Estructura de tabla para la tabla `tipo_donacion`
 --
 
 CREATE TABLE `tipo_donacion` (
@@ -392,7 +395,7 @@ CREATE TABLE `tipo_donacion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tipo_donacion`
+-- Volcado de datos para la tabla `tipo_donacion`
 --
 
 INSERT INTO `tipo_donacion` (`idDonacion`, `nombre`, `descripcion`) VALUES
@@ -402,7 +405,7 @@ INSERT INTO `tipo_donacion` (`idDonacion`, `nombre`, `descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tipo_personalidad`
+-- Estructura de tabla para la tabla `tipo_personalidad`
 --
 
 CREATE TABLE `tipo_personalidad` (
@@ -412,7 +415,7 @@ CREATE TABLE `tipo_personalidad` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tipo_personalidad`
+-- Volcado de datos para la tabla `tipo_personalidad`
 --
 
 INSERT INTO `tipo_personalidad` (`idPersonalidad`, `personalidad`, `descripcion`) VALUES
@@ -430,7 +433,7 @@ INSERT INTO `tipo_personalidad` (`idPersonalidad`, `personalidad`, `descripcion`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tipo_raza`
+-- Estructura de tabla para la tabla `tipo_raza`
 --
 
 CREATE TABLE `tipo_raza` (
@@ -440,7 +443,7 @@ CREATE TABLE `tipo_raza` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tipo_raza`
+-- Volcado de datos para la tabla `tipo_raza`
 --
 
 INSERT INTO `tipo_raza` (`idRaza`, `raza`, `descripcion`) VALUES
@@ -455,7 +458,7 @@ INSERT INTO `tipo_raza` (`idRaza`, `raza`, `descripcion`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario`
+-- Estructura de tabla para la tabla `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -477,7 +480,7 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `usuario`
+-- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`idUsuario`, `nombre`, `apellido`, `email`, `telefono`, `callePrincipal`, `calleSecundaria`, `NumeroExterior`, `NumeroInterior`, `CodigoPostal`, `Colonia`, `Ciudad`, `Estado`, `fechaNacimiento`, `Contrasenia`) VALUES
@@ -585,7 +588,7 @@ INSERT INTO `usuario` (`idUsuario`, `nombre`, `apellido`, `email`, `telefono`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario_rol`
+-- Estructura de tabla para la tabla `usuario_rol`
 --
 
 CREATE TABLE `usuario_rol` (
@@ -595,11 +598,11 @@ CREATE TABLE `usuario_rol` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `caracteristicas`
+-- Indices de la tabla `caracteristicas`
 --
 ALTER TABLE `caracteristicas`
   ADD KEY `idPerro_perro` (`idPerro`),
@@ -608,72 +611,72 @@ ALTER TABLE `caracteristicas`
   ADD KEY `personalidad_perro` (`idPersonalidad`);
 
 --
--- Indexes for table `condiciones_medicas`
+-- Indices de la tabla `condiciones_medicas`
 --
 ALTER TABLE `condiciones_medicas`
   ADD PRIMARY KEY (`idCondicion`);
 
 --
--- Indexes for table `donacion`
+-- Indices de la tabla `donacion`
 --
 ALTER TABLE `donacion`
   ADD KEY `idDonacion_usuario` (`idDonacion`),
   ADD KEY `idUsuario_donacion` (`idUsuario`);
 
 --
--- Indexes for table `estado`
+-- Indices de la tabla `estado`
 --
 ALTER TABLE `estado`
   ADD PRIMARY KEY (`idEstado`);
 
 --
--- Indexes for table `estado_perro`
+-- Indices de la tabla `estado_perro`
 --
 ALTER TABLE `estado_perro`
   ADD KEY `idPerro` (`idPerro`),
   ADD KEY `idEstado` (`idEstado`);
 
 --
--- Indexes for table `maneja`
+-- Indices de la tabla `maneja`
 --
 ALTER TABLE `maneja`
   ADD KEY `admin_sucursal` (`idAdministrador`),
   ADD KEY `sucursal_sucursal` (`idSucursal`);
 
 --
--- Indexes for table `perros`
+-- Indices de la tabla `perros`
 --
 ALTER TABLE `perros`
   ADD PRIMARY KEY (`idPerro`),
   ADD KEY `idPerro` (`idPerro`);
 
 --
--- Indexes for table `privilegios`
+-- Indices de la tabla `privilegios`
 --
 ALTER TABLE `privilegios`
   ADD PRIMARY KEY (`idPrivilegio`);
 
 --
--- Indexes for table `privilegio_rol`
+-- Indices de la tabla `privilegio_rol`
 --
 ALTER TABLE `privilegio_rol`
   ADD KEY `idPrivilegio` (`idPrivilegio`),
   ADD KEY `idRol` (`idRol`);
 
 --
--- Indexes for table `respuestas`
+-- Indices de la tabla `respuestas`
 --
 ALTER TABLE `respuestas`
   ADD PRIMARY KEY (`idRespuestas`);
 
 --
--- Indexes for table `rol`
+-- Indices de la tabla `rol`
 --
 ALTER TABLE `rol`
   ADD PRIMARY KEY (`idRol`);
 
 --
--- Indexes for table `solicitud`
+-- Indices de la tabla `solicitud`
 --
 ALTER TABLE `solicitud`
   ADD KEY `idUsuario` (`idUsuario`),
@@ -684,119 +687,119 @@ ALTER TABLE `solicitud`
   ADD KEY `estadoPago` (`estadoPago`);
 
 --
--- Indexes for table `sucursal`
+-- Indices de la tabla `sucursal`
 --
 ALTER TABLE `sucursal`
   ADD PRIMARY KEY (`idSucursal`);
 
 --
--- Indexes for table `tipo_donacion`
+-- Indices de la tabla `tipo_donacion`
 --
 ALTER TABLE `tipo_donacion`
   ADD PRIMARY KEY (`idDonacion`);
 
 --
--- Indexes for table `tipo_personalidad`
+-- Indices de la tabla `tipo_personalidad`
 --
 ALTER TABLE `tipo_personalidad`
   ADD PRIMARY KEY (`idPersonalidad`);
 
 --
--- Indexes for table `tipo_raza`
+-- Indices de la tabla `tipo_raza`
 --
 ALTER TABLE `tipo_raza`
   ADD PRIMARY KEY (`idRaza`);
 
 --
--- Indexes for table `usuario`
+-- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`idUsuario`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- Indexes for table `usuario_rol`
+-- Indices de la tabla `usuario_rol`
 --
 ALTER TABLE `usuario_rol`
   ADD KEY `idUsuario` (`idUsuario`),
   ADD KEY `idRol` (`idRol`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `condiciones_medicas`
+-- AUTO_INCREMENT de la tabla `condiciones_medicas`
 --
 ALTER TABLE `condiciones_medicas`
   MODIFY `idCondicion` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `estado`
+-- AUTO_INCREMENT de la tabla `estado`
 --
 ALTER TABLE `estado`
   MODIFY `idEstado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `perros`
+-- AUTO_INCREMENT de la tabla `perros`
 --
 ALTER TABLE `perros`
   MODIFY `idPerro` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
--- AUTO_INCREMENT for table `privilegios`
+-- AUTO_INCREMENT de la tabla `privilegios`
 --
 ALTER TABLE `privilegios`
   MODIFY `idPrivilegio` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `respuestas`
+-- AUTO_INCREMENT de la tabla `respuestas`
 --
 ALTER TABLE `respuestas`
   MODIFY `idRespuestas` int(7) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `rol`
+-- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
   MODIFY `idRol` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `sucursal`
+-- AUTO_INCREMENT de la tabla `sucursal`
 --
 ALTER TABLE `sucursal`
   MODIFY `idSucursal` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `tipo_donacion`
+-- AUTO_INCREMENT de la tabla `tipo_donacion`
 --
 ALTER TABLE `tipo_donacion`
   MODIFY `idDonacion` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `tipo_personalidad`
+-- AUTO_INCREMENT de la tabla `tipo_personalidad`
 --
 ALTER TABLE `tipo_personalidad`
   MODIFY `idPersonalidad` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `tipo_raza`
+-- AUTO_INCREMENT de la tabla `tipo_raza`
 --
 ALTER TABLE `tipo_raza`
   MODIFY `idRaza` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `usuario`
+-- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   MODIFY `idUsuario` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `caracteristicas`
+-- Filtros para la tabla `caracteristicas`
 --
 ALTER TABLE `caracteristicas`
   ADD CONSTRAINT `condicion_perro` FOREIGN KEY (`idCondicion`) REFERENCES `condiciones_medicas` (`idCondicion`),
@@ -805,35 +808,35 @@ ALTER TABLE `caracteristicas`
   ADD CONSTRAINT `raza_perro` FOREIGN KEY (`idRaza`) REFERENCES `tipo_raza` (`idRaza`);
 
 --
--- Constraints for table `donacion`
+-- Filtros para la tabla `donacion`
 --
 ALTER TABLE `donacion`
   ADD CONSTRAINT `idDonacion_usuario` FOREIGN KEY (`idDonacion`) REFERENCES `tipo_donacion` (`idDonacion`),
   ADD CONSTRAINT `idUsuario_donacion` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
 
 --
--- Constraints for table `estado_perro`
+-- Filtros para la tabla `estado_perro`
 --
 ALTER TABLE `estado_perro`
   ADD CONSTRAINT `estado_perro_ibfk_1` FOREIGN KEY (`idEstado`) REFERENCES `estado` (`idEstado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `estado_perro_ibfk_2` FOREIGN KEY (`idPerro`) REFERENCES `perros` (`idPerro`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `maneja`
+-- Filtros para la tabla `maneja`
 --
 ALTER TABLE `maneja`
   ADD CONSTRAINT `admin_sucursal` FOREIGN KEY (`idAdministrador`) REFERENCES `usuario` (`idUsuario`),
   ADD CONSTRAINT `sucursal_sucursal` FOREIGN KEY (`idSucursal`) REFERENCES `sucursal` (`idSucursal`);
 
 --
--- Constraints for table `privilegio_rol`
+-- Filtros para la tabla `privilegio_rol`
 --
 ALTER TABLE `privilegio_rol`
   ADD CONSTRAINT `idPrivilegio` FOREIGN KEY (`idPrivilegio`) REFERENCES `privilegios` (`idPrivilegio`),
   ADD CONSTRAINT `idRol` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`);
 
 --
--- Constraints for table `solicitud`
+-- Filtros para la tabla `solicitud`
 --
 ALTER TABLE `solicitud`
   ADD CONSTRAINT `idPerros` FOREIGN KEY (`idPerros`) REFERENCES `perros` (`idPerro`),
@@ -844,7 +847,7 @@ ALTER TABLE `solicitud`
   ADD CONSTRAINT `solicitud_ibfk_3` FOREIGN KEY (`estadoPago`) REFERENCES `estado` (`idEstado`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `usuario_rol`
+-- Filtros para la tabla `usuario_rol`
 --
 ALTER TABLE `usuario_rol`
   ADD CONSTRAINT `idRol_usuario` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`),
