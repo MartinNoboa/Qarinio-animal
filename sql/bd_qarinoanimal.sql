@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-04-2020 a las 00:30:28
+-- Tiempo de generación: 24-04-2020 a las 03:06:04
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `bd_qarinoanimal`
 --
+CREATE DATABASE IF NOT EXISTS `bd_qarinoanimal` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `bd_qarinoanimal`;
 
 -- --------------------------------------------------------
 
@@ -98,7 +100,9 @@ INSERT INTO `estado` (`idEstado`, `nombre`, `perro`, `proceso`) VALUES
 (2, 'disponible', 1, 0),
 (3, 'incompleto', 0, 1),
 (4, 'en proceso', 0, 1),
-(5, 'completo', 0, 1);
+(5, 'completo', 0, 1),
+(6, 'no disponible', 1, 0),
+(7, 'en recuperacion', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -110,6 +114,64 @@ CREATE TABLE `estado_perro` (
   `idPerro` int(5) NOT NULL,
   `idEstado` int(7) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `estado_perro`
+--
+
+INSERT INTO `estado_perro` (`idPerro`, `idEstado`) VALUES
+(1, 2),
+(2, 2),
+(3, 2),
+(4, 2),
+(5, 2),
+(6, 2),
+(7, 2),
+(8, 2),
+(9, 2),
+(10, 2),
+(11, 2),
+(12, 2),
+(13, 2),
+(14, 2),
+(15, 2),
+(16, 2),
+(17, 2),
+(18, 2),
+(19, 2),
+(20, 2),
+(21, 2),
+(22, 2),
+(23, 2),
+(24, 2),
+(25, 2),
+(26, 2),
+(27, 2),
+(28, 2),
+(29, 2),
+(30, 2),
+(31, 2),
+(32, 2),
+(33, 2),
+(34, 2),
+(35, 2),
+(36, 2),
+(37, 2),
+(38, 2),
+(39, 2),
+(40, 2),
+(41, 2),
+(42, 2),
+(43, 2),
+(44, 2),
+(45, 2),
+(46, 2),
+(47, 2),
+(48, 2),
+(49, 2),
+(50, 2),
+(51, 2),
+(52, 2);
 
 -- --------------------------------------------------------
 
@@ -676,7 +738,7 @@ ALTER TABLE `condiciones_medicas`
 -- AUTO_INCREMENT de la tabla `estado`
 --
 ALTER TABLE `estado`
-  MODIFY `idEstado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idEstado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `perros`
