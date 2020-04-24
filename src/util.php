@@ -1,22 +1,11 @@
 <?php
+
+include_once("dbconfig.php");
+
 function limpia_entrada($variable) {
     return $variable = htmlspecialchars($variable);
 }
-function connectDb(){
-    $servername = 'localhost';
-    $username = "root";
-    $password = "";
-    $dbname = "bd_qarinoanimal";
 
-    $con = mysqli_connect($servername, $username, $password, $dbname);
-    
-    //Checks connection
-    if(!$con){
-        var_dump(http_response_code(500));
-        return false;
-    }
-    return $con;
-}
 function closeDb($mysqli){
     mysqli_close($mysqli);
 }
