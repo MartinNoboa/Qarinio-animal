@@ -9,7 +9,7 @@ function connectDb(){
 
     //Checks connection
     if(!$con){
-        var_dump(http_response_code(500));
+        http_response_code(500);
         return false;
     }
     return $con;
