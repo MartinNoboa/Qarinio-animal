@@ -3,5 +3,4 @@
 *.iml
 out
 gen
-ftp.xml
-serverLogin.txt
+loginsAdmin
