@@ -1,6 +1,6 @@
 <?php
     include("_header.html");
-    //include("_navbar.html");
+    include("_navbar.html");
 ?>
 
 
