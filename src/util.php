@@ -9,12 +9,12 @@ function connectDb(){
     $dbname = "bd_qarinoanimal";
 
     $con = mysqli_connect($servername, $username, $password, $dbname);
-
+    
     //Checks connection
     if(!$con){
-        die("Estamos trabajando para arreglar este problema! " . mysqli_connect_error());
+        var_dump(http_response_code(500));
+        return false;
     }
-
     return $con;
 }
 function closeDb($mysqli){
@@ -40,6 +40,9 @@ function verificaCampos($arr, $camposRequeridos){
 //Función que conecta a la bd, realiza un query y vuelve a cerrar la bd. Recibe el SQL del query y regresa un objeto mysqli result
 function sqlqry($qry){
     $con = connectDb();
+    if(!$con){
+        return false;
+    }
     $result = mysqli_query($con, $qry);
     closeDb($con);
     return $result;

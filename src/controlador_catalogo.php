@@ -8,7 +8,7 @@ $order = isset($_POST["order"])?$_POST["order"]:false;
 
 $result = filterDogs($minAge,$maxAge,check($_POST, "macho"),check($_POST, "hembra"), $sort, $order);
 
-if(mysqli_num_rows($result) > 0){
+if($result && mysqli_num_rows($result) > 0){
     while($row = mysqli_fetch_assoc($result)){
         //Des-comentar cuando se hayan agregado imagenes
         //$img = "img/dog".$row["idPerro"].".jpg";
