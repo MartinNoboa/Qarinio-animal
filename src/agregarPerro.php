@@ -49,19 +49,22 @@ include("_navbar.html");
         <div class="uk-margin">
             <h5>Condiciones Medicas</h5>
             <select class="uk-select" id = "condiciones" name = "condiciones">
-                <option></option>
+                <option>Seleccione una opcion...</option>
+                <?= recuperarOpciones(idCondicion, condicion, condiciones_medicas)?>
             </select>
         </div>
         <div class="uk-margin">
             <h5>Personalidad</h5>
             <select class="uk-select" id = "personalidad" name = "personalidad">
-                <option>Recuperar de la base de datos</option>
+                <option>Seleccione una opcion...</option>
+                <?= recuperarOpciones(idPersonalidad,personalidad, tipo_personalidad)?>
             </select>
         </div>
         <div class="uk-margin">
             <h5>Raza</h5>
             <select class="uk-select" id = "raza" name = "raza">
-                <option>Recuperar de la base de datos</option>
+                <option>Seleccione una opcion...</option>
+                <?= recuperarOpciones(idRaza,raza, tipo_raza)?>
             </select>
         </div>
         <div class="uk-margin">
