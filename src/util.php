@@ -243,7 +243,16 @@ function agregarPerro($nombre,$size,$edad,$fechaLlegada,$genero,$historia,$idCon
     ."COMMIT TRANSACTION";
 }
 
-function recuperarOpciones($tabla, $campo){
+function recuperarOpciones($id, $campo,$tabla){
+    $sql = "SELECT $id, $campo FROM $tabla";
+    $option = "";
+    $result = sqlqry($sql);
+    while($row2 = mysqli_fetch_array($result)){
+        $option = $option."<option value = $row[0]>$row2[1]</option>";
+    }
+    echo $option; 
+    
 }
+
 
 
