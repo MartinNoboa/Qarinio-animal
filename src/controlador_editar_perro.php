@@ -1,24 +1,10 @@
-<div>
-    <div class="uk-card uk-card-default">
-        <div class="uk-card-media-top uk-height-medium dog-card-image" style=<?="background-image:url('".$img."');"?>></div>
-        <div class="uk-card-body">
-            <h3 class="uk-card-title">
-              <span class="card-title"><?= $name." - ".$age ?></span>
-            </h3>
 
-            <a href="#modal-editar" class="uk-button uk-button-text uk-align-left" uk-toggle>Leer más</a>
-
-        </div>
-    </div>
-</div>
-
-<div id="modal-editar" class="uk-modal-container" uk-modal>
     <div class="uk-modal-dialog uk-modal-body">
         <div class="uk-modal-title">
-                <h1>Editar Información
+                <h1>Editar Información - <?= $_POST["idPerro"]?>
                 <a class="uk-align-right uk-text-danger" href="" uk-icon="icon: trash ;ratio: 2.5"></a>
                 </h1>
-           
+
         </div>
         <div class="uk-modal-body">
             <form class="uk-form-horizontal uk-margin-large">
@@ -74,6 +60,4 @@
                 </p>
             </form>
         </div>
-
     </div>
-</div>

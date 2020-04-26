@@ -1,7 +1,6 @@
-<nav class="uk-navbar-container" uk-navbar>
+<nav class="uk-navbar-container uk-height-max-small" uk-navbar>
     <div class="uk-navbar-left">
-       <a class="uk-navbar-item uk-logo" href="index.php"><img src="img/QA.jpg" class="uk-height-small uk-border-rounded"></a>
-
+       <a  class="uk-navbar-item uk-logo" href="index.php"><img id="navLogo" src="img/QA.jpg" class="uk-border-rounded"></a>
     </div>
     <div class="uk-navbar-right">
         <ul class="uk-navbar-nav">
@@ -10,7 +9,7 @@
                 <li><a href="quienesSomos.php">¿Quiénes somos? <i class="fas fa-people-carry uk-margin-small-left"></i></a></li>
                 <li><a href="contactanos.php">Contáctanos <i class="fas fa-comments uk-margin-small-left"></i></a></li>
                 <li><a href="#">Blog <i class="fas fa-rss uk-margin-small-left"></i></a></li>
-                <li><a href="preguntasFrecuentes.php">Pregutnas Frecuentes <i class="fas fa-question uk-margin-small-left"></i></a></li>
+                <li><a href="preguntasFrecuentes.php">Preguntas Frecuentes <i class="fas fa-question uk-margin-small-left"></i></a></li>
                 <li>
                   <a href="#!" ><i class="fas fa-user-circle uk-margin-small-right" ></i><?= isset($_SESSION["nombre"])?$_SESSION["nombre"]:"Mi Cuenta" ?></a>
                   <div class="uk-navbar-dropdown uk-width-auto uk-height-auto">
@@ -24,6 +23,3 @@
         </ul>
     </div>
 </nav>
-
-
-

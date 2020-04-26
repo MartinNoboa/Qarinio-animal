@@ -6,15 +6,16 @@ $maxAge = isset($_POST["maxAge"])?limpia_entrada($_POST["maxAge"]):144;
 $sort = isset($_POST["sort"])?limpia_entrada($_POST["sort"]):"";
 $order = isset($_POST["order"])?$_POST["order"]:false;
 
-$result = filterDogs($minAge,$maxAge,check($_GET, "macho"),check($_GET, "hembra"), $sort, $order);
+$result = filterDogs($minAge,$maxAge,check($_POST, "macho"),check($_POST, "hembra"), $sort, $order);
 
-if(mysqli_num_rows($result) > 0){
+if(http_response_code() == 200 && mysqli_num_rows($result) > 0){
     while($row = mysqli_fetch_assoc($result)){
         //Des-comentar cuando se hayan agregado imagenes
         //$img = "img/dog".$row["idPerro"].".jpg";
         $img = "img/Mario.jpg";
         $name = $row["nombre"];
         $test = $row["fechaLLegada"];
+        $id = $row["idPerro"];
 
         $m = $row["edad"];
         $a = ($m-$m%12)/12;
@@ -37,6 +38,10 @@ if(mysqli_num_rows($result) > 0){
         include("_tarjetaPerro.html");
 
     }
+} else if(http_response_code() == 200) {
+
+} else {
+    include ('_error.html');
 }
 
 ?>
