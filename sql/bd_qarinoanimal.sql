@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-04-2020 a las 23:50:55
+-- Tiempo de generación: 24-04-2020 a las 03:06:04
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -75,6 +75,101 @@ CREATE TABLE `donacion` (
   `monto` float NOT NULL,
   `razon` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado`
+--
+
+CREATE TABLE `estado` (
+  `idEstado` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `perro` tinyint(1) NOT NULL,
+  `proceso` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `estado`
+--
+
+INSERT INTO `estado` (`idEstado`, `nombre`, `perro`, `proceso`) VALUES
+(1, 'adoptado', 1, 0),
+(2, 'disponible', 1, 0),
+(3, 'incompleto', 0, 1),
+(4, 'en proceso', 0, 1),
+(5, 'completo', 0, 1),
+(6, 'no disponible', 1, 0),
+(7, 'en recuperacion', 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estado_perro`
+--
+
+CREATE TABLE `estado_perro` (
+  `idPerro` int(5) NOT NULL,
+  `idEstado` int(7) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `estado_perro`
+--
+
+INSERT INTO `estado_perro` (`idPerro`, `idEstado`) VALUES
+(1, 2),
+(2, 2),
+(3, 2),
+(4, 2),
+(5, 2),
+(6, 2),
+(7, 2),
+(8, 2),
+(9, 2),
+(10, 2),
+(11, 2),
+(12, 2),
+(13, 2),
+(14, 2),
+(15, 2),
+(16, 2),
+(17, 2),
+(18, 2),
+(19, 2),
+(20, 2),
+(21, 2),
+(22, 2),
+(23, 2),
+(24, 2),
+(25, 2),
+(26, 2),
+(27, 2),
+(28, 2),
+(29, 2),
+(30, 2),
+(31, 2),
+(32, 2),
+(33, 2),
+(34, 2),
+(35, 2),
+(36, 2),
+(37, 2),
+(38, 2),
+(39, 2),
+(40, 2),
+(41, 2),
+(42, 2),
+(43, 2),
+(44, 2),
+(45, 2),
+(46, 2),
+(47, 2),
+(48, 2),
+(49, 2),
+(50, 2),
+(51, 2),
+(52, 2);
 
 -- --------------------------------------------------------
 
@@ -158,7 +253,9 @@ INSERT INTO `perros` (`idPerro`, `nombre`, `tamanio`, `edadEstimadaLlegada`, `fe
 (47, 'Carroll', 'mediano', 68, '2019-08-07', 'macho', 'UODGWlswj'),
 (48, 'Kathrine', 'pequenio', 97, '2020-01-15', 'hembra', 'APXHIkwyk'),
 (49, 'Allie', 'mediano', 275, '2019-08-04', 'macho', 'XNCODjgzt'),
-(50, 'Federico', 'pequenio', 7, '2019-10-22', 'macho', 'NVORAjbvl');
+(50, 'Federico', 'pequenio', 7, '2019-10-22', 'macho', 'NVORAjbvl'),
+(51, 'Homero', 'pequeño', 24, '2020-04-23', 'macho', 'Perro rescatado'),
+(52, 'Homero', 'Mediano', 24, '2020-02-23', 'macho', 'Perro abandonado');
 
 -- --------------------------------------------------------
 
@@ -249,9 +346,9 @@ CREATE TABLE `solicitud` (
   `idPerros` int(7) NOT NULL,
   `idRespuestas` int(7) NOT NULL,
   `fecha` datetime NOT NULL,
-  `estadoFormulario` varchar(30) NOT NULL,
-  `estadoEntrevista` varchar(30) NOT NULL,
-  `estadoPago` varchar(30) NOT NULL,
+  `estadoFormulario` int(11) NOT NULL,
+  `estadoEntrevista` int(11) NOT NULL,
+  `estadoPago` int(11) NOT NULL,
   `fechaPago` datetime NOT NULL,
   `metodoPago` varchar(20) NOT NULL,
   `numTransaccion` int(20) NOT NULL
@@ -525,6 +622,19 @@ ALTER TABLE `donacion`
   ADD KEY `idUsuario_donacion` (`idUsuario`);
 
 --
+-- Indices de la tabla `estado`
+--
+ALTER TABLE `estado`
+  ADD PRIMARY KEY (`idEstado`);
+
+--
+-- Indices de la tabla `estado_perro`
+--
+ALTER TABLE `estado_perro`
+  ADD KEY `idPerro` (`idPerro`),
+  ADD KEY `idEstado` (`idEstado`);
+
+--
 -- Indices de la tabla `maneja`
 --
 ALTER TABLE `maneja`
@@ -569,7 +679,10 @@ ALTER TABLE `rol`
 ALTER TABLE `solicitud`
   ADD KEY `idUsuario` (`idUsuario`),
   ADD KEY `idPerros` (`idPerros`),
-  ADD KEY `idRespuestas` (`idRespuestas`);
+  ADD KEY `idRespuestas` (`idRespuestas`),
+  ADD KEY `estadoFormulario` (`estadoFormulario`),
+  ADD KEY `estadoEntrevista` (`estadoEntrevista`),
+  ADD KEY `estadoPago` (`estadoPago`);
 
 --
 -- Indices de la tabla `sucursal`
@@ -620,10 +733,16 @@ ALTER TABLE `condiciones_medicas`
   MODIFY `idCondicion` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT de la tabla `estado`
+--
+ALTER TABLE `estado`
+  MODIFY `idEstado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT de la tabla `perros`
 --
 ALTER TABLE `perros`
-  MODIFY `idPerro` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `idPerro` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT de la tabla `privilegios`
@@ -694,6 +813,13 @@ ALTER TABLE `donacion`
   ADD CONSTRAINT `idUsuario_donacion` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
 
 --
+-- Filtros para la tabla `estado_perro`
+--
+ALTER TABLE `estado_perro`
+  ADD CONSTRAINT `estado_perro_ibfk_1` FOREIGN KEY (`idEstado`) REFERENCES `estado` (`idEstado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `estado_perro_ibfk_2` FOREIGN KEY (`idPerro`) REFERENCES `perros` (`idPerro`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Filtros para la tabla `maneja`
 --
 ALTER TABLE `maneja`
@@ -713,7 +839,10 @@ ALTER TABLE `privilegio_rol`
 ALTER TABLE `solicitud`
   ADD CONSTRAINT `idPerros` FOREIGN KEY (`idPerros`) REFERENCES `perros` (`idPerro`),
   ADD CONSTRAINT `idRespuestas` FOREIGN KEY (`idRespuestas`) REFERENCES `respuestas` (`idRespuestas`),
-  ADD CONSTRAINT `idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
+  ADD CONSTRAINT `idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`),
+  ADD CONSTRAINT `solicitud_ibfk_1` FOREIGN KEY (`estadoFormulario`) REFERENCES `estado` (`idEstado`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `solicitud_ibfk_2` FOREIGN KEY (`estadoEntrevista`) REFERENCES `estado` (`idEstado`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `solicitud_ibfk_3` FOREIGN KEY (`estadoPago`) REFERENCES `estado` (`idEstado`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `usuario_rol`

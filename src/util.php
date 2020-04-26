@@ -1,24 +1,20 @@
 <?php
+
+include_once("dbconfig.php");
+
 function limpia_entrada($variable) {
     return $variable = htmlspecialchars($variable);
 }
-function connectDb(){
-    $servername = 'localhost';
-    $username = "root";
-    $password = "";
-    $dbname = "bd_qarinoanimal";
 
-    $con = mysqli_connect($servername, $username, $password, $dbname);
-
-    //Checks connection
-    if(!$con){
-        die("Estamos trabajando para arreglar este problema! " . mysqli_connect_error());
-    }
-
-    return $con;
-}
 function closeDb($mysqli){
     mysqli_close($mysqli);
+}
+function check($inp, $ind){
+    if(isset($inp[$ind])){
+        return limpia_entrada($inp[$ind]);
+    } else{
+        return false;
+    }
 }
 
 function verificaCampos($arr, $camposRequeridos){
@@ -33,6 +29,9 @@ function verificaCampos($arr, $camposRequeridos){
 //Función que conecta a la bd, realiza un query y vuelve a cerrar la bd. Recibe el SQL del query y regresa un objeto mysqli result
 function sqlqry($qry){
     $con = connectDb();
+    if(!$con){
+        return false;
+    }
     $result = mysqli_query($con, $qry);
     closeDb($con);
     return $result;
@@ -164,6 +163,10 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
                fechaLLegada,
                TIMESTAMPDIFF(MONTH, DATE_ADD(fechaLLegada, INTERVAL -edadEstimadaLLegada MONTH), CURDATE()) as edad 
         FROM perros";
+
+
+    $female = ($female=="true");
+    $male = ($male=="true");
 
     if($male XOR $female){
         if($male AND !$female){
