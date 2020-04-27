@@ -1,4 +1,4 @@
-
+<?php require_once 'util.php'; ?>
     <div class="uk-modal-dialog uk-modal-body">
         <div class="uk-modal-title">
                 <h1>Editar Información - <?= $_POST["idPerro"]?>
@@ -52,6 +52,39 @@
                     <label class="uk-form-label" for="form-horizontal-text">Historia:</label>
                     <div class="uk-form-controls">
                         <textarea id="form-horizontal-text" class="uk-textarea" data-length="500"></textarea>
+                    </div>
+                </div>
+
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-horizontal-text">Raza:</label>
+                    <div class="uk-form-controls">
+                        <select class="uk-select" id="form-horizontal-select">
+                            <option>Ejemplo1</option>
+                            <option>Ejemplo2</option>
+                            <option>Ejemplo3</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-horizontal-text">Condiciones médicas:</label>
+                    <div class="uk-form-controls">
+                        <select class="uk-select" id="form-horizontal-select">
+                            <option>Ejemplo1</option>
+                            <option>Ejemplo2</option>
+                            <option>Ejemplo3</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-horizontal-text">Personalidad:</label>
+                    <div class="uk-form-controls">
+                        <select class="uk-select" id="form-horizontal-select">
+                            <option>Ejemplo1</option>
+                            <option>Ejemplo2</option>
+                            <option>Ejemplo3</option>
+                        </select>
                     </div>
                 </div>
                 <p class="uk-text-right">
