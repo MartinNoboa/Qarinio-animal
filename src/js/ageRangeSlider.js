@@ -1,6 +1,6 @@
 if(window.matchMedia("(max-width: 700px)").matches){
-    $("#filterMenu")[0].classList.remove("uk-align-left");
-    $("#listaFiltro")[0].setAttribute("uk-nav", "multiple: false")
+    $("#main")[0].classList.add("uk-flex-column");
+    $("#listaFiltro")[0].setAttribute("uk-nav", "multiple: false");
 }
 
 let ageSlider = document.getElementById('ageSlider');

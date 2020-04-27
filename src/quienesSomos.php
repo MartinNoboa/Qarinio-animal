@@ -35,10 +35,3 @@
   
 </div>
 <?php include("_footer.html"); ?>
-<script>
- $(document).ready(function(){
-    $('.collapsible').collapsible();
-  });
-  
-</script>
-

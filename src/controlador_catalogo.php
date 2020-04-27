@@ -8,7 +8,7 @@ $order = isset($_POST["order"])?$_POST["order"]:false;
 
 $result = filterDogs($minAge,$maxAge,check($_POST, "macho"),check($_POST, "hembra"), $sort, $order);
 
-if(mysqli_num_rows($result) > 0){
+if(http_response_code() == 200 && mysqli_num_rows($result) > 0){
     while($row = mysqli_fetch_assoc($result)){
         //Des-comentar cuando se hayan agregado imagenes
         //$img = "img/dog".$row["idPerro"].".jpg";
@@ -38,6 +38,10 @@ if(mysqli_num_rows($result) > 0){
         include("_tarjetaPerro.html");
 
     }
+} else if(http_response_code() == 200) {
+
+} else {
+    include ('_error.html');
 }
 
 ?>
