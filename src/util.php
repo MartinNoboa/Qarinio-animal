@@ -235,12 +235,14 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
 function agregarPerro($nombre,$size,$edad,$fechaLlegada,$genero,$historia,$idCondicion,$idRaza,$idPersonalidad) {
     
     //En la transaction se agrega a la tabla perro el nuevo perro, luego con el id generado de ese perro se agrega a la tabla caracteristicas
-    //
+    
     $sql = "
     BEGIN TRANSACTION agregarPerro
     INSERT INTO perros (nombre, tamanio, edadEstimadaLlegada, fechaLlegada, sexo, historia)
-            VALUES". $nombre." ".$size." ".$edad." ".$fechaLlegada." ".$genero." ".$historia." ".$idCondicion." ".$idRaza." ".$idPersonalidad.";"
-    ."COMMIT TRANSACTION";
+            VALUES $nombre, $size, $edad, $fechaLlegada,$genero,$historia
+    COMMIT TRANSACTION";
+    
+   
 }
 
 function recuperarOpciones($id, $campo,$tabla){

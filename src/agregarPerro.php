@@ -6,7 +6,7 @@ include("_navbar.html");
 
 
    <div class = "uk-container">
-    <form>
+    <form action = "agregarPerro()" method = post>
         
         <fieldset class="uk-fieldset">
 
@@ -73,7 +73,13 @@ include("_navbar.html");
         </div>
         </fieldset>
     </form>
+    <div class = "uk-container">
+        <button id = "agregar" class = "uk-button uk-button-primary uk-position-relative uk-position-center uk-margin-large-top">Agregar perro</button>
+    </div>
 </div>
+
+
+
 
 
 
