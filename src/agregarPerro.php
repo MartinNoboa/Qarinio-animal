@@ -6,7 +6,7 @@ include("_navbar.html");
 
 
    <div class = "uk-container">
-    <form action = "agregarPerro()" method = post>
+    <form action = "controlador_agregar_perro.php" method = "POST">
         
         <fieldset class="uk-fieldset">
 
@@ -14,13 +14,13 @@ include("_navbar.html");
 
         <div class="uk-margin">
             <h5>Nombre</h5>
-            <input class="uk-input" type="text" placeholder="Nombre" id = "nombre">
+            <input class="uk-input" type="text" placeholder="Nombre" name = "nombre" id = "nombre">
         </div>
 
         <div class="uk-margin">
             <h5>Tamaño</h5>
-            <select class="uk-select" id = "size">
-                <option>Tamaño...</option>
+            <select class="uk-select" name = "size">
+                <option selected hidden>Tamaño...</option>
                 <option>Pequeño</option>
                 <option>Mediano</option>
                 <option>Grande</option>
@@ -28,54 +28,56 @@ include("_navbar.html");
         </div>
         <h5>Edad</h5>
         <div class="uk-width-1-4@s">
-                <input class="uk-input" type="number" placeholder="Años" id = "years">
+                <input class="uk-input" type="number" placeholder="Años" id = "years" name = "years">
         </div>
         <div class = "uk-margin-small-top">    
             <div class="uk-width-1-4@s">
-                <input class="uk-input" type="number" placeholder="Meses" id = "meses">
+                <input class="uk-input" type="number" placeholder="Meses" id = "meses" name= "mese">
             </div>
         </div>
         
         <div class = "uk-margin">
             <h5>Fecha de Llegada</h5>
-            <input class = "uk-input" type = "date" id = "fecha">
+            <input class = "uk-input" type = "date" id = "fecha" name = "fecha">
         </div>
         
             <h5>Género</h5>
         <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-radio" type="radio" name="radio2" checked> Macho</label>
-            <label><input class="uk-radio" type="radio" name="radio2"> Hembra</label>
+            <label><input class="uk-radio" type="radio" name="genero" checked value = "macho"> Macho</label>
+            <label><input class="uk-radio" type="radio" name="genero" value = "hembra"> Hembra</label>
         </div>
         <div class="uk-margin">
             <h5>Condiciones Medicas</h5>
             <select class="uk-select" id = "condiciones" name = "condiciones">
-                <option>Seleccione una opcion...</option>
-                <?= recuperarOpciones(idCondicion, condicion, condiciones_medicas)?>
+                <option selected hidden value = "">Seleccione una opcion...</option>
+                <?= recuperarOpciones(idCondicion, condicion, condiciones_medicas) ?>
             </select>
         </div>
         <div class="uk-margin">
             <h5>Personalidad</h5>
             <select class="uk-select" id = "personalidad" name = "personalidad">
-                <option>Seleccione una opcion...</option>
-                <?= recuperarOpciones(idPersonalidad,personalidad, tipo_personalidad)?>
+                <option selected hidden value = "">Seleccione una opcion...</option>
+                <?= recuperarOpciones(idPersonalidad, personalidad, tipo_personalidad) ?>
             </select>
         </div>
         <div class="uk-margin">
             <h5>Raza</h5>
             <select class="uk-select" id = "raza" name = "raza">
-                <option>Seleccione una opcion...</option>
-                <?= recuperarOpciones(idRaza,raza, tipo_raza)?>
+                <option selected hidden value = "">Seleccione una opcion...</option>
+                <?= recuperarOpciones(idRaza, raza, tipo_raza) ?>
             </select>
-        </div>
+            </div>
         <div class="uk-margin">
             <h5>Historia del perro</h5>
-            <textarea class="uk-textarea" rows="7" placeholder="Historia"></textarea>
+            <textarea class="uk-textarea" rows="7" placeholder="Historia" name = "historia"></textarea>
         </div>
+        <div class="uk-margin">
+            <button value = "submit" id = "agregar" class = "uk-button uk-button-primary uk-position-relative uk-position-center uk-margin-large-top">Agregar perro</button>
+        </div>
+        
         </fieldset>
     </form>
-    <div class = "uk-container">
-        <button id = "agregar" class = "uk-button uk-button-primary uk-position-relative uk-position-center uk-margin-large-top">Agregar perro</button>
-    </div>
+    
 </div>
 
 

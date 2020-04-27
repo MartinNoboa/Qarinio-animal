@@ -37,3 +37,10 @@ function setElEditar() {
 }
 
 setElEditar();
+
+function eliminar(){
+    alert("Hola");
+    console.log("Hola");
+}
+
+document.getElementById("eliminar").onclick = eliminar;
