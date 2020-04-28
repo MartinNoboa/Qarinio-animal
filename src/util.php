@@ -222,5 +222,24 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
 
 
 function getDogInfoById($id){
+    $sql = "
+        SELECT
+               nombre,
+               tamanio,
+               TIMESTAMPDIFF(MONTH, DATE_ADD(fechaLLegada, INTERVAL -edadEstimadaLLegada MONTH), CURDATE()) as edad,
+               sexo,
+               historia,
+               condicion,
+               med.descripcion,
+               personalidad,
+               pers.descripcion,
+               raza,
+               rz.descripcion
+        FROM perros p, caracteristicas c, condiciones_medicas med, tipo_personalidad pers, tipo_raza rz
+        WHERE p.idPerro=c.idPerro
+        AND c.idCondicion=med.idCondicion
+        AND c.idPersonalidad=pers.idPersonalidad
+        AND c.idRaza=rz.idRaza
+        AND p.idPerro=1";
 
 }
