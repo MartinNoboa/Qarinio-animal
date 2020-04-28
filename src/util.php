@@ -235,14 +235,15 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
 function agregarPerro($nombre,$size,$edad,$fechaLlegada,$genero,$historia,$idCondicion,$idRaza,$idPersonalidad) {
     
     //En la transaction se agrega a la tabla perro el nuevo perro, luego con el id generado de ese perro se agrega a la tabla caracteristicas
+    //cambiar sintaxis de mariadb a mysql :(((((
     
     $sql = "
-    BEGIN TRANSACTION agregarPerro
+    BEGIN;
     INSERT INTO perros (nombre, tamanio, edadEstimadaLlegada, fechaLlegada, sexo, historia)
-            VALUES $nombre, $size, $edad, $fechaLlegada,$genero,$historia;
+            VALUES ($nombre, $size, $edad, $fechaLlegada,$genero,$historia);
     INSERT INTO caracteristicas(idPerro, idCondicion, idPersonalidad, idRaza)
-            VALUES ((SELECT idPerro FROM perros WHERE nombre = $nombre AND fechaLlegada = $fechaLlegada ), $idCondicion, $idPersonalidad, $idRaza)
-    COMMIT TRANSACTION";
+            VALUES ((SELECT idPerro FROM perros WHERE nombre = $nombre AND fechaLlegada = $fechaLlegada ), $idCondicion, $idPersonalidad, $idRaza);
+    COMMIT;";
     
     $result = sqlqry($sql);
     if($result){
