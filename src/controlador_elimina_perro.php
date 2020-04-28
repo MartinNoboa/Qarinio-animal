@@ -2,18 +2,19 @@
 session_start();
 require_once "util.php";
 
-$perro = isset($_POST["idPerro"]);
-echo "el perro se elimino";
+$perro = isset($_POST["idperro"]);
 
-//$result = eliminar_perro($idPerro);
-/*
+
+$result = eliminar_perro($perro);
+
 if( $result ) {
-    echo "el perro se elimino";
+	$_SESSION["mensaje"]="El perro se eliminó exitosamente";
   }else{
-    echo "el perro no  se elimino";
+    $_SESSION["error"]="Hubo un error al eliminar el perro";
+    
   }
   
 
-*/
+
 
 ?>
