@@ -72,6 +72,16 @@ function insertIntoDb($dml, ...$args){
     return $id;
 }
 
+function modifyDb($dml){
+    $conDb = connectDb();
+
+    $conDb->query($dml);
+    $res=mysqli_affected_rows($conDb);
+
+    closeDb($conDb);
+    return $res;
+}
+
 function recuperarUsuarios(){
     $sql = "SELECT u.nombre,u.nombre,r.rol from usuario u, rol r, usuario_rol ur WHERE u.idUsuario=ur.idUsuario AND r.idRol=ur.idRol";
     return sqlqry($sql);
@@ -93,29 +103,34 @@ function autenticar($email, $password){
 
      //asigna los permisos del usuario a la sesión
     if (password_verify($password, $passHash)) {
-        //Recupera los permisos del usuario
-        $query = "	SELECT p.privilegio as priv, u.nombre as nom
-				FROM 	`usuario` u, `usuario_rol` ur, `rol` r, `privilegio_rol` pr, `privilegios` p
-				WHERE 	u.idUsuario = ur.idUsuario
-				AND 	ur.idRol = r.idRol
-                AND     pr.idRol = r.idRol
-				AND 	pr.idPrivilegio = p.idPrivilegio
-				AND 	email='$email'";
-        $result = sqlqry($query);
+        //Asigna los permisos del usuario
+        setPermisos($email);
 
-        while ($row = mysqli_fetch_array($result, MYSQLI_BOTH)) {
-            //asigna permisos
-            if ($row['priv'] == 'registrar') {
-                $_SESSION['registrar'] = 1;
-            }
-            if ($row['priv'] == 'ver') {
-                $_SESSION['ver'] = 1;
-            }
-            //asigna el nombre de usuario
-            $_SESSION['nombre'] = $row['nom'];
-        }
         return 1;
     } else{return 0;}
+}
+
+function setPermisos($email){
+    $sql = "
+        SELECT  u.nombre as nom, p.privilegio as priv
+        FROM usuario u, usuario_rol ur, rol r, privilegio_rol pr, privilegios p
+        WHERE u.email='$email'
+        AND u.idUsuario=ur.idUsuario
+        AND ur.idRol=r.idRol
+        AND r.idRol=pr.idRol
+        AND pr.idPrivilegio=p.idPrivilegio
+    ";
+    $result = sqlqry($sql);
+
+    while ($row = mysqli_fetch_array($result, MYSQLI_BOTH)) {
+        //asigna permisos
+        $_SESSION['privilegios'][$row["priv"]] = 1;
+        $_SESSION["nombre"] = $row["nom"];
+    }
+}
+
+function checkPriv($priv){
+    return isset($_SESSION["privilegios"]) && isset($_SESSION["privilegios"][$priv]) && $_SESSION["privilegios"][$priv]===1 ;
 }
 
 function cuentaExistente($email){
@@ -158,11 +173,14 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
 
     $sql = "
         select 
-               idPerro,
-               nombre,
-               fechaLLegada,
-               TIMESTAMPDIFF(MONTH, DATE_ADD(fechaLLegada, INTERVAL -edadEstimadaLLegada MONTH), CURDATE()) as edad 
-        FROM perros";
+            p.idPerro,
+            p.nombre,
+            fechaLLegada,
+            TIMESTAMPDIFF(MONTH, DATE_ADD(fechaLLegada, INTERVAL -edadEstimadaLLegada MONTH), CURDATE()) as edad 
+        FROM perros as p,estado_perro as e,estado 
+        WHERE p.idPerro=e.idPerro 
+        AND e.idEstado=estado.idEstado 
+        AND estado.nombre='disponible'";
 
 
     $female = ($female=="true");
@@ -170,9 +188,9 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
 
     if($male XOR $female){
         if($male AND !$female){
-            $sql.= " WHERE sexo='macho'";
+            $sql.= " AND sexo='macho'";
         } else {
-            $sql .= " WHERE sexo='hembra'";
+            $sql .= " AND sexo='hembra'";
         }
     }
 
@@ -199,33 +217,12 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
 
     
 
-     //función para eliminar una perro 
+    //función para eliminar una perro 
     //@param id_perro: id del perro que se va a eliminar
-  function eliminar_perro($id_perro) {
-    $conexion_bd = connectDb();
-      
-    //Prepara la consulta
-    $dml = 'DELETE FROM perros  WHERE idperro=(?)';
-    if ( !($statement = $conexion_bd->prepare($dml)) ) {
-        die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
-        return 0;
-    }
-      
-    //Unir los parámetros de la función con los parámetros de la consulta   
-    //El primer argumento de bind_param es el formato de cada parámetro
-    if (!$statement->bind_param("i", $id_perro)) {
-        die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
-        return 0;
-    }
-      
-    //Executar la consulta
-    if (!$statement->execute()) {
-      die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
-        return 0;
-    }
-
-    closeDb($conexion_bd);
-      return 1;
+  function eliminar_perro($id_perro) { 
+    $sql='UPDATE estado_perro SET idEstado=6 WHERE idPerro='.$id_perro;
+    $res=modifyDb($sql);
+    return $res;
   }
 
 
