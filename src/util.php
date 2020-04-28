@@ -229,4 +229,6 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
   }
 
 
+function getDogInfoById($id){
 
+}
