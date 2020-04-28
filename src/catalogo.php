@@ -79,4 +79,4 @@
 <?php include("_footer.html"); ?>
 <script src="js/nouislider.min.js"></script>
 <script src="js/ageRangeSlider.js"></script>
-<script src="js/ajax.js"></script>
+

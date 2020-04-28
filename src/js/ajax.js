@@ -1,3 +1,8 @@
+
+function mostarMensaje(mensaje,status) {
+    UIkit.notification({message: mensaje,status: status})
+}
+
 //Función que detonará la petición asíncrona como se hace ahora con la librería jquery
 function filtrar() {
     //$.post manda la petición asíncrona por el método post. También existe $.get
@@ -20,6 +25,7 @@ function editarPerro(id) {
     }).done(function (data) {
         $("#modal-editar").html(data);
         UIkit.modal($("#modal-editar")).show();
+        $("#eliminar")[0].onclick = eliminar;
     });
     console.log(id);
 }
@@ -37,3 +43,22 @@ function setElEditar() {
 }
 
 setElEditar();
+
+
+
+//Función que detonará la petición asíncrona como se hace ahora con la librería jquery
+function eliminar() {
+        //$.post manda la petición asíncrona por el método post. También existe $.get
+    $.post("controlador_elimina_perro.php", {
+        idperro: $("#eliminar").attr("idperro")      
+    }).done(function (data) {
+        UIkit.modal($("#modal-editar")).hide();
+        filtrar();
+        console.log(data);
+        mostarMensaje("mensaje","primary");
+    }); 
+    
+}
+
+
+ 
