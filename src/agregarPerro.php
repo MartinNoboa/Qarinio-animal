@@ -5,8 +5,13 @@ include("_navbar.html");
 ?>
 
 
+
+
+
+
+
    <div class = "uk-container">
-    <form action = "controlador_agregar_perro.php" method = "POST">
+    <form action = "submit.php" method = "POST">
         
         <fieldset class="uk-fieldset">
 
@@ -32,7 +37,7 @@ include("_navbar.html");
         </div>
         <div class = "uk-margin-small-top">    
             <div class="uk-width-1-4@s">
-                <input class="uk-input" type="number" placeholder="Meses" id = "meses" name= "mese">
+                <input class="uk-input" type="number" placeholder="Meses" id = "meses" name= "meses">
             </div>
         </div>
         
@@ -43,7 +48,7 @@ include("_navbar.html");
         
             <h5>Género</h5>
         <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-radio" type="radio" name="genero" checked value = "macho"> Macho</label>
+            <label><input class="uk-radio" type="radio" name="genero"  value = "macho" checked> Macho</label>
             <label><input class="uk-radio" type="radio" name="genero" value = "hembra"> Hembra</label>
         </div>
         <div class="uk-margin">
@@ -72,16 +77,12 @@ include("_navbar.html");
             <textarea class="uk-textarea" rows="7" placeholder="Historia" name = "historia"></textarea>
         </div>
         <div class="uk-margin">
-            <button value = "submit" id = "agregar" class = "uk-button uk-button-primary uk-position-relative uk-position-center uk-margin-large-top">Agregar perro</button>
+            <button type = "submit"  id = "agregar" class = "uk-button uk-button-primary uk-position-relative uk-position-center uk-margin-large-top">Agregar perro</button>
         </div>
         
         </fieldset>
     </form>
     
 </div>
-
-
-
-
 
 
