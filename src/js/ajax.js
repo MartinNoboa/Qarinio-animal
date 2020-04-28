@@ -23,9 +23,11 @@ function editarPerro(id) {
     $.post("controlador_editar_perro.php", {
         idPerro: id
     }).done(function (data) {
-        $("#modal-editar").html(data);
-        UIkit.modal($("#modal-editar")).show();
-        $("#eliminar")[0].onclick = eliminar;
+        if(data.status===200){
+            $("#modal-editar").html(data);
+            UIkit.modal($("#modal-editar")).show();
+            $("#eliminar")[0].onclick = eliminar;
+        }
     });
 }
 
