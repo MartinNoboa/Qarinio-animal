@@ -158,11 +158,14 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
 
     $sql = "
         select 
-               idPerro,
-               nombre,
-               fechaLLegada,
-               TIMESTAMPDIFF(MONTH, DATE_ADD(fechaLLegada, INTERVAL -edadEstimadaLLegada MONTH), CURDATE()) as edad 
-        FROM perros";
+            p.idPerro,
+            p.nombre,
+            fechaLLegada,
+            TIMESTAMPDIFF(MONTH, DATE_ADD(fechaLLegada, INTERVAL -edadEstimadaLLegada MONTH), CURDATE()) as edad 
+        FROM perros as p,estado_perro as e,estado 
+        WHERE p.idPerro=e.idPerro 
+        AND e.idEstado=estado.idEstado 
+        AND estado.nombre='disponible'";
 
 
     $female = ($female=="true");
@@ -170,9 +173,9 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
 
     if($male XOR $female){
         if($male AND !$female){
-            $sql.= " WHERE sexo='macho'";
+            $sql.= " AND sexo='macho'";
         } else {
-            $sql .= " WHERE sexo='hembra'";
+            $sql .= " AND sexo='hembra'";
         }
     }
 
@@ -199,14 +202,13 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
 
     
 
-     //función para eliminar una perro 
+    //función para eliminar una perro 
     //@param id_perro: id del perro que se va a eliminar
   function eliminar_perro($id_perro) { 
-     
-    //$sql = 'DELETE FROM perros  WHERE idperro='.$id_perro;
-    $sql = 'UPDATE estado_perro SET idEstado = 6 WHERE idPerro='.$id_perro;
-   
-    return sqlqry($sql);
+    $sql='UPDATE estado_perro SET idEstado=6 WHERE idPerro='.$id_perro;
+    $res=sqlqry($sql);
+    print_r($res);
+    return $res;
   }
 
 
