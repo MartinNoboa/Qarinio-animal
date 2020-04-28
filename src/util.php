@@ -103,29 +103,30 @@ function autenticar($email, $password){
 
      //asigna los permisos del usuario a la sesión
     if (password_verify($password, $passHash)) {
-        //Recupera los permisos del usuario
-        $query = "	SELECT p.privilegio as priv, u.nombre as nom
-				FROM 	`usuario` u, `usuario_rol` ur, `rol` r, `privilegio_rol` pr, `privilegios` p
-				WHERE 	u.idUsuario = ur.idUsuario
-				AND 	ur.idRol = r.idRol
-                AND     pr.idRol = r.idRol
-				AND 	pr.idPrivilegio = p.idPrivilegio
-				AND 	email='$email'";
-        $result = sqlqry($query);
+        //Asigna los permisos del usuario
+        setPermisos($email);
 
-        while ($row = mysqli_fetch_array($result, MYSQLI_BOTH)) {
-            //asigna permisos
-            if ($row['priv'] == 'registrar') {
-                $_SESSION['registrar'] = 1;
-            }
-            if ($row['priv'] == 'ver') {
-                $_SESSION['ver'] = 1;
-            }
-            //asigna el nombre de usuario
-            $_SESSION['nombre'] = $row['nom'];
-        }
         return 1;
     } else{return 0;}
+}
+
+function setPermisos($email){
+    $sql = "
+        SELECT  u.nombre as nom, p.privilegio as priv
+        FROM usuario u, usuario_rol ur, rol r, privilegio_rol pr, privilegios p
+        WHERE u.email='$email'
+        AND u.idUsuario=ur.idUsuario
+        AND ur.idRol=r.idRol
+        AND r.idRol=pr.idRol
+        AND pr.idPrivilegio=p.idPrivilegio
+    ";
+    $result = sqlqry($sql);
+
+    while ($row = mysqli_fetch_array($result, MYSQLI_BOTH)) {
+        //asigna permisos
+        $_SESSION['privilegios'][$row["priv"]] = 1;
+        $_SESSION["nombre"] = $row["nom"];
+    }
 }
 
 function cuentaExistente($email){
