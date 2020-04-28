@@ -1,14 +1,11 @@
 <?php 
-require_once "util.php";
-include("_header.html");
-include("_navbar.html");
+
+    include("_header.html");
+    include("_navbar.html");
+    include_once("util.php");
+    if(checkPriv("registrar")):
+
 ?>
-
-
-
-
-
-
 
    <div class = "uk-container">
     <form action = "submit.php" method = "POST">
@@ -84,5 +81,12 @@ include("_navbar.html");
     </form>
     
 </div>
+
+
+<?php else:
+    http_response_code(404);
+    header("location:404");
+    endif;
+?>
 
 

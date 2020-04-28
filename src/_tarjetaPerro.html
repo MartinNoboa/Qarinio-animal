@@ -7,7 +7,11 @@
             </h3>
 
             <a class="uk-button uk-button-text uk-align-left">Leer más</a>
-            <a class="boton-editar uk-button uk-button-text uk-align-left" idPerro=<?=$id ?>>Editar</a>
+            <?php
+            if(checkPriv("registrar")){
+                echo "<a class='boton-editar uk-button uk-button-text uk-align-left' idPerro=" . $id . ">Editar</a>";
+            }
+            ?>
 
         </div>
     </div>
