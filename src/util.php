@@ -72,6 +72,16 @@ function insertIntoDb($dml, ...$args){
     return $id;
 }
 
+function modifyDb($dml){
+    $conDb = connectDb();
+
+    $conDb->query($dml);
+    $res=mysqli_affected_rows($conDb);
+
+    closeDb($conDb);
+    return $res;
+}
+
 function recuperarUsuarios(){
     $sql = "SELECT u.nombre,u.nombre,r.rol from usuario u, rol r, usuario_rol ur WHERE u.idUsuario=ur.idUsuario AND r.idRol=ur.idRol";
     return sqlqry($sql);
@@ -206,8 +216,7 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
     //@param id_perro: id del perro que se va a eliminar
   function eliminar_perro($id_perro) { 
     $sql='UPDATE estado_perro SET idEstado=6 WHERE idPerro='.$id_perro;
-    $res=sqlqry($sql);
-    print_r($res);
+    $res=modifyDb($sql);
     return $res;
   }
 
