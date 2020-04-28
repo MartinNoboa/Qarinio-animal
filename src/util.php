@@ -129,6 +129,10 @@ function setPermisos($email){
     }
 }
 
+function checkPriv($priv){
+    return isset($_SESSION["privilegios"]) && isset($_SESSION["privilegios"][$priv]) && $_SESSION["privilegios"][$priv]===1 ;
+}
+
 function cuentaExistente($email){
     $q = "  SELECT u.email
             FROM usuario as u
