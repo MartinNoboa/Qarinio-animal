@@ -1,8 +1,17 @@
+<?php
+include_once("util.php");
+session_start();
+if(checkPriv("editar-perro")):
 
+?>
     <div class="uk-modal-dialog uk-modal-body">
         <div class="uk-modal-title">
                 <h1>Editar Información - <?= $_POST["idPerro"]?>
-                <a id = "eliminar" class="uk-align-right uk-text-danger" href="" uk-icon="icon: trash ;ratio: 2.5"></a>
+
+                <button id="eliminar" class="eliminar uk-align-right uk-text-danger"  uk-icon="icon: trash ;ratio: 2.5" 
+                idperro=<?= $_POST["idPerro"] ?> >
+                </button>
+
                 </h1>
 
         </div>
@@ -61,3 +70,9 @@
             </form>
         </div>
     </div>
+<?php
+else:
+    http_response_code(404);
+    header("location:404");
+endif;
+?>
