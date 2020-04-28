@@ -1,4 +1,9 @@
+<?php
+include_once("util.php");
+session_start();
+if(checkPriv("editar-perro")):
 
+?>
     <div class="uk-modal-dialog uk-modal-body">
         <div class="uk-modal-title">
                 <h1>Editar Información - <?= $_POST["idPerro"]?>
@@ -62,3 +67,9 @@
             </form>
         </div>
     </div>
+<?php
+else:
+    http_response_code(404);
+    header("location:404");
+endif;
+?>

@@ -1,13 +1,17 @@
 <?php
     include("_header.html");
-    include("_navbar.html");
+include("_navbar.html");
+include_once("util.php")
 ?>
 
 
 <div id="modal-editar" class="uk-modal-container" uk-modal></div>
 <div class="uk-container uk-margin-top">
     <h1>Nuestros Perros
-        <a href="agregarPerro.php" class="uk-icon-link uk-align-right" uk-icon="plus-circle"; ratio = "2"></a>
+        <?php if(checkPriv("registrar")){
+            echo "<a href='agregarPerro.php' class='uk-icon-link uk-align-right' uk-icon='plus-circle'; ratio ='2'></a>";
+        }
+        ?>
     </h1>
 </div>
 <div id="main" class="uk-flex">

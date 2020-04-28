@@ -1,14 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2020 at 02:07 AM
+-- Generation Time: Apr 28, 2020 at 08:48 PM
 -- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.4
-
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -22,7 +22,6 @@ SET time_zone = "+00:00";
 -- Database: `bd_qarinoanimal`
 --
 
-
 -- --------------------------------------------------------
 
 --
@@ -35,6 +34,15 @@ CREATE TABLE `caracteristicas` (
   `idPersonalidad` int(2) NOT NULL,
   `idRaza` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `caracteristicas`
+--
+
+INSERT INTO `caracteristicas` (`idPerro`, `idCondicion`, `idPersonalidad`, `idRaza`) VALUES
+(1, 1, 1, 1),
+(2, 2, 2, 2),
+(1, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -119,7 +127,7 @@ CREATE TABLE `estado_perro` (
 --
 
 INSERT INTO `estado_perro` (`idPerro`, `idEstado`) VALUES
-(1, 6),
+(1, 2),
 (2, 2),
 (3, 2),
 (4, 2),
@@ -278,7 +286,8 @@ INSERT INTO `privilegios` (`idPrivilegio`, `privilegio`, `descripcion`) VALUES
 (1, 'ver', 'Usuario puede navegar la pagina '),
 (2, 'adoptar', ''),
 (3, 'registrar', ''),
-(4, 'editar', '');
+(4, 'editar-perro', ''),
+(5, 'eliminar-perro', 'permite eliminar perros');
 
 -- --------------------------------------------------------
 
@@ -287,8 +296,8 @@ INSERT INTO `privilegios` (`idPrivilegio`, `privilegio`, `descripcion`) VALUES
 --
 
 CREATE TABLE `privilegio_rol` (
-  `idPrivilegio` int(2) NOT NULL,
   `idRol` int(2) NOT NULL,
+  `idPrivilegio` int(2) NOT NULL,
   `fechaCreacion` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -296,11 +305,17 @@ CREATE TABLE `privilegio_rol` (
 -- Dumping data for table `privilegio_rol`
 --
 
-INSERT INTO `privilegio_rol` (`idPrivilegio`, `idRol`, `fechaCreacion`) VALUES
-(1, 3, '2020-04-13 22:54:52'),
-(2, 3, '2020-04-13 22:54:52'),
-(3, 2, '2020-04-13 22:55:10'),
-(4, 1, '2020-04-13 22:55:10');
+INSERT INTO `privilegio_rol` (`idRol`, `idPrivilegio`, `fechaCreacion`) VALUES
+(1, 1, '2020-04-28 18:41:57'),
+(3, 1, '2020-04-13 22:54:52'),
+(1, 2, '2020-04-28 18:35:30'),
+(3, 2, '2020-04-13 22:54:52'),
+(1, 3, '2020-04-28 18:35:30'),
+(2, 3, '2020-04-13 22:55:10'),
+(1, 4, '2020-04-28 18:35:30'),
+(2, 4, '2020-04-28 18:47:42'),
+(1, 5, '2020-04-28 18:35:30'),
+(2, 5, '2020-04-28 18:47:42');
 
 -- --------------------------------------------------------
 
@@ -659,7 +674,7 @@ ALTER TABLE `privilegios`
 -- Indexes for table `privilegio_rol`
 --
 ALTER TABLE `privilegio_rol`
-  ADD KEY `idPrivilegio` (`idPrivilegio`),
+  ADD PRIMARY KEY (`idPrivilegio`,`idRol`),
   ADD KEY `idRol` (`idRol`);
 
 --
@@ -720,8 +735,7 @@ ALTER TABLE `usuario`
 -- Indexes for table `usuario_rol`
 --
 ALTER TABLE `usuario_rol`
-  ADD KEY `idUsuario` (`idUsuario`),
-  ADD KEY `idRol` (`idRol`);
+  ADD PRIMARY KEY (`idUsuario`,`idRol`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -749,7 +763,7 @@ ALTER TABLE `perros`
 -- AUTO_INCREMENT for table `privilegios`
 --
 ALTER TABLE `privilegios`
-  MODIFY `idPrivilegio` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idPrivilegio` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `respuestas`
@@ -832,7 +846,8 @@ ALTER TABLE `maneja`
 --
 ALTER TABLE `privilegio_rol`
   ADD CONSTRAINT `idPrivilegio` FOREIGN KEY (`idPrivilegio`) REFERENCES `privilegios` (`idPrivilegio`),
-  ADD CONSTRAINT `idRol` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`);
+  ADD CONSTRAINT `idRol` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`),
+  ADD CONSTRAINT `privilegio_rol_ibfk_1` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `solicitud`
@@ -851,7 +866,6 @@ ALTER TABLE `solicitud`
 ALTER TABLE `usuario_rol`
   ADD CONSTRAINT `idRol_usuario` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`),
   ADD CONSTRAINT `idUsuario_rol` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
-SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
