@@ -1,13 +1,17 @@
 <?php
     include("_header.html");
-    include("_navbar.html");
+include("_navbar.html");
+include_once("util.php")
 ?>
 
 
 <div id="modal-editar" class="uk-modal-container" uk-modal></div>
 <div class="uk-container uk-margin-top">
     <h1>Nuestros Perros
-        <a href="agregarPerro.php" class="uk-icon-link uk-align-right" uk-icon="plus-circle"; ratio = "2"></a>
+        <?php if(checkPriv("registrar")){
+            echo "<a href='agregarPerro.php' class='uk-icon-link uk-align-right' uk-icon='plus-circle'; ratio ='2'></a>";
+        }
+        ?>
     </h1>
 </div>
 <div id="main" class="uk-flex">
@@ -39,7 +43,7 @@
                     <li>Ordenar Por</li>
                     <li>
                         <select id="sort" name="sort" class="uk-select">
-                            <option value="" disabled>Seleccione una opción</option>
+                            <option value="idPerro" disabled selected>Seleccione una opción</option>
                             <option value="name">Nombre</option>
                             <option value="timeIn">Tiempo en el refugio</option>
                         </select>
@@ -80,4 +84,4 @@
 <?php include("_footer.html"); ?>
 <script src="js/nouislider.min.js"></script>
 <script src="js/ageRangeSlider.js"></script>
-<script src="js/ajax.js"></script>
+
