@@ -4,13 +4,14 @@
     include("_navbar.html");
 
     if(isset($_POST["email"], $_POST["pass"])){
-        $_POST["email"] = limpia_entrada($_POST["email"]);
-        $_POST["pass"] = limpia_entrada($_POST["pass"]);
-        if(autenticar($_POST["email"], $_POST["pass"])){
-            $_SESSION["error"] = null;
-            $_SESSION["message"] = "Bienvenid@ {$_SESSION['nombre']}";
-            header("location:index.php");
-        } else{
+            $_POST["email"] = limpia_entrada($_POST["email"]);
+            $_POST["pass"] = limpia_entrada($_POST["pass"]);
+            if(autenticar($_POST["email"], $_POST["pass"])){
+                $_SESSION["error"] = null;
+                $_SESSION["mensaje"] = "Bienvenid@ {$_SESSION['nombre']}";
+
+                header("location:index.php");
+            } else{
             $_SESSION["error"] = "Correo o contraseña incorrectos";
         }
     }

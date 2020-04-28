@@ -1,6 +1,8 @@
 <?php 
     include("_header.html");
     include("_navbar.html");
+    include_once("util.php");
+    if(check($_SESSION["privilegios"], "registrar")==1):
 ?>
 
 
@@ -54,5 +56,8 @@
     </form>
 </div>
 
-
+<?php else:
+    header("location:404");
+    endif;
+?>
 
