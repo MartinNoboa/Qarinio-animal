@@ -11,8 +11,8 @@
     </h1>
 </div>
 <div id="main" class="uk-flex">
-    <div id="filterMenu" class="uk-container uk-flex-left uk-width-large">
-        <ul id="listaFiltro" class="uk-nav-primary uk-nav-parent-icon uk-flex-left" uk-nav="multiple: true">
+    <div id="filterMenu" class="uk-container uk-width-medium">
+        <ul id="listaFiltro" class="uk-nav-primary uk-nav-parent-icon" uk-nav="multiple: true" uk-sticky>
             <li class="uk-parent">
                 <a href="#">Filtros</a>
                 <ul class="uk-nav-sub">
@@ -67,13 +67,14 @@
 
     <hr class="uk-divider-vertical uk-height-large uk-visible@s">
 
-    <div class="uk-container uk-flex-right">
-        <div class="uk-child-width-1-3@m" id="contenido-catalogo" uk-grid>
+    <div class="uk-container">
+        <div class="uk-child-width-1-2" id="contenido-catalogo" uk-grid>
         <?php
             include("controlador_catalogo.php");
         ?>
         </div>
     </div>
+
 </div>
 
 <?php include("_footer.html"); ?>
