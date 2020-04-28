@@ -37,3 +37,24 @@ function setElEditar() {
 }
 
 setElEditar();
+
+
+
+//Función que detonará la petición asíncrona como se hace ahora con la librería jquery
+function eliminar() {
+    alert("message");
+    //$.post manda la petición asíncrona por el método post. También existe $.get
+    /*$.post("controlador_elimina_perro.php", {
+        //idperro: $("#idPerro").val()
+             
+
+        idperro: $("#eliminar").attr("idperro")
+        
+      
+    }).done(function (data) {
+        
+    }); */
+}
+
+
+document.getElementsByClassName("eliminar").onclick = eliminar;
