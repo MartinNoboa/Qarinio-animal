@@ -39,7 +39,7 @@
                     <li>Ordenar Por</li>
                     <li>
                         <select id="sort" name="sort" class="uk-select">
-                            <option value="" disabled>Seleccione una opción</option>
+                            <option value="idPerro" disabled selected>Seleccione una opción</option>
                             <option value="name">Nombre</option>
                             <option value="timeIn">Tiempo en el refugio</option>
                         </select>

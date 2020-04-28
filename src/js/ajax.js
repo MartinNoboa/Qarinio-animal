@@ -27,7 +27,6 @@ function editarPerro(id) {
         UIkit.modal($("#modal-editar")).show();
         $("#eliminar")[0].onclick = eliminar;
     });
-    console.log(id);
 }
 
 //Asignar al botón buscar, la función buscar()
@@ -52,11 +51,14 @@ function eliminar() {
     $.post("controlador_elimina_perro.php", {
         idperro: $("#eliminar").attr("idperro")      
     }).done(function (data) {
-        UIkit.modal($("#modal-editar")).hide();
-        filtrar();
-        console.log(data);
-        mostarMensaje("mensaje","primary");
-    }); 
+        if(parseInt(data)!==0) {
+            UIkit.modal($("#modal-editar")).hide();
+            filtrar();
+            mostarMensaje("Se eliminó el perro exitosamente","primary");
+        } else {
+            mostarMensaje("Hubo un error al eliminar al perro","danger");
+        }
+    });
     
 }
 
