@@ -201,31 +201,12 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
 
      //función para eliminar una perro 
     //@param id_perro: id del perro que se va a eliminar
-  function eliminar_perro($id_perro) {
-    $conexion_bd = connectDb();
-      
-    //Prepara la consulta
-    $dml = 'DELETE FROM perros  WHERE idperro=(?)';
-    if ( !($statement = $conexion_bd->prepare($dml)) ) {
-        die("Error: (" . $conexion_bd->errno . ") " . $conexion_bd->error);
-        return 0;
-    }
-      
-    //Unir los parámetros de la función con los parámetros de la consulta   
-    //El primer argumento de bind_param es el formato de cada parámetro
-    if (!$statement->bind_param("i", $id_perro)) {
-        die("Error en vinculación: (" . $statement->errno . ") " . $statement->error);
-        return 0;
-    }
-      
-    //Executar la consulta
-    if (!$statement->execute()) {
-      die("Error en ejecución: (" . $statement->errno . ") " . $statement->error);
-        return 0;
-    }
-
-    closeDb($conexion_bd);
-      return 1;
+  function eliminar_perro($id_perro) { 
+     
+    //$sql = 'DELETE FROM perros  WHERE idperro='.$id_perro;
+    $sql = 'UPDATE estado_perro SET idEstado = 6 WHERE idPerro='.$id_perro;
+   
+    return sqlqry($sql);
   }
 
 

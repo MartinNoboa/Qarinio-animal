@@ -2,7 +2,8 @@
     <div class="uk-modal-dialog uk-modal-body">
         <div class="uk-modal-title">
                 <h1>Editar Información - <?= $_POST["idPerro"]?>
-                <a class="uk-align-right uk-text-danger" href="" uk-icon="icon: trash ;ratio: 2.5"></a>
+                <button id="eliminar" class="eliminar uk-align-right uk-text-danger" href="" uk-icon="icon: trash ;ratio: 2.5" idperro=<?= $_POST["idPerro"]?>
+                </button>
                 </h1>
 
         </div>
