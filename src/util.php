@@ -237,12 +237,12 @@ function agregarPerro($nombre,$size,$edad,$fechaLlegada,$genero,$historia,$idCon
     $sql = "
     BEGIN;
     INSERT INTO perros (nombre, tamanio, edadEstimadaLlegada, fechaLlegada, sexo, historia)
-            VALUES ($nombre, $size, $edad, $fechaLlegada,$genero,$historia);
+            VALUES (?,?,?,?,?,?);
     INSERT INTO caracteristicas(idPerro, idCondicion, idPersonalidad, idRaza)
             VALUES ((SELECT idPerro FROM perros WHERE nombre = $nombre AND fechaLlegada = $fechaLlegada ), $idCondicion, $idPersonalidad, $idRaza);
     COMMIT;";
     
-    $result = sqlqry($sql);
+    $result = insertIntoDb($sql,$nombre,$size,$edad,$fechaLlegada,$genero,$historia,$idCondicion,$idRaza,$idPersonalidad);
     if($result){
         echo '<script type="text/javascript">alert("Perro agregado correctamente");</script>';
 
@@ -260,7 +260,7 @@ function recuperarOpciones($id, $campo, $tabla){
     $option = "";
     
     while($row2 = mysqli_fetch_array($result)){
-        $option = $option."<option value = $row[0]>$row2[1]</option>";
+        $option = $option."<option value = $row2[0]>$row2[1]</option>";
     }
     
     echo $option;   
