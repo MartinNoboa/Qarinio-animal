@@ -234,6 +234,7 @@ function editarPerro($idPerro,$nombre,$size,$edad,$sexo,$historia,$idCondicion,$
     return modifyDb($sql);
 }
 
+
 /*
 *@param: valores del perro por agregar
 */
@@ -287,9 +288,6 @@ function recuperarOpcionesConSelect($id, $campo, $tabla, $selected){
     }
 
     return $option;
-
-
-
 }
 
 function getDogInfoById($id){
