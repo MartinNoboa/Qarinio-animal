@@ -7,11 +7,8 @@ if(checkPriv("editar-perro")):
     <div class="uk-modal-dialog uk-modal-body">
         <div class="uk-modal-title">
                 <h1>Editar Información - <?= $_POST["idPerro"]?>
-
-                <button id="eliminar" class="eliminar uk-align-right uk-text-danger"  uk-icon="icon: trash ;ratio: 2.5" 
-                idperro=<?= $_POST["idPerro"] ?> >
+                <button id="eliminar" class="eliminar uk-align-right uk-text-danger"  uk-icon="icon: trash ;ratio: 2.5" idperro=<?= $_POST["idPerro"]?>>
                 </button>
-
                 </h1>
 
         </div>
@@ -71,8 +68,7 @@ if(checkPriv("editar-perro")):
         </div>
     </div>
 <?php
-    http_response_code(200);
-else:                
+else:
     http_response_code(404);
     header("location:404");
 endif;
