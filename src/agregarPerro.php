@@ -5,43 +5,52 @@
     include_once("util.php");
     if(checkPriv("registrar")):
 
+     foreach($_POST as &$key){
+        $key = limpia_entrada($key);
+    }
 
+    $camposRequeridos = [
+        "nombre",
+        "size",
+        "meses",
+        "fechaLlegada",
+        "genero",
+        "historia",
+        "idCondicion",
+        "idRaza",
+        "idPersonalidad"
+    ];
 
-     $nombre = $_POST["nombre"];
-    $size = $_POST["size"];
+    if (isset($_POST["submit"])){
         
-    $years = $_POST["years"];
-    $meses = $_POST["meses"];
-
-    $edad = $years *12 + $meses;
-    $fechaLlegada = date('Y-m-d', strtotime($_POST['fecha']));
-    $genero = $_POST["genero"];
-    $condiciones = $_POST["condiciones"];
-    $personalidad = $_POST["personalidad"];
-    $raza = $_POST["raza"];
-    $historia = $_POST["historia"];
-    
-    $incompleto = false;
-    if(empty($nombre) || empty($size) || empty$(years) || empty($meses) || empty($fechaLlegada) || empty($genero) || empty($historia) || empty($idPersonalidad) || empty($idCondicion) || empty($idRaza)){
-        $incompleto = true;
-    }
-
-    
-    if ($incompleto){
-        llenarCampos();
+        $nombre = $_POST["nombre"];
+        $size = $_POST["size"];
+        $meses = $_POST["meses"];
+        $fechaLlegada = $_POST['fecha'];
+        $genero = $_POST["genero"];
+        $condiciones = $_POST["condiciones"];
+        $personalidad = $_POST["personalidad"];
+        $raza = $_POST["raza"];
+        $historia = $_POST["historia"];
+        
+         if(!verificaCampos($_POST,$camposRequeridos)){
+             $_SESSION["error"] = "Debes llenar todos los campos";
     }else{
-        agregarPerro($nombre,$size,$edad, $fechaLlegada, $genero, $historia, $idCondicion,$idRaza, $idPersonalidad);
+        agregarPerro($nombre,$size,$meses, $fechaLlegada, $genero, $historia, $idCondicion,$idRaza, $idPersonalidad);
+        }
+    
+        
     }
+   
+    
+    
+        
 
-
-    function llenarCampos(){
-        echo '<script type="text/javascript">alert("Perro agregado correctamente");</script>';
-    }
-
+    
 ?>
 
    <div class = "uk-container">
-    <form action = "submit.php" method = "POST">
+    <form action = "agregarPerro.php" method = "POST">
         
         <fieldset class="uk-fieldset">
 
@@ -56,15 +65,12 @@
             <h5>Tamaño</h5>
             <select class="uk-select" name = "size">
                 <option selected hidden>Tamaño...</option>
-                <option>Pequeño</option>
-                <option>Mediano</option>
-                <option>Grande</option>
+                <option value = "Pequenio">Pequeño</option>
+                <option value = "mediano">Mediano</option>
+                <option value = "grande">Grande</option>
             </select>
         </div>
         <h5>Edad</h5>
-        <div class="uk-width-1-4@s">
-                <input class="uk-input" type="number" placeholder="Años" id = "years" name = "years">
-        </div>
         <div class = "uk-margin-small-top">    
             <div class="uk-width-1-4@s">
                 <input class="uk-input" type="number" placeholder="Meses" id = "meses" name= "meses">
@@ -120,6 +126,7 @@
     http_response_code(404);
     header("location:404");
     endif;
+    include("_footer.html");
 ?>
 
 
