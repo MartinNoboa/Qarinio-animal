@@ -261,7 +261,7 @@ function agregarPerro($nombre,$size,$edad,$fechaLlegada,$genero,$historia,$idCon
     }
 
 
-<<<<<<< HEAD
+
 
 /*
 *@param: valores del perro por agregar
