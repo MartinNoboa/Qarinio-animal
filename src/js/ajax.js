@@ -51,20 +51,23 @@ setElEditar();
 
 //Función que detonará la petición asíncrona como se hace ahora con la librería jquery
 function eliminar() {
-        //$.post manda la petición asíncrona por el método post. También existe $.get
-    $.post("controlador_elimina_perro.php", {
-        idperro: $("#eliminar").attr("idperro")
-    }).done(function (data) {
-        if(parseInt(data)!==0) {
-            UIkit.modal($("#modal-editar")).hide();
-            filtrar();
-            mostarMensaje("Se eliminó el perro exitosamente","primary");
-        } else {
-            mostarMensaje("Hubo un error al eliminar al perro","danger");
-        }
-    });
-
+    if(confirm("¿Estas seguro de eliminar el perro?")){
+        //$.post manda la petición asíncrona por el método post. También existe $.ge
+        $.post("controlador_elimina_perro.php", {
+            idperro: $("#eliminar").attr("idperro")      
+        }).done(function (data) {
+            if(parseInt(data)!==0) {
+                UIkit.modal($("#modal-editar")).hide();
+                filtrar();
+                mostarMensaje("Se eliminó el perro exitosamente","primary");
+            } else {
+                mostarMensaje("Hubo un error al eliminar al perro","danger");
+            }
+        });
+    }
+       
 }
+
 
 function submitEdicion() {
         //$.post manda la petición asíncrona por el método post. También existe $.get
