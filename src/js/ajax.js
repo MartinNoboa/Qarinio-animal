@@ -22,8 +22,8 @@ function filtrar() {
 function editarPerro(id) {
     $.post("controlador_editar_perro.php", {
         idPerro: id
-    }).done(function (data) {
-        if(data.status===200){
+    }).done(function (data,status,header) {
+        if(header.status===200 && status == 'success'){
             $("#modal-editar").html(data);
             UIkit.modal($("#modal-editar")).show();
             $("#eliminar")[0].onclick = eliminar;
