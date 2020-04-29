@@ -155,6 +155,7 @@
               <input class="uk-input" type="password" name="verifContrasenia" placeholder="">
           </div>
       </div>
+      <progress class="uk-progress" value="<?= $_SESSION["createState"]+1 ?>" max="4"></progress>
       <?php if($_SESSION["error"]): ?>
       <h3 class="uk-alert-danger">Error: <?= $_SESSION["error"] ?> </h3>
       <?php endif; ?>

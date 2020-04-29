@@ -5,6 +5,12 @@ include_once("dbconfig.php");
 function limpia_entrada($variable) {
     return $variable = htmlspecialchars($variable);
 }
+function limpia_entradas($arr){
+    foreach($arr as &$key){
+        $key = limpia_entrada($key);
+    }
+    return $arr;
+}
 
 function closeDb($mysqli){
     mysqli_close($mysqli);
@@ -240,6 +246,8 @@ function getDogInfoById($id){
         AND c.idCondicion=med.idCondicion
         AND c.idPersonalidad=pers.idPersonalidad
         AND c.idRaza=rz.idRaza
-        AND p.idPerro=1";
+        AND p.idPerro=$id
+        GROUP BY p.idPerro";
 
+        return sqlqry($sql);
 }
