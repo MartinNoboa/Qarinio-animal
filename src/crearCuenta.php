@@ -72,6 +72,7 @@
                 $_SESSION["createState"]=null;
                 autenticar($_POST["email"], $_POST["contrasenia"]);
                 header("location:index.php");
+                exit;
             } else{
                 $_SESSION["error"] = "Hubo un error al crear la cuenta";
             }
@@ -106,7 +107,7 @@
                ############################################ -->
           <div class="uk-margin">
               <label class="uk-form-label">Teléfono:</label>
-              <input class="uk-input" type="tel" name="telefono" placeholder="123 456 7890" <?= isset($_POST["telefono"])?"value='{$_POST['telefono']}'":"" ?>>
+              <input class="uk-input" type="tel" name="telefono" placeholder="1234567890"  pattern='[0-9]{10}' <?= isset($_POST["telefono"])?"value='{$_POST['telefono']}'":"" ?>>
           </div>
           <div class="uk-margin">
               <label class="uk-form-label">Calle Principal:</label>
@@ -142,19 +143,20 @@
           </div>
           <div class="uk-margin">
               <label class="uk-form-label">Fecha de Nacimiento:</label>
-              <input class="uk-input" type="date" name="fechaNacimiento" placeholder="Fecha de Nacimiento" <?= isset($_POST["fechaNacimiento"])?"value='{$_POST['fechaNacimiento']}'":"" ?>>
+              <input class="uk-input" type="date" max="2001-01-01"  min="1950-01-01" name="fechaNacimiento" placeholder="Fecha de Nacimiento" <?= isset($_POST["fechaNacimiento"])?"value='{$_POST['fechaNacimiento']}'":"" ?>>
           </div>
       </div>
       <div <?= $_SESSION["createState"]!=2?"hidden":"" ?>>
           <div class="uk-margin">
               <label class="uk-form-label">Contraseña:</label>
-              <input class="uk-input" type="password" name="contrasenia" placeholder="">
+              <input class="uk-input" type="password" pattern=".{8,}" name="contrasenia" placeholder="">
           </div>
           <div class="uk-margin">
               <label class="uk-form-label">Verifica Tu contraseña:</label>
-              <input class="uk-input" type="password" name="verifContrasenia" placeholder="">
+              <input class="uk-input" type="password" pattern=".{8,}" name="verifContrasenia" placeholder="">
           </div>
       </div>
+      <progress class="uk-progress" value="<?= $_SESSION["createState"]+1 ?>" max="4"></progress>
       <?php if($_SESSION["error"]): ?>
       <h3 class="uk-alert-danger">Error: <?= $_SESSION["error"] ?> </h3>
       <?php endif; ?>
