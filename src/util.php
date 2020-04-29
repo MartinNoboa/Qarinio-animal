@@ -226,48 +226,4 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
   }
 
 
-/*
-*@param: valores del perro por agregar
-*/
-function agregarPerro($nombre,$size,$edad,$fechaLlegada,$genero,$historia,$idCondicion,$idRaza,$idPersonalidad) {
-    
-    //En la transaction se agrega a la tabla perro el nuevo perro, luego con el id generado de ese perro se agrega a la tabla caracteristicas
-    //cambiar sintaxis de mariadb a mysql :(((((
-    
-    $sql = "
-    BEGIN;
-    INSERT INTO perros (nombre, tamanio, edadEstimadaLlegada, fechaLlegada, sexo, historia)
-            VALUES ($nombre, $size, $edad, $fechaLlegada,$genero,$historia);
-    INSERT INTO caracteristicas(idPerro, idCondicion, idPersonalidad, idRaza)
-            VALUES ((SELECT idPerro FROM perros WHERE nombre = $nombre AND fechaLlegada = $fechaLlegada ), $idCondicion, $idPersonalidad, $idRaza);
-    COMMIT;";
-    
-    $result = sqlqry($sql);
-    if($result){
-        echo '<script type="text/javascript">alert("Perro agregado correctamente");</script>';
-
-    }else {
-        echo '<script type="text/javascript">alert("Error al agregar el perro");</script>';
-        
-    }
-    
-   
-}
-
-function recuperarOpciones($id, $campo, $tabla){
-    $sql = "SELECT $id, $campo FROM $tabla";
-    $result = sqlqry($sql);
-    $option = "";
-    
-    while($row2 = mysqli_fetch_array($result)){
-        $option = $option."<option value = $row[0]>$row2[1]</option>";
-    }
-    
-    echo $option;   
-
-    
-    
-}
-
-
 
