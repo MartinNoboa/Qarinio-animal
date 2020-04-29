@@ -1,6 +1,8 @@
 <?php 
     include("_header.html");
     include("_navbar.html");
+    include_once("util.php");
+    if(checkPriv("registrar")):
 ?>
 
 
@@ -54,5 +56,9 @@
     </form>
 </div>
 
-
+<?php else:
+    http_response_code(404);
+    header("location:404");
+    endif;
+?>
 

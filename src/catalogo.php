@@ -1,18 +1,22 @@
 <?php
     include("_header.html");
-    include("_navbar.html");
+include("_navbar.html");
+include_once("util.php")
 ?>
 
 
 <div id="modal-editar" class="uk-modal-container" uk-modal></div>
 <div class="uk-container uk-margin-top">
     <h1>Nuestros Perros
-        <a href="agregarPerro.php" class="uk-icon-link uk-align-right" uk-icon="plus-circle"; ratio = "2"></a>
+        <?php if(checkPriv("registrar")){
+            echo "<a href='agregarPerro.php' class='uk-icon-link uk-align-right' uk-icon='plus-circle'; ratio ='2'></a>";
+        }
+        ?>
     </h1>
 </div>
 <div id="main" class="uk-flex">
-    <div id="filterMenu" class="uk-container uk-flex-left uk-width-large">
-        <ul id="listaFiltro" class="uk-nav-primary uk-nav-parent-icon uk-flex-left" uk-nav="multiple: true">
+    <div id="filterMenu" class="uk-container uk-width-medium">
+        <ul id="listaFiltro" class="uk-nav-primary uk-nav-parent-icon" uk-nav="multiple: true" uk-sticky>
             <li class="uk-parent">
                 <a href="#">Filtros</a>
                 <ul class="uk-nav-sub">
@@ -58,25 +62,24 @@
                             <span>Descendente</span>
                         </label>
                     </li>
-                    <hr>
                 </ul>
-            </li>
+            </li><hr>
             <button id="filtrar" class="uk-button uk-button-primary uk-align-right">Aplicar</button>
         </ul>
     </div>
 
     <hr class="uk-divider-vertical uk-height-large uk-visible@s">
 
-    <div class="uk-container uk-flex-right">
-        <div class="uk-child-width-1-3@m" id="contenido-catalogo" uk-grid>
+    <div class="uk-container">
+        <div class="uk-child-width-1-2" id="contenido-catalogo" uk-grid>
         <?php
             include("controlador_catalogo.php");
         ?>
         </div>
     </div>
+
 </div>
 
 <?php include("_footer.html"); ?>
 <script src="js/nouislider.min.js"></script>
 <script src="js/ageRangeSlider.js"></script>
-
