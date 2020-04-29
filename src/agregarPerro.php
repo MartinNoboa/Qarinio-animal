@@ -9,6 +9,11 @@
         $key = limpia_entrada($key);
     }
 
+    if(!isset($_SESSION["error"])) {
+            $_SESSION["error"] = false;
+        }
+
+
     $camposRequeridos = [
         "nombre",
         "size",
@@ -32,6 +37,7 @@
         $personalidad = $_POST["personalidad"];
         $raza = $_POST["raza"];
         $historia = $_POST["historia"];
+        
         
          if(!verificaCampos($_POST,$camposRequeridos)){
              $_SESSION["error"] = "Debes llenar todos los campos";
