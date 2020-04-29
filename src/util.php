@@ -172,14 +172,14 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
     }
 
     $sql = "
-        select 
+        select
             p.idPerro,
             p.nombre,
             fechaLLegada,
-            TIMESTAMPDIFF(MONTH, DATE_ADD(fechaLLegada, INTERVAL -edadEstimadaLLegada MONTH), CURDATE()) as edad 
-        FROM perros as p,estado_perro as e,estado 
-        WHERE p.idPerro=e.idPerro 
-        AND e.idEstado=estado.idEstado 
+            TIMESTAMPDIFF(MONTH, DATE_ADD(fechaLLegada, INTERVAL -edadEstimadaLLegada MONTH), CURDATE()) as edad
+        FROM perros as p,estado_perro as e,estado
+        WHERE p.idPerro=e.idPerro
+        AND e.idEstado=estado.idEstado
         AND estado.nombre='disponible'";
 
 
@@ -215,18 +215,53 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
 }
 
 
-    
 
-    //función para eliminar una perro 
+
+    //función para eliminar una perro
     //@param id_perro: id del perro que se va a eliminar
-  function eliminar_perro($id_perro) { 
+  function eliminar_perro($id_perro) {
     $sql='UPDATE estado_perro SET idEstado=6 WHERE idPerro='.$id_perro;
     $res=modifyDb($sql);
     return $res;
   }
 
+function editarPerro($idPerro,$nombre,$size,$edad,$sexo,$historia,$idCondicion,$idRaza,$idPersonalidad) {
+    $sql = "UPDATE perros p, caracteristicas c
+            SET nombre='$nombre', tamanio='$size', edadEstimadaLLegada=TIMESTAMPDIFF(MONTH, DATE_ADD(CURDATE(), INTERVAL -$edad-1 MONTH), fechaLLegada),
+            sexo='$sexo', historia='$historia', idCondicion=$idCondicion, idRaza=$idRaza, idPersonalidad=$idPersonalidad
+            WHERE p.idPerro=c.idPerro AND p.idPerro=$idPerro";
+    echo $sql;
+    return modifyDb($sql);
+}
 
 
+/*
+*@param: valores del perro por agregar
+*/
+function agregarPerro($nombre,$size,$edad,$fechaLlegada,$genero,$historia,$idCondicion,$idRaza,$idPersonalidad) {
+
+    //En la transaction se agrega a la tabla perro el nuevo perro, luego con el id generado de ese perro se agrega a la tabla caracteristicas
+    //cambiar sintaxis de mariadb a mysql :(((((
+
+    $sql = "
+    BEGIN;
+    INSERT INTO perros (nombre, tamanio, edadEstimadaLlegada, fechaLlegada, sexo, historia)
+            VALUES ($nombre, $size, $edad, $fechaLlegada,$genero,$historia);
+    INSERT INTO caracteristicas(idPerro, idCondicion, idPersonalidad, idRaza)
+            VALUES ((SELECT idPerro FROM perros WHERE nombre = $nombre AND fechaLlegada = $fechaLlegada ), $idCondicion, $idPersonalidad, $idRaza);
+    COMMIT;";
+
+    $result = sqlqry($sql);
+    if($result){
+        echo '<script type="text/javascript">alert("Perro agregado correctamente");</script>';
+
+    }else {
+        echo '<script type="text/javascript">alert("Error al agregar el perro");</script>';
+
+    }
+
+
+<<<<<<< HEAD
 
 /*
 *@param: valores del perro por agregar
@@ -254,25 +289,65 @@ function agregarPerro($nombre,$size,$edad,$fechaLlegada,$sexo,$historia,$idCondi
         echo '<script type="text/javascript">alert("Error al agregar el perro");</script>';
         
     }
-        
-  
-
    
 }
+
+
 
 function recuperarOpciones($id, $campo, $tabla){
     $sql = "SELECT $id, $campo FROM $tabla";
     $result = sqlqry($sql);
     $option = "";
-    
-    while($row2 = mysqli_fetch_array($result)){
-        $option = $option."<option value = $row2[0]>$row2[1]</option>";
-    }
-    
-    echo $option;   
 
-    
-    
+    while($row = mysqli_fetch_array($result)){
+        $option = $option."<option value = $row[0]>$row[1]</option>";
+    }
+
+    echo $option;
+
+
+
 }
 
+function recuperarOpcionesConSelect($id, $campo, $tabla, $selected){
+    $sql = "SELECT $id, $campo FROM $tabla";
+    $result = sqlqry($sql);
+    $option = "";
 
+    while($row = mysqli_fetch_array($result)){
+        $option.= "<option value=". $row[0] . ($row[1]==$selected?" selected":"") . ">" . $row[1] . "</option>";
+    }
+
+    return $option;
+}
+
+function getDogInfoById($id){
+    $sql = "
+        SELECT
+               nombre,
+               tamanio,
+               TIMESTAMPDIFF(MONTH, DATE_ADD(fechaLLegada, INTERVAL -edadEstimadaLLegada MONTH), CURDATE()) as edad,
+               sexo,
+               historia,
+               condicion,
+               med.descripcion,
+               personalidad,
+               pers.descripcion,
+               raza,
+               rz.descripcion
+        FROM perros p, caracteristicas c, condiciones_medicas med, tipo_personalidad pers, tipo_raza rz
+        WHERE p.idPerro=c.idPerro
+        AND c.idCondicion=med.idCondicion
+        AND c.idPersonalidad=pers.idPersonalidad
+        AND c.idRaza=rz.idRaza
+        AND p.idPerro=$id
+        GROUP BY p.idPerro";
+
+        $res = mysqli_fetch_array(sqlqry($sql));
+        $m = $res["edad"];
+        $a = ($m-$m%12)/12;
+        $m = $m%12;
+        $res["anios"] = $a;
+        $res["meses"] = $m;
+        return $res;
+}
