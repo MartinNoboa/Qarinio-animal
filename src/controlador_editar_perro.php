@@ -2,7 +2,7 @@
 include_once("util.php");
 session_start();
 if(checkPriv("editar-perro")):
-    echo "hola";
+
 ?>
     <div class="uk-modal-dialog uk-modal-body">
         <div class="uk-modal-title">
