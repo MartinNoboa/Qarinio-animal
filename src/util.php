@@ -226,6 +226,7 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
   }
 
 
+
 /*
 *@param: valores del perro por agregar
 */
@@ -273,6 +274,5 @@ function recuperarOpciones($id, $campo, $tabla){
     
     
 }
-
 
 
