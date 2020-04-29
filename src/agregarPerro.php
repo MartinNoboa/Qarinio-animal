@@ -37,12 +37,13 @@
         $raza = $_POST["raza"];
         $historia = $_POST["historia"];
         
+        agregarPerro($nombre,$size,$meses, $fechaLlegada, $genero, $historia, $idCondicion,$idRaza, $idPersonalidad);
         
-         if(!verificaCampos($_POST,$camposRequeridos)){
+         /*if(!verificaCampos($_POST,$camposRequeridos)){
              $_SESSION["error"] = "Debes llenar todos los campos";
     }else{
         agregarPerro($nombre,$size,$meses, $fechaLlegada, $genero, $historia, $idCondicion,$idRaza, $idPersonalidad);
-        }
+        }*/
     
         
     }
@@ -96,6 +97,7 @@
             <textarea class="uk-textarea" rows="7" placeholder="Historia"></textarea>
         </div>
         </fieldset>
+        <button class = "uk-button uk-button-primary uk-position relative uk-position-center" type = "submit" id = "submit">Agregar perro</button>
     </form>
 </div>
 
@@ -103,5 +105,6 @@
     http_response_code(404);
     header("location:404");
     endif;
+    include("_footer.html");
 ?>
 

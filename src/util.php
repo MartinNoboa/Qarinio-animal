@@ -236,7 +236,7 @@ function agregarPerro($nombre,$size,$edad,$fechaLlegada,$sexo,$historia,$idCondi
     //En la transaction se agrega a la tabla perro el nuevo perro, luego con el id generado de ese perro se agrega a la tabla caracteristicas
     //cambiar sintaxis de mariadb a mysql :(((((
     
-    /*$sql = "
+    $sql = "
     BEGIN;
     INSERT INTO perros (nombre, tamanio, edadEstimadaLlegada, fechaLlegada, sexo, historia)
             VALUES (?,?,?,?,?,?);
@@ -246,7 +246,7 @@ function agregarPerro($nombre,$size,$edad,$fechaLlegada,$sexo,$historia,$idCondi
     
     
     $result = insertIntoDb($sql,$nombre,$size,$edad,$fechaLlegada,sexo,$historia,$idCondicion,$idRaza,$idPersonalidad);
-    
+    echo $sql;
     if($result != 0){
         echo '<script type="text/javascript">alert("Perro agregado correctamente");</script>';
 
@@ -254,9 +254,8 @@ function agregarPerro($nombre,$size,$edad,$fechaLlegada,$sexo,$historia,$idCondi
         echo '<script type="text/javascript">alert("Error al agregar el perro");</script>';
         
     }
-        */
+        
   
-        echo '<script type="text/javascript">alert("Perro agregado correctamente");</script>';
 
    
 }
