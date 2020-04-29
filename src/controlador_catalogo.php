@@ -1,5 +1,8 @@
 <?php
 require_once "util.php";
+if(!isset($_SESSION)){
+    session_start();
+}
 
 $minAge = isset($_POST["minAge"])?limpia_entrada($_POST["minAge"]):0;
 $maxAge = isset($_POST["maxAge"])?limpia_entrada($_POST["maxAge"]):144;
