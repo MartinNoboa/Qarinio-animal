@@ -1,17 +1,17 @@
 <?php
 include_once("util.php");
+$_POST["idPerro"] = limpia_entrada($_POST["idPerro"]);
 session_start();
 if(checkPriv("editar-perro")):
-
+    $info = getDogInfoById($_POST["idPerro"]);
+    print_r($info);
 ?>
     <div class="uk-modal-dialog uk-modal-body">
         <div class="uk-modal-title">
-                <h1>Editar Información - <?= $_POST["idPerro"]?>
-
-                <button id="eliminar" class="eliminar uk-align-right uk-text-danger"  uk-icon="icon: trash ;ratio: 2.5" 
-                idperro=<?= $_POST["idPerro"] ?> >
+                <h1>Editar Información - <?= $info["nombre"];?>
+                <button id="eliminar" class="eliminar uk-align-right uk-text-danger"  uk-icon="icon: trash ;ratio: 2.5"
+                idperro=<?= $_POST["idPerro"]; ?> >
                 </button>
-
                 </h1>
 
         </div>
@@ -20,79 +20,76 @@ if(checkPriv("editar-perro")):
                 <div class="uk-margin">
                     <label class="uk-form-label" for="form-horizontal-text">Nombre:</label>
                     <div class="uk-form-controls">
-                        <input class="uk-input" id="form-horizontal-text" type="text" placeholder="Firulais(falta conectar db)">
+                        <input class="uk-input" id="form-horizontal-text" type="text" placeholder="<?= $info["nombre"]; ?>" value="<?= $info["nombre"]; ?>">
                     </div>
                 </div>
 
                 <div class="uk-margin">
-                    <label class="uk-form-label" for="form-horizontal-select">Tamaño:</label>
+                    <label class="uk-form-label" for="tamanio">Tamaño:</label>
                     <div class="uk-form-controls">
-                        <select class="uk-select" id="form-horizontal-select">
-                            <option>Pequeño</option>
-                            <option>Mediano</option>
-                            <option>Grande</option>
+                        <select class="uk-select" id="tamanio">
+                            <option <?= $info["tamanio"]=="pequenio"?"selected":"" ?>>Pequeño</option>
+                            <option <?= $info["tamanio"]=="mediano"?"selected":"" ?>>Mediano</option>
+                            <option <?= $info["tamanio"]=="grande"?"selected":"" ?>>Grande</option>
+                        </select>
+                    </div>
+                </div>
+                <hr>
+                <div class="uk-margin">
+                    <p class="uk-text-lead">Edad Estimada</label>
+                </div>
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="anios">Años:</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="anios" type="number" placeholder="<?= $info["anios"]; ?>" value="<?= $info["anios"]; ?>"><br>
+                    </div>
+                </div>
+
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="meses">Meses:</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="meses" type="number" placeholder="<?= $info["meses"]; ?>" value="<?= $info["meses"]; ?>"><br>
+                    </div>
+                </div>
+                <hr>
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="sexo">Sexo:</label>
+                    <div class="uk-form-controls">
+                        <label><input class="uk-radio" type="radio" name="radio2" <?= $info["sexo"]=="macho"?"checked":"" ?>> Macho</label>
+                        <label><input class="uk-radio" type="radio" name="radio2" <?= $info["sexo"]=="hembra"?"checked":"" ?>> Hembra</label>
+                    </div>
+                </div>
+
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="historia">Historia:</label>
+                    <div class="uk-form-controls">
+                        <textarea id="historia" class="uk-textarea" data-length="500"><?= $info["historia"]; ?></textarea>
+                    </div>
+                </div>
+
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="raza">Raza:</label>
+                    <div class="uk-form-controls">
+                        <select class="uk-select" id="raza">
+                            <?= recuperarOpcionesConSelect("idRaza", "raza", "tipo_raza", $info["raza"]); ?>
                         </select>
                     </div>
                 </div>
 
                 <div class="uk-margin">
-                    <label class="uk-form-label" for="form-horizontal-text">Edad estimada:</label>
+                    <label class="uk-form-label" for="condiciones-medicas">Condiciones médicas:</label>
                     <div class="uk-form-controls">
-                        <input class="uk-input" id="form-horizontal-text" type="number" placeholder="10 meses(falta conectar db)">
-                    </div>
-                </div>
-
-                <div class="uk-margin">
-                    <label class="uk-form-label" for="form-horizontal-text">Fecha de llegada:</label>
-                    <div class="uk-form-controls">
-                        <input class="uk-input" id="form-horizontal-text" type="date" placeholder="dd/mm/yyyy(falta conectar db)">
-                    </div>
-                </div>
-
-                <div class="uk-margin">
-                    <label class="uk-form-label" for="form-horizontal-select">Género:</label>
-                    <div class="uk-form-controls">
-                        <label><input class="uk-radio" type="radio" name="radio2" checked> Macho</label>
-                        <label><input class="uk-radio" type="radio" name="radio2"> Hembra</label>
-                    </div>
-                </div>
-
-                <div class="uk-margin">
-                    <label class="uk-form-label" for="form-horizontal-text">Historia:</label>
-                    <div class="uk-form-controls">
-                        <textarea id="form-horizontal-text" class="uk-textarea" data-length="500"></textarea>
-                    </div>
-                </div>
-
-                <div class="uk-margin">
-                    <label class="uk-form-label" for="form-horizontal-text">Raza:</label>
-                    <div class="uk-form-controls">
-                        <select class="uk-select" id="form-horizontal-select">
-                            <option>Ejemplo1</option>
-                            <option>Ejemplo2</option>
-                            <option>Ejemplo3</option>
+                        <select class="uk-select" id="condiciones-medicas">
+                            <?= recuperarOpcionesConSelect("idCondicion", "condicion", "condiciones_medicas", $info["condicion"]); ?>
                         </select>
                     </div>
                 </div>
 
                 <div class="uk-margin">
-                    <label class="uk-form-label" for="form-horizontal-text">Condiciones médicas:</label>
+                    <label class="uk-form-label" for="personalidad">Personalidad:</label>
                     <div class="uk-form-controls">
-                        <select class="uk-select" id="form-horizontal-select">
-                            <option>Ejemplo1</option>
-                            <option>Ejemplo2</option>
-                            <option>Ejemplo3</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="uk-margin">
-                    <label class="uk-form-label" for="form-horizontal-text">Personalidad:</label>
-                    <div class="uk-form-controls">
-                        <select class="uk-select" id="form-horizontal-select">
-                            <option>Ejemplo1</option>
-                            <option>Ejemplo2</option>
-                            <option>Ejemplo3</option>
+                        <select class="uk-select" id="personalidad">
+                            <?= recuperarOpcionesConSelect("idPersonalidad", "personalidad", "tipo_personalidad", $info["personalidad"]); ?>
                         </select>
                     </div>
                 </div>
@@ -105,7 +102,7 @@ if(checkPriv("editar-perro")):
     </div>
 <?php
     http_response_code(200);
-else:                
+else:
     http_response_code(404);
     header("location:404");
 endif;
