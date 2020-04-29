@@ -1,18 +1,15 @@
-<div>
-    <div class="uk-card uk-card-default">
-        <div class="uk-card-media-top uk-height-medium dog-card-image" style= <?="background-image:url('".$img."');" ?>> </div>
-        <div class="uk-card-body">
-            <h3 class="uk-card-title">
-              <span class="card-title"><?= $name." - ".$age ?></span>
-            </h3>
-
-            <a class="uk-button uk-button-text uk-align-left">Leer más</a>
-            <?php
-            if(checkPriv("editar-perro")){
-                echo "<a class='boton-editar uk-button uk-button-text uk-align-left' idPerro=" . $id . ">Editar</a>";
-            }
-            ?>
-
+<div class="uk-card uk-width-large 	">
+    <div class="uk-card uk-card-hover uk-box-shadow-medium">
+        <div class=" uk-card-media-top uk-height-medium dog-card-image" style= <?="background-image:url('".$img."');" ?>> </div>
+        <div class="uk-card uk-card-body">
+            <h3 class="uk-card-title"><?= $name ?></h3>
+            <p><?= $age ?><p>
+                <a class="uk-button uk-button-text uk-align-left uk-text-meta">Leer más</a>
+                <?php
+                if(checkPriv("editar-perro")){
+                    echo "<a class='boton-editar uk-button uk-button-text uk-align-left uk-text-meta' idPerro=" . $id . ">Editar</a>";
+                }
+                ?>
         </div>
     </div>
 </div>
