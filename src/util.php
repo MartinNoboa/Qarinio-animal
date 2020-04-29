@@ -225,6 +225,14 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
     return $res;
   }
 
+function editarPerro($idPerro,$nombre,$size,$edad,$sexo,$historia,$idCondicion,$idRaza,$idPersonalidad) {
+    $sql = "UPDATE perros p, caracteristicas c
+            SET nombre='$nombre', tamanio='$size', edadEstimadaLLegada=TIMESTAMPDIFF(MONTH, DATE_ADD(CURDATE(), INTERVAL -$edad-1 MONTH), fechaLLegada),
+            sexo='$sexo', historia='$historia', idCondicion=$idCondicion, idRaza=$idRaza, idPersonalidad=$idPersonalidad
+            WHERE p.idPerro=c.idPerro AND p.idPerro=$idPerro";
+    echo $sql;
+    return modifyDb($sql);
+}
 
 /*
 *@param: valores del perro por agregar
@@ -275,7 +283,7 @@ function recuperarOpcionesConSelect($id, $campo, $tabla, $selected){
     $option = "";
 
     while($row = mysqli_fetch_array($result)){
-        $option.= "<option value=". $row[0] . ($row[1]==$selected?"selected":"") . ">" . $row[1] . "</option>";
+        $option.= "<option value=". $row[0] . ($row[1]==$selected?" selected":"") . ">" . $row[1] . "</option>";
     }
 
     return $option;

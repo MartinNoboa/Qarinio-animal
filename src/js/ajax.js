@@ -19,14 +19,15 @@ function filtrar() {
     });
 }
 
-function editarPerro(id) {
-    $.post("controlador_editar_perro.php", {
+function muestraEditarPerro(id) {
+    $.post("vista_editar_perro.php", {
         idPerro: id
     }).done(function (data,status,header) {
         if(header.status===200 && status == 'success'){
             $("#modal-editar").html(data);
             UIkit.modal($("#modal-editar")).show();
             $("#eliminar")[0].onclick = eliminar;
+            $("#btn-editar")[0].onclick = submitEdicion;
         }
     });
 }
@@ -38,7 +39,7 @@ function setElEditar() {
     let botonesEditar = document.getElementsByClassName("boton-editar");
     for(btn of botonesEditar) {
         btn.addEventListener("click", function(b) {
-            editarPerro(b.srcElement.getAttribute("idPerro"));
+            muestraEditarPerro(b.srcElement.getAttribute("idPerro"));
         });
     }
 }
@@ -52,7 +53,7 @@ setElEditar();
 function eliminar() {
         //$.post manda la petición asíncrona por el método post. También existe $.get
     $.post("controlador_elimina_perro.php", {
-        idperro: $("#eliminar").attr("idperro")      
+        idperro: $("#eliminar").attr("idperro")
     }).done(function (data) {
         if(parseInt(data)!==0) {
             UIkit.modal($("#modal-editar")).hide();
@@ -62,9 +63,31 @@ function eliminar() {
             mostarMensaje("Hubo un error al eliminar al perro","danger");
         }
     });
-    
+
 }
 
+function submitEdicion() {
+        //$.post manda la petición asíncrona por el método post. También existe $.get
+    $.post("controlador_editar_perro.php", {
+        idPerro: $("#eliminar").attr("idPerro"),
+        nombre: $("#nombre").val(),
+        tamanio: $("#tamanio").val(),
+        anios: $("#anios").val(),
+        meses: $("#meses").val(),
+        sexo: $('input[name="sexo"]:checked').val(),
+        historia: $("#historia").val(),
+        raza: $("#raza").val(),
+        condiciones_medicas: $("#condiciones-medicas").val(),
+        personalidad: $("#personalidad").val()
+    }).done(function (data) {
+        console.log(data);
+        if(parseInt(data)!==0) {
+            UIkit.modal($("#modal-editar")).hide();
+            filtrar();
+            mostarMensaje("Se actualizó el perro exitosamente","primary");
+        } else {
+            mostarMensaje("Hubo un error al actualizar al perro","danger");
+        }
+    });
 
- 
-
+}
