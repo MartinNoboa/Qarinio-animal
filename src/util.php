@@ -5,6 +5,12 @@ include_once("dbconfig.php");
 function limpia_entrada($variable) {
     return $variable = htmlspecialchars($variable);
 }
+function limpia_entradas($arr){
+    foreach($arr as &$key){
+        $key = limpia_entrada($key);
+    }
+    return $arr;
+}
 
 function closeDb($mysqli){
     mysqli_close($mysqli);
@@ -279,10 +285,7 @@ function recuperarOpciones($id, $campo, $tabla){
     }
 
     echo $option;
-
-
-
-}
+  }
 
 function recuperarOpcionesConSelect($id, $campo, $tabla, $selected){
     $sql = "SELECT $id, $campo FROM $tabla";
@@ -317,7 +320,7 @@ function getDogInfoById($id){
         AND c.idRaza=rz.idRaza
         AND p.idPerro=$id
         GROUP BY p.idPerro";
-
+  
         $res = mysqli_fetch_array(sqlqry($sql));
         $m = $res["edad"];
         $a = ($m-$m%12)/12;
