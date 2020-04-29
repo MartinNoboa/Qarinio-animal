@@ -63,9 +63,8 @@ include_once("util.php")
                             <span>Descendente</span>
                         </label>
                     </li>
-                    <hr>
                 </ul>
-            </li>
+            </li><hr>
             <button id="filtrar" class="uk-button uk-button-primary uk-align-right">Aplicar</button>
         </ul>
     </div>
@@ -85,4 +84,3 @@ include_once("util.php")
 <?php include("_footer.html"); ?>
 <script src="js/nouislider.min.js"></script>
 <script src="js/ageRangeSlider.js"></script>
-
