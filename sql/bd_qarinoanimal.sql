@@ -1,14 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2020 at 02:07 AM
+-- Generation Time: Apr 29, 2020 at 01:41 AM
 -- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.4
-
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -22,7 +22,6 @@ SET time_zone = "+00:00";
 -- Database: `bd_qarinoanimal`
 --
 
-
 -- --------------------------------------------------------
 
 --
@@ -35,6 +34,15 @@ CREATE TABLE `caracteristicas` (
   `idPersonalidad` int(2) NOT NULL,
   `idRaza` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `caracteristicas`
+--
+
+INSERT INTO `caracteristicas` (`idPerro`, `idCondicion`, `idPersonalidad`, `idRaza`) VALUES
+(1, 1, 1, 1),
+(2, 2, 2, 2),
+(1, 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -119,7 +127,7 @@ CREATE TABLE `estado_perro` (
 --
 
 INSERT INTO `estado_perro` (`idPerro`, `idEstado`) VALUES
-(1, 6),
+(1, 2),
 (2, 2),
 (3, 2),
 (4, 2),
@@ -278,7 +286,8 @@ INSERT INTO `privilegios` (`idPrivilegio`, `privilegio`, `descripcion`) VALUES
 (1, 'ver', 'Usuario puede navegar la pagina '),
 (2, 'adoptar', ''),
 (3, 'registrar', ''),
-(4, 'editar', '');
+(4, 'editar-perro', ''),
+(5, 'eliminar-perro', 'permite eliminar perros');
 
 -- --------------------------------------------------------
 
@@ -287,8 +296,8 @@ INSERT INTO `privilegios` (`idPrivilegio`, `privilegio`, `descripcion`) VALUES
 --
 
 CREATE TABLE `privilegio_rol` (
-  `idPrivilegio` int(2) NOT NULL,
   `idRol` int(2) NOT NULL,
+  `idPrivilegio` int(2) NOT NULL,
   `fechaCreacion` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -296,11 +305,17 @@ CREATE TABLE `privilegio_rol` (
 -- Dumping data for table `privilegio_rol`
 --
 
-INSERT INTO `privilegio_rol` (`idPrivilegio`, `idRol`, `fechaCreacion`) VALUES
-(1, 3, '2020-04-13 22:54:52'),
-(2, 3, '2020-04-13 22:54:52'),
-(3, 2, '2020-04-13 22:55:10'),
-(4, 1, '2020-04-13 22:55:10');
+INSERT INTO `privilegio_rol` (`idRol`, `idPrivilegio`, `fechaCreacion`) VALUES
+(1, 1, '2020-04-28 18:41:57'),
+(3, 1, '2020-04-13 22:54:52'),
+(1, 2, '2020-04-28 18:35:30'),
+(3, 2, '2020-04-13 22:54:52'),
+(1, 3, '2020-04-28 18:35:30'),
+(2, 3, '2020-04-13 22:55:10'),
+(1, 4, '2020-04-28 18:35:30'),
+(2, 4, '2020-04-28 18:47:42'),
+(1, 5, '2020-04-28 18:35:30'),
+(2, 5, '2020-04-28 18:47:42');
 
 -- --------------------------------------------------------
 
@@ -581,8 +596,9 @@ INSERT INTO `usuario` (`idUsuario`, `nombre`, `apellido`, `email`, `telefono`, `
 (106, 'Rogan', 'Mills', 'nulla.In@gravida.edu', '2147483647', '829-924 Aliquam Calle', '5910 Et, C/', 1398, 133, 50457, 'CentroSur', 'Queretaro', 'Querataro', '1925-02-21', '2207F383-F859-095C-48AC-E31D82970A10'),
 (107, 'Arsenio', 'Hays', 'hymenaeos.Mauris.ut@duiSuspendisseac.net', '2147483647', '5446 Congue. Avda.', '273-2272 Iaculis Carretera', 1826, 577, 15033, 'CentroSur', 'Queretaro', 'Guanajuato', '1971-10-28', '088C6144-D3FF-DD7A-0566-845C37B2C164'),
 (108, 'Wallace', 'Avery', 'dolor@incursuset.ca', '2147483647', '9698 Faucibus Av.', 'Apdo.:729-6152 Auctor. Calle', 7159, 217, 56311, 'Juriquilla', 'Queretaro', 'Querataro', '1937-08-29', '7D1AFAA1-AD8F-1F6D-2512-17564C22FD82'),
-(109, 'Patricia', 'Raymond', 'habitant.morbi@feugiattellus.ca', '1817002188', '411-1303 Auctor. Av.', 'Apartado núm.: 154, 3816 Eu Carretera', 709, 233, 30295, 'CentroSur', 'Moroleon', 'Guanajuato', '1967-02-09', '739DB81A-DACC-5B9A-DCB0-10D44BC071B0'),
-(110, 'Bert', 'Williams', 'eu@nullaIntegerurna.ca', '2147483647', '6385 Duis Avenida', 'Apartado núm.: 853, 3007 Eu Calle', 6439, 33, 61038, 'Juriquilla', 'Queretaro', 'Guanajuato', '1921-10-26', '1F12700F-9B7E-832C-E711-3D475D0944C8');
+(109, 'Patricia', 'Raymond', 'habitant.morbi@feugiattellus.ca', '1817002188', '411-1303 Auctor. Av.', 'Apartado núm.: 154, 3816 Eu Carretera', 709, 233, 30295, 'CentroSur', 'Moroleon', 'Guanajuato', '1967-02-09', '$2y$10$PPZAldTP5/kKqVYMyBdJb..Y2B4SVHiKwO41E7M/GasnPx/XgIR3C'),
+(110, 'Bert', 'Williams', 'eu@nullaIntegerurna.ca', '2147483647', '6385 Duis Avenida', 'Apartado núm.: 853, 3007 Eu Calle', 6439, 33, 61038, 'Juriquilla', 'Queretaro', 'Guanajuato', '1921-10-26', '$2y$10$PPZAldTP5/kKqVYMyBdJb..Y2B4SVHiKwO41E7M/GasnPx/XgIR3C'),
+(111, 'admin', 'admin', 'admin@admin.co', '1234567890', 'asdf', 'asdfg', 123, 42, 12345, 'asdf', 'Queretaro', 'Queretaro', '1999-10-02', '$2y$10$ifhAK.S6RMReYR.lZyqzeen6SU8GbY6p6UPI6qhzm58VviXTYHoqq');
 
 -- --------------------------------------------------------
 
@@ -595,6 +611,15 @@ CREATE TABLE `usuario_rol` (
   `idRol` int(2) NOT NULL,
   `fechaCreacion` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `usuario_rol`
+--
+
+INSERT INTO `usuario_rol` (`idUsuario`, `idRol`, `fechaCreacion`) VALUES
+(109, 2, '2020-04-28 19:12:40'),
+(110, 3, '2020-04-28 19:12:40'),
+(111, 1, '2020-04-28 19:00:53');
 
 --
 -- Indexes for dumped tables
@@ -659,7 +684,7 @@ ALTER TABLE `privilegios`
 -- Indexes for table `privilegio_rol`
 --
 ALTER TABLE `privilegio_rol`
-  ADD KEY `idPrivilegio` (`idPrivilegio`),
+  ADD PRIMARY KEY (`idPrivilegio`,`idRol`),
   ADD KEY `idRol` (`idRol`);
 
 --
@@ -720,8 +745,8 @@ ALTER TABLE `usuario`
 -- Indexes for table `usuario_rol`
 --
 ALTER TABLE `usuario_rol`
-  ADD KEY `idUsuario` (`idUsuario`),
-  ADD KEY `idRol` (`idRol`);
+  ADD PRIMARY KEY (`idUsuario`,`idRol`),
+  ADD KEY `idRol_usuario` (`idRol`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -749,7 +774,7 @@ ALTER TABLE `perros`
 -- AUTO_INCREMENT for table `privilegios`
 --
 ALTER TABLE `privilegios`
-  MODIFY `idPrivilegio` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idPrivilegio` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `respuestas`
@@ -791,7 +816,7 @@ ALTER TABLE `tipo_raza`
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+  MODIFY `idUsuario` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 
 --
 -- Constraints for dumped tables
@@ -832,7 +857,8 @@ ALTER TABLE `maneja`
 --
 ALTER TABLE `privilegio_rol`
   ADD CONSTRAINT `idPrivilegio` FOREIGN KEY (`idPrivilegio`) REFERENCES `privilegios` (`idPrivilegio`),
-  ADD CONSTRAINT `idRol` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`);
+  ADD CONSTRAINT `idRol` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`),
+  ADD CONSTRAINT `privilegio_rol_ibfk_1` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `solicitud`
@@ -849,9 +875,8 @@ ALTER TABLE `solicitud`
 -- Constraints for table `usuario_rol`
 --
 ALTER TABLE `usuario_rol`
-  ADD CONSTRAINT `idRol_usuario` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`),
-  ADD CONSTRAINT `idUsuario_rol` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`);
-SET FOREIGN_KEY_CHECKS=1;
+  ADD CONSTRAINT `idRol_usuario` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `idUsuario_rol` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
