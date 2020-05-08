@@ -17,26 +17,26 @@
     }
 ?>
 <br>
-<div class="uk-container ">
+<div class="uk-container uk-align-center uk-width-large">
   <form method="post" action="iniciarSesion.php">
     <legend class="uk-legend">Iniciar Sesion</legend>
     <div class="uk-margin">
-        <div class="uk-inline">
+        <div class="uk-inline uk-width-1-1">
             <span class="uk-form-icon" uk-icon="icon: user"></span>
             <input class="uk-input" type="text" name="email">
         </div>
     </div>
 
       <div class="uk-margin">
-          <div class="uk-inline">
-              <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
+          <div class="uk-inline uk-width-1-1">
+              <span class="uk-form-icon" uk-icon="icon: lock"></span>
               <input class="uk-input" type="password" name="pass">
           </div>
       </div>
 
       <div class="uk-margin">
-          <div class="uk-inline">
-              <input class="uk-input" type="submit" name="submit" value="login">
+          <div class="uk-inline uk-align-right">
+              <input class="uk-input" type="submit" name="submit" value="Iniciar Sesión">
           </div>
       </div>
   </form>
