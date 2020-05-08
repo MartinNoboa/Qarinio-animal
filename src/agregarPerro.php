@@ -54,7 +54,7 @@
         
         <fieldset class="uk-fieldset">
 
-        <h3>Agregar Perro</h3>
+        <h3><a href='catalogo.php' uk-tooltip = 'Click para retroceder' class='uk-icon-link uk-align-right' uk-icon='arrow-left'; ratio ='2'></a>Agregar Perro</h3>
 
         <div class="uk-margin">
             <h5>Nombre</h5>
