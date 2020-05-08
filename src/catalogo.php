@@ -9,7 +9,7 @@ include_once("util.php")
 <div class="uk-container uk-margin-top">
     <h1>Nuestros Perros
         <?php if(checkPriv("registrar")){
-            echo "<a href='agregarPerro.php' class='uk-icon-link uk-align-right' uk-icon='plus-circle'; ratio ='2'></a>";
+            echo "<a href='agregarPerro.php' uk-tooltip = 'Agregar perro' class='uk-icon-link uk-align-right' uk-icon='plus-circle'; ratio ='2'></a>";
         }
         ?>
     </h1>

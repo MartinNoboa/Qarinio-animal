@@ -38,7 +38,7 @@ if(checkPriv("editar-perro")):
                 </div>
                 <hr>
                 <div class="uk-margin">
-                    <p class="uk-text-lead">Edad Estimada</label>
+                    <p class="uk-text-lead">Edad Estimada</p>
                 </div>
                 <div class="uk-margin">
                     <label class="uk-form-label" for="anios">Años:</label>
