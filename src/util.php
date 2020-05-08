@@ -273,10 +273,7 @@ function recuperarOpciones($id, $campo, $tabla){
     }
 
     echo $option;
-
-
-
-}
+  }
 
 function recuperarOpcionesConSelect($id, $campo, $tabla, $selected){
     $sql = "SELECT $id, $campo FROM $tabla";
@@ -311,7 +308,7 @@ function getDogInfoById($id){
         AND c.idRaza=rz.idRaza
         AND p.idPerro=$id
         GROUP BY p.idPerro";
-
+  
         $res = mysqli_fetch_array(sqlqry($sql));
         $m = $res["edad"];
         $a = ($m-$m%12)/12;
