@@ -53,8 +53,11 @@
     <form action = "agregarPerro.php" method = "POST">
         
         <fieldset class="uk-fieldset">
-
-        <h3><a href='catalogo.php' uk-tooltip = 'Click para retroceder' class='uk-icon-link uk-align-right' uk-icon='arrow-left'; ratio ='2'></a>Agregar Perro</h3>
+    <div class = "uk-margin-top">
+        
+        <h3 class = "uk-inline">Agregar Perro</h3>
+        <a href='catalogo.php' uk-tooltip = 'Click para retroceder' class='uk-icon-link uk-align-left' uk-icon='arrow-left'; ratio ='2'></a>
+    </div>
 
         <div class="uk-margin">
             <h5>Nombre</h5>
