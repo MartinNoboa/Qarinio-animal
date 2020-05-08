@@ -36,7 +36,7 @@
 
       <div class="uk-margin">
           <div class="uk-inline uk-align-right">
-              <input class="uk-input" type="submit" name="submit" value="Iniciar Sesión">
+              <input class="uk-input uk-button-primary" type="submit" name="submit" value="Iniciar Sesión">
           </div>
       </div>
   </form>

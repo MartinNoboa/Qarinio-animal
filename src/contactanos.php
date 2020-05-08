@@ -1,4 +1,4 @@
-<?php 
+<?php
     include("_header.html");
     include("_navbar.html");
 ?>
@@ -23,11 +23,10 @@
               <label for="mensaje">Escribe tu mensaje aquí</label>
               <textarea name = "mensaje" id="mensaje" class="uk-textarea" data-length="256"></textarea>
           </div>
-          <div class="col s12">
-              <button class="uk-button uk-button-default" type="submit" name="action">Enviar</button>
+          <div class="uk-margin">
+              <button class="uk-button uk-button-primary" type="submit" name="action">Enviar</button>
           </div>
       </form>
 </div>
 
 <?php include("_footer.html"); ?>
-
