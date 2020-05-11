@@ -51,39 +51,48 @@ function validar(e){
            if(document.getElementById('contrasenia').value.match(numbers)){
                numero.classList.remove('uk-text-danger');
                 numero.classList.add('uk-text-success');
+               document.getElementById("terminar").disabled = false;
               }else{
                 numero.classList.remove('uk-text-success');
                 numero.classList.add('uk-text-danger');
+                  document.getElementById("terminar").disabled = true;
             }
             if(document.getElementById('contrasenia').value.match(lowerCaseLetters)){
                 minuscula.classList.remove('uk-text-danger');
                 minuscula.classList.add('uk-text-success');
+                document.getElementById("terminar").disabled = false;
               }else{
                 minuscula.classList.remove('uk-text-success');
                 minuscula.classList.add('uk-text-danger');
+                  document.getElementById("terminar").disabled = true;
             }
             if(document.getElementById('contrasenia').value.match(upperCaseLetters)){
                 mayuscula.classList.remove('uk-text-danger');
                 mayuscula.classList.add('uk-text-success');
+                document.getElementById("terminar").disabled = false;
               }else{
                 mayuscula.classList.remove('uk-text-success');
                 mayuscula.classList.add('uk-text-danger');
+                document.getElementById("terminar").disabled = true;
             }
             if(document.getElementById('contrasenia').value.length >= 8){
                 caracteres.classList.remove('uk-text-danger');
                 caracteres.classList.add('uk-text-success');
+                document.getElementById("terminar").disabled = false;
               }else{
                 caracteres.classList.remove('uk-text-success');
                 caracteres.classList.add('uk-text-danger');
+                  document.getElementById("terminar").disabled = true;
             }
            
-            if(document.getElementById('contrasenia').value ==                      document.getElementById('verifContrasenia').value){
+            if(document.getElementById('contrasenia').value ==                      document.getElementById('verifContrasenia').value ){
                     coincidir.classList.remove('uk-text-danger');
                     coincidir.classList.add('uk-text-success');   
-
+                    document.getElementById("terminar").disabled = false;
                 }else{
                     coincidir.classList.remove('uk-text-success');
                     coincidir.classList.add('uk-text-danger');
+                    document.getElementById("terminar").disabled = true;
             }
     }
     

@@ -172,7 +172,7 @@
               break;
           case 2:
               echo "<input class='uk-input' type='submit' name='submit' value='Regresar'>";
-              echo "<input class='uk-input' type='submit' name='submit' value='Terminar'>";
+              echo "<input class='uk-input' type='submit' name='submit' id='terminar' value='Terminar' disabled = 'true'>";
               break;
           default:
               break;
