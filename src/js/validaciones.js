@@ -94,6 +94,7 @@ function validar(e){
                     coincidir.classList.add('uk-text-danger');
                     document.getElementById("terminar").disabled = true;
             }
+           
     }
     
     
