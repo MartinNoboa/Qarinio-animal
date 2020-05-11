@@ -83,20 +83,20 @@
 ?>
 
 <div class = "uk-container">
-  <form method="post" action="crearCuenta.php">
+  <form method="post" action="crearCuenta.php" name='sign-up' id="sign-up">
     <legend class="uk-legend">Crear Cuenta</legend>
       <div <?= $_SESSION["createState"]==2?"hidden":"" ?>>
           <div class="uk-margin">
-              <label class="uk-form-label">Nombre: </label>
+              <label class="uk-form-label">Nombre*: </label>
               <input class="uk-input" type="text" name="nombre" placeholder="Nombre" <?= isset($_POST["nombre"])?"value='{$_POST['nombre']}'":"" ?>>
           </div>
           <div class="uk-margin">
-              <label class="uk-form-label">Apellido(s):</label>
+              <label class="uk-form-label">Apellido(s)*:</label>
               <input class="uk-input" type="text" name="apellido" placeholder="Apellido(s)"  <?= isset($_POST["apellido"])?"value='{$_POST['apellido']}'":"" ?>>
           </div>
           <div class="uk-margin">
               <label class="uk-form-label">Email:</label>
-              <input class="uk-input" type="email" name="email" placeholder="Correo"  <?= isset($_POST["email"])?"value='{$_POST['email']}'":"" ?>  <?= ($_SESSION["createState"]!=0)?"readonly":"" ?>>
+              <input class="uk-input" type="email" id="email" name="email" placeholder="Correo"  <?= isset($_POST["email"])?"value='{$_POST['email']}'":"" ?>  <?= ($_SESSION["createState"]!=0)?"readonly":"" ?>>
           </div>
       </div>
 
@@ -107,7 +107,7 @@
                ############################################ -->
           <div class="uk-margin">
               <label class="uk-form-label">Teléfono:</label>
-              <input class="uk-input" type="tel" name="telefono" placeholder="1234567890"  pattern='[0-9]{10}' <?= isset($_POST["telefono"])?"value='{$_POST['telefono']}'":"" ?>>
+              <input class="uk-input" type="tel" name="telefono" id='telefono' placeholder="1234567890"  pattern='[0-9]{10}' <?= isset($_POST["telefono"])?"value='{$_POST['telefono']}'":"" ?>>
           </div>
           <div class="uk-margin">
               <label class="uk-form-label">Calle Principal:</label>
