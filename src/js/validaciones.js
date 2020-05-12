@@ -1,4 +1,4 @@
-var form = document.querySelector('#sign-up');
+let form = document.querySelector('#sign-up');
 let email=form.elements.namedItem("email");
 let telefono=form.elements.namedItem("telefono");
 let contrasenia=form.elements.namedItem("contrasenia");
@@ -33,17 +33,17 @@ function validar(e){
         }
     }
     // Validate lowercase letters
-    var lowerCaseLetters = /[a-z]/g;
+    let lowerCaseLetters = /[a-z]/g;
     // Validate capital letters
-    var upperCaseLetters = /[A-Z]/g;
+    let upperCaseLetters = /[A-Z]/g;
     // Validate numbers
-    var numbers = /[0-9]/g;
+    let numbers = /[0-9]/g;
     
-    var minuscula = document.getElementById("minuscula");
-    var mayuscula = document.getElementById("mayuscula");
-    var numero = document.getElementById("numero");
-    var caracteres = document.getElementById("caracteres");
-    var coincidir = document.getElementById("coincidir");
+    let minuscula = document.getElementById("minuscula");
+    let mayuscula = document.getElementById("mayuscula");
+    let numero = document.getElementById("numero");
+    let caracteres = document.getElementById("caracteres");
+    let coincidir = document.getElementById("coincidir");
   
     
        if(target.name == 'contrasenia' || target.name == 'verifContrasenia'){
@@ -85,7 +85,7 @@ function validar(e){
                   document.getElementById("terminar").disabled = true;
             }
            
-            if(document.getElementById('contrasenia').value ==                      document.getElementById('verifContrasenia').value ){
+            if(document.getElementById('contrasenia').value == document.getElementById('verifContrasenia').value ){
                     coincidir.classList.remove('uk-text-danger');
                     coincidir.classList.add('uk-text-success');   
                     document.getElementById("terminar").disabled = false;
@@ -104,6 +104,6 @@ function validar(e){
 }
 
 function validarEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
 }
