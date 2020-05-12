@@ -199,15 +199,16 @@
       }
       ?>
 
-  
-  
-
- 
-  
-  
 
 
 
+
+
+
+
+
+
+<script src="js/validaciones.js"></script>
 <?php
   include("_footer.html");
 ?>
