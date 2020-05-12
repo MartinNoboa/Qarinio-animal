@@ -7,40 +7,9 @@
 
      foreach($_POST as &$key){
         $key = limpia_entrada($key);
-    }
-
-    $camposRequeridos = [
-        "nombre",
-        "size",
-        "meses",
-        "fechaLlegada",
-        "genero",
-        "historia",
-        "idCondicion",
-        "idRaza",
-        "idPersonalidad"
-    ];
-
-    if (isset($_POST["submit"])){
-        
-        $nombre = $_POST["nombre"];
-        $size = $_POST["size"];
-        $meses = $_POST["meses"];
-        $fechaLlegada = $_POST['fecha'];
-        $genero = $_POST["genero"];
-        $condiciones = $_POST["condiciones"];
-        $personalidad = $_POST["personalidad"];
-        $raza = $_POST["raza"];
-        $historia = $_POST["historia"];
-        
-         if(!verificaCampos($_POST,$camposRequeridos)){
-             $_SESSION["error"] = "Debes llenar todos los campos";
-    }else{
-        agregarPerro($nombre,$size,$meses, $fechaLlegada, $genero, $historia, $idCondicion,$idRaza, $idPersonalidad);
-        }
-    
         
     }
+
    
     
     
@@ -50,7 +19,7 @@
 ?>
 
    <div class = "uk-container">
-    <form action = "agregarPerro.php" method = "POST">
+    <form action = "controlador_agregrar_perro.php" method = "POST">
         
         <fieldset class="uk-fieldset">
     <div class = "uk-margin-top">
