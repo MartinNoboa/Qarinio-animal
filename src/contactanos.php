@@ -6,7 +6,7 @@
 <div class="uk-container">
     <h1 class="uk-text-center">¿Tienes una duda? ¡Contáctanos!</h1>
     <hr>
-      <form action="controlador_contacto.php" method="post">
+      <form action="controlador_contactanos.php" method="post">
           <div class="uk-margin">
               <label for="first_name">Nombre</label>
               <input id="first_name" type="text" class="uk-input" placeholder="José">
@@ -29,4 +29,6 @@
       </form>
 </div>
 
-<?php include("_footer.html"); ?>
+<?php
+    include("_footer.html");
+?>

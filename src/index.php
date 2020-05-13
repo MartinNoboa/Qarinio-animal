@@ -8,8 +8,4 @@
     <h1 class="uk-text-center uk-margin-auto uk-margin-auto-vertical">Qariño Animal</h1>
 </div>
 
-
-<script>
-UIkit.parallax(element, options);
-</script>
 <?php include("_footer.html");?>
