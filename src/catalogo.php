@@ -6,17 +6,18 @@ include_once("util.php")
 
 
 <div id="modal-editar" class="uk-modal-container" uk-modal></div>
-<div class="uk-container uk-margin-top">
+<div class="uk-container uk-margin">
     <h1>Nuestros Perros
+    <hr>
         <?php if(checkPriv("registrar")){
-            echo "<a href='agregarPerro.php' class='uk-icon-link uk-align-right' uk-icon='plus-circle'; ratio ='2'></a>";
+            echo "<a href='agregarPerro.php' uk-tooltip = 'Agregar perro' class='uk-icon-link uk-align-right' uk-icon='plus-circle'; ratio ='2'></a>";
         }
         ?>
     </h1>
 </div>
 <div id="main" class="uk-flex">
     <div id="filterMenu" class="uk-container uk-width-medium">
-        <ul id="listaFiltro" class="uk-nav-primary uk-nav-parent-icon" uk-nav="multiple: true" uk-sticky>
+        <ul id="listaFiltro" class="uk-nav-primary uk-nav-parent-icon" uk-nav="multiple: true" uk-sticky="offset:110">
             <li class="uk-parent">
                 <a href="#">Filtros</a>
                 <ul class="uk-nav-sub">
