@@ -82,5 +82,10 @@ include_once("util.php")
 </div>
 
 <?php include("_footer.html"); ?>
+<script>
+    //Asignar al botón buscar, la función buscar()
+    document.getElementById("filtrar").onclick = filtrar;
+    setElEditar();
+</script>
 <script src="js/nouislider.min.js"></script>
 <script src="js/ageRangeSlider.js"></script>

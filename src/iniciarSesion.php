@@ -35,12 +35,18 @@
       </div>
 
       <div class="uk-margin">
-          <div class="uk-inline uk-align-right">
-              <input class="uk-input uk-button-primary" type="submit" name="submit" value="Iniciar Sesión">
+          <div class="uk-align-center uk-width-medium">
+              <input class="uk-input uk-button-primary uk-border-pill " type="submit" name="submit" value="Iniciar Sesión">
           </div>
+          <div class="uk-align-center uk-width-medium">
+              <input class="uk-input uk-button-muted uk-border-pill " type="submit" name="submit" value="Olvidé mi contraseña">
+          </div>
+
       </div>
   </form>
+
 </div>
+
 
 <?php
   include("_footer.html");
