@@ -32,9 +32,6 @@ function muestraEditarPerro(id) {
     });
 }
 
-//Asignar al botón buscar, la función buscar()
-document.getElementById("filtrar").onclick = filtrar;
-
 function setElEditar() {
     let botonesEditar = document.getElementsByClassName("boton-editar");
     for(btn of botonesEditar) {
@@ -44,7 +41,7 @@ function setElEditar() {
     }
 }
 
-setElEditar();
+
 
 
 
