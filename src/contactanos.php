@@ -9,22 +9,22 @@
       <form action="controlador_contacto.php" method="post">
           <div class="uk-margin">
               <label for="first_name">Nombre</label>
-              <input id="first_name" type="text" class="uk-input" placeholder="José">
+              <input id="first_name" type="text" class="uk-input uk-border-rounded" placeholder="José">
           </div>
           <div class="uk-margin">
               <label for="last_name">Apellido</label>
-              <input id="last_name" type="text" class="uk-input" placeholder="Pérez">
+              <input id="last_name" type="text" class="uk-input uk-border-rounded" placeholder="Pérez">
           </div>
             <div class="uk-margin">
               <label for="email">Correo Electrónico</label>
-              <input name = "email" id="email" type="email" class="uk-input" placeholder="jperez@ejemplo.com">
+              <input name = "email" id="email" type="email" class="uk-input uk-border-rounded" placeholder="jperez@ejemplo.com">
           </div>
           <div class="uk-margin">
               <label for="mensaje">Escribe tu mensaje aquí</label>
-              <textarea name = "mensaje" id="mensaje" class="uk-textarea" data-length="256"></textarea>
+              <textarea name = "mensaje" id="mensaje" class="uk-textarea uk-border-rounded" data-length="256"></textarea>
           </div>
           <div class="uk-margin">
-              <button class="uk-button uk-button-primary" type="submit" name="action">Enviar</button>
+              <button class="uk-button uk-button-primary uk-border-rounded" type="submit" name="action">Enviar</button>
           </div>
       </form>
 </div>
