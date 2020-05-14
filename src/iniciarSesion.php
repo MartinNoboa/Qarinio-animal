@@ -34,11 +34,9 @@
           </div>
       </div>
 
-      <div class="uk-margin">
-          <div class="uk-align-center uk-width-medium uk-text-center">
-              <input class="uk-input uk-button-primary uk-border-pill " type="submit" name="submit" value="Iniciar Sesión">
-              <a class="uk-button uk-button-text uk-text-meta uk-margin">Olvidé Mi contraseña</a>
-          </div>
+      <div class="uk-margin uk-align-center uk-width-medium uk-text-center">
+          <input class="uk-input uk-button-primary uk-border-pill" type="submit" name="submit" value="Iniciar Sesión">
+          <a class="uk-button uk-button-text uk-text-meta uk-margin">Olvidé Mi contraseña</a>
       </div>
   </form>
 
