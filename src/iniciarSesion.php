@@ -19,7 +19,7 @@
 <br>
 <div class="uk-container uk-align-center uk-width-large">
   <form method="post" action="iniciarSesion.php">
-    <legend class="uk-legend uk-text-center">Iniciar Sesion</legend>
+    <legend class="uk-legend uk-text-center">Iniciar Sesión</legend>
     <div class="uk-margin">
         <div class="uk-inline uk-width-1-1">
             <span class="uk-form-icon" uk-icon="icon: user"></span>
