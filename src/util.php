@@ -248,10 +248,10 @@ function editarPerro($idPerro,$nombre,$size,$edad,$sexo,$historia,$idCondicion,$
 *@param: valores del perro por agregar
 */
 function agregarPerro($nombre,$size,$edad,$fechaLlegada,$sexo,$historia,$idCondicion,$idRaza,$idPersonalidad) {
-    
+
     //En la transaction se agrega a la tabla perro el nuevo perro, luego con el id generado de ese perro se agrega a la tabla caracteristicas
     //cambiar sintaxis de mariadb a mysql :(((((
-    
+
     $sql = "
     BEGIN;
     INSERT INTO perros (nombre, tamanio, edadEstimadaLlegada, fechaLlegada, sexo, historia)
@@ -259,8 +259,8 @@ function agregarPerro($nombre,$size,$edad,$fechaLlegada,$sexo,$historia,$idCondi
     INSERT INTO caracteristicas(idPerro, idCondicion, idPersonalidad, idRaza)
             VALUES ((SELECT idPerro FROM perros WHERE nombre = $nombre AND fechaLlegada = $fechaLlegada ), $idCondicion, $idPersonalidad, $idRaza);
     COMMIT;";
-    
-    
+
+
     $result = insertIntoDb($sql,$nombre,$size,$edad,$fechaLlegada,sexo,$historia,$idCondicion,$idRaza,$idPersonalidad);
     echo $sql;
     if($result != 0){
@@ -268,9 +268,9 @@ function agregarPerro($nombre,$size,$edad,$fechaLlegada,$sexo,$historia,$idCondi
 
     }else {
         echo '<script type="text/javascript">alert("Error al agregar el perro");</script>';
-        
+
     }
-   
+
 }
 
 
@@ -320,7 +320,7 @@ function getDogInfoById($id){
         AND c.idRaza=rz.idRaza
         AND p.idPerro=$id
         GROUP BY p.idPerro";
-  
+
         $res = mysqli_fetch_array(sqlqry($sql));
         $m = $res["edad"];
         $a = ($m-$m%12)/12;

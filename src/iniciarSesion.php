@@ -23,14 +23,14 @@
     <div class="uk-margin">
         <div class="uk-inline uk-width-1-1">
             <span class="uk-form-icon" uk-icon="icon: user"></span>
-            <input class="uk-input" type="text" name="email">
+            <input class="uk-input uk-border-rounded" type="text" name="email">
         </div>
     </div>
 
       <div class="uk-margin">
           <div class="uk-inline uk-width-1-1">
               <span class="uk-form-icon" uk-icon="icon: lock"></span>
-              <input class="uk-input" type="password" name="pass">
+              <input class="uk-input uk-border-rounded" type="password" name="pass">
           </div>
       </div>
 
