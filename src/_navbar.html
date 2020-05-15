@@ -14,11 +14,19 @@
                   <div class="uk-navbar-dropdown uk-width-auto uk-height-auto">
                     <ul class="uk-nav uk-navbar-dropdown-nav">
                         <?php if(isset($_SESSION["nombre"])): ?>
-                        <li class="uk-text-center uk-text-nowrap"><a href="miCuenta.php">Ajustes de cuenta</a></li>
-                        <li class="uk-text-center uk-text-nowrap"><a href="cerrarSesion.php" uk-toggle">Cerrar sesión</a></li>
+                            <?php if(checkPriv("adoptar")): ?>
+                                <li class="uk-text-center uk-text-nowrap"><a href="misSolicitudes.php">Mis solicitudes de adopción</a></li>
+
+                            <?php endif; ?>
+                            <?php if(checkPriv("ver-todas-solicitudes")): ?>
+                                <li class="uk-text-center uk-text-nowrap"><a href="gestionarSolicitudes.php">Ver todas las solicitudes</a></li>
+
+                            <?php endif; ?>
+                            <li class="uk-text-center uk-text-nowrap"><a href="miCuenta.php">Ajustes de cuenta</a></li>
+                            <li class="uk-text-center uk-text-nowrap"><a href="cerrarSesion.php">Cerrar sesión</a></li>
                         <?php else: ?>
-                        <li class="uk-text-center uk-text-nowrap"><a href="iniciarSesion.php">Iniciar sesión</a></li>
-                        <li class="uk-text-center uk-text-nowrap"><a href="crearCuenta.php" uk-toggle">Crear cuenta</a></li>
+                            <li class="uk-text-center uk-text-nowrap"><a href="iniciarSesion.php">Iniciar sesión</a></li>
+                            <li class="uk-text-center uk-text-nowrap"><a href="crearCuenta.php">Crear cuenta</a></li>
                         <?php endif; ?>
                     </ul>
                   </div>
