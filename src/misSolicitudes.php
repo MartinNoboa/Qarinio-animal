@@ -1,10 +1,13 @@
 <?php
     include '_header.html';
     include '_navbar.html';
+    if(checkPriv("adoptar")):
 ?>
-<div class="uk-container">
-    <h1 class="uk-text-center uk-margin-top">Mis Solicitudes de Adopción</h1>
-    <table class="uk-table uk-table-striped">
+<div class="uk-container uk-margin uk-margin-large-bottom">
+    <h1 class="uk-text-center">Mis Solicitudes de Adopción</h1>
+    <hr class="uk-divider-icon">
+    <div class="uk-overflow-auto">
+        <table class="uk-table uk-table-divider uk-table-large">
         <thead clas>
             <tr>
                 <th>Perro</th>
@@ -50,6 +53,48 @@
                 <td class="uk-text-center uk-alert-warning"><span uk-icon="icon: minus"></span></td>
                 <td class="uk-text-center"><a class="uk-link-text" href="#"><span uk-icon="icon: file-edit"></span></a></td>
             </tr>
+            <tr>
+                <td>6 (Hard Code)</td>
+                <td class="uk-text-center uk-alert-success"><span uk-icon="icon: check"></span></td>
+                <td class="uk-text-center uk-alert-danger"><span uk-icon="icon: close"></span></td>
+                <td class="uk-text-center uk-alert-warning"><span uk-icon="icon: minus"></span></td>
+                <td class="uk-text-center"><a class="uk-link-text" href="#"><span uk-icon="icon: file-edit"></span></a></td>
+            </tr>
+            <tr>
+                <td>7 (Hard Code)</td>
+                <td class="uk-text-center uk-alert-success"><span uk-icon="icon: check"></span></td>
+                <td class="uk-text-center uk-alert-danger"><span uk-icon="icon: close"></span></td>
+                <td class="uk-text-center uk-alert-warning"><span uk-icon="icon: minus"></span></td>
+                <td class="uk-text-center"><a class="uk-link-text" href="#"><span uk-icon="icon: file-edit"></span></a></td>
+            </tr>
+            <tr>
+                <td>8 (Hard Code)</td>
+                <td class="uk-text-center uk-alert-success"><span uk-icon="icon: check"></span></td>
+                <td class="uk-text-center uk-alert-danger"><span uk-icon="icon: close"></span></td>
+                <td class="uk-text-center uk-alert-warning"><span uk-icon="icon: minus"></span></td>
+                <td class="uk-text-center"><a class="uk-link-text" href="#"><span uk-icon="icon: file-edit"></span></a></td>
+            </tr>
+            <tr>
+                <td>9 (Hard Code)</td>
+                <td class="uk-text-center uk-alert-success"><span uk-icon="icon: check"></span></td>
+                <td class="uk-text-center uk-alert-danger"><span uk-icon="icon: close"></span></td>
+                <td class="uk-text-center uk-alert-warning"><span uk-icon="icon: minus"></span></td>
+                <td class="uk-text-center"><a class="uk-link-text" href="#"><span uk-icon="icon: file-edit"></span></a></td>
+            </tr>
+            <tr>
+                <td>10 (Hard Code)</td>
+                <td class="uk-text-center uk-alert-success"><span uk-icon="icon: check"></span></td>
+                <td class="uk-text-center uk-alert-danger"><span uk-icon="icon: close"></span></td>
+                <td class="uk-text-center uk-alert-warning"><span uk-icon="icon: minus"></span></td>
+                <td class="uk-text-center"><a class="uk-link-text" href="#"><span uk-icon="icon: file-edit"></span></a></td>
+            </tr>
         </tbody>
     </table>
+    </div>
 </div>
+<?php
+else:
+    http_response_code(404);
+    header("location:error.php");
+endif;
+include '_footer.html'; ?>

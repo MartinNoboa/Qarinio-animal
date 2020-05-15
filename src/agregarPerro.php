@@ -127,7 +127,7 @@
 
 <?php else:
     http_response_code(404);
-    header("location:404");
+    header("location:_error.html");
     endif;
     include("_footer.html");
 ?>
