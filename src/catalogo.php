@@ -16,7 +16,7 @@ include_once("util.php")
     </h1>
 </div>
 <div id="main" class="uk-flex">
-    <div id="filterMenu" class="uk-container uk-width-medium">
+    <div id="filterMenu" class="uk-container uk-width-large">
         <ul id="listaFiltro" class="uk-nav-primary uk-nav-parent-icon" uk-nav="multiple: true" uk-sticky="offset:110">
             <li class="uk-parent">
                 <a href="#">Filtros</a>
