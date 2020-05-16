@@ -384,7 +384,6 @@ WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.nombre='".$_SESSION[
         elseif($row['Pago'] == 3) { //incompleto
             $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Tu pago fue rechazado\"></a></span></td>";
         }
-        $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span uk-icon=\"icon: file-edit\" uk-tooltip=\"title: Editar\"></span></a></td>";
         $tabla .= "</tr>";
     }
     mysqli_free_result($solicitudes); //Liberar la memoria
