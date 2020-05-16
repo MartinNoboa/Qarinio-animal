@@ -329,4 +329,22 @@ function getDogInfoById($id){
         $res["meses"] = $m;
         return $res;
 }
+function recuperarPreguntas(){
+    $myfile = fopen("preguntas.txt", "r") or die("Unable to open file!");
+    // Output one line until end-of-file
+    $contador = 1;
+    while(!feof($myfile)) {
+        echo  "<li>";
+        if($contador%2 !=0){
+            echo '  <div class="collapsible-header">'
+                .fgets($myfile) ."</div>";
+        }else{
+            echo '<div class="collapsible-body"><span>'
+                .fgets($myfile) . '</span></div>';
+        }
+        echo  "</li>";
+        $contador++;
+    }
+    fclose($myfile);
+}
 ?>
