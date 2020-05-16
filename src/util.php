@@ -339,7 +339,7 @@ FROM perros p, usuario u, solicitud s
 WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.nombre='".$_SESSION["nombre"]."'";
 
     $tabla = "
-    <table class=\"uk-table uk-table-divider uk-table-large uk-table-hover uk-animation-slide-bottom-medium\">
+    <table class=\"uk-table uk-table-divider uk-table-striped uk-table-large uk-table-hover uk-animation-slide-bottom-medium\">
         <thead clas>
             <tr>
                 <th class=\"uk-width-small uk-text-secondary\">Perro</th>
@@ -384,7 +384,7 @@ WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.nombre='".$_SESSION[
         elseif($row['Pago'] == 3) { //incompleto
             $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Tu pago fue rechazado\"></a></span></td>";
         }
-        $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span uk-icon=\"icon: file-edit\"></span></a></td>";
+        $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span uk-icon=\"icon: file-edit\" uk-tooltip=\"title: Editar\"></span></a></td>";
         $tabla .= "</tr>";
     }
     mysqli_free_result($solicitudes); //Liberar la memoria
