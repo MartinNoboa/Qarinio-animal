@@ -329,4 +329,49 @@ function getDogInfoById($id){
         $res["meses"] = $m;
         return $res;
 }
+
+function muestraSolicitudes(){
+    $conDb = connectDb();
+
+    $sql = "
+        SELECT p.nombre as 'Perro', s.estadoFormulario as 'Formulario', s.estadoEntrevista as 'Entrevista', s.estadoPago as 'Pago'
+        FROM perros p, usuario u, solicitud s
+        WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerros";
+
+    $tabla = "
+    <table class=\"uk-table uk-table-divider uk-table-large uk-table-hover uk-animation-slide-bottom-medium\">
+        <thead clas>
+            <tr>
+                <th class=\"uk-width-small uk-text-secondary\">Perro</th>
+                <th class=\"uk-text-center uk-text-secondary\">Formulario</th>
+                <th class=\"uk-text-center uk-text-secondary\">Entrevista</th>
+                <th class=\"uk-text-center uk-text-secondary\">Pago</th>
+            </tr>
+        </thead>
+        <tbody>
+    ";
+
+    $solicitudes = $conDb->query($sql);
+    while($row = mysqli_fetch_array($solicitudes, MYSQLI_BOTH)) {
+        $tabla .= "<tr onclick=\"window.location='catalogo.php';\">";
+        $tabla .= "<td>".$row['Perro']."</td>";
+        if($row['Formulario'] == 5) {
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Tu formulario fue aprobado!\"></a></span></td>";
+        }
+
+        if($row['Entrevista'] == 5) {
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Tu entrevista fue aprobada!\"></a></span></td>";
+        }
+
+        if($row['Pago'] == 5) {
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Tu pago fue aprobado!\"></a></span></td>";
+        }
+        $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span uk-icon=\"icon: file-edit\"></span></a></td>";
+        $tabla .= "</tr>";
+    }
+    mysqli_free_result($solicitudes); //Liberar la memoria
+    closeDb($conDb);
+    $tabla .= "</tbody></table>";
+    echo $tabla;
+}
 ?>
