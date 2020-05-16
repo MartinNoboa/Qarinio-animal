@@ -5,7 +5,7 @@
 
 <div class = "uk-container uk-margin">
   <h1 class="uk-text-center">¿Cómo Ayudar?</h1>
-  <hr>
+  <hr class="uk-divider-icon">
 </div>
 
 <div class="uk-section">

@@ -4,7 +4,7 @@
 ?>
 <div class = "uk-container uk-margin">
   <h1 class="uk-text-center">¿Quiénes somos?</h1>
-  <hr>
+  <hr class="uk-divider-icon">
   <div class = "uk-divider"></div>
   <div class = "uk-section">
     <h3>Lorem ipsum</h3>

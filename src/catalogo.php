@@ -8,7 +8,7 @@ include_once("util.php")
 <div id="modal-editar" class="uk-modal-container" uk-modal></div>
 <div class="uk-container uk-margin uk-animation-fade">
     <h1 class="uk-text-center">Nuestros Perros</h1>
-    <hr>
+    <hr class="uk-divider-icon">
         <?php if(checkPriv("registrar")){
             echo "<a href='agregarPerro.php' uk-tooltip = 'Agregar perro' class='uk-icon-link uk-align-right' uk-icon='plus-circle'; ratio ='2'></a>";
         }

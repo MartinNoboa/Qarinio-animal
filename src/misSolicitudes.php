@@ -10,13 +10,14 @@
     <form class="uk-form uk-align-right" action="catalogo.php" method="post">
         <button class="uk-button uk-button-primary uk-border-rounded" type="submit" name="button">Adoptar un perro</button>
     </form>
+    <!-- en lugar de meter la tabla, hacer función PHP para mostrar los formularios -->
     <table class="uk-table uk-table-divider uk-table-large uk-table-hover uk-animation-slide-bottom-medium">
         <thead clas>
             <tr>
-                <th class="uk-text-center uk-width-small">Perro</th>
-                <th class="uk-text-center">Formulario</th>
-                <th class="uk-text-center">Entrevista</th>
-                <th class="uk-text-center">Pago</th>
+                <th class="uk-text-center uk-width-small uk-text-secondary">Perro</th>
+                <th class="uk-text-center uk-text-secondary">Formulario</th>
+                <th class="uk-text-center uk-text-secondary">Entrevista</th>
+                <th class="uk-text-center uk-text-secondary">Pago</th>
                 <!-- <th class="uk-text-center">Editar</th> -->
             </tr>
         </thead>
