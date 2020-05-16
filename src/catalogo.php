@@ -6,14 +6,13 @@ include_once("util.php")
 
 
 <div id="modal-editar" class="uk-modal-container" uk-modal></div>
-<div class="uk-container uk-margin">
-    <h1>Nuestros Perros
-    <hr>
+<div class="uk-container uk-margin uk-animation-fade">
+    <h1 class="uk-text-center">Nuestros Perros</h1>
+    <hr class="uk-divider-icon">
         <?php if(checkPriv("registrar")){
             echo "<a href='agregarPerro.php' uk-tooltip = 'Agregar perro' class='uk-icon-link uk-align-right' uk-icon='plus-circle'; ratio ='2'></a>";
         }
         ?>
-    </h1>
 </div>
 <div id="main" class="uk-flex">
     <div id="filterMenu" class="uk-container uk-width-large">
@@ -72,7 +71,7 @@ include_once("util.php")
     <hr class="uk-divider-vertical uk-height-large uk-visible@s">
 
     <div class="uk-container">
-        <div class="uk-child-width-1-2" id="contenido-catalogo" uk-grid>
+        <div class="uk-child-width-1-2 uk-animation-slide-bottom-medium" id="contenido-catalogo" uk-grid>
         <?php
             include("controlador_catalogo.php");
         ?>

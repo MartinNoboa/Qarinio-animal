@@ -51,7 +51,7 @@ function eliminar() {
     if(confirm("¿Estas seguro de eliminar el perro?")){
         //$.post manda la petición asíncrona por el método post. También existe $.ge
         $.post("controlador_elimina_perro.php", {
-            idperro: $("#eliminar").attr("idperro")      
+            idperro: $("#eliminar").attr("idperro")
         }).done(function (data) {
             if(parseInt(data)!==0) {
                 UIkit.modal($("#modal-editar")).hide();
@@ -62,7 +62,7 @@ function eliminar() {
             }
         });
     }
-       
+
 }
 
 

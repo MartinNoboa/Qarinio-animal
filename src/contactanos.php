@@ -3,7 +3,7 @@
     include("_navbar.html");
 ?>
 
-<div class="uk-container">
+<div class="uk-container uk-margin">
     <h1 class="uk-text-center">¿Tienes una duda? ¡Contáctanos!</h1>
     <hr>
       <form action="controlador_contacto.php" method="post">
