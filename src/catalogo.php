@@ -22,8 +22,8 @@ include_once("util.php")
                 <a href="#">Filtros</a>
                 <ul class="uk-nav-sub">
                     <li>Genero</li>
-                    <li><label><input id="hembra" class="uk-checkbox" type="checkbox"> Hembra</label></li>
-                    <li><label><input id="macho" class="uk-checkbox" type="checkbox"> Macho</label></li>
+                    <li><label><input id="hembra" class="uk-checkbox uk-border-rounded" type="checkbox"> Hembra</label></li>
+                    <li><label><input id="macho" class="uk-checkbox uk-border-rounded" type="checkbox"> Macho</label></li>
                     <hr>
                     <li>Edad</li>
                     <li>
@@ -43,7 +43,7 @@ include_once("util.php")
                 <ul class="uk-nav-sub">
                     <li>Ordenar Por</li>
                     <li>
-                        <select id="sort" name="sort" class="uk-select">
+                        <select id="sort" name="sort" class="uk-select uk-border-rounded">
                             <option value="idPerro" disabled selected>Seleccione una opción</option>
                             <option value="name">Nombre</option>
                             <option value="timeIn">Tiempo en el refugio</option>
@@ -65,7 +65,7 @@ include_once("util.php")
                     </li>
                 </ul>
             </li><hr>
-            <button id="filtrar" class="uk-button uk-button-primary uk-align-right">Aplicar</button>
+            <button id="filtrar" class="uk-button uk-button-primary uk-align-right uk-border-rounded">Aplicar</button>
         </ul>
     </div>
 
