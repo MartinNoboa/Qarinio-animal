@@ -91,3 +91,30 @@ function submitEdicion() {
     });
 
 }
+
+function readTextFile(file, callback) {
+    let rawFile = new XMLHttpRequest();
+    rawFile.overrideMimeType("application/json");
+    rawFile.open("GET", file, true);
+    rawFile.onreadystatechange = function() {
+        if (rawFile.readyState === 4 && rawFile.status == "200") {
+            callback(rawFile.responseText);
+        }
+    }
+    rawFile.send(null);
+}
+
+//usage:
+readTextFile("preguntas.json", function(text){
+    let data = JSON.parse(text);
+    console.log(data);
+    let i = 0;
+    for(i=0;i<data.length;i++){
+        document.getElementById('lista-preguntas').innerHTML+= "    <li>"+
+            '<div class="collapsible-header">'+data[i].pregunta +"</div>"+
+            '<div class="collapsible-body"><span>'+data[i].respuesta + '</span></div>'+
+            "</li>"; 
+    }
+});
+
+

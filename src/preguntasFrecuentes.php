@@ -10,8 +10,8 @@
     
   <div class = "uk-divider"></div>
     
-  <ul class="collapsible">
-        <?php recuperarPreguntas(); ?>
+  <ul class="collapsible" id="lista-preguntas">
+        
   </ul>
     
 </div>

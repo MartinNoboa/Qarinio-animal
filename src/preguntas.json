@@ -1,0 +1,23 @@
+[
+	{
+		"pregunta":"pregunta1",
+		"respuesta":"respuesta1"
+	},
+	{
+		"pregunta":"pregunta2",
+		"respuesta":"respuesta2"
+	},
+	{
+		"pregunta":"pregunta3",
+		"respuesta":"respuesta3"
+	},
+	{
+		"pregunta":"pregunta4",
+		"respuesta":"respuesta4"
+	}, 
+	{
+		"pregunta":"pregunt5",
+		"respuesta":"respuesta5"
+	}
+
+]
