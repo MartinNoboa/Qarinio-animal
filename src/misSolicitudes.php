@@ -25,7 +25,7 @@
                 <td>1 (Hard Code)</td>
                 <td class="uk-text-center uk-alert-success"><span uk-icon="icon: check"></span></td>
                 <td class="uk-text-center uk-alert-danger"><span uk-icon="icon: close"></span></td>
-                <td class="uk-text-center uk-alert-warning"><span uk-icon="icon: minus"></span></td>
+                <td class="uk-text-center uk-alert-primary"><span uk-icon="icon: minus"></span></td>
                 <td class="uk-text-center"><a class="uk-link-text" href="#"><span uk-icon="icon: file-edit"></span></a></td>
             </tr>
             <tr>
