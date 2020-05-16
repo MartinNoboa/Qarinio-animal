@@ -110,9 +110,10 @@ readTextFile("preguntas.json", function(text){
     console.log(data);
     let i = 0;
     for(i=0;i<data.length;i++){
-        document.getElementById('lista-preguntas').innerHTML+= "    <li>"+
-            '<div class="collapsible-header">'+data[i].pregunta +"</div>"+
-            '<div class="collapsible-body"><span>'+data[i].respuesta + '</span></div>'+
+        document.getElementById('lista-preguntas').innerHTML+= 
+            '<li class="uk-open"><a class="uk-accordion-title" href="#">'+
+            data[i].pregunta +"</a>"+
+            '<div class="uk-accordion-content"><p>'+data[i].respuesta + '</p></div>'+
             "</li>"; 
     }
 });

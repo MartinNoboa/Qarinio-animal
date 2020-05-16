@@ -10,7 +10,7 @@
     
   <div class = "uk-divider"></div>
     
-  <ul class="collapsible" id="lista-preguntas">
+  <ul uk-accordion="multiple: true" id="lista-preguntas">
         
   </ul>
     
