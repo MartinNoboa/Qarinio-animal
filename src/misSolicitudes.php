@@ -10,85 +10,36 @@
     <form class="uk-form uk-align-right" action="catalogo.php" method="post">
         <button class="uk-button uk-button-primary uk-border-rounded" type="submit" name="button">Adoptar un perro</button>
     </form>
-    <table class="uk-table uk-table-divider uk-table-large uk-animation-slide-bottom-medium">
+    <table class="uk-table uk-table-divider uk-table-large uk-table-hover uk-animation-slide-bottom-medium">
         <thead clas>
             <tr>
-                <th>Perro</th>
+                <th class="uk-width-small">Perro</th>
                 <th class="uk-text-center">Formulario</th>
                 <th class="uk-text-center">Entrevista</th>
                 <th class="uk-text-center">Pago</th>
-                <th class="uk-text-center">Editar</th>
+                <!-- <th class="uk-text-center">Editar</th> -->
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr onclick="window.location='catalogo.php';">
                 <td>1 (Hard Code)</td>
-                <td class="uk-text-center uk-alert-success"><span uk-icon="icon: check"></span></td>
-                <td class="uk-text-center uk-alert-danger"><span uk-icon="icon: close"></span></td>
-                <td class="uk-text-center uk-alert-primary"><span uk-icon="icon: minus"></span></td>
+                <td class="uk-text-center"><span class="uk-text-center uk-text-success" uk-icon="icon: check" uk-tooltip="title: ¡Tu formulario fue aprobado!"></span></td>
+                <td class="uk-text-center"><span class="uk-text-center uk-text-danger" uk-icon="icon: close" uk-tooltip="title: Tu entrevista fue rechazada"></span></td>
+                <td class="uk-text-center"><span class="uk-text-center uk-text-warning" uk-icon="icon: minus" uk-tooltip="title: Tu pago está pendiente"></span></td>
                 <td class="uk-text-center"><a class="uk-link-text" href="#"><span uk-icon="icon: file-edit"></span></a></td>
             </tr>
-            <tr>
+            <tr onclick="window.location='index.php';">
                 <td>2 (Hard Code)</td>
-                <td class="uk-text-center uk-alert-success"><span uk-icon="icon: check"></span></td>
-                <td class="uk-text-center uk-alert-danger"><span uk-icon="icon: close"></span></td>
-                <td class="uk-text-center uk-alert-warning"><span uk-icon="icon: minus"></span></td>
+                <td class="uk-text-center"><span class="uk-text-center uk-text-danger" uk-icon="icon: close" uk-tooltip="title: Tu formulario fue rechazado"></span></td>
+                <td class="uk-text-center"><span class="uk-text-center uk-text-success" uk-icon="icon: check" uk-tooltip="title: ¡Tu entrevista fue aprobada!"></span></td>
+                <td class="uk-text-center"><span class="uk-text-center uk-text-warning" uk-icon="icon: minus"></span></td>
                 <td class="uk-text-center"><a class="uk-link-text" href="#"><span uk-icon="icon: file-edit"></span></a></td>
             </tr>
             <tr>
                 <td>3 (Hard Code)</td>
-                <td class="uk-text-center uk-alert-success"><span uk-icon="icon: check"></span></td>
-                <td class="uk-text-center uk-alert-danger"><span uk-icon="icon: close"></span></td>
-                <td class="uk-text-center uk-alert-warning"><span uk-icon="icon: minus"></span></td>
-                <td class="uk-text-center"><a class="uk-link-text" href="#"><span uk-icon="icon: file-edit"></span></a></td>
-            </tr>
-            <tr>
-                <td>4 (Hard Code)</td>
-                <td class="uk-text-center uk-alert-success"><span uk-icon="icon: check"></span></td>
-                <td class="uk-text-center uk-alert-danger"><span uk-icon="icon: close"></span></td>
-                <td class="uk-text-center uk-alert-warning"><span uk-icon="icon: minus"></span></td>
-                <td class="uk-text-center"><a class="uk-link-text" href="#"><span uk-icon="icon: file-edit"></span></a></td>
-            </tr>
-            <tr>
-                <td>5 (Hard Code)</td>
-                <td class="uk-text-center uk-alert-success"><span uk-icon="icon: check"></span></td>
-                <td class="uk-text-center uk-alert-danger"><span uk-icon="icon: close"></span></td>
-                <td class="uk-text-center uk-alert-warning"><span uk-icon="icon: minus"></span></td>
-                <td class="uk-text-center"><a class="uk-link-text" href="#"><span uk-icon="icon: file-edit"></span></a></td>
-            </tr>
-            <tr>
-                <td>6 (Hard Code)</td>
-                <td class="uk-text-center uk-alert-success"><span uk-icon="icon: check"></span></td>
-                <td class="uk-text-center uk-alert-danger"><span uk-icon="icon: close"></span></td>
-                <td class="uk-text-center uk-alert-warning"><span uk-icon="icon: minus"></span></td>
-                <td class="uk-text-center"><a class="uk-link-text" href="#"><span uk-icon="icon: file-edit"></span></a></td>
-            </tr>
-            <tr>
-                <td>7 (Hard Code)</td>
-                <td class="uk-text-center uk-alert-success"><span uk-icon="icon: check"></span></td>
-                <td class="uk-text-center uk-alert-danger"><span uk-icon="icon: close"></span></td>
-                <td class="uk-text-center uk-alert-warning"><span uk-icon="icon: minus"></span></td>
-                <td class="uk-text-center"><a class="uk-link-text" href="#"><span uk-icon="icon: file-edit"></span></a></td>
-            </tr>
-            <tr>
-                <td>8 (Hard Code)</td>
-                <td class="uk-text-center uk-alert-success"><span uk-icon="icon: check"></span></td>
-                <td class="uk-text-center uk-alert-danger"><span uk-icon="icon: close"></span></td>
-                <td class="uk-text-center uk-alert-warning"><span uk-icon="icon: minus"></span></td>
-                <td class="uk-text-center"><a class="uk-link-text" href="#"><span uk-icon="icon: file-edit"></span></a></td>
-            </tr>
-            <tr>
-                <td>9 (Hard Code)</td>
-                <td class="uk-text-center uk-alert-success"><span uk-icon="icon: check"></span></td>
-                <td class="uk-text-center uk-alert-danger"><span uk-icon="icon: close"></span></td>
-                <td class="uk-text-center uk-alert-warning"><span uk-icon="icon: minus"></span></td>
-                <td class="uk-text-center"><a class="uk-link-text" href="#"><span uk-icon="icon: file-edit"></span></a></td>
-            </tr>
-            <tr>
-                <td>10 (Hard Code)</td>
-                <td class="uk-text-center uk-alert-success"><span uk-icon="icon: check" uk-tooltip="¡Tu formulario fue arpobado!"></span></td>
-                <td class="uk-text-center uk-alert-danger"><span uk-icon="icon: close" uk-tooltip="Tu entrevista fue rechazada"></span></td>
-                <td class="uk-text-center uk-alert-warning"><span uk-icon="icon: minus" uk-tooltip="Tu pago está pendiente"></span></td>
+                <td class="uk-text-center"><span class="uk-text-center uk-text-success" uk-icon="icon: check"></span></td>
+                <td class="uk-text-center"><span class="uk-text-center uk-text-danger" uk-icon="icon: close"></span></td>
+                <td class="uk-text-center"><span class="uk-text-center uk-text-warning" uk-icon="icon: minus"></span></td>
                 <td class="uk-text-center"><a class="uk-link-text" href="#"><span uk-icon="icon: file-edit"></span></a></td>
             </tr>
         </tbody>
