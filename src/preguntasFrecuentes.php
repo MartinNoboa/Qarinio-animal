@@ -8,7 +8,7 @@
     <hr class="uk-divider-icon">
     <ul uk-accordion="multiple: true">
         <li class="uk-open">
-            <a class="uk-accordion-title" href="#">Encontré un perro en la callte, ¿Cómo lo puedo ayudar?</a>
+            <a class="uk-accordion-title" href="#">Encontré un perro en la calle, ¿Cómo lo puedo ayudar?</a>
             <div class="uk-accordion-content">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tempor, lacus non accumsan varius, orci diam fringilla est, nec varius turpis tortor ac tortor. Etiam id lacus sed tortor rhoncus tempus in et massa. Vestibulum sit amet arcu viverra ipsum faucibus maximus in non neque. In eget sagittis turpis, id ultrices tortor. Aliquam erat volutpat. Pellentesque commodo sed massa eu placerat. Morbi in sagittis ex, nec finibus turpis. Praesent odio nibh, tempus ac viverra vel, elementum nec massa. Maecenas vehicula lectus sit amet eleifend accumsan.</p>
             </div>
