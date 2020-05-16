@@ -118,4 +118,33 @@ readTextFile("preguntas.json", function(text){
     }
 });
 
+function editarPreguntas() {
+    $.post("vista_editar_preguntas.php", {
+      
+    }).done(function (data,status,header) {
+        if(header.status===200 && status == 'success'){
+            $("#modal-editar-preguntas").html(data);
+            UIkit.modal($("#modal-editar-preguntas")).show();
+            readTextFile("preguntas.json", function(text){
+            let data = JSON.parse(text);
+            console.log(data);
+            let i = 0;
+            for(i=0;i<data.length;i++){
+                document.getElementById('seccion-preguntas').innerHTML+= 
+                    '<div class="uk-margin">'+
+                    '<label class="uk-form-label" for="nombre">' + data[i].pregunta+'</label>'+
+                        '<div class="uk-form-controls">'+
+                            '<input class="uk-input uk-border-rounded" id="nombre" type="text" placeholder='
+                            +data[i].respuesta
+                     +" value="+data[i].respuesta+
+                    "></div></div>";
+            }
+            });
+        }
+    });
+}
+
+document.getElementById("editar-preguntas").onclick=editarPreguntas;
+
+
 
