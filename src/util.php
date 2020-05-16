@@ -334,9 +334,9 @@ function muestraSolicitudes(){
     $conDb = connectDb();
 
     $sql = "
-        SELECT p.nombre as 'Perro', s.estadoFormulario as 'Formulario', s.estadoEntrevista as 'Entrevista', s.estadoPago as 'Pago'
-        FROM perros p, usuario u, solicitud s
-        WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerros";
+    SELECT p.nombre as 'Perro', s.estadoFormulario as 'Formulario', s.estadoEntrevista as 'Entrevista', s.estadoPago as 'Pago'
+FROM perros p, usuario u, solicitud s
+WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.nombre='".$_SESSION["nombre"]."'";
 
     $tabla = "
     <table class=\"uk-table uk-table-divider uk-table-large uk-table-hover uk-animation-slide-bottom-medium\">
@@ -355,16 +355,34 @@ function muestraSolicitudes(){
     while($row = mysqli_fetch_array($solicitudes, MYSQLI_BOTH)) {
         $tabla .= "<tr onclick=\"window.location='catalogo.php';\">";
         $tabla .= "<td>".$row['Perro']."</td>";
-        if($row['Formulario'] == 5) {
+        if($row['Formulario'] == 5) { //completado
             $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Tu formulario fue aprobado!\"></a></span></td>";
         }
-
-        if($row['Entrevista'] == 5) {
-            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Tu entrevista fue aprobada!\"></a></span></td>";
+        elseif($row['Formulario'] == 4) { //en proceso
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: Tu formulario está en proceso de aprobación\"></a></span></td>";
+        }
+        elseif($row['Formulario'] == 3) { //incompleto
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Tu formulario fue rechazado\"></a></span></td>";
         }
 
-        if($row['Pago'] == 5) {
+        if($row['Entrevista'] == 5) { //completado
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Tu entrevista fue aprobada!\"></a></span></td>";
+        }
+        elseif($row['Entrevista'] == 4) { //en proceso
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: Tu entrevista está en proceso de aprobación\"></a></span></td>";
+        }
+        elseif($row['Entrevista'] == 3) { //incompleto
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Tu entrevista fue rechazado\"></a></span></td>";
+        }
+
+        if($row['Pago'] == 5) { //completado
             $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Tu pago fue aprobado!\"></a></span></td>";
+        }
+        elseif($row['Pago'] == 4) { //en proceso
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: Tu pago está en proceso de aprobación\"></a></span></td>";
+        }
+        elseif($row['Pago'] == 3) { //incompleto
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Tu pago fue rechazado\"></a></span></td>";
         }
         $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span uk-icon=\"icon: file-edit\"></span></a></td>";
         $tabla .= "</tr>";
@@ -372,6 +390,6 @@ function muestraSolicitudes(){
     mysqli_free_result($solicitudes); //Liberar la memoria
     closeDb($conDb);
     $tabla .= "</tbody></table>";
-    echo $tabla;
+    return $tabla;
 }
 ?>

@@ -44,7 +44,7 @@
             </tr>
         </tbody>
     </table> -->
-    <?php muestraSolicitudes(); ?>
+    <?= muestraSolicitudes(); ?>
 </div>
 <?php
 else:
