@@ -30,7 +30,7 @@
 
         <div class="uk-margin">
             <h5>Tamaño</h5>
-            <select class="uk-select uk-border-rounded" name = "size">
+            <select class="uk-select uk-border-rounded" id = "size" name = "size">
                 <option selected hidden>Tamaño...</option>
                 <option value = "Pequenio">Pequeño</option>
                 <option value = "mediano">Mediano</option>
@@ -77,10 +77,10 @@
             </div>
         <div class="uk-margin">
             <h5>Historia del perro</h5>
-            <textarea class="uk-textarea uk-border-rounded" rows="7" placeholder="Historia" name = "historia"></textarea>
+            <textarea id = "historia" class="uk-textarea uk-border-rounded" rows="7" placeholder="Historia" name = "historia"></textarea>
         </div>
         <div class="uk-margin">
-            <button type = "submit"  id = "agregar" class = "uk-button uk-button-primary uk-position-relative uk-position-center uk-margin-large-top uk-border-rounded">Agregar perro</button>
+            <button type = "button"  id = "agregar" class = "uk-button uk-button-primary uk-position-relative uk-position-center uk-margin-large-top uk-border-rounded">Agregar perro</button>
         </div>
 
         </fieldset>
