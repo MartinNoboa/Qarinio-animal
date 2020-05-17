@@ -1,5 +1,5 @@
 
-function mostarMensaje(mensaje,status) {
+function mostrarMensaje(mensaje,status) {
     UIkit.notification({message: mensaje,status: status})
 }
 
@@ -16,6 +16,7 @@ function filtrar() {
     }).done(function (data) {
         $("#contenido-catalogo").html(data);
         setElEditar();
+        setElInfo();
     });
 }
 
@@ -41,7 +42,25 @@ function setElEditar() {
     }
 }
 
+function setElInfo() {
+    let botonesInfo = document.getElementsByClassName("boton-info");
+    for(btn of botonesInfo) {
+        btn.addEventListener("click", function(b) {
+            muestraInfoPerro(b.srcElement.getAttribute("idPerro"));
+        });
+    }
+}
 
+function muestraInfoPerro(id) {
+    $.post("vista_info_perro.php", {
+        idPerro: id
+    }).done(function (data,status,header) {
+        if(header.status===200 && status == 'success'){
+            $("#modal-info").html(data);
+            UIkit.modal($("#modal-info")).show();
+        }
+    });
+}
 
 
 
@@ -56,9 +75,9 @@ function eliminar() {
             if(parseInt(data)!==0) {
                 UIkit.modal($("#modal-editar")).hide();
                 filtrar();
-                mostarMensaje("Se eliminó el perro exitosamente","primary");
+                mostrarMensaje("Se eliminó el perro exitosamente","primary");
             } else {
-                mostarMensaje("Hubo un error al eliminar al perro","danger");
+                mostrarMensaje("Hubo un error al eliminar al perro","danger");
             }
         });
     }
@@ -84,10 +103,37 @@ function submitEdicion() {
         if(parseInt(data)!==0) {
             UIkit.modal($("#modal-editar")).hide();
             filtrar();
-            mostarMensaje("Se actualizó el perro exitosamente","primary");
+            mostrarMensaje("Se actualizó el perro exitosamente","primary");
         } else {
-            mostarMensaje("Hubo un error al actualizar al perro","danger");
+            mostrarMensaje("Hubo un error al actualizar al perro","danger");
         }
     });
 
 }
+
+
+function agregarPerro() {
+    $.post("controlador_agregar_perro.php", {
+        nombre : $("#nombre").val(),
+        size : $("#size").val(),
+        meses : $("#meses").val(),
+        fechaLlegada : $("#fecha").val(),
+        historia : $("#historia").val(),
+        genero: $('input[name="genero"]:checked').val(),
+        raza: $("#raza").val(),
+        condiciones: $("#condiciones").val(),
+        personalidad: $("#personalidad").val()
+    }).done(function(data){
+        //console.log(data);
+      if(parseInt(data) != 0){
+          mostrarMensaje("Se agrego el perro exitosamente", "success");
+          setTimeout(function() {
+          window.location.href = "catalogo.php";
+          }, 2000);
+      }else{
+          mostrarMensaje("Hubo un error al agregar el perro", "danger");
+      }
+    });
+}
+
+$("#agregar")[0].onclick = agregarPerro;

@@ -4,7 +4,7 @@ include("_navbar.html");
 include_once("util.php")
 ?>
 
-
+<div id="modal-info" class="uk-modal-container" uk-modal></div>
 <div id="modal-editar" class="uk-modal-container" uk-modal></div>
 <div class="uk-container uk-margin uk-animation-fade">
     <h1 class="uk-text-center">Nuestros Perros</h1>
@@ -14,9 +14,9 @@ include_once("util.php")
         }
         ?>
 </div>
-<div id="main" class="uk-flex">
+<div id="main" class="uk-flex uk-margin">
     <div id="filterMenu" class="uk-container uk-width-large">
-        <ul id="listaFiltro" class="uk-nav-primary uk-nav-parent-icon" uk-nav="multiple: true" uk-sticky="offset:110">
+        <ul id="listaFiltro" class="uk-nav-primary uk-nav-parent-icon uk-margin-top" uk-nav="multiple: true" uk-sticky="offset:110">
             <li class="uk-parent">
                 <a href="#">Filtros</a>
                 <ul class="uk-nav-sub">
@@ -85,6 +85,7 @@ include_once("util.php")
     //Asignar al botón buscar, la función buscar()
     document.getElementById("filtrar").onclick = filtrar;
     setElEditar();
+    setElInfo();
 </script>
 <script src="js/nouislider.min.js"></script>
 <script src="js/ageRangeSlider.js"></script>
