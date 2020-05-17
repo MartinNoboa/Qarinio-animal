@@ -23,12 +23,12 @@ function send_email_contacto($solicitante, $nombre, $mensaje){
     $contenido.="<h4>Responde a $nombre al correo <a href='mailto:$solicitante'>$solicitante</a></h4>";
 
     $contSolic="<h2>¡Gracias por escribirnos!</h2>";
-    $contSolic.="<h4>Nos pondremos en contacto contigo lo antes posible</h4>";
+    $contSolic.="<h4>Nos pondremos en contacto contigo lo antes posible.</h4>";
     $contSolic.="<strong>Tu Mensaje:</strong><p class='msg'>$mensaje</p>";
-    $contSolic.="Si tienes mas dudas te invitamos a visitar nuestras páginas de 
+    $contSolic.="Si tienes más dudas te invitamos a visitar nuestras páginas de 
     <a href='https://". get_self_domain() ."/preguntasFrecuentes'>preguntas frecuentes</a>
      y  
-    <a href='https://". get_self_domain() ."/comoAyudar'>como ayudar</a><br>";
+    <a href='https://". get_self_domain() ."/comoAyudar'>cómo ayudar.</a><br>";
 
     $res = send_email($solicitante, "Gracias por ponerte en contacto con Qariño Animal", $contSolic) &&
             send_email(get_self_email(), "Contacto Qariño Animal", $contenido);
