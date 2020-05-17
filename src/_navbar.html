@@ -12,7 +12,7 @@
                 <li>
                   <a href="#!" ><i class="fas fa-user-circle uk-margin-small-right" ></i><?= isset($_SESSION["nombre"])?$_SESSION["nombre"]:"Mi Cuenta" ?></a>
                   <div class="uk-navbar-dropdown uk-width-auto uk-text-left">
-                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                    <ul class="uk-nav uk-navbar-dropdown-nav uk-margin-right">
                         <?php if(isset($_SESSION["nombre"])): ?>
                             <?php if(checkPriv("adoptar")): ?>
                                 <li class="uk-text-nowrap"><a href="misSolicitudes.php">Mis solicitudes de adopción</a></li>
