@@ -236,7 +236,7 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
 
 function editarPerro($idPerro,$nombre,$size,$edad,$sexo,$historia,$idCondicion,$idRaza,$idPersonalidad) {
     $sql = "UPDATE perros p, caracteristicas c
-            SET nombre='$nombre', tamanio='$size', edadEstimadaLLegada=TIMESTAMPDIFF(MONTH, DATE_ADD(CURDATE(), INTERVAL -$edad-1 MONTH), fechaLLegada),
+            SET nombre='$nombre', tamanio='$size', edadEstimadaLLegada=TIMESTAMPDIFF(MONTH, DATE_ADD(CURDATE(), INTERVAL -$edad MONTH), fechaLLegada),
             sexo='$sexo', historia='$historia', idCondicion=$idCondicion, idRaza=$idRaza, idPersonalidad=$idPersonalidad
             WHERE p.idPerro=c.idPerro AND p.idPerro=$idPerro";
     echo $sql;
@@ -253,25 +253,26 @@ function editarPerro($idPerro,$nombre,$size,$edad,$sexo,$historia,$idCondicion,$
 function agregarPerro($nombre,$size,$edad,$fechaLlegada,$sexo,$historia,$idCondicion,$idPersonalidad,$idRaza, $estado) {
 
     $success = false;
-    
+
     $dml = "INSERT INTO perros (nombre, tamanio, edadEstimadaLlegada, fechaLlegada, sexo, historia)
             VALUES (?,?,?,?,?,?)";
-    
+
     $dml1 = "INSERT INTO caracteristicas
             VALUES ((SELECT idPerro FROM perros ORDER BY idPerro DESC LIMIT 1), ?,?,?)";
-    
+
     $dml2 = "INSERT INTO estado_perro VALUES ((SELECT idPerro FROM perros ORDER BY idPerro DESC LIMIT 1), ?)";
-    
+
+
     $first = insertIntoDb($dml,$nombre,$size,$edad,$fechaLlegada,$sexo,$historia);
     if($first != 0){
         $sec = insertIntoDb($dml1 ,$idCondicion,$idPersonalidad,$idRaza);
         $third = insertIntoDb($dml2, $estado);
             if (third != 0){
                 $success = true;
-            
+
             }
     }
-    
+
     return $success;
 }
 
@@ -340,6 +341,27 @@ function getDogInfoById($id){
         $res["anios"] = $a;
         $res["meses"] = $m;
         return $res;
+}
+
+function sintaxisEdad($meses) {
+    $m = $meses;
+    $a = ($m-$m%12)/12;
+    $m = $m%12;
+
+    $age= $a.' años, '.$m.' meses';
+
+    $age = '';
+    if($a>0){
+        $age= $a.' '.($a==1?'año':'años');
+    }
+    //El $a <= 3 se puede quitar, solo es preferencia para mostrar los meses solo para perros menores a 3 años
+    if($m>0 AND $a<=3){
+        if($a>0){
+            $age.=', ';
+        }
+        $age .= $m.' '.($m==1?'mes':'meses');
+    }
+    return $age;
 }
 
 function muestraSolicitudes(){
