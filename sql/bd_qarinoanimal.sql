@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2020 at 10:46 PM
+-- Generation Time: May 16, 2020 at 10:43 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -393,7 +393,7 @@ CREATE TABLE `solicitud` (
   `idUsuario` int(5) NOT NULL,
   `idPerro` int(7) NOT NULL,
   `fechaCreacion` datetime NOT NULL DEFAULT current_timestamp(),
-  `estadoFormulario` int(11) NOT NULL,
+  `estadoFormulatio` int(11) NOT NULL,
   `estadoEntrevista` int(11) NOT NULL,
   `estadoPago` int(11) NOT NULL,
   `fechaPago` datetime NOT NULL,
@@ -748,7 +748,7 @@ ALTER TABLE `rol`
 ALTER TABLE `solicitud`
   ADD PRIMARY KEY (`idSolicitud`),
   ADD KEY `idPerro` (`idPerro`),
-  ADD KEY `estadoFormulatio` (`estadoFormulario`,`estadoEntrevista`,`estadoPago`),
+  ADD KEY `estadoFormulatio` (`estadoFormulatio`,`estadoEntrevista`,`estadoPago`),
   ADD KEY `estadoEntrevista` (`estadoEntrevista`),
   ADD KEY `estadoPago` (`estadoPago`),
   ADD KEY `idUsuario` (`idUsuario`);
@@ -922,7 +922,7 @@ ALTER TABLE `respuestas`
 ALTER TABLE `solicitud`
   ADD CONSTRAINT `solicitud_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `solicitud_ibfk_2` FOREIGN KEY (`idPerro`) REFERENCES `perros` (`idPerro`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `solicitud_ibfk_3` FOREIGN KEY (`estadoFormulario`) REFERENCES `estado` (`idEstado`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `solicitud_ibfk_3` FOREIGN KEY (`estadoFormulatio`) REFERENCES `estado` (`idEstado`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `solicitud_ibfk_4` FOREIGN KEY (`estadoEntrevista`) REFERENCES `estado` (`idEstado`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `solicitud_ibfk_5` FOREIGN KEY (`estadoPago`) REFERENCES `estado` (`idEstado`) ON DELETE CASCADE ON UPDATE CASCADE;
 

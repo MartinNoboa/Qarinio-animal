@@ -44,7 +44,7 @@ if(http_response_code() == 200 && mysqli_num_rows($result) > 0){
 } else if(http_response_code() == 200) {
 
 } else {
-    include ('_error.html');
+    include ('error.php');
 }
 
 ?>
