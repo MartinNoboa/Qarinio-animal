@@ -7,7 +7,7 @@ function limpia_entrada($variable) {
 }
 function limpia_entradas($arr){
     foreach($arr as &$key){
-        $key = limpia_entrada($key)."hola";
+        $key = limpia_entrada($key);
     }
     return $arr;
 }

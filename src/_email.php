@@ -1,7 +1,4 @@
 <?php
-$img = file_get_contents('img/logo.png');
-$data = base64_encode($img);
-$contenido = isset($contenido)?$contenido:"Hubo un error al general el email";
 return "
 <!DOCTYPE html>
 <html>
@@ -9,7 +6,7 @@ return "
 <style>
 * {
     font-family: sans-serif;
-    text-align: center;
+    text-align: left;
 }
 .msg{
     background-color: lightgray;
@@ -18,7 +15,7 @@ return "
 </head>
 
 <body>
-<img src='data:image/png;base64, $data' width='100'>
+<img src='https://".get_self_domain()."/img/QA.jpg' width='100'>
 <hr>
 $contenido
 <hr>

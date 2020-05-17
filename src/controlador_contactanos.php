@@ -5,11 +5,8 @@ if(isset($_POST["action"])){
     session_start();
     $_POST = limpia_entradas($_POST);
 
-    $to_email = "estradaf.bernardo@gmail.com";
-    $subject = "Simple Email Test via PHP";
-    $body = "Hi,nn This is test email send by PHP Script";
-    $headers = "From: sender\'s email";
-    if (mail($to_email, $subject, $body, $headers)) {
+
+    if (send_email_contacto($_POST["email"], $_POST["nombre"]." ".$_POST["apellido"], $_POST["mensaje"])) {
         $_SESSION["mensaje"] = "¡Gracias por contactarnos!";
         header("location:index.php");
     } else {
