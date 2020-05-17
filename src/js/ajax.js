@@ -121,6 +121,7 @@ function agregarPerro() {
         historia : $("#historia").val(),
         genero: $('input[name="genero"]:checked').val(),
         raza: $("#raza").val(),
+        estado: $("#estado").val(),
         condiciones: $("#condiciones").val(),
         personalidad: $("#personalidad").val()
     }).done(function(data){

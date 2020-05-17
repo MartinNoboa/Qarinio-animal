@@ -74,7 +74,18 @@
                 <option selected hidden value = "">Seleccione una opcion...</option>
                 <?= recuperarOpciones(idRaza, raza, tipo_raza) ?>
             </select>
-            </div>
+        </div>
+        
+        <div class="uk-margin">
+            <h5>
+                Estado del Perro
+                <span  uk-tooltip = "title : Seleccione el estado del perro. Recuerde que solo se mostrara en el catalogo si esta disponible.; pos :top-left " class="uk-align-right" uk-icon="question"></span>
+            </h5>
+            <select class="uk-select uk-border-rounded" id = "estado" name = "estado">
+                <option selected hidden value = "">Seleccione una opcion...</option>
+                <?= recuperarEstado(idEstado, nombre, estado) ?>
+            </select>
+        </div>
         <div class="uk-margin">
             <h5>Historia del perro</h5>
             <textarea id = "historia" class="uk-textarea uk-border-rounded" rows="7" placeholder="Historia" name = "historia"></textarea>
