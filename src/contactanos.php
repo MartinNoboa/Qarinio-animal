@@ -9,15 +9,15 @@
       <form action="controlador_contactanos.php" method="post">
           <div class="uk-margin">
               <label for="first_name">Nombre</label>
-              <input id="first_name" type="text" class="uk-input uk-border-rounded" placeholder="José">
+              <input name="nombre" id="first_name" type="text" class="uk-input uk-border-rounded" placeholder="José">
           </div>
           <div class="uk-margin">
               <label for="last_name">Apellido</label>
-              <input id="last_name" type="text" class="uk-input uk-border-rounded" placeholder="Pérez">
+              <input name="apellido" id="last_name" type="text" class="uk-input uk-border-rounded" placeholder="Pérez">
           </div>
             <div class="uk-margin">
               <label for="email">Correo Electrónico</label>
-              <input name = "email" id="email" type="email" class="uk-input uk-border-rounded" placeholder="jperez@ejemplo.com">
+              <input name="email" id="email" type="email" class="uk-input uk-border-rounded" placeholder="jperez@ejemplo.com">
           </div>
           <div class="uk-margin">
               <label for="mensaje">Escribe tu mensaje aquí</label>
