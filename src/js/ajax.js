@@ -16,6 +16,7 @@ function filtrar() {
     }).done(function (data) {
         $("#contenido-catalogo").html(data);
         setElEditar();
+        setElInfo();
     });
 }
 
@@ -32,9 +33,6 @@ function muestraEditarPerro(id) {
     });
 }
 
-//Asignar al botón buscar, la función buscar()
-document.getElementById("filtrar").onclick = filtrar;
-
 function setElEditar() {
     let botonesEditar = document.getElementsByClassName("boton-editar");
     for(btn of botonesEditar) {
@@ -44,7 +42,25 @@ function setElEditar() {
     }
 }
 
-setElEditar();
+function setElInfo() {
+    let botonesInfo = document.getElementsByClassName("boton-info");
+    for(btn of botonesInfo) {
+        btn.addEventListener("click", function(b) {
+            muestraInfoPerro(b.srcElement.getAttribute("idPerro"));
+        });
+    }
+}
+
+function muestraInfoPerro(id) {
+    $.post("vista_info_perro.php", {
+        idPerro: id
+    }).done(function (data,status,header) {
+        if(header.status===200 && status == 'success'){
+            $("#modal-info").html(data);
+            UIkit.modal($("#modal-info")).show();
+        }
+    });
+}
 
 
 
@@ -54,7 +70,7 @@ function eliminar() {
     if(confirm("¿Estas seguro de eliminar el perro?")){
         //$.post manda la petición asíncrona por el método post. También existe $.ge
         $.post("controlador_elimina_perro.php", {
-            idperro: $("#eliminar").attr("idperro")      
+            idperro: $("#eliminar").attr("idperro")
         }).done(function (data) {
             if(parseInt(data)!==0) {
                 UIkit.modal($("#modal-editar")).hide();
@@ -65,7 +81,7 @@ function eliminar() {
             }
         });
     }
-       
+
 }
 
 

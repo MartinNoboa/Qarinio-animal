@@ -4,26 +4,25 @@ include("_navbar.html");
 include_once("util.php")
 ?>
 
-
+<div id="modal-info" class="uk-modal-container" uk-modal></div>
 <div id="modal-editar" class="uk-modal-container" uk-modal></div>
-<div class="uk-container uk-margin">
-    <h1>Nuestros Perros
-    <hr>
+<div class="uk-container uk-margin uk-animation-fade">
+    <h1 class="uk-text-center">Nuestros Perros</h1>
+    <hr class="uk-divider-icon">
         <?php if(checkPriv("registrar")){
             echo "<a href='agregarPerro.php' uk-tooltip = 'Agregar perro' class='uk-icon-link uk-align-right' uk-icon='plus-circle'; ratio ='2'></a>";
         }
         ?>
-    </h1>
 </div>
 <div id="main" class="uk-flex">
-    <div id="filterMenu" class="uk-container uk-width-medium">
-        <ul id="listaFiltro" class="uk-nav-primary uk-nav-parent-icon" uk-nav="multiple: true" uk-sticky>
+    <div id="filterMenu" class="uk-container uk-width-large">
+        <ul id="listaFiltro" class="uk-nav-primary uk-nav-parent-icon" uk-nav="multiple: true" uk-sticky="offset:110">
             <li class="uk-parent">
                 <a href="#">Filtros</a>
                 <ul class="uk-nav-sub">
                     <li>Genero</li>
-                    <li><label><input id="hembra" class="uk-checkbox" type="checkbox"> Hembra</label></li>
-                    <li><label><input id="macho" class="uk-checkbox" type="checkbox"> Macho</label></li>
+                    <li><label><input id="hembra" class="uk-checkbox uk-border-rounded" type="checkbox"> Hembra</label></li>
+                    <li><label><input id="macho" class="uk-checkbox uk-border-rounded" type="checkbox"> Macho</label></li>
                     <hr>
                     <li>Edad</li>
                     <li>
@@ -43,7 +42,7 @@ include_once("util.php")
                 <ul class="uk-nav-sub">
                     <li>Ordenar Por</li>
                     <li>
-                        <select id="sort" name="sort" class="uk-select">
+                        <select id="sort" name="sort" class="uk-select uk-border-rounded">
                             <option value="idPerro" disabled selected>Seleccione una opción</option>
                             <option value="name">Nombre</option>
                             <option value="timeIn">Tiempo en el refugio</option>
@@ -65,14 +64,14 @@ include_once("util.php")
                     </li>
                 </ul>
             </li><hr>
-            <button id="filtrar" class="uk-button uk-button-primary uk-align-right">Aplicar</button>
+            <button id="filtrar" class="uk-button uk-button-primary uk-align-right uk-border-rounded">Aplicar</button>
         </ul>
     </div>
 
     <hr class="uk-divider-vertical uk-height-large uk-visible@s">
 
     <div class="uk-container">
-        <div class="uk-child-width-1-2" id="contenido-catalogo" uk-grid>
+        <div class="uk-child-width-1-2 uk-animation-slide-bottom-medium" id="contenido-catalogo" uk-grid>
         <?php
             include("controlador_catalogo.php");
         ?>
@@ -82,5 +81,11 @@ include_once("util.php")
 </div>
 
 <?php include("_footer.html"); ?>
+<script>
+    //Asignar al botón buscar, la función buscar()
+    document.getElementById("filtrar").onclick = filtrar;
+    setElEditar();
+    setElInfo();
+</script>
 <script src="js/nouislider.min.js"></script>
 <script src="js/ageRangeSlider.js"></script>
