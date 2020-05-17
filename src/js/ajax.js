@@ -16,6 +16,7 @@ function filtrar() {
     }).done(function (data) {
         $("#contenido-catalogo").html(data);
         setElEditar();
+        setElInfo();
     });
 }
 
@@ -41,7 +42,25 @@ function setElEditar() {
     }
 }
 
+function setElInfo() {
+    let botonesInfo = document.getElementsByClassName("boton-info");
+    for(btn of botonesInfo) {
+        btn.addEventListener("click", function(b) {
+            muestraInfoPerro(b.srcElement.getAttribute("idPerro"));
+        });
+    }
+}
 
+function muestraInfoPerro(id) {
+    $.post("vista_info_perro.php", {
+        idPerro: id
+    }).done(function (data,status,header) {
+        if(header.status===200 && status == 'success'){
+            $("#modal-info").html(data);
+            UIkit.modal($("#modal-info")).show();
+        }
+    });
+}
 
 
 
