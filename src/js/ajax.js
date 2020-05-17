@@ -129,22 +129,69 @@ function editarPreguntas() {
             let data = JSON.parse(text);
             console.log(data);
             let i = 0;
+            let idCorregido;
             for(i=0;i<data.length;i++){
+                idCorregido = i+1;
                 document.getElementById('seccion-preguntas').innerHTML+= 
                     '<div class="uk-margin">'+
-                    '<label class="uk-form-label" for="nombre">' + data[i].pregunta+'</label>'+
+                    '<label class="uk-form-label" for="nombre">Pregunta ' +idCorregido +'</label>'+
                         '<div class="uk-form-controls">'+
-                            '<input class="uk-input uk-border-rounded" id="nombre" type="text" placeholder='
-                            +data[i].respuesta
-                     +" value="+data[i].respuesta+
+                            '<input class="uk-input uk-border-rounded pregunta" idpregunta='+i +'  type="text" placeholder='+ "'"
+                            +data[i].pregunta + "'"
+                     +' value='+"'" +data[i].pregunta+ "'"+
                     "></div></div>";
-            }
+                 document.getElementById('seccion-preguntas').innerHTML+= 
+                    '<div class="uk-margin">'+
+                    '<label class="uk-form-label" for="nombre">Respuesta ' +idCorregido +'</label>'+
+                        '<div class="uk-form-controls">'+
+                            '<input class="uk-input uk-border-rounded respuesta" idrespuesta='+i +' type="text" placeholder='+ "'"
+                            +data[i].respuesta + "'"
+                     +' value='+"'" +data[i].respuesta+ "'"+
+                    "></div></div>";
+                
+               
+            }      
             });
-        }
+            $("#btn-editar-preguntas")[0].onclick = submitEditarPreguntas;
+            
+        }//terminacion del if
     });
 }
 
 document.getElementById("editar-preguntas").onclick=editarPreguntas;
 
+function submitEditarPreguntas(){
+    //console.log($('.pregunta')[2]);
+    if(confirm("¿Estas seguro de guardar las preguntas frecuentes?")){
+        let datos = {};
+        let respuesta=$('.respuesta');
+        let pregunta=$('.pregunta');
+        let datosp = {};
+        for(pr of respuesta){
+            datos[pr.getAttribute('idrespuesta')] = pr.value;
+        }
+         for(pr of pregunta){
+            datosp[pr.getAttribute('idpregunta')] = pr.value;
+        }
+        datos['length'] = respuesta.length;
+        datosp['length'] = pregunta.length;
+        
+        console.log(datos);
+        console.log(datosp);
+       $.post("controlador_editar_preguntas.php", {
+           datos,
+           datosp
+        }).done(function (data) {
+           console.log(data);
+            if(parseInt(data)!==0) {
+                mostarMensaje("Se actualizaron las preguntas exitosamente","primary");
+                UIkit.modal($("#modal-editar-preguntas")).hide();
+            } else {
+                mostarMensaje("Hubo un error al actualizar las preguntas ","danger");
+            }
+        });
 
+ 
+    }//terminacion del if confirm
+}
 
