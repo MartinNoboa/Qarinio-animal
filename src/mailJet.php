@@ -50,4 +50,28 @@ function send_email($recipient, $name, $subject){
     return send_email_request(json_encode($body));
 
 }
+function recieve_email($sender, $name, $subject){
+    $body = [
+        'Messages' => [
+            [
+                'From' => [
+                    'Email' => $sender,
+                    'Name' => "Qariño Animal"
+                ],
+                'To' => [
+                    [
+                        'Email' => getEmail(),
+                        'Name' => $name
+                    ]
+                ],
+                'Subject' => $subject,
+                'TextPart' => "",
+                'HTMLPart' => file_get_contents("_email.html")
+            ]
+        ]
+    ];
+
+    return send_email_request(json_encode($body));
+
+}
 

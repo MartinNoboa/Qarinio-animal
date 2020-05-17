@@ -3,7 +3,7 @@ include_once "util.php";
 include_once "mailJet.php";
 if(isset($_POST["action"])){
     session_start();
-    if(send_email("maualvm@gmail.com", "Mauricio Alvarez", "prueba")){
+    if(recieve_email("estradaf.bernardo@gmail.com", "Bernardo", "prueba")){
         $_SESSION["mensaje"] = "¡Gracias por contactarnos!";
         header("location:index.php");
     } else{
