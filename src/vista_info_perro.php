@@ -23,27 +23,7 @@ $info = getDogInfoById($_POST["idPerro"]);
                     <tr>
                         <td class="uk-table-shrink uk-text-bold">Edad:</td>
                         <td>
-                        <?php
-                            if($info["anios"] < 2) {
-                                echo $info["anios"] . " año";
-                            }
-                            elseif($info["anios"] >= 2) {
-                                echo $info["anios"] . " años";
-                            }
-                            if ($info["meses"] < 1) {
-                                echo "";
-                            }
-                            else {
-                                echo ", ";
-                            }
-                            if ($info["meses"] == 1) {
-                                echo $info["meses"] . " mes";
-                            }
-                            elseif($info["meses"] >= 2) {
-                                echo $info["meses"] . " meses";
-                            }
-
-                        ?></td>
+                        <?=sintaxisEdad($info["edad"])?></td>
                     </tr>
                     <tr>
                         <td class="uk-table-shrink uk-text-bold">Sexo:</td>
