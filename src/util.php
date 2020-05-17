@@ -332,6 +332,27 @@ function getDogInfoById($id){
         return $res;
 }
 
+function sintaxisEdad($meses) {
+    $m = $meses;
+    $a = ($m-$m%12)/12;
+    $m = $m%12;
+
+    $age= $a.' años, '.$m.' meses';
+
+    $age = '';
+    if($a>0){
+        $age= $a.' '.($a==1?'año':'años');
+    }
+    //El $a <= 3 se puede quitar, solo es preferencia para mostrar los meses solo para perros menores a 3 años
+    if($m>0 AND $a<=3){
+        if($a>0){
+            $age.=', ';
+        }
+        $age .= $m.' '.($m==1?'mes':'meses');
+    }
+    return $age;
+}
+
 function muestraSolicitudes(){
     $conDb = connectDb();
 
