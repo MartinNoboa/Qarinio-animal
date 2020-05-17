@@ -88,6 +88,9 @@ function modifyDb($dml){
     return $res;
 }
 
+
+
+
 function recuperarUsuarios(){
     $sql = "SELECT u.nombre,u.nombre,r.rol from usuario u, rol r, usuario_rol ur WHERE u.idUsuario=ur.idUsuario AND r.idRol=ur.idRol";
     return sqlqry($sql);
@@ -247,30 +250,26 @@ function editarPerro($idPerro,$nombre,$size,$edad,$sexo,$historia,$idCondicion,$
 /*
 *@param: valores del perro por agregar
 */
-function agregarPerro($nombre,$size,$edad,$fechaLlegada,$sexo,$historia,$idCondicion,$idRaza,$idPersonalidad) {
+function agregarPerro($nombre,$size,$edad,$fechaLlegada,$sexo,$historia,$idCondicion,$idPersonalidad,$idRaza) {
 
-    //En la transaction se agrega a la tabla perro el nuevo perro, luego con el id generado de ese perro se agrega a la tabla caracteristicas
-    //cambiar sintaxis de mariadb a mysql :(((((
-
-    $sql = "
-    BEGIN;
-    INSERT INTO perros (nombre, tamanio, edadEstimadaLlegada, fechaLlegada, sexo, historia)
-            VALUES (?,?,?,?,?,?);
-    INSERT INTO caracteristicas(idPerro, idCondicion, idPersonalidad, idRaza)
-            VALUES ((SELECT idPerro FROM perros WHERE nombre = $nombre AND fechaLlegada = $fechaLlegada ), $idCondicion, $idPersonalidad, $idRaza);
-    COMMIT;";
-
-
-    $result = insertIntoDb($sql,$nombre,$size,$edad,$fechaLlegada,sexo,$historia,$idCondicion,$idRaza,$idPersonalidad);
-    echo $sql;
-    if($result != 0){
-        echo '<script type="text/javascript">alert("Perro agregado correctamente");</script>';
-
-    }else {
-        echo '<script type="text/javascript">alert("Error al agregar el perro");</script>';
-
+    $success = false;
+    
+    $dml = "INSERT INTO perros (nombre, tamanio, edadEstimadaLlegada, fechaLlegada, sexo, historia)
+            VALUES (?,?,?,?,?,?)";
+    
+    $dml1 = "INSERT INTO caracteristicas
+            VALUES ((SELECT idPerro FROM perros ORDER BY idPerro DESC LIMIT 1), ?,?,?)";
+    
+    
+    $first = insertIntoDb($dml,$nombre,$size,$edad,$fechaLlegada,$sexo,$historia);
+    if($first != 0){
+        $sec = insertIntoDb($dml1 ,$idCondicion,$idPersonalidad,$idRaza);
+        if($sec != 0){
+            $success = true;
+        }
     }
-
+    
+    return $success;
 }
 
 
@@ -281,8 +280,7 @@ function recuperarOpciones($id, $campo, $tabla){
     $option = "";
 
     while($row = mysqli_fetch_array($result)){
-        $option = $option."<option value = $row[0]>$row[1]</option>";
-    }
+    $option = $option."<option value=".$row[0].">".ucfirst($row[1])."</option>";    }
 
     echo $option;
   }
