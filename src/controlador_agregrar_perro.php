@@ -21,14 +21,11 @@
 
     
     if ($incompleto){
-        llenarCampos();
+        $_SESSION["error"] = "Por favor llena todos los campos.";
     }else{
         agregarPerro($nombre,$size,$meses, $fechaLlegada, $genero, $historia, $condiciones,$raza, $personalidad);
         header("location:catalogo.php");
     }
 
 
-    function llenarCampos(){
-        echo '<script type="text/javascript">alert("Por favor llene todos los campos.");</script>';
-    }
 ?>
