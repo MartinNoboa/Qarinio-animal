@@ -34,3 +34,26 @@ function send_email_contacto($solicitante, $nombre, $mensaje){
             send_email(get_self_email(), "Contacto Qariño Animal", $contenido);
     return $res;
 }
+
+function send_email_verif($email, $nombre, $uid){
+    $cont="<h3>$nombre, gracias por crear tu cuenta</h3>";
+    $cont.="Accede al siguiente link para verificar tu contraseña: ";
+    $cont.="<a href='https://". get_self_domain() . "/verificaEmail?id=" . $uid ."'>Verifica Tu Correo</a>";
+    return send_email($email, "Verifica tu cuenta en Qariño Animal", $cont);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
