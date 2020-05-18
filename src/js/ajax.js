@@ -230,6 +230,7 @@ function agregarPerro() {
         historia : $("#historia").val(),
         genero: $('input[name="genero"]:checked').val(),
         raza: $("#raza").val(),
+        estado: $("#estado").val(),
         condiciones: $("#condiciones").val(),
         personalidad: $("#personalidad").val()
     }).done(function(data){
@@ -238,7 +239,7 @@ function agregarPerro() {
           mostrarMensaje("Se agrego el perro exitosamente", "success");
           setTimeout(function() {
           window.location.href = "catalogo.php";
-          }, 2000);
+        }, 2000);
       }else{
           mostrarMensaje("Hubo un error al agregar el perro", "danger");
       }
@@ -246,4 +247,33 @@ function agregarPerro() {
 }
 
 
+
+//funcion para agregar foto
+function agregarFoto(){
+    $(document).ready(function(){
+
+    $("#agregar").click(function(){
+
+        var fd = new FormData();
+        var files = $('#foto')[0].files[0];
+        fd.append('foto',files);
+
+        $.ajax({
+            url: 'controlador_agregar_foto.php',
+            type: 'post',
+            data: fd,
+            contentType: false,
+            processData: false,
+            success: function(response){
+                if(response != 0){
+                    $("#img").attr("src",response); 
+                    $(".preview img").show(); // Display image element
+                }else{
+                    alert('file not uploaded');
+                }
+            },
+        });
+    });
+});
+}
 
