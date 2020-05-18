@@ -115,20 +115,25 @@ function submitEdicion() {
 function readTextFile(file, callback) {
     let rawFile = new XMLHttpRequest();
     rawFile.overrideMimeType("application/json");
-    rawFile.open("GET", file, true);
+    rawFile.open("POST", file, true);
     rawFile.onreadystatechange = function() {
         if (rawFile.readyState === 4 && rawFile.status == "200") {
             callback(rawFile.responseText);
         }
     }
+    console.log(" leyendo texto");
+    rawFile.addEventListener("load", function () {
+        console.log(this.responseText);
+    });
     rawFile.send(null);
 }
 
 //usage:
 function mostrarPreguntas(){
+    
     readTextFile("preguntas.json", function(text){
         let data = JSON.parse(text);
-        //console.log("a");
+        //console.log(data);
         let i = 0;
         let concatenacion="";
         for(i=0;i<data.length;i++){
@@ -139,7 +144,9 @@ function mostrarPreguntas(){
                 "</li>"; 
         }
         document.getElementById('lista-preguntas').innerHTML=concatenacion;
+        console.log(concatenacion);
     });
+    
 }
 
 
@@ -252,18 +259,21 @@ function submitEditarContacto(){
         let correo=$('.correo').val();
         let direccion=$('.direccion').val();
         let telefono=$('.telefono').val();
-        console.log(correo);
+        //console.log(correo);
        $.post("controlador_editar_contacto.php", {
            nombre,
            correo,
            direccion,
            telefono
         }).done(function (data) {
-           console.log(data);
+           //console.log(data);
             if(parseInt(data)!== 0) {
                 mostrarMensaje("Se actualizó la información de contacto exitosamente","primary");
-                UIkit.modal($("#modal-editar-contacto")).hide();
                 mostrarContacto();
+                UIkit.modal($("#modal-editar-contacto")).hide();
+                
+                
+                
             } else {
                 mostrarMensaje("Hubo un error al actualizar la información de contacto ","danger");
             }
@@ -290,8 +300,8 @@ function submitEditarPreguntas(){
         datos['length'] = respuesta.length;
         datosp['length'] = pregunta.length;
         
-        console.log(datos);
-        console.log(datosp);
+        //console.log(datos);
+        //console.log(datosp);
        $.post("controlador_editar_preguntas.php", {
            datos,
            datosp
@@ -299,8 +309,11 @@ function submitEditarPreguntas(){
            console.log(data);
             if(parseInt(data)!== 0) {
                 mostrarMensaje("Se actualizaron las preguntas exitosamente","primary");
-                UIkit.modal($("#modal-editar-preguntas")).hide();
                 mostrarPreguntas();
+                UIkit.modal($("#modal-editar-preguntas")).hide();
+                
+                
+                //window.history.forward(1);
             } else {
                 mostrarMensaje("Hubo un error al actualizar las preguntas ","danger");
             }
