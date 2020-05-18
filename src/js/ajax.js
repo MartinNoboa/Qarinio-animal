@@ -181,7 +181,6 @@ function editarPreguntas() {
     });
 }
 
-document.getElementById("editar-preguntas").onclick=editarPreguntas;
 
 function submitEditarPreguntas(){
     //console.log($('.pregunta')[2]);
@@ -207,13 +206,11 @@ function submitEditarPreguntas(){
         }).done(function (data) {
            console.log(data);
             if(parseInt(data)!== 0) {
-                mostarMensaje("Se actualizaron las preguntas exitosamente","primary");
+                mostrarMensaje("Se actualizaron las preguntas exitosamente","primary");
                 UIkit.modal($("#modal-editar-preguntas")).hide();
                 mostrarPreguntas();
-                //filtrar();
-                //location.reload(true);
             } else {
-                mostarMensaje("Hubo un error al actualizar las preguntas ","danger");
+                mostrarMensaje("Hubo un error al actualizar las preguntas ","danger");
             }
         });
 
@@ -248,5 +245,5 @@ function agregarPerro() {
     });
 }
 
-$("#agregar")[0].onclick = agregarPerro;
+
 

@@ -1,7 +1,7 @@
 <?php
     include("_header.html");
     include("_navbar.html");
-    include("util.php");
+    include_once("util.php");
 ?>
 
 <div  id="modal-editar-preguntas" class="uk-modal-container" uk-modal>
@@ -25,4 +25,6 @@
 <?php include("_footer.html"); ?>
 <script>
 mostrarPreguntas(); 
+document.getElementById("editar-preguntas").onclick=editarPreguntas;
+
 </script>
