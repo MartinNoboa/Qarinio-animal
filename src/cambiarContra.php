@@ -2,24 +2,20 @@
     include_once("util.php");
     include("_header.html");
     include("_navbar.html");
-
-    if(isset($_POST["email"], $_POST["pass"])){
-            $_POST["email"] = limpia_entrada($_POST["email"]);
-            $_POST["pass"] = limpia_entrada($_POST["pass"]);
-            if(autenticar($_POST["email"], $_POST["pass"])){
-                $_SESSION["error"] = null;
-                $_SESSION["mensaje"] = "Bienvenid@ {$_SESSION['nombre']}";
-
-                header("location:index.php");
-            } else{
-            $_SESSION["error"] = "Correo o contraseña incorrectos";
-        }
-    }
+    if(isset($_GET["id"])):
+        $uid = limpia_entrada($_GET["id"]);
+        $qry= "SELECT uid
+                FROM cambio_contrasenia
+                WHERE uid='$uid'
+                AND NOT usada
+                AND timestamp > DATE_SUB(NOW(), INTERVAL 2 HOUR)";
+        $noUsada=sqlqry($qry)->num_rows>0;
+        if($noUsada):
 ?>
 <br>
 <div class="uk-container uk-align-center uk-width-large">
   <form method="post" action="controlador_cambiarContra.php" name='change-pass' id="change-pass">
-    <legend class="uk-legend uk-text-center">Iniciar Sesión</legend>
+    <legend class="uk-legend uk-text-center">Cambiar Contraseña</legend>
       <div class="uk-margin">
           <label class="uk-form-label">Contraseña:<label class="uk-form-label uk-text-danger">*</label></label>
           <input class="uk-input" type="password" pattern=".{8,}" name="contrasenia"  id="contrasenia" placeholder="">
@@ -28,6 +24,7 @@
           <label class="uk-form-label">Verifica Tu contraseña:<label class="uk-form-label uk-text-danger">*</label></label>
           <input class="uk-input" type="password" pattern=".{8,}" name="verifContrasenia" id="verifContrasenia" placeholder="">
       </div>
+      <input class="uk-input" type="password" name="uid" id="uid" placeholder="" hidden value="<?= $uid ?>">
 
       <div class="uk-margin uk-align-center uk-width-medium uk-text-center">
           <input id="terminar" class="uk-input uk-button-primary uk-border-pill" type="submit" name="submit" value="Cambiar Contraseña" disabled>
@@ -48,6 +45,26 @@
 <script src="js/validaciones.js"></script>
 <script>verifCambContr()</script>
 <?php
+        else:
+?>
+<div class="uk-container uk-align-center uk-width-xlarge uk-text-center">
+     <img src="img/errorDog.png" alt="">
+    <h3>Este link ha es invalido o ha expirado, por favor intenta de nuevo</h3>
+    <div class="uk-container">
+        <a class='boton-info uk-button uk-button-text uk-text-meta' href="index.php">Inicio</a>
+        |
+        <a class='boton-info uk-button uk-button-text uk-text-meta' href="catalogo.php">Nuestros Perros</a>
+        |
+        <a class='boton-info uk-button uk-button-text uk-text-meta' href="iniciarSesion.php">Iniciar Sesión</a>
+        |
+        <a class='boton-info uk-button uk-button-text uk-text-meta' href="cambiarContra.php">Cambiar mi Contraseña</a>
+    </div>
+</div>
+<?php
+        endif;
+    else:
+        //mostrar input de correo para enviar el cambio de contra
+    endif;
   include("_footer.html");
 ?>
 
