@@ -1,7 +1,7 @@
 <?php
 
 /* Getting file name */
-$filename = $_FILES['file']['name'];
+$filename = $_FILES['foto']['name'];
 
 /* Location */
 $location = "img/perros/".$filename;

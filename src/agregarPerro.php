@@ -11,7 +11,6 @@
 
 ?>
    
-   <div id="modal-foto" class="uk-modal-container" uk-modal></div>
 
 
    <div class = "uk-container">
@@ -94,6 +93,21 @@
             <textarea id = "historia" class="uk-textarea uk-border-rounded" rows="7" placeholder="Historia" name = "historia"></textarea>
         </div>
         
+        <form method = "post" action="" id = "myform" enctype="multipart/form-data"> 
+            
+         <div class="uk-margin" uk-margin>
+            <div uk-form-custom="target: true">
+                <h5>Agregar foto</h5>
+                <input class ="uk-border-rounded"  id = "foto"  name = "foto" type="file">
+                <input class="uk-input uk-form-width-medium" type="text" placeholder="Seleccione una foto">
+            </div>
+        </div>
+        
+        <div class='preview'>
+            <img src="" id="img" width="100" height="100">
+        </div>
+        </form>
+        
         <div class="uk-margin">
             <button type = "button" id = "agregar" class = "uk-button uk-button-primary uk-position-relative uk-position-center uk-margin-large-top uk-border-rounded">Agregar perro</button>
         </div>
@@ -110,3 +124,8 @@
     endif;
     include("_footer.html");
 ?>
+
+<script>
+    $("#agregar")[0].onclick = agregarPerro;
+    
+</script>
