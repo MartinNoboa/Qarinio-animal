@@ -256,7 +256,7 @@ function editarPerro($idPerro,$nombre,$size,$edad,$sexo,$historia,$idCondicion,$
 /*
 *@param: valores del perro por agregar
 */
-function agregarPerro($nombre,$size,$edad,$fechaLlegada,$sexo,$historia,$idCondicion,$idPersonalidad,$idRaza) {
+function agregarPerro($nombre,$size,$edad,$fechaLlegada,$sexo,$historia,$idCondicion,$idPersonalidad,$idRaza, $estado) {
 
     $success = false;
 
@@ -267,7 +267,7 @@ function agregarPerro($nombre,$size,$edad,$fechaLlegada,$sexo,$historia,$idCondi
             VALUES ((SELECT idPerro FROM perros ORDER BY idPerro DESC LIMIT 1), ?,?,?)";
 
     $dml2 = "INSERT INTO estado_perro VALUES ((SELECT idPerro FROM perros ORDER BY idPerro DESC LIMIT 1), ?)";
-    $estado = 2;
+
 
     $first = insertIntoDb($dml,$nombre,$size,$edad,$fechaLlegada,$sexo,$historia);
     if($first != 0){
@@ -286,6 +286,17 @@ function agregarPerro($nombre,$size,$edad,$fechaLlegada,$sexo,$historia,$idCondi
 
 function recuperarOpciones($id, $campo, $tabla){
     $sql = "SELECT $id, $campo FROM $tabla";
+    $result = sqlqry($sql);
+    $option = "";
+
+    while($row = mysqli_fetch_array($result)){
+    $option = $option."<option value=".$row[0].">".ucfirst($row[1])."</option>";    }
+
+    echo $option;
+  }
+
+function recuperarEstado($id, $campo, $tabla){
+    $sql = "SELECT $id, $campo FROM $tabla WHERE perro = 1";
     $result = sqlqry($sql);
     $option = "";
 
