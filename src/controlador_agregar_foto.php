@@ -1,27 +1,17 @@
 <?php
 
-/* Getting file name */
-$filename = $_FILES['foto']['name'];
+    $name = $_FILES('foto')('name');
+    //luego cambiar esto por funcion de renombrar foto
+    $url = "img/perros/".$name;
 
-/* Location */
-$location = "img/perros/".$filename;
-$uploadOk = 1;
-$imageFileType = pathinfo($location,PATHINFO_EXTENSION);
+    //mueve la foto de donde esta guardada temporalmente 
+    $temp_loc = $_FILES('foto')('temp_name');
+    if (move_uploaded_file($temp_loc,$url)){
+        //0 sin errores, 1 con errores.
+        echo 0;
+    }else{
+        echo 1;
+    }
+    
 
-/* Valid Extensions */
-$valid_extensions = array("jpg","jpeg","png");
-/* Check file extension */
-if( !in_array(strtolower($imageFileType),$valid_extensions) ) {
-   $uploadOk = 0;
-}
-
-if($uploadOk == 0){
-   echo 0;
-}else{
-   /* Upload file */
-   if(move_uploaded_file($_FILES['file']['tmp_name'],$location)){
-      echo $location;
-   }else{
-      echo 0;
-   }
 }

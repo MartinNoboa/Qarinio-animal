@@ -250,9 +250,7 @@ function agregarPerro() {
 
 //funcion para agregar foto
 function agregarFoto(){
-    $(document).ready(function(){
-
-    $("#agregar").click(function(){
+    
 
         var fd = new FormData();
         var files = $('#foto')[0].files[0];
@@ -273,7 +271,5 @@ function agregarFoto(){
                 }
             },
         });
-    });
-});
 }
 
