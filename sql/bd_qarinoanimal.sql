@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 29, 2020 at 01:41 AM
+-- Generation Time: May 18, 2020 at 03:09 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -25,6 +25,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cambio_contrasenia`
+--
+
+CREATE TABLE `cambio_contrasenia` (
+  `uid` char(32) NOT NULL,
+  `idUsuario` int(5) NOT NULL,
+  `usada` tinyint(1) NOT NULL DEFAULT 0,
+  `timestamp` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `caracteristicas`
 --
 
@@ -40,9 +53,11 @@ CREATE TABLE `caracteristicas` (
 --
 
 INSERT INTO `caracteristicas` (`idPerro`, `idCondicion`, `idPersonalidad`, `idRaza`) VALUES
-(1, 1, 1, 1),
-(2, 2, 2, 2),
-(1, 2, 1, 1);
+(1, 5, 2, 3),
+(2, 2, 2, 4),
+(1, 5, 2, 3),
+(55, 5, 9, 4),
+(56, 2, 7, 3);
 
 -- --------------------------------------------------------
 
@@ -64,11 +79,23 @@ INSERT INTO `condiciones_medicas` (`idCondicion`, `condicion`, `descripcion`) VA
 (1, 'Discapacidad', 'Visual, auditiva, motriz'),
 (2, 'Terminal', ''),
 (3, 'Cronica', ''),
-(4, 'TraumaFisico', ''),
-(5, 'TraumaPsicologico', ''),
+(4, 'Trauma Físico', ''),
+(5, 'Trauma Psicológico', ''),
 (6, 'Enfermedad', ''),
 (7, 'Obesidad', ''),
-(8, 'Desnutricion', '');
+(8, 'Desnutrición', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `confirm_email`
+--
+
+CREATE TABLE `confirm_email` (
+  `uid` char(32) NOT NULL,
+  `idUsuario` int(5) NOT NULL,
+  `confirmed` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -129,56 +156,8 @@ CREATE TABLE `estado_perro` (
 INSERT INTO `estado_perro` (`idPerro`, `idEstado`) VALUES
 (1, 2),
 (2, 2),
-(3, 2),
-(4, 2),
-(5, 2),
-(6, 2),
-(7, 2),
-(8, 2),
-(9, 2),
-(10, 2),
-(11, 2),
-(12, 2),
-(13, 2),
-(14, 2),
-(15, 2),
-(16, 2),
-(17, 2),
-(18, 2),
-(19, 2),
-(20, 2),
-(21, 2),
-(22, 2),
-(23, 2),
-(24, 2),
-(25, 2),
-(26, 2),
-(27, 2),
-(28, 2),
-(29, 2),
-(30, 2),
-(31, 2),
-(32, 2),
-(33, 2),
-(34, 2),
-(35, 2),
-(36, 2),
-(37, 2),
-(38, 2),
-(39, 2),
-(40, 2),
-(41, 2),
-(42, 2),
-(43, 2),
-(44, 2),
-(45, 2),
-(46, 2),
-(47, 2),
-(48, 2),
-(49, 2),
-(50, 2),
-(51, 2),
-(52, 2);
+(55, 2),
+(56, 2);
 
 -- --------------------------------------------------------
 
@@ -213,58 +192,39 @@ CREATE TABLE `perros` (
 --
 
 INSERT INTO `perros` (`idPerro`, `nombre`, `tamanio`, `edadEstimadaLlegada`, `fechaLLegada`, `sexo`, `historia`) VALUES
-(1, 'Paul', 'mediano', 355, '2020-03-05', 'macho', 'POSNGypej'),
-(2, 'Tades', 'pequenio', 9, '2019-05-12', 'macho', 'DKHZJqovx'),
-(3, 'Shelley', 'pequenio', 228, '2019-11-14', 'macho', 'CVXUWciqh'),
-(4, 'Granny', 'grande', 253, '2019-11-20', 'macho', 'YPUXLzpby'),
-(5, 'Cassy', 'mediano', 148, '2019-10-01', 'hembra', 'VIWUHlgjj'),
-(6, 'Idalina', 'grande', 120, '2019-10-02', 'hembra', 'PZUXOnxwr'),
-(7, 'Pascal', 'mediano', 221, '2019-04-17', 'macho', 'STSZLlkzt'),
-(8, 'Carr', 'pequenio', 308, '2020-01-29', 'macho', 'MOTNTtgfl'),
-(9, 'Karly', 'grande', 56, '2019-07-12', 'hembra', 'MLJXKletu'),
-(10, 'Jethro', 'pequenio', 329, '2020-03-19', 'macho', 'JBACVarjc'),
-(11, 'Bree', 'mediano', 326, '2019-06-14', 'hembra', 'XGNPJdxri'),
-(12, 'Verney', 'grande', 344, '2020-01-27', 'macho', 'GUBABezxd'),
-(13, 'Rhona', 'pequenio', 203, '2020-03-17', 'hembra', 'RRCAAfxob'),
-(14, 'Mendy', 'pequenio', 316, '2019-09-22', 'macho', 'BMLUAhtdx'),
-(15, 'Legra', 'mediano', 273, '2019-05-26', 'hembra', 'AYKDJipau'),
-(16, 'Ellyn', 'mediano', 328, '2020-04-07', 'hembra', 'SINUUozcu'),
-(17, 'Gerome', 'pequenio', 155, '2019-06-07', 'macho', 'XCGLCpnxj'),
-(18, 'Debbi', 'mediano', 323, '2019-04-21', 'hembra', 'GCCJTqdut'),
-(19, 'Constancy', 'grande', 358, '2019-09-28', 'hembra', 'ZHAQUwjww'),
-(20, 'Candide', 'pequenio', 349, '2019-11-27', 'hembra', 'ORCRNeiok'),
-(21, 'Kai', 'mediano', 209, '2019-11-11', 'hembra', 'MJJWYzgjv'),
-(22, 'Muhammad', 'mediano', 146, '2020-01-10', 'macho', 'IOWQKjnqi'),
-(23, 'Adria', 'mediano', 7, '2019-11-27', 'hembra', 'RYPQHdjxi'),
-(24, 'Hobey', 'grande', 165, '2019-08-26', 'macho', 'NVOBFjxgw'),
-(25, 'Mollie', 'mediano', 9, '2019-07-21', 'hembra', 'SEMQKfese'),
-(26, 'Claudius', 'grande', 341, '2020-02-18', 'macho', 'VPYTUhcza'),
-(27, 'Lorilyn', 'mediano', 308, '2019-07-17', 'hembra', 'MNIGFifcf'),
-(28, 'Adara', 'mediano', 210, '2019-11-15', 'hembra', 'MVFARliks'),
-(29, 'Lucais', 'pequenio', 287, '2020-01-08', 'macho', 'ALIMVwawp'),
-(30, 'Norry', 'grande', 226, '2019-06-13', 'macho', 'HUAKPuppb'),
-(31, 'Brooks', 'pequenio', 123, '2020-03-28', 'hembra', 'XGDNRgsbz'),
-(32, 'Sheridan', 'mediano', 317, '2019-05-27', 'macho', 'ICFGNwsnk'),
-(33, 'Reynolds', 'pequenio', 16, '2020-03-17', 'macho', 'FNMZEfmyq'),
-(34, 'Bonita', 'grande', 261, '2019-05-29', 'hembra', 'RVTEEoueq'),
-(35, 'Donia', 'grande', 300, '2019-11-08', 'hembra', 'RBLXOwgdw'),
-(36, 'Teddy', 'mediano', 173, '2019-11-08', 'macho', 'HUULLdula'),
-(37, 'Wilmar', 'mediano', 344, '2019-10-11', 'macho', 'FSLPBpwat'),
-(38, 'Bennie', 'pequenio', 268, '2019-05-01', 'macho', 'ZXJELiszn'),
-(39, 'Edin', 'pequenio', 4, '2019-07-12', 'hembra', 'KSFCQfufm'),
-(40, 'Brinna', 'mediano', 161, '2020-03-01', 'hembra', 'YTPFZzotn'),
-(41, 'Jeth', 'mediano', 267, '2019-11-14', 'macho', 'JDDMOrhuc'),
-(42, 'Arron', 'mediano', 134, '2019-09-15', 'macho', 'ZGYGFqjvi'),
-(43, 'Jayson', 'mediano', 246, '2019-10-07', 'macho', 'YJKHGvmlf'),
-(44, 'Skelly', 'grande', 318, '2019-10-09', 'macho', 'IILRUghpl'),
-(45, 'Ban', 'mediano', 131, '2019-08-12', 'macho', 'DTIJGetjn'),
-(46, 'Oona', 'pequenio', 287, '2019-10-16', 'hembra', 'HVRNVvhix'),
-(47, 'Carroll', 'mediano', 68, '2019-08-07', 'macho', 'UODGWlswj'),
-(48, 'Kathrine', 'pequenio', 97, '2020-01-15', 'hembra', 'APXHIkwyk'),
-(49, 'Allie', 'mediano', 275, '2019-08-04', 'macho', 'XNCODjgzt'),
-(50, 'Federico', 'pequenio', 7, '2019-10-22', 'macho', 'NVORAjbvl'),
-(51, 'Homero', 'pequeño', 24, '2020-04-23', 'macho', 'Perro rescatado'),
-(52, 'Homero', 'Mediano', 24, '2020-02-23', 'macho', 'Perro abandonado');
+(1, 'Firulais', 'Pequeño', 15, '2020-03-05', 'macho', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tempor, lacus non accumsan varius, orci diam fringilla est, nec varius turpis tortor ac tortor. Etiam id lacus sed tortor rhoncus tempus in et massa. Vestibulum sit amet arcu viverra ipsum faucibus maximus in non neque. In eget sagittis turpis, id ultrices tortor. Aliquam erat volutpat. Pellentesque commodo sed massa eu placerat. Morbi in sagittis ex, nec finibus turpis. Praesent odio nibh, tempus ac viverra vel, elementum nec massa. Maecenas vehicula lectus sit amet eleifend accumsan.'),
+(2, 'Tades', 'Pequeño', 9, '2019-05-12', 'hembra', 'DKHZJqovx'),
+(55, 'Lalombriz', 'Grande', 12, '2020-05-17', 'macho', 'Hola, soy Lalombriz'),
+(56, 'Berna', 'Pequeño', 14, '2020-05-17', 'macho', 'ASd');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `preguntas`
+--
+
+CREATE TABLE `preguntas` (
+  `idPregunta` int(3) NOT NULL,
+  `pregunta` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `preguntas`
+--
+
+INSERT INTO `preguntas` (`idPregunta`, `pregunta`) VALUES
+(1, '¿Has tenido mascotas antes?'),
+(2, '¿Tienes otros animales en casa?'),
+(3, '¿Por qué desea adoptar al perrito?'),
+(4, '¿En donde vivirá y dormirá el perrito?'),
+(5, '¿Cuántas personas viven contigo?'),
+(6, '¿Están de acuerdo en la adopción del perrito?'),
+(7, '¿Vive en casa o departamento?'),
+(8, '¿Tiene jardín o patio?'),
+(9, 'En caso de ser su vivienda rentada, ¿está de acuerdo su casero en que tenga mascotas?'),
+(10, 'Menciona los cuidados básicos de una mascota'),
+(11, '¿Qué opinas de la esterilización?'),
+(12, '¿Nos permitirías dar seguimiento al perrito, dejándonos visitarlo o pidiendo fotos del mismo para monitorear que está en buenas condiciones?');
 
 -- --------------------------------------------------------
 
@@ -283,11 +243,14 @@ CREATE TABLE `privilegios` (
 --
 
 INSERT INTO `privilegios` (`idPrivilegio`, `privilegio`, `descripcion`) VALUES
-(1, 'ver', 'Usuario puede navegar la pagina '),
+(1, 'ver-catalogo', 'Usuario puede navegar la pagina '),
 (2, 'adoptar', ''),
 (3, 'registrar', ''),
 (4, 'editar-perro', ''),
-(5, 'eliminar-perro', 'permite eliminar perros');
+(5, 'eliminar-perro', 'permite eliminar perros'),
+(6, 'ver-todas-solicitudes', 'Ver todas las solicitudes de todos los usuarios'),
+(7, 'editar-faq', ''),
+(8, 'editar-info-contacto', '');
 
 -- --------------------------------------------------------
 
@@ -308,6 +271,7 @@ CREATE TABLE `privilegio_rol` (
 INSERT INTO `privilegio_rol` (`idRol`, `idPrivilegio`, `fechaCreacion`) VALUES
 (1, 1, '2020-04-28 18:41:57'),
 (3, 1, '2020-04-13 22:54:52'),
+(4, 1, '2020-05-18 01:05:56'),
 (1, 2, '2020-04-28 18:35:30'),
 (3, 2, '2020-04-13 22:54:52'),
 (1, 3, '2020-04-28 18:35:30'),
@@ -315,7 +279,11 @@ INSERT INTO `privilegio_rol` (`idRol`, `idPrivilegio`, `fechaCreacion`) VALUES
 (1, 4, '2020-04-28 18:35:30'),
 (2, 4, '2020-04-28 18:47:42'),
 (1, 5, '2020-04-28 18:35:30'),
-(2, 5, '2020-04-28 18:47:42');
+(2, 5, '2020-04-28 18:47:42'),
+(1, 6, '2020-05-15 19:29:56'),
+(1, 7, '2020-05-17 22:29:59'),
+(1, 8, '2020-05-17 22:29:59'),
+(4, 8, '2020-05-18 01:05:56');
 
 -- --------------------------------------------------------
 
@@ -324,8 +292,8 @@ INSERT INTO `privilegio_rol` (`idRol`, `idPrivilegio`, `fechaCreacion`) VALUES
 --
 
 CREATE TABLE `respuestas` (
-  `idRespuestas` int(7) NOT NULL,
-  `noPregunta` int(2) NOT NULL,
+  `idSolicitud` int(7) NOT NULL,
+  `idPregunta` int(3) NOT NULL,
   `respuesta` text NOT NULL,
   `fechaRespuesta` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -349,7 +317,8 @@ CREATE TABLE `rol` (
 INSERT INTO `rol` (`idRol`, `rol`, `descripcion`) VALUES
 (1, 'admin', 'Administrador de la pagina'),
 (2, 'operador', 'Personas de servicio social/ voluntarios'),
-(3, 'registrado', 'Usuario que ha creado cuenta');
+(3, 'registrado', 'Usuario que ha creado cuenta'),
+(4, 'registrado-no-verificado', '');
 
 -- --------------------------------------------------------
 
@@ -358,17 +327,24 @@ INSERT INTO `rol` (`idRol`, `rol`, `descripcion`) VALUES
 --
 
 CREATE TABLE `solicitud` (
+  `idSolicitud` int(7) NOT NULL,
   `idUsuario` int(5) NOT NULL,
-  `idPerros` int(7) NOT NULL,
-  `idRespuestas` int(7) NOT NULL,
-  `fecha` datetime NOT NULL,
+  `idPerro` int(7) NOT NULL,
+  `fechaCreacion` datetime NOT NULL DEFAULT current_timestamp(),
   `estadoFormulario` int(11) NOT NULL,
   `estadoEntrevista` int(11) NOT NULL,
   `estadoPago` int(11) NOT NULL,
   `fechaPago` datetime NOT NULL,
   `metodoPago` varchar(20) NOT NULL,
-  `numTransaccion` int(20) NOT NULL
+  `noTransaccion` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `solicitud`
+--
+
+INSERT INTO `solicitud` (`idSolicitud`, `idUsuario`, `idPerro`, `fechaCreacion`, `estadoFormulario`, `estadoEntrevista`, `estadoPago`, `fechaPago`, `metodoPago`, `noTransaccion`) VALUES
+(1, 111, 1, '2020-05-16 15:46:21', 5, 4, 3, '0000-00-00 00:00:00', '', 0);
 
 -- --------------------------------------------------------
 
@@ -433,16 +409,16 @@ CREATE TABLE `tipo_personalidad` (
 --
 
 INSERT INTO `tipo_personalidad` (`idPersonalidad`, `personalidad`, `descripcion`) VALUES
-(1, 'AgresivoP', 'Agresivo con otros perros'),
-(2, 'Jugueton', ''),
+(1, 'Agresivo con otros perros', 'Agresivo con otros perros'),
+(2, 'Juguetón', ''),
 (3, 'Tranquilo', ''),
 (4, 'Sociable', ''),
-(5, 'AgresivoPer', 'Agresivo con personas'),
-(6, 'Compania', ''),
+(5, 'Agresivo con Personas', 'Agresivo con personas'),
+(6, 'Compañía', ''),
 (7, 'Protector', ''),
 (8, 'Independiente', 'Prefiere pasar tiempo solo'),
-(9, 'JuguetonAgresivo', ''),
-(10, 'Energetico', '');
+(9, 'Juguetón Agresivo', ''),
+(10, 'Energético', '');
 
 -- --------------------------------------------------------
 
@@ -463,7 +439,7 @@ CREATE TABLE `tipo_raza` (
 INSERT INTO `tipo_raza` (`idRaza`, `raza`, `descripcion`) VALUES
 (1, 'Pastoreo', ''),
 (2, 'Deportivos', ''),
-(3, 'NoDeportivos', ''),
+(3, 'No Deportivos', ''),
 (4, 'Trabajadores', ''),
 (5, 'Sabuesos', ''),
 (6, 'Terriers', ''),
@@ -598,7 +574,10 @@ INSERT INTO `usuario` (`idUsuario`, `nombre`, `apellido`, `email`, `telefono`, `
 (108, 'Wallace', 'Avery', 'dolor@incursuset.ca', '2147483647', '9698 Faucibus Av.', 'Apdo.:729-6152 Auctor. Calle', 7159, 217, 56311, 'Juriquilla', 'Queretaro', 'Querataro', '1937-08-29', '7D1AFAA1-AD8F-1F6D-2512-17564C22FD82'),
 (109, 'Patricia', 'Raymond', 'habitant.morbi@feugiattellus.ca', '1817002188', '411-1303 Auctor. Av.', 'Apartado núm.: 154, 3816 Eu Carretera', 709, 233, 30295, 'CentroSur', 'Moroleon', 'Guanajuato', '1967-02-09', '$2y$10$PPZAldTP5/kKqVYMyBdJb..Y2B4SVHiKwO41E7M/GasnPx/XgIR3C'),
 (110, 'Bert', 'Williams', 'eu@nullaIntegerurna.ca', '2147483647', '6385 Duis Avenida', 'Apartado núm.: 853, 3007 Eu Calle', 6439, 33, 61038, 'Juriquilla', 'Queretaro', 'Guanajuato', '1921-10-26', '$2y$10$PPZAldTP5/kKqVYMyBdJb..Y2B4SVHiKwO41E7M/GasnPx/XgIR3C'),
-(111, 'admin', 'admin', 'admin@admin.co', '1234567890', 'asdf', 'asdfg', 123, 42, 12345, 'asdf', 'Queretaro', 'Queretaro', '1999-10-02', '$2y$10$ifhAK.S6RMReYR.lZyqzeen6SU8GbY6p6UPI6qhzm58VviXTYHoqq');
+(111, 'admin', 'admin', 'admin@admin.co', '1234567890', 'asdf', 'asdfg', 123, 42, 12345, 'asdf', 'Queretaro', 'Queretaro', '1999-10-02', '$2y$10$ifhAK.S6RMReYR.lZyqzeen6SU8GbY6p6UPI6qhzm58VviXTYHoqq'),
+(112, 'Mauricio', 'Alvarez', 'maualvm@gmail.com', '4424670629', 'San Bernardo', 'a', 37, 0, 76230, 'Juriquilla', 'Querétaro', 'Querétaro', '1999-08-30', '$2y$10$RP0cXuM.8yIk2uiSbWYsWu55A6DZKymWglZ.ppolUl3LDFbBfdpSa'),
+(113, 'Jose', 'Pérez', 'jperez@gmail.com', '4421234567', 'Calle', '', 37, 0, 76230, 'Juriquilla', 'Querétaro', 'Querétaro', '1999-08-30', '$2y$10$0fxPLVmqE7o2xuoEILfCt.Xcvgv3UpJps1L3Q9VM4N.lGX8m6dLci'),
+(114, 'Prueba', 'Cuenta', 'a@b.com', '1234567890', 'calle', '', 123, 0, 76230, 'Juriquilla', 'Querétaro', 'Querétaro', '2001-01-01', '$2y$10$B9VP7KDA0TFBlnq3Axb1Yelnyi41S6qRzZlzGOsYBxkUjSJ.ol9Vy');
 
 -- --------------------------------------------------------
 
@@ -619,11 +598,21 @@ CREATE TABLE `usuario_rol` (
 INSERT INTO `usuario_rol` (`idUsuario`, `idRol`, `fechaCreacion`) VALUES
 (109, 2, '2020-04-28 19:12:40'),
 (110, 3, '2020-04-28 19:12:40'),
-(111, 1, '2020-04-28 19:00:53');
+(111, 1, '2020-04-28 19:00:53'),
+(112, 3, '2020-04-29 13:54:17'),
+(113, 3, '2020-04-29 14:18:20'),
+(114, 3, '2020-05-17 18:13:01');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `cambio_contrasenia`
+--
+ALTER TABLE `cambio_contrasenia`
+  ADD PRIMARY KEY (`uid`),
+  ADD KEY `idUsuario` (`idUsuario`);
 
 --
 -- Indexes for table `caracteristicas`
@@ -639,6 +628,13 @@ ALTER TABLE `caracteristicas`
 --
 ALTER TABLE `condiciones_medicas`
   ADD PRIMARY KEY (`idCondicion`);
+
+--
+-- Indexes for table `confirm_email`
+--
+ALTER TABLE `confirm_email`
+  ADD PRIMARY KEY (`uid`),
+  ADD KEY `idUsuario` (`idUsuario`);
 
 --
 -- Indexes for table `donacion`
@@ -675,6 +671,12 @@ ALTER TABLE `perros`
   ADD KEY `idPerro` (`idPerro`);
 
 --
+-- Indexes for table `preguntas`
+--
+ALTER TABLE `preguntas`
+  ADD PRIMARY KEY (`idPregunta`);
+
+--
 -- Indexes for table `privilegios`
 --
 ALTER TABLE `privilegios`
@@ -691,7 +693,9 @@ ALTER TABLE `privilegio_rol`
 -- Indexes for table `respuestas`
 --
 ALTER TABLE `respuestas`
-  ADD PRIMARY KEY (`idRespuestas`);
+  ADD PRIMARY KEY (`idSolicitud`,`idPregunta`),
+  ADD KEY `idPregunta` (`idPregunta`),
+  ADD KEY `idSolicitud` (`idSolicitud`);
 
 --
 -- Indexes for table `rol`
@@ -703,12 +707,12 @@ ALTER TABLE `rol`
 -- Indexes for table `solicitud`
 --
 ALTER TABLE `solicitud`
-  ADD KEY `idUsuario` (`idUsuario`),
-  ADD KEY `idPerros` (`idPerros`),
-  ADD KEY `idRespuestas` (`idRespuestas`),
-  ADD KEY `estadoFormulario` (`estadoFormulario`),
+  ADD PRIMARY KEY (`idSolicitud`),
+  ADD KEY `idPerro` (`idPerro`),
+  ADD KEY `estadoFormulatio` (`estadoFormulario`,`estadoEntrevista`,`estadoPago`),
   ADD KEY `estadoEntrevista` (`estadoEntrevista`),
-  ADD KEY `estadoPago` (`estadoPago`);
+  ADD KEY `estadoPago` (`estadoPago`),
+  ADD KEY `idUsuario` (`idUsuario`);
 
 --
 -- Indexes for table `sucursal`
@@ -768,25 +772,31 @@ ALTER TABLE `estado`
 -- AUTO_INCREMENT for table `perros`
 --
 ALTER TABLE `perros`
-  MODIFY `idPerro` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `idPerro` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+
+--
+-- AUTO_INCREMENT for table `preguntas`
+--
+ALTER TABLE `preguntas`
+  MODIFY `idPregunta` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `privilegios`
 --
 ALTER TABLE `privilegios`
-  MODIFY `idPrivilegio` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `respuestas`
---
-ALTER TABLE `respuestas`
-  MODIFY `idRespuestas` int(7) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPrivilegio` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `idRol` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idRol` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `solicitud`
+--
+ALTER TABLE `solicitud`
+  MODIFY `idSolicitud` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `sucursal`
@@ -816,20 +826,32 @@ ALTER TABLE `tipo_raza`
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+  MODIFY `idUsuario` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- Constraints for dumped tables
 --
 
 --
+-- Constraints for table `cambio_contrasenia`
+--
+ALTER TABLE `cambio_contrasenia`
+  ADD CONSTRAINT `cambio_contrasenia_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `caracteristicas`
 --
 ALTER TABLE `caracteristicas`
+  ADD CONSTRAINT `caracteristicas_ibfk_1` FOREIGN KEY (`idPerro`) REFERENCES `perros` (`idPerro`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `condicion_perro` FOREIGN KEY (`idCondicion`) REFERENCES `condiciones_medicas` (`idCondicion`),
-  ADD CONSTRAINT `idPerro_perro` FOREIGN KEY (`idPerro`) REFERENCES `perros` (`idPerro`),
   ADD CONSTRAINT `personalidad_perro` FOREIGN KEY (`idPersonalidad`) REFERENCES `tipo_personalidad` (`idPersonalidad`),
   ADD CONSTRAINT `raza_perro` FOREIGN KEY (`idRaza`) REFERENCES `tipo_raza` (`idRaza`);
+
+--
+-- Constraints for table `confirm_email`
+--
+ALTER TABLE `confirm_email`
+  ADD CONSTRAINT `confirm_email_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `donacion`
@@ -843,7 +865,7 @@ ALTER TABLE `donacion`
 --
 ALTER TABLE `estado_perro`
   ADD CONSTRAINT `estado_perro_ibfk_1` FOREIGN KEY (`idEstado`) REFERENCES `estado` (`idEstado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `estado_perro_ibfk_2` FOREIGN KEY (`idPerro`) REFERENCES `perros` (`idPerro`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `estado_perro_ibfk_2` FOREIGN KEY (`idPerro`) REFERENCES `perros` (`idPerro`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `maneja`
@@ -861,15 +883,21 @@ ALTER TABLE `privilegio_rol`
   ADD CONSTRAINT `privilegio_rol_ibfk_1` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `respuestas`
+--
+ALTER TABLE `respuestas`
+  ADD CONSTRAINT `respuestas_ibfk_1` FOREIGN KEY (`idPregunta`) REFERENCES `preguntas` (`idPregunta`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `respuestas_ibfk_2` FOREIGN KEY (`idSolicitud`) REFERENCES `solicitud` (`idSolicitud`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `solicitud`
 --
 ALTER TABLE `solicitud`
-  ADD CONSTRAINT `idPerros` FOREIGN KEY (`idPerros`) REFERENCES `perros` (`idPerro`),
-  ADD CONSTRAINT `idRespuestas` FOREIGN KEY (`idRespuestas`) REFERENCES `respuestas` (`idRespuestas`),
-  ADD CONSTRAINT `idUsuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`),
-  ADD CONSTRAINT `solicitud_ibfk_1` FOREIGN KEY (`estadoFormulario`) REFERENCES `estado` (`idEstado`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `solicitud_ibfk_2` FOREIGN KEY (`estadoEntrevista`) REFERENCES `estado` (`idEstado`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `solicitud_ibfk_3` FOREIGN KEY (`estadoPago`) REFERENCES `estado` (`idEstado`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `solicitud_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `solicitud_ibfk_2` FOREIGN KEY (`idPerro`) REFERENCES `perros` (`idPerro`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `solicitud_ibfk_3` FOREIGN KEY (`estadoFormulario`) REFERENCES `estado` (`idEstado`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `solicitud_ibfk_4` FOREIGN KEY (`estadoEntrevista`) REFERENCES `estado` (`idEstado`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `solicitud_ibfk_5` FOREIGN KEY (`estadoPago`) REFERENCES `estado` (`idEstado`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `usuario_rol`
