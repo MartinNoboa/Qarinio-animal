@@ -2,14 +2,19 @@
 <div class="uk-background-muted" id="footer">
 	<div class="uk-flex uk-flex-between uk-container">
 		<div class="uk-container uk-flex-left uk-align-center uk-margin-top">
-			<h2>Contacto<button class="uk-button uk-button-primary uk-border-rounded uk-align-right" type="button" id="editar-contacto" ><span uk-icon="icon:pencil"></span> Editar Informacion de contacto</button> </h2>
+			<h2>Contacto
+                
+                 <?php 
+                    if(checkPriv("editar-info-contacto")){
+
+                        echo "<button class='uk-button uk-button-primary uk-border-rounded uk-align-right' type='button' id='editar-contacto' ><span uk-icon='icon:pencil'></span> Editar Informacion de Contacto</button> ";
+                    }
+                ?>
+                 </h2>
             
             <div id="seccion-preguntas">
             </div>
-			<!--p><span uk-icon="receiver"></span> Roselin Vasquez: 4424675815</p>
-			<p><span uk-icon="mail"></span><a href="mailto:carinoanimal@hotmail.com" target="_blank"> carinoanimal@hotmail.com</a></p>
-			<p><span uk-icon="location"></span><a href="https://www.google.com/maps/place/Cari%C3%B1o+Animal/" target="_blank">Av Ferrocarril 63, La Cañada, Queretaro Queretaro, 76800 Santiago de Querétaro, Qro.</a></p-->
-            
+		    
             
 		</div>
 		<hr class="uk-divider-vertical uk-height-small">
