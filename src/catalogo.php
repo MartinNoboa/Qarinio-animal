@@ -15,8 +15,8 @@ include_once("util.php")
         ?>
 </div>
 <div id="main" class="uk-flex uk-margin">
-    <div id="filterMenu" class="uk-container uk-width-large">
-        <ul id="listaFiltro" class="uk-nav-primary uk-nav-parent-icon uk-margin-top" uk-nav="multiple: true" uk-sticky="offset:110">
+    <div id="filterMenu" class="uk-container uk-width-medium uk-margin-bottom">
+        <ul id="listaFiltro" class="uk-nav-primary uk-nav-parent-icon uk-margin-top" uk-nav="multiple: true">
             <li class="uk-parent">
                 <a href="#">Filtros</a>
                 <ul class="uk-nav-sub">
@@ -64,14 +64,14 @@ include_once("util.php")
                     </li>
                 </ul>
             </li><hr>
-            <button id="filtrar" class="uk-button uk-button-primary uk-align-right uk-border-rounded">Aplicar</button>
+            <button id="filtrar" class="uk-button uk-button-primary uk-align-right uk-border-rounded uk-overflow-auto">Aplicar</button>
         </ul>
     </div>
 
     <hr class="uk-divider-vertical uk-height-large uk-visible@s">
 
     <div class="uk-container">
-        <div class="uk-child-width-1-2 uk-animation-slide-bottom-medium" id="contenido-catalogo" uk-grid>
+        <div class="uk-animation-slide-bottom-medium" id="contenido-catalogo" uk-grid>
         <?php
             include("controlador_catalogo.php");
         ?>

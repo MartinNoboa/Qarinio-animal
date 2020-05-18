@@ -23,3 +23,7 @@ html {
 #imagen-tarjeta {
     border-radius: 5px 5px 0px 0px !important;
 }
+
+#footer {
+    z-index: 999;
+}
