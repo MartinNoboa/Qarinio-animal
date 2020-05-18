@@ -128,13 +128,14 @@ function agregarPerro() {
         //console.log(data);
       if(parseInt(data) != 0){
           mostrarMensaje("Se agrego el perro exitosamente", "success");
-          setTimeout(function() {
-          window.location.href = "catalogo.php";
-          }, 2000);
       }else{
           mostrarMensaje("Hubo un error al agregar el perro", "danger");
       }
     });
 }
-
 $("#agregar")[0].onclick = agregarPerro;
+
+
+
+
+
