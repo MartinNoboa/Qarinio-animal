@@ -3,6 +3,7 @@
     include("_navbar.html");
     include("util.php");
 ?>
+
 <div  id="modal-editar-preguntas" class="uk-modal-container" uk-modal>
 </div>
 <div class = "uk-container uk-margin  ">
@@ -11,9 +12,7 @@
         
         
             <button class="uk-button uk-button-primary uk-border-rounded uk-align-right" type="button" id="editar-preguntas" ><span uk-icon="icon:pencil"></span> Editar Preguntas</button>     
-        
-        
-        
+            
     </div>
   <hr>
     
