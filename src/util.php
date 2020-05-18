@@ -332,6 +332,7 @@ function getDogInfoById($id){
         return $res;
 }
 
+
 function sintaxisEdad($meses) {
     $m = $meses;
     $a = ($m-$m%12)/12;
@@ -414,4 +415,5 @@ WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.nombre='".$_SESSION[
     $tabla .= "</tbody></table>";
     return $tabla;
 }
+
 ?>

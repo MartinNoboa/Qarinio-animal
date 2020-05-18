@@ -7,11 +7,10 @@ $info = getDogInfoById($_POST["idPerro"]);
 ?>
     <div class="uk-modal-dialog uk-modal-body uk-border-rounded">
         <div class="uk-modal-title">
-                <h1><?= $info["nombre"];?>
-                </h1>
-                <img src="img/Mario.jpg" alt="Imagen del perro" class="uk-border-rounded uk-float-right uk-width-medium">
+            <h1><?= $info["nombre"];?></h1>
+            <img src="img/Mario.jpg" alt="Imagen del perro" class="uk-border-rounded uk-float-right uk-width-medium">
         </div>
-        <div class="uk-modal-body uk-margin-remove uk-width-2-3">
+        <div class="uk-modal-body uk-margin-remove uk-width-2-3 ">
             <button class="uk-modal-close-default" type="button" uk-close></button>
 
             <table class="uk-table uk-table-divider">
@@ -48,6 +47,10 @@ $info = getDogInfoById($_POST["idPerro"]);
                 </tbody>
             </table>
         </div>
+        <hr>
+        <form class="uk-form uk-align-right" action="nuevaSolicitud.php" method="post">
+            <button class="uk-button uk-button-primary uk-border-rounded uk-margin-remove-bottom" id="btn-adoptar" type="submit">Adoptar</button>
+        </form>
     </div>
 <?php
     http_response_code(200);
