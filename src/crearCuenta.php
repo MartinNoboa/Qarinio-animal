@@ -65,7 +65,7 @@
                 $_POST["estado"],
                 $_POST["fechaNacimiento"],
                 $_POST["contrasenia"],
-                "registrado"
+                "registrado-no-verificado"
             ];
             if(crearCuenta(...$datosCuenta)){
                 $_SESSION["mensaje"]="Se ha creado la sesión con éxito";
