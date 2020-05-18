@@ -228,7 +228,7 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
 
     //función para eliminar una perro
     //@param id_perro: id del perro que se va a eliminar
-  function eliminar_perro($id_perro) {
+function eliminar_perro($id_perro) {
     $sql='UPDATE estado_perro SET idEstado=6 WHERE idPerro='.$id_perro;
     $res=modifyDb($sql);
     return $res;
@@ -466,7 +466,7 @@ function muestraPreguntasFormulario() {
                 }
                 break;
             case 'numeric':
-                $output .= "<input type='number' class=\"uk-input uk-border-rounded\" name=\"".$row['id']."\">";
+                $output .= "<input type='number' class=\"uk-input uk-border-rounded\" id=\"".$row['id']."\">";
                 break;
             default:
                 $output .= "<textarea class=\"uk-textarea uk-border-rounded\" id=\"".$row['id']."\" type=\"textarea\" placeholder=\"Tu respuesta\" value=\"\"></textarea>";

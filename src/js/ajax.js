@@ -277,3 +277,40 @@ function agregarFoto(){
 });
 }
 
+function nuevaSolicitud(idUsuario, idPerro){
+    $.post("controlador_nueva_solicitud.php", {
+        //recupera idUsuario y idPerro de la sesion
+        idUsuario : idUsuario,
+        idPerro : idPerro,
+        //si o no
+        res1 : $('input[name="1"]:checked').val(),
+        res2 : $('input[name="2"]:checked').val(),
+        //textarea
+        res3 : $('#3').val(),
+        res4 : $('#4').val(),
+        //numeric
+        res5 : $('#5').val(),
+        //si o no
+        res6 : $('input[name="6"]:checked').val(),
+        //casa o dep
+        res7 : $('input[name="7"]:checked').val(),
+        //jardin o patio
+        res8 : $('input[name="8"]:checked').val(),
+        //si o no
+        res9 : $('input[name="9"]:checked').val(),
+        //textarea
+        res10 : $('#10').val(),
+        res11 : $('#11').val(),
+        //si o no
+        res12 : $('input[name="9"]:checked').val()
+    }).done(function(data){
+        //cero sin error 
+        if (data == 0){
+          mostrarMensaje("Se completo la solicitud correctamente", "success");
+            //redireccionar a mis solicitudes
+        }else {
+            //mensaje de error
+        }
+    })
+}
+
