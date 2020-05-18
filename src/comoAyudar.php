@@ -1,12 +1,12 @@
-<?php 
+<?php
     include("_header.html");
     include("_navbar.html");
 ?>
 
-<div class = "uk-container">
+<div class = "uk-container uk-margin">
   <h1 class="uk-text-center">¿Cómo Ayudar?</h1>
-  <hr>
-</div>  
+  <hr class="uk-divider-icon">
+</div>
 
 <div class="uk-section">
   <div class="uk-container">
@@ -23,7 +23,7 @@
     <div>
       <h3><span uk-icon="icon: lifesaver; ratio: 1.5"></span> Recatar</h3>
       <p>Consiste en directamente recoger a un perrito o gatito de la calle, llevarlo al veterinario para curarlo en caso de que esté herido o enfermo, bañarlo, vacunarlo y desparasitarlo, esterilizarlo, alimentarlo y procurarlo, todo esto utilizando nuestros propios recursos para después adoptarlo como propio o en todo caso, buscarle una familia amorosa y responsable a la cual darlo en adopción, ya sea por nuestros medios o a través de los servicios de una protectora.</p>
-    </div>  
+    </div>
     <br>
     <div>
       <h3><span uk-icon="icon: happy; ratio: 1.5"></span>  Adoptar</h3>
@@ -55,8 +55,3 @@
 
 
 <?php include("_footer.html"); ?>
-
-
-
-  
- 

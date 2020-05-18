@@ -88,6 +88,9 @@ function modifyDb($dml){
     return $res;
 }
 
+
+
+
 function recuperarUsuarios(){
     $sql = "SELECT u.nombre,u.nombre,r.rol from usuario u, rol r, usuario_rol ur WHERE u.idUsuario=ur.idUsuario AND r.idRol=ur.idRol";
     return sqlqry($sql);
@@ -233,7 +236,7 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
 
 function editarPerro($idPerro,$nombre,$size,$edad,$sexo,$historia,$idCondicion,$idRaza,$idPersonalidad) {
     $sql = "UPDATE perros p, caracteristicas c
-            SET nombre='$nombre', tamanio='$size', edadEstimadaLLegada=TIMESTAMPDIFF(MONTH, DATE_ADD(CURDATE(), INTERVAL -$edad-1 MONTH), fechaLLegada),
+            SET nombre='$nombre', tamanio='$size', edadEstimadaLLegada=TIMESTAMPDIFF(MONTH, DATE_ADD(CURDATE(), INTERVAL -$edad MONTH), fechaLLegada),
             sexo='$sexo', historia='$historia', idCondicion=$idCondicion, idRaza=$idRaza, idPersonalidad=$idPersonalidad
             WHERE p.idPerro=c.idPerro AND p.idPerro=$idPerro";
     echo $sql;
@@ -247,30 +250,30 @@ function editarPerro($idPerro,$nombre,$size,$edad,$sexo,$historia,$idCondicion,$
 /*
 *@param: valores del perro por agregar
 */
-function agregarPerro($nombre,$size,$edad,$fechaLlegada,$sexo,$historia,$idCondicion,$idRaza,$idPersonalidad) {
-    
-    //En la transaction se agrega a la tabla perro el nuevo perro, luego con el id generado de ese perro se agrega a la tabla caracteristicas
-    //cambiar sintaxis de mariadb a mysql :(((((
-    
-    $sql = "
-    BEGIN;
-    INSERT INTO perros (nombre, tamanio, edadEstimadaLlegada, fechaLlegada, sexo, historia)
-            VALUES (?,?,?,?,?,?);
-    INSERT INTO caracteristicas(idPerro, idCondicion, idPersonalidad, idRaza)
-            VALUES ((SELECT idPerro FROM perros WHERE nombre = $nombre AND fechaLlegada = $fechaLlegada ), $idCondicion, $idPersonalidad, $idRaza);
-    COMMIT;";
-    
-    
-    $result = insertIntoDb($sql,$nombre,$size,$edad,$fechaLlegada,sexo,$historia,$idCondicion,$idRaza,$idPersonalidad);
-    echo $sql;
-    if($result != 0){
-        echo '<script type="text/javascript">alert("Perro agregado correctamente");</script>';
+function agregarPerro($nombre,$size,$edad,$fechaLlegada,$sexo,$historia,$idCondicion,$idPersonalidad,$idRaza) {
 
-    }else {
-        echo '<script type="text/javascript">alert("Error al agregar el perro");</script>';
-        
+    $success = false;
+
+    $dml = "INSERT INTO perros (nombre, tamanio, edadEstimadaLlegada, fechaLlegada, sexo, historia)
+            VALUES (?,?,?,?,?,?)";
+
+    $dml1 = "INSERT INTO caracteristicas
+            VALUES ((SELECT idPerro FROM perros ORDER BY idPerro DESC LIMIT 1), ?,?,?)";
+
+    $dml2 = "INSERT INTO estado_perro VALUES ((SELECT idPerro FROM perros ORDER BY idPerro DESC LIMIT 1), ?)";
+    $estado = 2;
+
+    $first = insertIntoDb($dml,$nombre,$size,$edad,$fechaLlegada,$sexo,$historia);
+    if($first != 0){
+        $sec = insertIntoDb($dml1 ,$idCondicion,$idPersonalidad,$idRaza);
+        $third = insertIntoDb($dml2, $estado);
+            if (third != 0){
+                $success = true;
+
+            }
     }
-   
+
+    return $success;
 }
 
 
@@ -281,8 +284,7 @@ function recuperarOpciones($id, $campo, $tabla){
     $option = "";
 
     while($row = mysqli_fetch_array($result)){
-        $option = $option."<option value = $row[0]>$row[1]</option>";
-    }
+    $option = $option."<option value=".$row[0].">".ucfirst($row[1])."</option>";    }
 
     echo $option;
   }
@@ -320,7 +322,7 @@ function getDogInfoById($id){
         AND c.idRaza=rz.idRaza
         AND p.idPerro=$id
         GROUP BY p.idPerro";
-  
+
         $res = mysqli_fetch_array(sqlqry($sql));
         $m = $res["edad"];
         $a = ($m-$m%12)/12;
@@ -328,5 +330,88 @@ function getDogInfoById($id){
         $res["anios"] = $a;
         $res["meses"] = $m;
         return $res;
+}
+
+function sintaxisEdad($meses) {
+    $m = $meses;
+    $a = ($m-$m%12)/12;
+    $m = $m%12;
+
+    $age= $a.' años, '.$m.' meses';
+
+    $age = '';
+    if($a>0){
+        $age= $a.' '.($a==1?'año':'años');
+    }
+    //El $a <= 3 se puede quitar, solo es preferencia para mostrar los meses solo para perros menores a 3 años
+    if($m>0 AND $a<=3){
+        if($a>0){
+            $age.=', ';
+        }
+        $age .= $m.' '.($m==1?'mes':'meses');
+    }
+    return $age;
+}
+
+function muestraSolicitudes(){
+    $conDb = connectDb();
+
+    $sql = "
+    SELECT p.nombre as 'Perro', s.estadoFormulario as 'Formulario', s.estadoEntrevista as 'Entrevista', s.estadoPago as 'Pago'
+FROM perros p, usuario u, solicitud s
+WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.nombre='".$_SESSION["nombre"]."'";
+
+    $tabla = "
+    <table class=\"uk-table uk-table-divider uk-table-striped uk-table-large uk-table-hover uk-animation-slide-bottom-medium\">
+        <thead clas>
+            <tr>
+                <th class=\"uk-width-small uk-text-secondary\">Perro</th>
+                <th class=\"uk-text-center uk-text-secondary\">Formulario</th>
+                <th class=\"uk-text-center uk-text-secondary\">Entrevista</th>
+                <th class=\"uk-text-center uk-text-secondary\">Pago</th>
+            </tr>
+        </thead>
+        <tbody>
+    ";
+
+    $solicitudes = $conDb->query($sql);
+    while($row = mysqli_fetch_array($solicitudes, MYSQLI_BOTH)) {
+        $tabla .= "<tr onclick=\"window.location='catalogo.php';\">";
+        $tabla .= "<td>".$row['Perro']."</td>";
+        if($row['Formulario'] == 5) { //completado
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Tu formulario fue aprobado!\"></a></span></td>";
+        }
+        elseif($row['Formulario'] == 4) { //en proceso
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: Tu formulario está en proceso de aprobación\"></a></span></td>";
+        }
+        elseif($row['Formulario'] == 3) { //incompleto
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Tu formulario fue rechazado\"></a></span></td>";
+        }
+
+        if($row['Entrevista'] == 5) { //completado
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Tu entrevista fue aprobada!\"></a></span></td>";
+        }
+        elseif($row['Entrevista'] == 4) { //en proceso
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: Tu entrevista está en proceso de aprobación\"></a></span></td>";
+        }
+        elseif($row['Entrevista'] == 3) { //incompleto
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Tu entrevista fue rechazado\"></a></span></td>";
+        }
+
+        if($row['Pago'] == 5) { //completado
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Tu pago fue aprobado!\"></a></span></td>";
+        }
+        elseif($row['Pago'] == 4) { //en proceso
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: Tu pago está en proceso de aprobación\"></a></span></td>";
+        }
+        elseif($row['Pago'] == 3) { //incompleto
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Tu pago fue rechazado\"></a></span></td>";
+        }
+        $tabla .= "</tr>";
+    }
+    mysqli_free_result($solicitudes); //Liberar la memoria
+    closeDb($conDb);
+    $tabla .= "</tbody></table>";
+    return $tabla;
 }
 ?>
