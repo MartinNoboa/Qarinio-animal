@@ -108,7 +108,7 @@ function readTextFile(file, callback) {
 function mostrarPreguntas(){
     readTextFile("preguntas.json", function(text){
         let data = JSON.parse(text);
-        console.log("a");
+        //console.log("a");
         let i = 0;
         let concatenacion="";
         for(i=0;i<data.length;i++){
@@ -131,7 +131,7 @@ function editarPreguntas() {
             UIkit.modal($("#modal-editar-preguntas")).show();
             readTextFile("preguntas.json", function(text){
             let data = JSON.parse(text);
-            console.log(data);
+            //console.log(data);
             let i = 0;
             let idCorregido;
             for(i=0;i<data.length;i++){
