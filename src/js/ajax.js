@@ -105,22 +105,26 @@ function readTextFile(file, callback) {
 }
 
 //usage:
-readTextFile("preguntas.json", function(text){
-    let data = JSON.parse(text);
-    console.log(data);
-    let i = 0;
-    for(i=0;i<data.length;i++){
-        document.getElementById('lista-preguntas').innerHTML+= 
-            '<li class="uk-open"><a class="uk-accordion-title" href="#">'+
-            data[i].pregunta +"</a>"+
-            '<div class="uk-accordion-content"><p>'+data[i].respuesta + '</p></div>'+
-            "</li>"; 
-    }
-});
+function mostrarPreguntas(){
+    readTextFile("preguntas.json", function(text){
+        let data = JSON.parse(text);
+        console.log("a");
+        let i = 0;
+        let concatenacion="";
+        for(i=0;i<data.length;i++){
+            concatenacion+= 
+                '<li class="uk-open"><a class="uk-accordion-title" href="#">'+
+                data[i].pregunta +"</a>"+
+                '<div class="uk-accordion-content"><p>'+data[i].respuesta + '</p></div>'+
+                "</li>"; 
+        }
+        document.getElementById('lista-preguntas').innerHTML=concatenacion;
+       
+    });
+}
 
 function editarPreguntas() {
     $.post("vista_editar_preguntas.php", {
-      
     }).done(function (data,status,header) {
         if(header.status===200 && status == 'success'){
             $("#modal-editar-preguntas").html(data);
@@ -144,15 +148,14 @@ function editarPreguntas() {
                     '<div class="uk-margin">'+
                     '<label class="uk-form-label" for="nombre">Respuesta ' +idCorregido +'</label>'+
                         '<div class="uk-form-controls">'+
-                            '<input class="uk-input uk-border-rounded respuesta" idrespuesta='+i +' type="text" placeholder='+ "'"
+                            '<textarea class="uk-textarea uk-border-rounded respuesta" idrespuesta='+i +' type="text" placeholder='+ "'"
                             +data[i].respuesta + "'"
                      +' value='+"'" +data[i].respuesta+ "'"+
-                    "></div></div>";
-                
-               
+                    ">"+data[i].respuesta  + "</textarea></div></div>"; 
+                document.getElementById('seccion-preguntas').innerHTML+='<br>';
             }      
             });
-            $("#btn-editar-preguntas")[0].onclick = submitEditarPreguntas;
+            $("#btn-editar-preguntas")[0].onclick = submitEditarPreguntas; 
             
         }//terminacion del if
     });
@@ -183,9 +186,12 @@ function submitEditarPreguntas(){
            datosp
         }).done(function (data) {
            console.log(data);
-            if(parseInt(data)!==0) {
+            if(parseInt(data)!== 0) {
                 mostarMensaje("Se actualizaron las preguntas exitosamente","primary");
                 UIkit.modal($("#modal-editar-preguntas")).hide();
+                mostrarPreguntas();
+                //filtrar();
+                //location.reload(true);
             } else {
                 mostarMensaje("Hubo un error al actualizar las preguntas ","danger");
             }
@@ -193,5 +199,6 @@ function submitEditarPreguntas(){
 
  
     }//terminacion del if confirm
+   
 }
 
