@@ -122,30 +122,30 @@ function readTextFile(file, callback) {
         }
     }
     //console.log(" leyendo texto");
-   
+
     rawFile.send(null);
-   
+
 }
 
 //usage:
 function mostrarPreguntas(){
-    
+
     readTextFile("preguntas.json", function(text){
         let data = JSON.parse(text);
         //console.log(data);
         let i = 0;
         let concatenacion="";
         for(i=0;i<data.length;i++){
-            concatenacion+= 
+            concatenacion+=
                 '<li class="uk-open"><a class="uk-accordion-title" href="#">'+
                 data[i].pregunta +"</a>"+
                 '<div class="uk-accordion-content"><p>'+data[i].respuesta + '</p></div>'+
-                "</li>"; 
+                "</li>";
         }
         document.getElementById('lista-preguntas').innerHTML=concatenacion;
         console.log(concatenacion);
     });
-    
+
 }
 
 
@@ -163,7 +163,7 @@ function editarPreguntas() {
             let idCorregido;
             for(i=0;i<data.length;i++){
                 idCorregido = i+1;
-                document.getElementById('seccion-preguntas').innerHTML+= 
+                document.getElementById('seccion-preguntas').innerHTML+=
                     '<div class="uk-margin">'+
                     '<label class="uk-form-label" for="nombre">Pregunta ' +idCorregido +'</label>'+
                         '<div class="uk-form-controls">'+
@@ -171,19 +171,19 @@ function editarPreguntas() {
                             +data[i].pregunta + "'"
                      +' value='+"'" +data[i].pregunta+ "'"+
                     "></div></div>";
-                 document.getElementById('seccion-preguntas').innerHTML+= 
+                 document.getElementById('seccion-preguntas').innerHTML+=
                     '<div class="uk-margin">'+
                     '<label class="uk-form-label" for="nombre">Respuesta ' +idCorregido +'</label>'+
                         '<div class="uk-form-controls">'+
                             '<textarea class="uk-textarea uk-border-rounded respuesta" idrespuesta='+i +' type="text" placeholder='+ "'"
                             +data[i].respuesta + "'"
                      +' value='+"'" +data[i].respuesta+ "'"+
-                    ">"+data[i].respuesta  + "</textarea></div></div>"; 
+                    ">"+data[i].respuesta  + "</textarea></div></div>";
                 document.getElementById('seccion-preguntas').innerHTML+='<br>';
-            }      
+            }
             });
-            $("#btn-editar-preguntas")[0].onclick = submitEditarPreguntas; 
-            
+            $("#btn-editar-preguntas")[0].onclick = submitEditarPreguntas;
+
         }//terminacion del if
     });
 }
@@ -193,7 +193,7 @@ function mostrarContacto(){
         //console.log("a");
         let data = JSON.parse(text);
         let concatenacion="";
-        
+
         concatenacion+="<p><span uk-icon='receiver'></span>"+
                 data[0].nombre + ":"+ data[0].telefono+ "</p><p><span uk-icon='mail'></span><a href='mailto:"+ data[0].correo + "' target='_blank'> "+
             data[0].correo+
@@ -212,7 +212,7 @@ function editarContacto() {
             readTextFile("contacto.json", function(text){
                 let data = JSON.parse(text);
                 //console.log(data);
-                document.getElementById('seccion-contacto').innerHTML+= 
+                document.getElementById('seccion-contacto').innerHTML+=
                         '<div class="uk-margin">'+
                         '<label class="uk-form-label" for="nombre">Nombre </label>'+
                             '<div class="uk-form-controls">'+
@@ -220,7 +220,7 @@ function editarContacto() {
                                 +data[0].nombre + "'"
                          +' value='+"'" +data[0].nombre+ "'"+
                         "></div></div>";
-                 document.getElementById('seccion-contacto').innerHTML+= 
+                 document.getElementById('seccion-contacto').innerHTML+=
                         '<div class="uk-margin">'+
                         '<label class="uk-form-label" for="nombre">Telefono </label>'+
                             '<div class="uk-form-controls">'+
@@ -228,7 +228,7 @@ function editarContacto() {
                                 +data[0].telefono + "'"
                          +' value='+"'" +data[0].telefono+ "'"+
                         "></div></div>";
-                document.getElementById('seccion-contacto').innerHTML+= 
+                document.getElementById('seccion-contacto').innerHTML+=
                         '<div class="uk-margin">'+
                         '<label class="uk-form-label" for="nombre">Correo </label>'+
                             '<div class="uk-form-controls">'+
@@ -236,7 +236,7 @@ function editarContacto() {
                                 +data[0].correo + "'"
                          +' value='+"'" +data[0].correo+ "'"+
                         "></div></div>";
-                document.getElementById('seccion-contacto').innerHTML+= 
+                document.getElementById('seccion-contacto').innerHTML+=
                         '<div class="uk-margin">'+
                         '<label class="uk-form-label" for="nombre">Direccion</label>'+
                             '<div class="uk-form-controls">'+
@@ -245,15 +245,15 @@ function editarContacto() {
                          +' value='+"'" +data[0].direccion+ "'"+
                         "></div></div>";
             });
-            $("#btn-editar-contacto")[0].onclick = submitEditarContacto; 
-            
+            $("#btn-editar-contacto")[0].onclick = submitEditarContacto;
+
         }//terminacion del if
     });
 }
 function submitEditarContacto(){
     //console.log($('.pregunta')[2]);
-    if(confirm("¿Estas seguro de guardar las preguntas frecuentes?")){
-       
+    if(confirm("¿Estas seguro de guardar la información de contacto?")){
+
         let nombre=$('.nombre').val();
         let correo=$('.correo').val();
         let direccion=$('.direccion').val();
@@ -270,17 +270,17 @@ function submitEditarContacto(){
                 mostrarMensaje("Se actualizó la información de contacto exitosamente","primary");
                 mostrarContacto();
                 UIkit.modal($("#modal-editar-contacto")).hide();
-                
-                
-                
+
+
+
             } else {
                 mostrarMensaje("Hubo un error al actualizar la información de contacto ","danger");
             }
         });
 
- 
+
     }//terminacion del if confirm
-   
+
 }
 
 function submitEditarPreguntas(){
@@ -298,7 +298,7 @@ function submitEditarPreguntas(){
         }
         datos['length'] = respuesta.length;
         datosp['length'] = pregunta.length;
-        
+
         //console.log(datos);
         //console.log(datosp);
        $.post("controlador_editar_preguntas.php", {
@@ -310,17 +310,17 @@ function submitEditarPreguntas(){
                 mostrarMensaje("Se actualizaron las preguntas exitosamente","primary");
                 mostrarPreguntas();
                 UIkit.modal($("#modal-editar-preguntas")).hide();
-                
-                
+
+
                 //window.history.forward(1);
             } else {
                 mostrarMensaje("Hubo un error al actualizar las preguntas ","danger");
             }
         });
 
- 
+
     }//terminacion del if confirm
-   
+
 }
 
 
@@ -370,7 +370,7 @@ function agregarFoto(){
             processData: false,
             success: function(response){
                 if(response != 0){
-                    $("#img").attr("src",response); 
+                    $("#img").attr("src",response);
                     $(".preview img").show(); // Display image element
                 }else{
                     alert('file not uploaded');
@@ -380,4 +380,3 @@ function agregarFoto(){
     });
 });
 }
-
