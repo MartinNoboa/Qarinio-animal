@@ -1,5 +1,6 @@
 <?php
     require_once("util.php");
+    session_start();
     $datos = limpia_entradas($_POST["datos"]);
     $datosp = limpia_entradas($_POST["datosp"]);
 

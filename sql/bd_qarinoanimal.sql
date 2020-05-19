@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2020 at 03:09 AM
+-- Generation Time: May 19, 2020 at 07:49 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -56,8 +56,9 @@ INSERT INTO `caracteristicas` (`idPerro`, `idCondicion`, `idPersonalidad`, `idRa
 (1, 5, 2, 3),
 (2, 2, 2, 4),
 (1, 5, 2, 3),
-(55, 5, 9, 4),
-(56, 2, 7, 3);
+(55, 5, 10, 1),
+(56, 2, 7, 3),
+(57, 2, 2, 3);
 
 -- --------------------------------------------------------
 
@@ -93,8 +94,7 @@ INSERT INTO `condiciones_medicas` (`idCondicion`, `condicion`, `descripcion`) VA
 
 CREATE TABLE `confirm_email` (
   `uid` char(32) NOT NULL,
-  `idUsuario` int(5) NOT NULL,
-  `confirmed` tinyint(1) NOT NULL DEFAULT 0
+  `idUsuario` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -157,7 +157,8 @@ INSERT INTO `estado_perro` (`idPerro`, `idEstado`) VALUES
 (1, 2),
 (2, 2),
 (55, 2),
-(56, 2);
+(56, 6),
+(57, 2);
 
 -- --------------------------------------------------------
 
@@ -194,8 +195,9 @@ CREATE TABLE `perros` (
 INSERT INTO `perros` (`idPerro`, `nombre`, `tamanio`, `edadEstimadaLlegada`, `fechaLLegada`, `sexo`, `historia`) VALUES
 (1, 'Firulais', 'Pequeño', 15, '2020-03-05', 'macho', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tempor, lacus non accumsan varius, orci diam fringilla est, nec varius turpis tortor ac tortor. Etiam id lacus sed tortor rhoncus tempus in et massa. Vestibulum sit amet arcu viverra ipsum faucibus maximus in non neque. In eget sagittis turpis, id ultrices tortor. Aliquam erat volutpat. Pellentesque commodo sed massa eu placerat. Morbi in sagittis ex, nec finibus turpis. Praesent odio nibh, tempus ac viverra vel, elementum nec massa. Maecenas vehicula lectus sit amet eleifend accumsan.'),
 (2, 'Tades', 'Pequeño', 9, '2019-05-12', 'hembra', 'DKHZJqovx'),
-(55, 'Lalombriz', 'Grande', 12, '2020-05-17', 'macho', 'Hola, soy Lalombriz'),
-(56, 'Berna', 'Pequeño', 14, '2020-05-17', 'macho', 'ASd');
+(55, 'Lalombriz', 'Pequeño', 12, '2020-05-17', 'macho', 'Hola, soy Lalombriz'),
+(56, 'Berna', 'Pequeño', 14, '2020-05-17', 'macho', 'ASd'),
+(57, 'Berna', 'Pequenio', 10, '2020-05-18', 'macho', '   ');
 
 -- --------------------------------------------------------
 
@@ -575,9 +577,7 @@ INSERT INTO `usuario` (`idUsuario`, `nombre`, `apellido`, `email`, `telefono`, `
 (109, 'Patricia', 'Raymond', 'habitant.morbi@feugiattellus.ca', '1817002188', '411-1303 Auctor. Av.', 'Apartado núm.: 154, 3816 Eu Carretera', 709, 233, 30295, 'CentroSur', 'Moroleon', 'Guanajuato', '1967-02-09', '$2y$10$PPZAldTP5/kKqVYMyBdJb..Y2B4SVHiKwO41E7M/GasnPx/XgIR3C'),
 (110, 'Bert', 'Williams', 'eu@nullaIntegerurna.ca', '2147483647', '6385 Duis Avenida', 'Apartado núm.: 853, 3007 Eu Calle', 6439, 33, 61038, 'Juriquilla', 'Queretaro', 'Guanajuato', '1921-10-26', '$2y$10$PPZAldTP5/kKqVYMyBdJb..Y2B4SVHiKwO41E7M/GasnPx/XgIR3C'),
 (111, 'admin', 'admin', 'admin@admin.co', '1234567890', 'asdf', 'asdfg', 123, 42, 12345, 'asdf', 'Queretaro', 'Queretaro', '1999-10-02', '$2y$10$ifhAK.S6RMReYR.lZyqzeen6SU8GbY6p6UPI6qhzm58VviXTYHoqq'),
-(112, 'Mauricio', 'Alvarez', 'maualvm@gmail.com', '4424670629', 'San Bernardo', 'a', 37, 0, 76230, 'Juriquilla', 'Querétaro', 'Querétaro', '1999-08-30', '$2y$10$RP0cXuM.8yIk2uiSbWYsWu55A6DZKymWglZ.ppolUl3LDFbBfdpSa'),
-(113, 'Jose', 'Pérez', 'jperez@gmail.com', '4421234567', 'Calle', '', 37, 0, 76230, 'Juriquilla', 'Querétaro', 'Querétaro', '1999-08-30', '$2y$10$0fxPLVmqE7o2xuoEILfCt.Xcvgv3UpJps1L3Q9VM4N.lGX8m6dLci'),
-(114, 'Prueba', 'Cuenta', 'a@b.com', '1234567890', 'calle', '', 123, 0, 76230, 'Juriquilla', 'Querétaro', 'Querétaro', '2001-01-01', '$2y$10$B9VP7KDA0TFBlnq3Axb1Yelnyi41S6qRzZlzGOsYBxkUjSJ.ol9Vy');
+(113, 'Jose', 'Pérez', 'jperez@gmail.com', '4421234567', 'Calle', '', 37, 0, 76230, 'Juriquilla', 'Querétaro', 'Querétaro', '1999-08-30', '$2y$10$0fxPLVmqE7o2xuoEILfCt.Xcvgv3UpJps1L3Q9VM4N.lGX8m6dLci');
 
 -- --------------------------------------------------------
 
@@ -599,9 +599,7 @@ INSERT INTO `usuario_rol` (`idUsuario`, `idRol`, `fechaCreacion`) VALUES
 (109, 2, '2020-04-28 19:12:40'),
 (110, 3, '2020-04-28 19:12:40'),
 (111, 1, '2020-04-28 19:00:53'),
-(112, 3, '2020-04-29 13:54:17'),
-(113, 3, '2020-04-29 14:18:20'),
-(114, 3, '2020-05-17 18:13:01');
+(113, 3, '2020-04-29 14:18:20');
 
 --
 -- Indexes for dumped tables
@@ -772,7 +770,7 @@ ALTER TABLE `estado`
 -- AUTO_INCREMENT for table `perros`
 --
 ALTER TABLE `perros`
-  MODIFY `idPerro` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `idPerro` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `preguntas`
@@ -826,7 +824,7 @@ ALTER TABLE `tipo_raza`
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+  MODIFY `idUsuario` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 
 --
 -- Constraints for dumped tables
@@ -904,7 +902,7 @@ ALTER TABLE `solicitud`
 --
 ALTER TABLE `usuario_rol`
   ADD CONSTRAINT `idRol_usuario` FOREIGN KEY (`idRol`) REFERENCES `rol` (`idRol`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `idUsuario_rol` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `idUsuario_rol` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
