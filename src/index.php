@@ -14,6 +14,6 @@
     </div>
 
 <script>
-UIkit.parallax(element, options);
+UIkit.parallax();
 </script>
 <?php include("_footer.html");?>

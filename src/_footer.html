@@ -29,12 +29,12 @@
 
 <?php if(isset($_SESSION["error"]) && $_SESSION["error"]!=""): ?>
     <script>
-        window.onload = mostarMensaje('<?= $_SESSION["error"] ?>',"danger");
+        window.onload = mostrarMensaje('<?= $_SESSION["error"] ?>',"danger");
     </script>
 <?php unset($_SESSION["error"]); endif; ?>
 <?php if(isset($_SESSION["mensaje"]) && $_SESSION["mensaje"]!=""): ?>
     <script>
-        window.onload = mostarMensaje('<?= $_SESSION["mensaje"] ?>',"primary");
+        window.onload = mostrarMensaje('<?= $_SESSION["mensaje"] ?>',"primary");
     </script>
 <?php unset($_SESSION["mensaje"]); endif; ?>
 </body>
