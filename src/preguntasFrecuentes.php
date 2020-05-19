@@ -30,5 +30,6 @@
 <script>
 mostrarPreguntas(); 
 document.getElementById("editar-preguntas").onclick=editarPreguntas;
+
 window.history.forward(1);
 </script>

@@ -136,11 +136,14 @@ function mostrarPreguntas(){
         let i = 0;
         let concatenacion="";
         for(i=0;i<data.length;i++){
-            concatenacion+= 
+            if(data[i].pregunta != ""){
+               concatenacion+= 
                 '<li class="uk-open"><a class="uk-accordion-title" href="#">'+
                 data[i].pregunta +"</a>"+
                 '<div class="uk-accordion-content"><p>'+data[i].respuesta + '</p></div>'+
-                "</li>"; 
+                "</li>";  
+            }
+            
         }
         document.getElementById('lista-preguntas').innerHTML=concatenacion;
         console.log(concatenacion);
@@ -151,39 +154,69 @@ function mostrarPreguntas(){
 
 
 function editarPreguntas() {
+    let aux=0;
     $.post("vista_editar_preguntas.php", {
     }).done(function (data,status,header) {
         if(header.status===200 && status == 'success'){
             $("#modal-editar-preguntas").html(data);
             UIkit.modal($("#modal-editar-preguntas")).show();
             readTextFile("preguntas.json", function(text){
-            let data = JSON.parse(text);
-            //console.log(data);
-            let i = 0;
-            let idCorregido;
-            for(i=0;i<data.length;i++){
-                idCorregido = i+1;
-                document.getElementById('seccion-preguntas').innerHTML+= 
-                    '<div class="uk-margin">'+
-                    '<label class="uk-form-label" for="nombre">Pregunta ' +idCorregido +'</label>'+
-                        '<div class="uk-form-controls">'+
-                            '<input class="uk-input uk-border-rounded pregunta" idpregunta='+i +'  type="text" placeholder='+ "'"
-                            +data[i].pregunta + "'"
-                     +' value='+"'" +data[i].pregunta+ "'"+
-                    "></div></div>";
-                 document.getElementById('seccion-preguntas').innerHTML+= 
-                    '<div class="uk-margin">'+
-                    '<label class="uk-form-label" for="nombre">Respuesta ' +idCorregido +'</label>'+
-                        '<div class="uk-form-controls">'+
-                            '<textarea class="uk-textarea uk-border-rounded respuesta" idrespuesta='+i +' type="text" placeholder='+ "'"
-                            +data[i].respuesta + "'"
-                     +' value='+"'" +data[i].respuesta+ "'"+
-                    ">"+data[i].respuesta  + "</textarea></div></div>"; 
-                document.getElementById('seccion-preguntas').innerHTML+='<br>';
-            }      
+                let data = JSON.parse(text);
+                let i = 0;
+                let idCorregido;
+                aux=data.length;
+                console.log(aux);
+                for(i=0;i<data.length;i++){
+                    idCorregido = i+1;
+                    document.getElementById('seccion-preguntas').innerHTML+= 
+                        '<div class="uk-margin" id=p' +i+  '>'+
+                        '<label class="uk-form-label" for="nombre">Pregunta ' +idCorregido +'</label>'+
+                            '<div class="uk-form-controls">'+
+                                '<input class="uk-input uk-border-rounded pregunta" idpregunta='+i +'  type="text" placeholder='+ "'"
+                                +data[i].pregunta + "'"
+                         +' value='+"'" +data[i].pregunta+ "'"+
+                        "></div></div>";
+                     document.getElementById('seccion-preguntas').innerHTML+= 
+                        '<div class="uk-margin"id=r' +i+  '>'+
+                        '<label class="uk-form-label" for="nombre">Respuesta ' +idCorregido +'</label>'+
+                            '<div class="uk-form-controls">'+
+                                '<textarea class="uk-textarea uk-border-rounded respuesta" idrespuesta='+i +' type="text" placeholder='+ "'"
+                                +data[i].respuesta + "'"
+                         +' value='+"'" +data[i].respuesta+ "'"+
+                        ">"+data[i].respuesta  + "</textarea></div></div><hr>"; 
+                    
+                    
+                }      
             });
             $("#btn-editar-preguntas")[0].onclick = submitEditarPreguntas; 
-            
+            $("#eliminar-pregunta")[0].onclick =function (){
+                        let bandera =0;
+                        readTextFile("preguntas.json", function(text){
+                        let data = JSON.parse(text);
+                            
+                        for(i=data.length-1;i>=0;i--){
+                            if(data[i].hide == "none" && bandera ==0){
+                               document.getElementById("p0").style.display="block";
+                                bandera=1;
+                            }
+                        }      
+                        });
+                    
+            }
+            $("#agregar-pregunta")[0].onclick =function (){
+                    let bandera =0;
+                    readTextFile("preguntas.json", function(text){
+                    let data = JSON.parse(text);
+                    for(i=0;i<data.length;i++){
+                        console.log(data[i]);
+                        if(data[i].hide == "block" && bandera ==0){
+                            data[i].hide = "none";
+                            bandera=1;
+                        }
+                    }      
+                    });
+            }
+           
         }//terminacion del if
     });
 }
