@@ -4,7 +4,7 @@ include("_header.html");
 include("_navbar.html");
 if(checkPriv("adoptar")):
     $idPerro = limpia_entrada($_GET['idPerro']);
-    $idUsuario = $_SESSION['id'];
+    $idUsuario = $_SESSION["id"];
     //echo $idUsuario;
     
     
@@ -17,11 +17,11 @@ if(checkPriv("adoptar")):
     <h2 class="uk-text-center">Formulario de Adopción</h2>
     <a href='catalogo.php' uk-tooltip = 'Click para retroceder' class='uk-icon-link uk-align-left' uk-icon='arrow-left'; ratio ='2'></a>
     <div class="uk-margin-xlarge-right uk-margin-xlarge-left">
-        <form class="uk-form" action="vista_agendar_entrevista.php" method="post">
+        <form class="uk-form"  method="post">
             <?= muestraPreguntasFormulario(); ?>
             <hr>
             <div class="uk-align-right">
-                <button type="submit" name="button" class="uk-button uk-button-primary uk-border-rounded ">Enviar</button>
+                <button id = "enviarFormulario" type="submit" name="button" class="uk-button uk-button-primary uk-border-rounded ">Enviar</button>
             </div>
         </form>
     </div>
@@ -35,3 +35,9 @@ else:
 endif;
     include("_footer.html");
 ?>
+
+<script>
+    var idPerro = <?php echo $idPerro; ?>;
+    var idUsuario = <?php echo $idUsuario; ?>;
+        $("#enviarFormulario")[0].onclick = nuevaSolicitud(idUsuario,idPerro);
+</script>

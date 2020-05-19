@@ -479,4 +479,19 @@ function muestraPreguntasFormulario() {
     }
     return $output;
 }
+
+
+function nuevaSolicitud ($idUsuario, $idPerro){
+    $sql = 'CALL crearFormulario($idUsuario, $idPerro)';
+    return sqlqry($sql);
+}
+
+function nuevoFormulario ($idUsuario, $idPerro, $res1, $res2,$res3,$res4,$res5,$res6,$res7,$res8,$res9,$res10,$res11,$res12){
+    
+    //codigo
+}
+
+
+
+
 ?>
