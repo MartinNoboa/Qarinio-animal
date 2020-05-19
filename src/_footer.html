@@ -3,19 +3,19 @@
 	<div class="uk-flex uk-flex-between uk-container">
 		<div class="uk-container uk-flex-left uk-align-center uk-margin-top">
 			<h2>Contacto
-                
-                 <?php 
+
+                 <?php
                     if(checkPriv("editar-info-contacto")){
 
-                        echo "<button class='uk-button uk-button-primary uk-border-rounded uk-align-right' type='button' id='editar-contacto' ><span uk-icon='icon:pencil'></span> Editar Informacion de Contacto</button> ";
+                        echo "<button class='uk-button uk-button-small uk-button-primary uk-border-rounded uk-align-right' type='button' id='editar-contacto' ><span uk-icon='icon:pencil'></span> Editar Informacion de Contacto</button> ";
                     }
                 ?>
                  </h2>
-            
+
             <div id="seccion-preguntas">
             </div>
-		    
-            
+
+
 		</div>
 		<hr class="uk-divider-vertical uk-height-small">
 
@@ -38,7 +38,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="js/ajax.js"></script>
 <script>
-mostrarContacto(); 
+mostrarContacto();
 document.getElementById("editar-contacto").onclick=editarContacto;
 
 </script>
