@@ -14,7 +14,7 @@
 ?>
 <br>
 <div class="uk-container uk-align-center uk-width-large">
-  <form method="post" action="controlador_cambiarContra.php" name='change-pass' id="change-pass">
+  <form name='change-pass' id="change-pass">
     <legend class="uk-legend uk-text-center">Cambiar Contraseña</legend>
       <div class="uk-margin">
           <label class="uk-form-label">Nueva Contraseña:<label class="uk-form-label uk-text-danger">*</label></label>
@@ -27,7 +27,7 @@
       <input class="uk-input" type="password" name="uid" id="uid" placeholder="" hidden value="<?= $uid ?>">
 
       <div class="uk-margin uk-align-center uk-width-medium uk-text-center">
-          <input id="terminar" class="uk-input uk-button-primary uk-border-pill" type="submit" name="submit" value="Cambiar Contraseña" disabled>
+          <input id="terminar" class="uk-input uk-button-primary uk-border-pill" type="button" name="submit" value="Cambiar Contraseña" disabled>
       </div>
   </form>
     <div class = 'uk-container'>
@@ -44,6 +44,10 @@
 
 <script src="js/validaciones.js"></script>
 <script>verifCambContr()</script>
+<script> window.onload = function(){
+    document.getElementById("terminar").onclick = cambiarContra
+}
+</script>
 <?php
         else:
 ?>
@@ -67,4 +71,5 @@
     endif;
   include("_footer.html");
 ?>
+<script src="js/ajax.js"></script>
 

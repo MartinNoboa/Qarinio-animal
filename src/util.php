@@ -149,6 +149,15 @@ function cuentaExistente($email){
     return sqlqry($q)->num_rows>=1;
 }
 
+function cambiarContra($uid, $contrasenia){
+    $contrasenia = password_hash($contrasenia, PASSWORD_DEFAULT);
+    $dml = "UPDATE usuario u, cambio_contrasenia uc
+            SET u.Contrasenia='$contrasenia', uc.usada=true 
+            WHERE uc.uid='$uid'
+            AND u.idUsuario=uc.idUsuario";
+    return modifyDb($dml);
+}
+
 function crearCuenta($nombre, $apellido, $email, $telefono, $callePrincipal, $calleSecundaria, $numeroExterior, $numeroInterior, $cp, $colonia, $ciudad, $estado, $fechaNacimiento, $contrasenia, $rol){
     //Busca el email en la base de datos, si este existe, detiene la función
     if(cuentaExistente($email)){

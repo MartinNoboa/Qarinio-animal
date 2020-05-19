@@ -278,5 +278,19 @@ function agregarFoto(){
 }
 
 function cambiarContra() {
-
+    $.post("controlador_cambiarContra.php", {
+        uid: document.getElementById("uid").value,
+        contrasenia: document.getElementById("contrasenia").value,
+        verifContrasenia: document.getElementById("verifContrasenia").value
+    }).done(function(data, status, header){
+        switch(header.status){
+            case 200:
+                mostrarMensaje(data, "primary");
+                setTimeout(()=>location.replace("iniciarSesion.php"), 2500);
+                break;
+            default:
+                mostrarMensaje(data, "danger");
+                break;
+        }
+    })
 }
