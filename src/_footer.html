@@ -1,0 +1,57 @@
+
+<div class="uk-background-muted" id="footer">
+	<div class="uk-flex uk-flex-between uk-container">
+		<div class="uk-container uk-flex-left uk-align-center uk-margin-top">
+			<h2>Contacto
+
+                 <?php
+                    if(checkPriv("editar-info-contacto")){
+
+                        echo "<button class='uk-button uk-button-small uk-button-primary uk-border-rounded uk-align-right' type='button' id='editar-contacto' ><span uk-icon='icon:pencil'></span> Editar Informacion de Contacto</button> ";
+                    }
+                ?>
+                 </h2>
+
+            <div id="seccion-preguntas">
+            </div>
+
+
+		</div>
+		<hr class="uk-divider-vertical uk-height-small">
+
+		<div class="uk-container uk-flex-right uk-margin-top">
+			<h2>Redes Sociales</h2>
+			<a href="https://www.facebook.com/CarinoAnimalQueretaro"><span uk-icon="icon: facebook; ratio: 2"></span></a>
+			<a href="https://instagram.com/qarinoanimal?igshid=6u1f1ufsppz1"><span uk-icon="icon: instagram; ratio: 2"></span></a>
+		</div>
+		<br>
+	</div>
+	<hr>
+	<div class="uk-container">
+		<div class="uk-align-center">
+			<p class="uk-text-center uk-text-meta">2020 © Qariño Animal</p>
+		</div>
+	</div>
+</div>
+<div  id="modal-editar-contacto" class="uk-modal-container" uk-modal>
+<!-- Compiled and minified JavaScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="js/ajax.js"></script>
+<script>
+mostrarContacto();
+document.getElementById("editar-contacto").onclick=editarContacto;
+
+</script>
+
+<?php if(isset($_SESSION["error"]) && $_SESSION["error"]!=""): ?>
+    <script>
+        window.onload = mostrarMensaje('<?= $_SESSION["error"] ?>',"danger");
+    </script>
+<?php unset($_SESSION["error"]); endif; ?>
+<?php if(isset($_SESSION["mensaje"]) && $_SESSION["mensaje"]!=""): ?>
+    <script>
+        window.onload = mostrarMensaje('<?= $_SESSION["mensaje"] ?>',"primary");
+    </script>
+<?php unset($_SESSION["mensaje"]); endif; ?>
+</body>
+</html>

@@ -1,0 +1,29 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.dog-card-image {
+  background-size:     cover;
+  background-repeat:   no-repeat;
+  background-position: center center;
+}
+
+#navLogo{
+  height: 100px!important;
+}
+
+.valid{
+    color:#44E444;
+}
+
+.invalid{
+    color:#FF0000;
+}
+
+#imagen-tarjeta {
+    border-radius: 5px 5px 0px 0px !important;
+}
+
+#footer {
+    z-index: 999;
+}

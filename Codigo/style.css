@@ -1,9 +1,0 @@
-html {
-  scroll-behavior: smooth;
-}
-
-.dog-card-image {
-  background-size:     cover;
-  background-repeat:   no-repeat;
-  background-position: center center; 
-}
