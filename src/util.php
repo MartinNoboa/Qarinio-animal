@@ -121,7 +121,7 @@ function autenticar($email, $password){
 
 function setPermisos($email){
     $sql = "
-        SELECT  u.nombre as nom, p.privilegio as priv
+        SELECT  u.idUsuario as id, u.nombre as nom, p.privilegio as priv
         FROM usuario u, usuario_rol ur, rol r, privilegio_rol pr, privilegios p
         WHERE u.email='$email'
         AND u.idUsuario=ur.idUsuario
@@ -135,6 +135,7 @@ function setPermisos($email){
         //asigna permisos
         $_SESSION['privilegios'][$row["priv"]] = 1;
         $_SESSION["nombre"] = $row["nom"];
+        $_SESSION["id"] = $row["id"];
     }
 }
 

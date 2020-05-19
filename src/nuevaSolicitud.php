@@ -3,6 +3,13 @@ include_once('util.php');
 include("_header.html");
 include("_navbar.html");
 if(checkPriv("adoptar")):
+    $idPerro = limpia_entrada($_GET['idPerro']);
+    $idUsuario = $_SESSION['id'];
+    //echo $idUsuario;
+    
+    
+
+
 ?>
 <div class="uk-container uk-margin">
     <h1 class="uk-text-center">Nueva Solicitud de Adopción</h1>
