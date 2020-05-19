@@ -115,20 +115,24 @@ function submitEdicion() {
 function readTextFile(file, callback) {
     let rawFile = new XMLHttpRequest();
     rawFile.overrideMimeType("application/json");
-    rawFile.open("GET", file, true);
+    rawFile.open("POST", file, true);
     rawFile.onreadystatechange = function() {
         if (rawFile.readyState === 4 && rawFile.status == "200") {
             callback(rawFile.responseText);
         }
     }
+    //console.log(" leyendo texto");
+   
     rawFile.send(null);
+   
 }
 
 //usage:
 function mostrarPreguntas(){
+    
     readTextFile("preguntas.json", function(text){
         let data = JSON.parse(text);
-        //console.log("a");
+        //console.log(data);
         let i = 0;
         let concatenacion="";
         for(i=0;i<data.length;i++){
@@ -139,9 +143,12 @@ function mostrarPreguntas(){
                 "</li>"; 
         }
         document.getElementById('lista-preguntas').innerHTML=concatenacion;
-       
+        console.log(concatenacion);
     });
+    
 }
+
+
 
 function editarPreguntas() {
     $.post("vista_editar_preguntas.php", {
@@ -181,6 +188,100 @@ function editarPreguntas() {
     });
 }
 
+function mostrarContacto(){
+    readTextFile("contacto.json", function(text){
+        //console.log("a");
+        let data = JSON.parse(text);
+        let concatenacion="";
+        
+        concatenacion+="<p><span uk-icon='receiver'></span>"+
+                data[0].nombre + ":"+ data[0].telefono+ "</p><p><span uk-icon='mail'></span><a href='mailto:"+ data[0].correo + "' target='_blank'> "+
+            data[0].correo+
+            "</a></p><p><span uk-icon='location'></span><a href='https://www.google.com.mx/maps/place/ "+data[0].direccion + "' target='_blank'>"
+            +data[0].direccion + '</a></p>';
+        document.getElementById('seccion-preguntas').innerHTML=concatenacion;
+    });
+}
+
+function editarContacto() {
+    $.post("vista_editar_contacto.php", {
+    }).done(function (data,status,header) {
+        if(header.status===200 && status == 'success'){
+            $("#modal-editar-contacto").html(data);
+            UIkit.modal($("#modal-editar-contacto")).show();
+            readTextFile("contacto.json", function(text){
+                let data = JSON.parse(text);
+                //console.log(data);
+                document.getElementById('seccion-contacto').innerHTML+= 
+                        '<div class="uk-margin">'+
+                        '<label class="uk-form-label" for="nombre">Nombre </label>'+
+                            '<div class="uk-form-controls">'+
+                                '<input class="uk-input uk-border-rounded nombre" '+'  type="text" placeholder='+ "'"
+                                +data[0].nombre + "'"
+                         +' value='+"'" +data[0].nombre+ "'"+
+                        "></div></div>";
+                 document.getElementById('seccion-contacto').innerHTML+= 
+                        '<div class="uk-margin">'+
+                        '<label class="uk-form-label" for="nombre">Telefono </label>'+
+                            '<div class="uk-form-controls">'+
+                                '<input class="uk-input uk-border-rounded telefono" '+'  type="text" placeholder='+ "'"
+                                +data[0].telefono + "'"
+                         +' value='+"'" +data[0].telefono+ "'"+
+                        "></div></div>";
+                document.getElementById('seccion-contacto').innerHTML+= 
+                        '<div class="uk-margin">'+
+                        '<label class="uk-form-label" for="nombre">Correo </label>'+
+                            '<div class="uk-form-controls">'+
+                                '<input class="uk-input uk-border-rounded correo" '+'  type="text" placeholder='+ "'"
+                                +data[0].correo + "'"
+                         +' value='+"'" +data[0].correo+ "'"+
+                        "></div></div>";
+                document.getElementById('seccion-contacto').innerHTML+= 
+                        '<div class="uk-margin">'+
+                        '<label class="uk-form-label" for="nombre">Direccion</label>'+
+                            '<div class="uk-form-controls">'+
+                                '<input class="uk-input uk-border-rounded direccion" '+'  type="text" placeholder='+ "'"
+                                +data[0].direccion + "'"
+                         +' value='+"'" +data[0].direccion+ "'"+
+                        "></div></div>";
+            });
+            $("#btn-editar-contacto")[0].onclick = submitEditarContacto; 
+            
+        }//terminacion del if
+    });
+}
+function submitEditarContacto(){
+    //console.log($('.pregunta')[2]);
+    if(confirm("¿Estas seguro de guardar las preguntas frecuentes?")){
+       
+        let nombre=$('.nombre').val();
+        let correo=$('.correo').val();
+        let direccion=$('.direccion').val();
+        let telefono=$('.telefono').val();
+        //console.log(correo);
+       $.post("controlador_editar_contacto.php", {
+           nombre,
+           correo,
+           direccion,
+           telefono
+        }).done(function (data) {
+           //console.log(data);
+            if(parseInt(data)!== 0) {
+                mostrarMensaje("Se actualizó la información de contacto exitosamente","primary");
+                mostrarContacto();
+                UIkit.modal($("#modal-editar-contacto")).hide();
+                
+                
+                
+            } else {
+                mostrarMensaje("Hubo un error al actualizar la información de contacto ","danger");
+            }
+        });
+
+ 
+    }//terminacion del if confirm
+   
+}
 
 function submitEditarPreguntas(){
     //console.log($('.pregunta')[2]);
@@ -192,14 +293,14 @@ function submitEditarPreguntas(){
         for(pr of respuesta){
             datos[pr.getAttribute('idrespuesta')] = pr.value;
         }
-         for(pr of pregunta){
+        for(pr of pregunta){
             datosp[pr.getAttribute('idpregunta')] = pr.value;
         }
         datos['length'] = respuesta.length;
         datosp['length'] = pregunta.length;
         
-        console.log(datos);
-        console.log(datosp);
+        //console.log(datos);
+        //console.log(datosp);
        $.post("controlador_editar_preguntas.php", {
            datos,
            datosp
@@ -207,8 +308,11 @@ function submitEditarPreguntas(){
            console.log(data);
             if(parseInt(data)!== 0) {
                 mostrarMensaje("Se actualizaron las preguntas exitosamente","primary");
-                UIkit.modal($("#modal-editar-preguntas")).hide();
                 mostrarPreguntas();
+                UIkit.modal($("#modal-editar-preguntas")).hide();
+                
+                
+                //window.history.forward(1);
             } else {
                 mostrarMensaje("Hubo un error al actualizar las preguntas ","danger");
             }
@@ -230,6 +334,7 @@ function agregarPerro() {
         historia : $("#historia").val(),
         genero: $('input[name="genero"]:checked').val(),
         raza: $("#raza").val(),
+        estado: $("#estado").val(),
         condiciones: $("#condiciones").val(),
         personalidad: $("#personalidad").val()
     }).done(function(data){
@@ -238,7 +343,7 @@ function agregarPerro() {
           mostrarMensaje("Se agrego el perro exitosamente", "success");
           setTimeout(function() {
           window.location.href = "catalogo.php";
-          }, 2000);
+        }, 2000);
       }else{
           mostrarMensaje("Hubo un error al agregar el perro", "danger");
       }
@@ -246,4 +351,33 @@ function agregarPerro() {
 }
 
 
+
+//funcion para agregar foto
+function agregarFoto(){
+    $(document).ready(function(){
+
+    $("#agregar").click(function(){
+
+        var fd = new FormData();
+        var files = $('#foto')[0].files[0];
+        fd.append('foto',files);
+
+        $.ajax({
+            url: 'controlador_agregar_foto.php',
+            type: 'post',
+            data: fd,
+            contentType: false,
+            processData: false,
+            success: function(response){
+                if(response != 0){
+                    $("#img").attr("src",response); 
+                    $(".preview img").show(); // Display image element
+                }else{
+                    alert('file not uploaded');
+                }
+            },
+        });
+    });
+});
+}
 
