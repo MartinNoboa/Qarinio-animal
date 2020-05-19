@@ -14,12 +14,13 @@
     $condiciones = $_POST["condiciones"];
     $personalidad = $_POST["personalidad"];
     $raza = $_POST["raza"];
+    $estado = $_POST["estado"];
     $historia = $_POST["historia"];
+
+
     
     
-    echo agregarPerro($nombre,$size,$meses, $fechaLlegada, $genero, $historia, $condiciones, $personalidad,$raza);
+    echo agregarPerro($nombre,$size,$meses, $fechaLlegada, $genero, $historia, $condiciones, $personalidad,$raza, $estado);
     
-//header("location:catalogo.php");
-        
 
 ?>
