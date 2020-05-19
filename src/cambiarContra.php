@@ -17,7 +17,7 @@
   <form method="post" action="controlador_cambiarContra.php" name='change-pass' id="change-pass">
     <legend class="uk-legend uk-text-center">Cambiar Contraseña</legend>
       <div class="uk-margin">
-          <label class="uk-form-label">Contraseña:<label class="uk-form-label uk-text-danger">*</label></label>
+          <label class="uk-form-label">Nueva Contraseña:<label class="uk-form-label uk-text-danger">*</label></label>
           <input class="uk-input" type="password" pattern=".{8,}" name="contrasenia"  id="contrasenia" placeholder="">
       </div>
       <div class="uk-margin">
@@ -49,7 +49,7 @@
 ?>
 <div class="uk-container uk-align-center uk-width-xlarge uk-text-center">
      <img src="img/errorDog.png" alt="">
-    <h3>Este link ha es invalido o ha expirado, por favor intenta de nuevo</h3>
+    <h3>Este link es invalido o ha expirado, por favor intenta de nuevo</h3>
     <div class="uk-container">
         <a class='boton-info uk-button uk-button-text uk-text-meta' href="index.php">Inicio</a>
         |

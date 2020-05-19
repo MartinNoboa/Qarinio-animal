@@ -59,53 +59,54 @@ function validarContras(e){
     let caracteres = document.getElementById("caracteres");
     let coincidir = document.getElementById("coincidir");
 
+    let validNum = document.getElementById('contrasenia').value.match(numbers);
+    let validMin = document.getElementById('contrasenia').value.match(lowerCaseLetters);
+    let validCaps = document.getElementById('contrasenia').value.match(upperCaseLetters);
+    let validLen = document.getElementById('contrasenia').value.length >= 8;
+    let validVerif = document.getElementById('contrasenia').value == document.getElementById('verifContrasenia').value;
+
 
     if(target.name == 'contrasenia' || target.name == 'verifContrasenia'){
-
-        if(document.getElementById('contrasenia').value.match(numbers)){
+        if(validNum){
             numero.classList.remove('uk-text-danger');
             numero.classList.add('uk-text-success');
-            document.getElementById("terminar").disabled = false;
         }else{
             numero.classList.remove('uk-text-success');
             numero.classList.add('uk-text-danger');
-            document.getElementById("terminar").disabled = true;
         }
-        if(document.getElementById('contrasenia').value.match(lowerCaseLetters)){
+        if(validMin){
             minuscula.classList.remove('uk-text-danger');
             minuscula.classList.add('uk-text-success');
-            document.getElementById("terminar").disabled = false;
         }else{
             minuscula.classList.remove('uk-text-success');
             minuscula.classList.add('uk-text-danger');
-            document.getElementById("terminar").disabled = true;
         }
-        if(document.getElementById('contrasenia').value.match(upperCaseLetters)){
+        if(validCaps){
             mayuscula.classList.remove('uk-text-danger');
             mayuscula.classList.add('uk-text-success');
-            document.getElementById("terminar").disabled = false;
         }else{
             mayuscula.classList.remove('uk-text-success');
             mayuscula.classList.add('uk-text-danger');
-            document.getElementById("terminar").disabled = true;
         }
-        if(document.getElementById('contrasenia').value.length >= 8){
+        if(validLen){
             caracteres.classList.remove('uk-text-danger');
             caracteres.classList.add('uk-text-success');
-            document.getElementById("terminar").disabled = false;
         }else{
             caracteres.classList.remove('uk-text-success');
             caracteres.classList.add('uk-text-danger');
-            document.getElementById("terminar").disabled = true;
         }
 
-        if(document.getElementById('contrasenia').value == document.getElementById('verifContrasenia').value ){
+        if(validVerif){
             coincidir.classList.remove('uk-text-danger');
             coincidir.classList.add('uk-text-success');
-            document.getElementById("terminar").disabled = false;
         }else{
             coincidir.classList.remove('uk-text-success');
             coincidir.classList.add('uk-text-danger');
+        }
+
+        if(validNum && validMin && validCaps && validLen && validVerif){
+            document.getElementById("terminar").disabled = false;
+        } else{
             document.getElementById("terminar").disabled = true;
         }
     }

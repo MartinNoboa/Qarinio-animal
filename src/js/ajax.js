@@ -277,3 +277,6 @@ function agregarFoto(){
 });
 }
 
+function cambiarContra() {
+
+}
