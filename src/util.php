@@ -482,6 +482,7 @@ function muestraPreguntasFormulario() {
 
 
 function nuevaSolicitud ($idUsuario, $idPerro){
+    //corregir bd foreign key constraint
     $sql = 'CALL crearFormulario($idUsuario, $idPerro)';
     return sqlqry($sql);
 }
