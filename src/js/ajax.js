@@ -121,11 +121,10 @@ function readTextFile(file, callback) {
             callback(rawFile.responseText);
         }
     }
-    console.log(" leyendo texto");
-    rawFile.addEventListener("load", function () {
-        console.log(this.responseText);
-    });
+    //console.log(" leyendo texto");
+   
     rawFile.send(null);
+   
 }
 
 //usage:
