@@ -2,9 +2,7 @@
     require_once("util.php");
     $datos = limpia_entradas($_POST["datos"]);
     $datosp = limpia_entradas($_POST["datosp"]);
-    /*for($i = 0; $i < count($datos); $i++){
-        echo  'console.log('. $datos[$i] .')';
-    }*/
+
 
     $jsonString = file_get_contents('preguntas.json');
     $data = json_decode($jsonString, true);
