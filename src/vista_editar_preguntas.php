@@ -1,3 +1,6 @@
+<?php
+    include_once("util.php");
+?>
 <div class="uk-modal-dialog uk-modal-body uk-border-rounded">
         <div class="uk-modal-title">
                 <h1>Editar Preguntas Frecuentes</h1>

@@ -1,5 +1,6 @@
 <?php
     require_once("util.php");
+    session_start();
     $nombre = limpia_entrada($_POST["nombre"]);
     $correo = limpia_entrada($_POST["correo"]);
     $direccion = limpia_entrada($_POST["direccion"]);
