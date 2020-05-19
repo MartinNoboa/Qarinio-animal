@@ -195,11 +195,11 @@ function mostrarContacto(){
         let concatenacion="";
 
         concatenacion+="<p><span uk-icon='receiver'></span>"+
-                data[0].nombre + ":"+ data[0].telefono+ "</p><p><span uk-icon='mail'></span><a href='mailto:"+ data[0].correo + "' target='_blank'> "+
+                data[0].nombre + ": "+ data[0].telefono+ "</p><p><span uk-icon='mail'></span><a href='mailto:"+ data[0].correo + "' target='_blank'> "+
             data[0].correo+
             "</a></p><p><span uk-icon='location'></span><a href='https://www.google.com.mx/maps/place/ "+data[0].direccion + "' target='_blank'>"
             +data[0].direccion + '</a></p>';
-        document.getElementById('seccion-preguntas').innerHTML=concatenacion;
+        document.getElementById('info-contacto').innerHTML=concatenacion;
     });
 }
 

@@ -1,30 +1,26 @@
 
-<div class="uk-background-muted" id="footer">
-	<div class="uk-flex uk-flex-between uk-container">
-		<div class="uk-container uk-flex-left uk-align-center uk-margin-top">
-			<h2>Contacto
-
-                 <?php
-                    if(checkPriv("editar-info-contacto")){
-
-                        echo "<button class='uk-button uk-button-small uk-button-primary uk-border-rounded uk-align-right' type='button' id='editar-contacto' ><span uk-icon='icon:pencil'></span> Editar Informacion de Contacto</button> ";
-                    }
-                ?>
-                 </h2>
-
-            <div id="seccion-preguntas">
-            </div>
+<div class="uk-background-muted uk-grid-divider" id="footer">
+	<div class="uk-grid-divider uk-grid-collapse" uk-grid>
 
 
-		</div>
-		<hr class="uk-divider-vertical uk-height-small">
+	<div class="uk-container uk-width-expand@m uk-width-1-1@s uk-margin-top uk-margin-large-left ">
+		<h2>Contacto
+        <?php
+            if(checkPriv("editar-info-contacto")){
+                echo "<button class='uk-button uk-button-small uk-button-primary uk-border-rounded uk-align-right' type='button' id='editar-contacto' ><span uk-icon='icon:pencil'></span> Editar Informacion de Contacto</button> ";
+            }
+        ?>
+		</h2>
+        <div id="info-contacto"></div>
+	</div>
 
-		<div class="uk-container uk-flex-right uk-margin-top">
-			<h2>Redes Sociales</h2>
-			<a href="https://www.facebook.com/CarinoAnimalQueretaro"><span uk-icon="icon: facebook; ratio: 2"></span></a>
-			<a href="https://instagram.com/qarinoanimal?igshid=6u1f1ufsppz1"><span uk-icon="icon: instagram; ratio: 2"></span></a>
-		</div>
-		<br>
+	<div class="uk-container uk-width-expand@m uk-width-1-1@s uk-margin-right uk-margin-top uk-margin-large-left">
+		<h2>Redes Sociales</h2>
+		<a href="https://www.facebook.com/CarinoAnimalQueretaro"><span uk-icon="icon: facebook; ratio: 2"></span></a>
+		<a href="https://instagram.com/qarinoanimal?igshid=6u1f1ufsppz1"><span uk-icon="icon: instagram; ratio: 2"></span></a>
+	</div>
+
+
 	</div>
 	<hr>
 	<div class="uk-container">
