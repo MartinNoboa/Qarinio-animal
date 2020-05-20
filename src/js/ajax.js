@@ -249,7 +249,7 @@ function agregarPerro() {
 
 
 //funcion para agregar foto
-function agregarFoto(){
+/*function agregarFoto(){
     
 
         var fd = new FormData();
@@ -271,5 +271,5 @@ function agregarFoto(){
                 }
             },
         });
-}
+}*/
 
