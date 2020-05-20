@@ -132,7 +132,7 @@ function mostrarPreguntas(){
         let concatenacion="";
         for(i=0;i<data.length;i++){
             concatenacion+=
-                '<li class="uk-open"><a class="uk-accordion-title" href="#">'+
+                '<li class="uk-closed"><a class="uk-accordion-title" href="#">'+
                 data[i].pregunta +"</a>"+
                 '<div class="uk-accordion-content"><p>'+data[i].respuesta + '</p></div>'+
                 "</li>";
