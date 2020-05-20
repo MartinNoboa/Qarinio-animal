@@ -193,40 +193,47 @@ function mostrarContacto(){
             "</a></p><p><span uk-icon='location'></span><a href='https://www.google.com.mx/maps/place/ "+data[0].direccion + "' target='_blank'>"
             +data[0].direccion + '</a></p>';
         document.getElementById('info-contacto').innerHTML=concatenacionMuestra;
-        concatenacionEdita+=
-                '<div class="uk-margin">'+
-                '<label class="uk-form-label" for="nombre">Nombre </label>'+
-                    '<div class="uk-form-controls">'+
-                        '<input class="uk-input uk-border-rounded nombre" '+'  type="text" placeholder='+ "'"
-                        +data[0].nombre + "'"
-                 +' value='+"'" +data[0].nombre+ "'"+
-                "></div></div>";
-         concatenacionEdita+=
-                '<div class="uk-margin">'+
-                '<label class="uk-form-label" for="nombre">Teléfono </label>'+
-                    '<div class="uk-form-controls">'+
-                        '<input class="uk-input uk-border-rounded telefono" '+'  type="text" placeholder='+ "'"
-                        +data[0].telefono + "'"
-                 +' value='+"'" +data[0].telefono+ "'"+
-                "></div></div>";
-        concatenacionEdita+=
-                '<div class="uk-margin">'+
-                '<label class="uk-form-label" for="nombre">Correo </label>'+
-                    '<div class="uk-form-controls">'+
-                        '<input class="uk-input uk-border-rounded correo" '+'  type="text" placeholder='+ "'"
-                        +data[0].correo + "'"
-                 +' value='+"'" +data[0].correo+ "'"+
-                "></div></div>";
-        concatenacionEdita+=
-                '<div class="uk-margin">'+
-                '<label class="uk-form-label" for="nombre">Dirección</label>'+
-                    '<div class="uk-form-controls">'+
-                        '<input class="uk-input uk-border-rounded direccion" '+'  type="text" placeholder='+ "'"
-                        +data[0].direccion + "'"
-                 +' value='+"'" +data[0].direccion+ "'"+
-                "></div></div>";
-                document.getElementById("seccion-contacto").innerHTML = concatenacionEdita;
     });
+}
+
+function mostrarEdicionContacto(){
+    readTextFile("contacto.json", function (text) {
+        let data = JSON.parse(text);
+        let concatenacionEdita = "";
+        concatenacionEdita+=
+            '<div class="uk-margin">'+
+            '<label class="uk-form-label" for="nombre">Nombre </label>'+
+            '<div class="uk-form-controls">'+
+            '<input class="uk-input uk-border-rounded nombre" '+'  type="text" placeholder='+ "'"
+            +data[0].nombre + "'"
+            +' value='+"'" +data[0].nombre+ "'"+
+            "></div></div>";
+        concatenacionEdita+=
+            '<div class="uk-margin">'+
+            '<label class="uk-form-label" for="nombre">Teléfono </label>'+
+            '<div class="uk-form-controls">'+
+            '<input class="uk-input uk-border-rounded telefono" '+'  type="text" placeholder='+ "'"
+            +data[0].telefono + "'"
+            +' value='+"'" +data[0].telefono+ "'"+
+            "></div></div>";
+        concatenacionEdita+=
+            '<div class="uk-margin">'+
+            '<label class="uk-form-label" for="nombre">Correo </label>'+
+            '<div class="uk-form-controls">'+
+            '<input class="uk-input uk-border-rounded correo" '+'  type="text" placeholder='+ "'"
+            +data[0].correo + "'"
+            +' value='+"'" +data[0].correo+ "'"+
+            "></div></div>";
+        concatenacionEdita+=
+            '<div class="uk-margin">'+
+            '<label class="uk-form-label" for="nombre">Dirección</label>'+
+            '<div class="uk-form-controls">'+
+            '<input class="uk-input uk-border-rounded direccion" '+'  type="text" placeholder='+ "'"
+            +data[0].direccion + "'"
+            +' value='+"'" +data[0].direccion+ "'"+
+            "></div></div>";
+        document.getElementById("seccion-contacto").innerHTML = concatenacionEdita;
+    })
 }
 
 function editarContacto() {
@@ -289,6 +296,7 @@ function submitEditarContacto(){
             if(parseInt(data)!== 0) {
                 mostrarMensaje("Se actualizó la información de contacto exitosamente","primary");
                 mostrarContacto();
+                mostrarEdicionContacto();
             } else {
                 mostrarMensaje("Hubo un error al actualizar la información de contacto ","danger");
             }
