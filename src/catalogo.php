@@ -9,11 +9,11 @@ include_once("util.php")
 <div class="uk-container uk-margin uk-animation-slide-bottom-medium">
     <h1 class="uk-text-center">Nuestros Perros</h1>
     <hr class="uk-divider-icon">
-        <?php if(checkPriv("registrar")){
-            echo "<a href='agregarPerro.php' uk-tooltip = 'Agregar perro' class='uk-icon-link uk-align-right' uk-icon='plus-circle'; ratio ='2'></a>";
-        }
-        ?>
 </div>
+<?php if(checkPriv("registrar")){
+    echo "<a href='agregarPerro' uk-tooltip = 'Agregar perro' class='uk-icon-link uk-align-right uk-margin-large-right' uk-icon='plus-circle'; ratio ='2'></a>";
+}
+?>
 <div id="main" class="uk-margin uk-grid-divider" uk-grid>
     <div id="filterMenu" class="uk-width-1-4 uk-margin-left">
         <ul id="listaFiltro" class="uk-nav-primary uk-nav-parent-icon uk-margin-top" uk-nav="multiple: true">

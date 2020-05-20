@@ -1,34 +1,34 @@
 <nav class="uk-navbar-container uk-height-max-small uk-box-shadow-small" uk-navbar uk-sticky>
     <div class="uk-navbar-left">
-       <a  class="uk-navbar-item uk-logo uk-margin-small uk-margin-small-top" href="index.php"><img id="navLogo" src="img/logo.png" class="uk-border-rounded"></a>
+       <a  class="uk-navbar-item uk-logo uk-margin-small uk-margin-small-top" href="/"><img id="navLogo" src="img/logo.png" class="uk-border-rounded"></a>
     </div>
     <div class="uk-navbar-right">
         <ul class="uk-navbar-nav">
-                <li><a href="catalogo.php">Nuestros Perros <i class="fas fa-dog uk-margin-small-left"></i></a></li>
-                <li><a href="comoAyudar.php">¿Cómo ayudar? <i class="fas fa-hands-helping uk-margin-small-left"></i></a></li>
-                <li><a href="quienesSomos.php">¿Quiénes somos? <i class="fas fa-people-carry uk-margin-small-left"></i></a></li>
-                <li><a href="preguntasFrecuentes.php" id="preguntasFrecuentes">Preguntas Frecuentes <i class="fas fa-question uk-margin-small-left"></i></a></li>
-                <li><a href="contactanos.php">Contáctanos <i class="fas fa-comments uk-margin-small-left"></i></a></li>
+                <li><a href="catalogo">Nuestros Perros <i class="fas fa-dog uk-margin-small-left"></i></a></li>
+                <li><a href="comoAyudar">¿Cómo ayudar? <i class="fas fa-hands-helping uk-margin-small-left"></i></a></li>
+                <li><a href="quienesSomos">¿Quiénes somos? <i class="fas fa-people-carry uk-margin-small-left"></i></a></li>
+                <li><a href="preguntasFrecuentes" id="preguntasFrecuentes">Preguntas Frecuentes <i class="fas fa-question uk-margin-small-left"></i></a></li>
+                <li><a href="contactanos">Contáctanos <i class="fas fa-comments uk-margin-small-left"></i></a></li>
                 <li>
-                  <a href="#!" ><i class="fas fa-user-circle uk-margin-small-right" ></i><?= isset($_SESSION["nombre"])?$_SESSION["nombre"]:"Mi Cuenta" ?></a>
+                  <a href="" ><i class="fas fa-user-circle uk-margin-small-right" ></i><?= isset($_SESSION["nombre"])?$_SESSION["nombre"]:"Mi Cuenta" ?></a>
                   <div class="uk-navbar-dropdown uk-width-auto uk-text-left">
                     <ul class="uk-nav uk-navbar-dropdown-nav uk-margin-right">
                         <?php if(isset($_SESSION["nombre"])): ?>
                             <?php if(checkPriv("adoptar")): ?>
-                                <li class="uk-text-nowrap"><a href="misSolicitudes.php"><span uk-icon="icon: file-text"></span> Mis solicitudes de adopción</a></li>
+                                <li class="uk-text-nowrap"><a href="misSolicitudes"><span uk-icon="icon: file-text"></span> Mis solicitudes de adopción</a></li>
                             <?php endif; ?>
                             <?php if(checkPriv("ver-todas-solicitudes")): ?>
-                                <li class="uk-text-nowrap"><a href="gestionarSolicitudes.php"><span uk-icon="icon: table"></span> Ver todas las solicitudes</a></li>
+                                <li class="uk-text-nowrap"><a href="gestionarSolicitudes"><span uk-icon="icon: table"></span> Ver todas las solicitudes</a></li>
                                 <hr>
-                                <li class="uk-text-nowrap"><a href="panelControl.php"><span uk-icon="icon: settings"></span> Panel de control de la página</a></li>
+                                <li class="uk-text-nowrap"><a href="panelControl"><span uk-icon="icon: settings"></span> Panel de control de la página</a></li>
                             <?php endif; ?>
                             <hr>
-                            <li class="uk-text-nowrap"><a href="miCuenta.php"><span uk-icon="icon: cog"></span> Ajustes de cuenta</a></li>
+                            <li class="uk-text-nowrap"><a href="miCuenta"><span uk-icon="icon: cog"></span> Ajustes de cuenta</a></li>
                             <hr>
-                            <li class="uk-text-nowrap"><a href="cerrarSesion.php"><span uk-icon="icon: sign-out"></span> Cerrar sesión</a></li>
+                            <li class="uk-text-nowrap"><a href="cerrarSesion"><span uk-icon="icon: sign-out"></span> Cerrar sesión</a></li>
                         <?php else: ?>
-                            <li class="uk-text-nowrap"><a href="iniciarSesion.php"><span uk-icon="icon: sign-in"></span> Iniciar sesión</a></li>
-                            <li class="uk-text-nowrap"><a href="crearCuenta.php"><span uk-icon="icon: user"></span> Crear cuenta</a></li>
+                            <li class="uk-text-nowrap"><a href="iniciarSesion"><span uk-icon="icon: sign-in"></span> Iniciar sesión</a></li>
+                            <li class="uk-text-nowrap"><a href="crearCuenta"><span uk-icon="icon: user"></span> Crear cuenta</a></li>
                         <?php endif; ?>
                     </ul>
                   </div>

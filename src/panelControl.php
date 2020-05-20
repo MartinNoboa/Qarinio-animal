@@ -25,11 +25,13 @@
     http_response_code(200);
 else:
     http_response_code(404);
-    header("location:error.php");
+    header("location:error");
 endif;
 include("_footer.html")
 ?>
 <script type="text/javascript">
     document.getElementById("editar-preguntas").onclick=editarPreguntas;
     document.getElementById("editar-contacto").onclick=submitEditarContacto;
+    mostrarContacto();
+    mostrarEdicionContacto();
 </script>
