@@ -1,19 +1,15 @@
-<div class="uk-background-muted" id="footer">
-	<div class="uk-flex uk-flex-between uk-container">
-		<div class="uk-container uk-flex-left uk-align-center uk-margin-top">
+<div class="uk-background-muted uk-grid-divider" id="footer">
+	<div class="uk-grid-divider uk-grid-collapse" uk-grid>
+		<div class="uk-container uk-width-expand@m uk-width-1-1@s uk-margin-top uk-margin-large-left ">
 			<h2>Contacto</h2>
-			<p><span uk-icon="receiver"></span> Roselin Vasquez: 4424675815</p>
-			<p><span uk-icon="mail"></span><a href="mailto:carinoanimal@hotmail.com" target="_blank"> carinoanimal@hotmail.com</a></p>
-			<p><span uk-icon="location"></span><a href="https://www.google.com/maps/place/Cari%C3%B1o+Animal/@20.614042,-100.325978,15z/data=!4m5!3m4!1s0x0:0x50ca41cc6a7e5d59!8m2!3d20.614042!4d-100.325978" target="_blank">Av Ferrocarril 63, La Cañada, Queretaro Queretaro, 76800 Santiago de Querétaro, Qro.</a></p>
+		    <div id="info-contacto"></div>
 		</div>
-		<hr class="uk-divider-vertical uk-height-small">
 
-		<div class="uk-container uk-flex-right uk-margin-top">
+		<div class="uk-container uk-width-expand@m uk-width-1-1@s uk-margin-right uk-margin-top uk-margin-large-left">
 			<h2>Redes Sociales</h2>
-			<a href="https://www.facebook.com/CarinoAnimalQueretaro"><span uk-icon="icon: facebook; ratio: 2"></span></a>
-			<a href="https://instagram.com/qarinoanimal?igshid=6u1f1ufsppz1"><span uk-icon="icon: instagram; ratio: 2"></span></a>
+			<a href="https://www.facebook.com/CarinoAnimalQueretaro" target="_blank"><span uk-icon="icon: facebook; ratio: 2"></span></a>
+			<a href="https://instagram.com/qarinoanimal?igshid=6u1f1ufsppz1" target="_blank"><span uk-icon="icon: instagram; ratio: 2"></span></a>
 		</div>
-		<br>
 	</div>
 	<hr>
 	<div class="uk-container">
@@ -22,10 +18,12 @@
 		</div>
 	</div>
 </div>
-
 <!-- Compiled and minified JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="js/ajax.js"></script>
+<script>
+mostrarContacto();
+</script>
 
 <?php if(isset($_SESSION["error"]) && $_SESSION["error"]!=""): ?>
     <script>

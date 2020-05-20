@@ -1,6 +1,6 @@
 <?php
 
-include_once("dbconfig.php");
+include_once("../loginsAdmin/dbconfig.php");
 
 function limpia_entrada($variable) {
     return $variable = htmlspecialchars($variable);
@@ -394,7 +394,7 @@ WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.nombre='".$_SESSION[
 
     $solicitudes = $conDb->query($sql);
     while($row = mysqli_fetch_array($solicitudes, MYSQLI_BOTH)) {
-        $tabla .= "<tr onclick=\"window.location='catalogo.php';\">";
+        $tabla .= "<tr onclick=\"window.location='catalogo';\">";
         $tabla .= "<td>".$row['Perro']."</td>";
         if($row['Formulario'] == 5) { //completado
             $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Tu formulario fue aprobado!\"></a></span></td>";

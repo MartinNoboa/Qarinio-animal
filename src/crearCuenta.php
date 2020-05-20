@@ -71,7 +71,7 @@
                 $_SESSION["mensaje"]="Se ha creado la sesión con éxito";
                 $_SESSION["createState"]=null;
                 autenticar($_POST["email"], $_POST["contrasenia"]);
-                header("location:index.php");
+                header("location:/");
                 exit;
             } else{
                 $_SESSION["error"] = "Hubo un error al crear la cuenta";

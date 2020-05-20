@@ -21,10 +21,10 @@ if (isset($_GET["id"])){
         modifyDb($sql);
 
         $_SESSION["mensaje"] = "Su correo ha sido verificado exitosamente";
-        header("location:index.php");
+        header("location:index");
     }else {
         $_SESSION["error"] = "Hubo un error en la verificación de la cuenta, por favor revisa el enlace";
-        header("location:index.php");
+        header("location:index");
     }
 }
 else{

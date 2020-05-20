@@ -22,7 +22,7 @@
     <div class = "uk-margin-top">
 
         <h3 class = "uk-inline">Agregar Perro</h3>
-        <a href='catalogo.php' uk-tooltip = 'Click para retroceder' class='uk-icon-link uk-align-left' uk-icon='arrow-left'; ratio ='2'></a>
+        <a href='catalogo' uk-tooltip = 'Click para retroceder' class='uk-icon-link uk-align-left' uk-icon='arrow-left'; ratio ='2'></a>
     </div>
 
         <div class="uk-margin">
