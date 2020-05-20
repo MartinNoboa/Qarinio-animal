@@ -10,7 +10,7 @@
                 $_SESSION["error"] = null;
                 $_SESSION["mensaje"] = "Bienvenid@ {$_SESSION['nombre']}";
 
-                header("location:index.php");
+                header("location:/");
             } else{
             $_SESSION["error"] = "Correo o contraseña incorrectos";
         }
