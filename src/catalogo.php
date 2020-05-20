@@ -6,7 +6,7 @@ include_once("util.php")
 
 <div id="modal-info" class="uk-modal-container" uk-modal></div>
 <div id="modal-editar" class="uk-modal-container" uk-modal></div>
-<div class="uk-container uk-margin uk-animation-fade">
+<div class="uk-container uk-margin uk-animation-slide-bottom-medium">
     <h1 class="uk-text-center">Nuestros Perros</h1>
     <hr class="uk-divider-icon">
 </div>
