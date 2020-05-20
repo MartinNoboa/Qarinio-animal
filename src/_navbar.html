@@ -15,15 +15,16 @@
                     <ul class="uk-nav uk-navbar-dropdown-nav uk-margin-right">
                         <?php if(isset($_SESSION["nombre"])): ?>
                             <?php if(checkPriv("adoptar")): ?>
-                                <li class="uk-text-nowrap"><a href="misSolicitudes.php">Mis solicitudes de adopción</a></li>
-
+                                <li class="uk-text-nowrap"><a href="misSolicitudes.php"><span uk-icon="icon: file-text"></span> Mis solicitudes de adopción</a></li>
                             <?php endif; ?>
                             <?php if(checkPriv("ver-todas-solicitudes")): ?>
-                                <li class="uk-text-nowrap"><a href="gestionarSolicitudes.php">Ver todas las solicitudes</a></li>
-
+                                <li class="uk-text-nowrap"><a href="gestionarSolicitudes.php"><span uk-icon="icon: table"></span> Ver todas las solicitudes</a></li>
+                                <hr>
+                                <li class="uk-text-nowrap"><a href="panelControl.php"><span uk-icon="icon: settings"></span> Panel de control de la página</a></li>
                             <?php endif; ?>
                             <hr>
-                            <li class="uk-text-nowrap"><a href="miCuenta.php"><span uk-icon="icon: settings"></span> Ajustes de cuenta</a></li>
+                            <li class="uk-text-nowrap"><a href="miCuenta.php"><span uk-icon="icon: cog"></span> Ajustes de cuenta</a></li>
+                            <hr>
                             <li class="uk-text-nowrap"><a href="cerrarSesion.php"><span uk-icon="icon: sign-out"></span> Cerrar sesión</a></li>
                         <?php else: ?>
                             <li class="uk-text-nowrap"><a href="iniciarSesion.php"><span uk-icon="icon: sign-in"></span> Iniciar sesión</a></li>
