@@ -32,4 +32,6 @@ include("_footer.html")
 <script type="text/javascript">
     document.getElementById("editar-preguntas").onclick=editarPreguntas;
     document.getElementById("editar-contacto").onclick=submitEditarContacto;
+    mostrarContacto();
+    mostrarEdicionContacto();
 </script>
