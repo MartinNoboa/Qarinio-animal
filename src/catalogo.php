@@ -69,7 +69,7 @@ include_once("util.php")
     </div>
 
     <div class="uk-width-expand uk-margin-right">
-        <div class="" id="contenido-catalogo" uk-grid>
+        <div class="uk-animation-slide-bottom-medium" id="contenido-catalogo" uk-grid>
         <?php
             include("controlador_catalogo.php");
         ?>
