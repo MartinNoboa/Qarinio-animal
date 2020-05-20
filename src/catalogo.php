@@ -6,7 +6,7 @@ include_once("util.php")
 
 <div id="modal-info" class="uk-modal-container" uk-modal></div>
 <div id="modal-editar" class="uk-modal-container" uk-modal></div>
-<div class="uk-container uk-margin uk-animation-fade">
+<div class="uk-container uk-margin uk-animation-slide-bottom-medium">
     <h1 class="uk-text-center">Nuestros Perros</h1>
     <hr class="uk-divider-icon">
         <?php if(checkPriv("registrar")){
@@ -69,7 +69,7 @@ include_once("util.php")
     </div>
 
     <div class="uk-width-expand uk-margin-right">
-        <div class="uk-animation-slide-bottom-medium" id="contenido-catalogo" uk-grid>
+        <div class="" id="contenido-catalogo" uk-grid>
         <?php
             include("controlador_catalogo.php");
         ?>
