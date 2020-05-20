@@ -1,8 +1,7 @@
 <?php
-function get_self_domain(){return "carino.dawbd.org";}
+function get_self_domain(){return "qarinoanimal.com";}
 function get_self_email(){
-    //return "contacto@get_self_domain();"
-    return "qarinotest@gmail.com";
+    return "contacto@".get_self_domain();
 }
 
 function send_email($recipient, $subject, $contenido){

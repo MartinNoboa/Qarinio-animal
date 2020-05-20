@@ -4,9 +4,9 @@
 ?>
 
 <div class="uk-container uk-margin">
-    <h1 class="uk-text-center">¿Tienes una duda? ¡Contáctanos!</h1>
-    <hr>
-      <form action="controlador_contactanos.php" method="post">
+    <h1 class="uk-text-center uk-animation-slide-bottom-medium">¿Tienes una duda? ¡Contáctanos!</h1>
+    <hr class="uk-divider-icon">
+      <form class="uk-form uk-animation-fade" action="controlador_contactanos.php" method="post">
           <div class="uk-margin">
               <label for="first_name">Nombre</label>
               <input name="nombre" id="first_name" type="text" class="uk-input uk-border-rounded" placeholder="José">

@@ -3,6 +3,7 @@ return "
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset='utf-8'>
 <style>
 * {
     font-family: sans-serif;

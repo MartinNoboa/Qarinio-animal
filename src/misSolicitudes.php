@@ -16,6 +16,6 @@
 <?php
 else:
     http_response_code(404);
-    header("location:error.php");
+    header("location:error");
 endif;
 include '_footer.html'; ?>

@@ -4,7 +4,7 @@
 ?>
 
 <div class = "uk-container uk-margin">
-  <h1 class="uk-text-center">¿Cómo Ayudar?</h1>
+  <h1 class="uk-text-center uk-animation-slide-bottom-medium">¿Cómo Ayudar?</h1>
   <hr class="uk-divider-icon">
 </div>
 

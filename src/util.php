@@ -1,6 +1,6 @@
 <?php
 
-include_once("dbconfig.php");
+include_once("../loginsAdmin/dbconfig.php");
 
 function limpia_entrada($variable) {
     return $variable = htmlspecialchars($variable);
@@ -403,7 +403,7 @@ WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.nombre='".$_SESSION[
 
     $solicitudes = $conDb->query($sql);
     while($row = mysqli_fetch_array($solicitudes, MYSQLI_BOTH)) {
-        $tabla .= "<tr onclick=\"window.location='catalogo.php';\">";
+        $tabla .= "<tr onclick=\"window.location='catalogo';\">";
         $tabla .= "<td>".$row['Perro']."</td>";
         if($row['Formulario'] == 5) { //completado
             $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Tu formulario fue aprobado!\"></a></span></td>";
@@ -442,4 +442,55 @@ WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.nombre='".$_SESSION[
     return $tabla;
 }
 
+function muestraPreguntasFormulario() {
+    $sql = "SELECT preguntas.idPregunta as 'id', preguntas.pregunta as 'pregunta', preguntas.tipo as 'tipo' FROM preguntas";
+    $preguntas = sqlqry($sql);
+    /*
+    <div class="uk-margin">
+        <label class="uk-form-label" for="pregunta">Texto de la pregunta:</label>
+        <div class="uk-form-controls">
+            <textarea class="uk-textarea uk-border-rounded" id="nombre" type="textarea" placeholder="Respuesta" value=""></textarea>
+        </div>
+    </div>
+    */
+    $output = "";
+    while($row = mysqli_fetch_array($preguntas, MYSQLI_BOTH)) {
+        $output .= "<div class=\"uk-margin\">";
+        $output .= "<h5>".$row['id']. " - " .ucfirst($row['pregunta']) ."</h5>";
+        $output .= "<div class=\"uk-form-controls\">";
+
+        switch ($row['tipo']) {
+            case 'radio':
+                if($row['id'] == 7) {
+                $output .= "<div class=\"uk-margin uk-grid-small uk-child-width-auto uk-grid\">";
+                $output .= "<label><input type='radio' class=\"uk-radio\" name=\"".$row['id']."\" value=\"casa\"> Casa</label>";
+                $output .= "<label><input type='radio' class=\"uk-radio\" name=\"".$row['id']."\" value=\"departamento\"> Departamento</label>";
+                $output .= "</div>";
+                }
+                elseif($row['id'] == 8) {
+                    $output .= "<div class=\"uk-margin uk-grid-small uk-child-width-auto uk-grid\">";
+                    $output .= "<label><input type='radio' class=\"uk-radio\" name=\"".$row['id']."\" value=\"jardin\"> Jardín</label>";
+                    $output .= "<label><input type='radio' class=\"uk-radio\" name=\"".$row['id']."\" value=\"patio\"> Patio</label>";
+                    $output .= "</div>";
+                }
+                else {
+                    $output .= "<div class=\"uk-margin uk-grid-small uk-child-width-auto uk-grid\">";
+                    $output .= "<label><input type='radio' class=\"uk-radio\" name=\"".$row['id']."\" value=\"sí\"> Sí</label>";
+                    $output .= "<label><input type='radio' class=\"uk-radio\" name=\"".$row['id']."\" value=\"no\"> No</label>";
+                    $output .= "</div>";
+                }
+                break;
+            case 'numeric':
+                $output .= "<input type='number' class=\"uk-input uk-border-rounded\" name=\"".$row['id']."\">";
+                break;
+            default:
+                $output .= "<textarea class=\"uk-textarea uk-border-rounded\" id=\"".$row['id']."\" type=\"textarea\" placeholder=\"Tu respuesta\" value=\"\"></textarea>";
+                break;
+        }
+        
+        $output .= "</div>";
+        $output .= "</div>";
+    }
+    return $output;
+}
 ?>
