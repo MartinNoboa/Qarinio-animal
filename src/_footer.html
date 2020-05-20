@@ -1,26 +1,15 @@
-
 <div class="uk-background-muted uk-grid-divider" id="footer">
 	<div class="uk-grid-divider uk-grid-collapse" uk-grid>
+		<div class="uk-container uk-width-expand@m uk-width-1-1@s uk-margin-top uk-margin-large-left ">
+			<h2>Contacto</h2>
+		    <div id="info-contacto"></div>
+		</div>
 
-
-	<div class="uk-container uk-width-expand@m uk-width-1-1@s uk-margin-top uk-margin-large-left ">
-		<h2>Contacto
-        <?php
-            if(checkPriv("editar-info-contacto")){
-                echo "<button class='uk-button uk-button-small uk-button-primary uk-border-rounded uk-align-right' type='button' id='editar-contacto' ><span uk-icon='icon:pencil'></span> Editar Informacion de Contacto</button> ";
-            }
-        ?>
-		</h2>
-        <div id="info-contacto"></div>
-	</div>
-
-	<div class="uk-container uk-width-expand@m uk-width-1-1@s uk-margin-right uk-margin-top uk-margin-large-left">
-		<h2>Redes Sociales</h2>
-		<a href="https://www.facebook.com/CarinoAnimalQueretaro"><span uk-icon="icon: facebook; ratio: 2"></span></a>
-		<a href="https://instagram.com/qarinoanimal?igshid=6u1f1ufsppz1"><span uk-icon="icon: instagram; ratio: 2"></span></a>
-	</div>
-
-
+		<div class="uk-container uk-width-expand@m uk-width-1-1@s uk-margin-right uk-margin-top uk-margin-large-left">
+			<h2>Redes Sociales</h2>
+			<a href="https://www.facebook.com/CarinoAnimalQueretaro" target="_blank"><span uk-icon="icon: facebook; ratio: 2"></span></a>
+			<a href="https://instagram.com/qarinoanimal?igshid=6u1f1ufsppz1" target="_blank"><span uk-icon="icon: instagram; ratio: 2"></span></a>
+		</div>
 	</div>
 	<hr>
 	<div class="uk-container">
@@ -29,14 +18,11 @@
 		</div>
 	</div>
 </div>
-<div  id="modal-editar-contacto" class="uk-modal-container" uk-modal>
 <!-- Compiled and minified JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="js/ajax.js"></script>
 <script>
 mostrarContacto();
-document.getElementById("editar-contacto").onclick=editarContacto;
-
 </script>
 
 <?php if(isset($_SESSION["error"]) && $_SESSION["error"]!=""): ?>
