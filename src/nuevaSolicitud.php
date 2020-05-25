@@ -31,7 +31,7 @@ if(checkPriv("adoptar")):
 http_response_code(200);
 else:
     http_response_code(404);
-    location("header:error.php");
+    header("location:error");
 endif;
     include("_footer.html");
 ?>

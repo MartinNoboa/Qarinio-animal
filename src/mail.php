@@ -1,8 +1,7 @@
 <?php
-function get_self_domain(){return "carino.dawbd.org";}
+function get_self_domain(){return "qarinoanimal.com";}
 function get_self_email(){
-    //return "contacto@get_self_domain();"
-    return "qarinotest@gmail.com";
+    return "contacto@".get_self_domain();
 }
 
 function send_email($recipient, $subject, $contenido){
@@ -34,3 +33,26 @@ function send_email_contacto($solicitante, $nombre, $mensaje){
             send_email(get_self_email(), "Contacto Qariño Animal", $contenido);
     return $res;
 }
+
+function send_email_verif($email, $nombre, $uid){
+    $cont="<h3>$nombre, gracias por crear tu cuenta</h3>";
+    $cont.="Accede al siguiente link para verificar tu contraseña: ";
+    $cont.="<a href='https://". get_self_domain() . "/verificaEmail?id=" . $uid ."'>Verifica Tu Correo</a>";
+    return send_email($email, "Verifica tu cuenta en Qariño Animal", $cont);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

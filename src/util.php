@@ -1,6 +1,6 @@
 <?php
 
-include_once("dbconfig.php");
+include_once("../loginsAdmin/dbconfig.php");
 
 function limpia_entrada($variable) {
     return $variable = htmlspecialchars($variable);
@@ -171,6 +171,13 @@ function crearCuenta($nombre, $apellido, $email, $telefono, $callePrincipal, $ca
     //Usa la función de insertar para agregar rol
     insertIntoDb($dml, $uId, $rId);
 
+    $uniqId = md5(uniqid());
+    $dml = "INSERT INTO confirm_email (uid, idUsuario) VALUES (?,?)";
+    insertIntoDb($dml, $uniqId, $uId);
+
+    include_once("mail.php");
+    send_email_verif($email, $nombre." ".$apellido, $uniqId);
+
     return 1;
 }
 
@@ -240,7 +247,6 @@ function editarPerro($idPerro,$nombre,$size,$edad,$sexo,$historia,$idCondicion,$
             SET nombre='$nombre', tamanio='$size', edadEstimadaLLegada=TIMESTAMPDIFF(MONTH, DATE_ADD(CURDATE(), INTERVAL -$edad MONTH), fechaLLegada),
             sexo='$sexo', historia='$historia', idCondicion=$idCondicion, idRaza=$idRaza, idPersonalidad=$idPersonalidad
             WHERE p.idPerro=c.idPerro AND p.idPerro=$idPerro";
-    echo $sql;
     return modifyDb($sql);
 }
 
@@ -389,7 +395,7 @@ WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.nombre='".$_SESSION[
 
     $solicitudes = $conDb->query($sql);
     while($row = mysqli_fetch_array($solicitudes, MYSQLI_BOTH)) {
-        $tabla .= "<tr onclick=\"window.location='catalogo.php';\">";
+        $tabla .= "<tr onclick=\"window.location='catalogo';\">";
         $tabla .= "<td>".$row['Perro']."</td>";
         if($row['Formulario'] == 5) { //completado
             $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Tu formulario fue aprobado!\"></a></span></td>";
