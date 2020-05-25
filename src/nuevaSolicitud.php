@@ -40,5 +40,5 @@ endif;
     var idPerro = <?php echo $idPerro; ?>;
     var idUsuario = <?php echo $idUsuario; ?>;
     console.log(idPerro, idUsuario);
-        $("#enviarFormulario")[0].onclick = nuevaSolicitud(idUsuario,idPerro);
+    $("#enviarFormulario")[0].onclick = nuevaSolicitud(idUsuario,idPerro);
 </script>

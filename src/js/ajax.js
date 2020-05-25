@@ -358,7 +358,7 @@ function agregarPerro() {
     }).done(function(data){
         //console.log(data);
       if(parseInt(data) != 0){
-          mostrarMensaje("Se agrego el perro exitosamente", "success");
+          mostrarMensaje("Se agregó el perro exitosamente", "success");
           setTimeout(function() {
           window.location.href = "catalogo.php";
         }, 2000);
@@ -405,7 +405,7 @@ function nuevaSolicitud(idUsuario, idPerro){
         idUsuario : idUsuario,
         idPerro : idPerro,
         //si o no
-        res1 : $('input[name="1"]:checked').val(),
+        /*res1 : $('input[name="1"]:checked').val(),
         res2 : $('input[name="2"]:checked').val(),
         //textarea
         res3 : $('#3').val(),
@@ -424,14 +424,15 @@ function nuevaSolicitud(idUsuario, idPerro){
         res10 : $('#10').val(),
         res11 : $('#11').val(),
         //si o no
-        res12 : $('input[name="9"]:checked').val()
+        res12 : $('input[name="12"]:checked').val()*/
     }).done(function(data){
-        //cero sin error 
+        console.log(data);
         if (data == 0){
-          mostrarMensaje("Se completo la solicitud correctamente", "success");
+          mostrarMensaje("Se completó la solicitud correctamente", "success");
             //redireccionar a mis solicitudes
         }else {
             //mensaje de error
+          mostrarMensaje("Error", "danger");
         }
     })
 }
