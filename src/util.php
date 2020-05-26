@@ -1,6 +1,6 @@
 <?php
 
-include_once("loginsAdmin/dbconfig.php");
+include_once("../loginsAdmin/dbconfig.php");
 
 function limpia_entrada($variable) {
     return $variable = htmlspecialchars($variable);
