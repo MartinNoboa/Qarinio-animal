@@ -126,7 +126,7 @@
 ?>
 
 <script>
-    $("#agregar")[0].onclick = agregarPerro;
+    //$("#agregar")[0].onclick = agregarPerro;
     $("#agregar")[0].onclick = agregarFoto;
     
 </script>
