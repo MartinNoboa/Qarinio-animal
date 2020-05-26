@@ -13,9 +13,9 @@
    
 
 
-   <div class = "uk-container">
+   <div class = "uk-container uk-width-xxlarge">
 
-    <form action = "controlador_agregrar_perro.php" method = "POST" enctype="multipart/form-data">
+    <form  class = "uk-align-center" action = "controlador_agregrar_perro.php" method = "POST" enctype="multipart/form-data">
         
 
         <fieldset class="uk-fieldset">
@@ -27,7 +27,7 @@
 
         <div class="uk-margin">
             <h5>Nombre</h5>
-            <input class="uk-input uk-border-rounded" type="text" placeholder="Nombre" name = "nombre" id = "nombre" required>
+            <input class="uk-input uk-border-rounded " type="text" placeholder="Nombre" name = "nombre" id = "nombre" required>
         </div>
 
         <div class="uk-margin">
@@ -48,7 +48,7 @@
 
         <div class = "uk-margin">
             <h5>Fecha de Llegada</h5>
-            <input class = "uk-input uk-border-rounded" type = "date" id = "fecha" name = "fecha" required>
+            <input class = "uk-input uk-border-rounded " type = "date" id = "fecha" name = "fecha" required>
         </div>
 
             <h5>Género</h5>
@@ -81,7 +81,7 @@
         <div class="uk-margin">
             <h5>
                 Estado del Perro
-                <span  uk-tooltip = "title : Seleccione el estado del perro. Recuerde que solo se mostrara en el catalogo si esta disponible.; pos :top-left " class="uk-align-right" uk-icon="question"></span>
+                <span  uk-tooltip = "title : Seleccione el estado del perro. Recuerde que solo se mostrara en el catalogo si esta disponible.; pos :top-left" uk-icon="icon:question; ratio: 0.8"></span>
             </h5>
             <select class="uk-select uk-border-rounded" id = "estado" name = "estado" required>
                 <option selected hidden value = "">Seleccione una opcion...</option>
@@ -127,5 +127,6 @@
 
 <script>
     $("#agregar")[0].onclick = agregarPerro;
+    $("#agregar")[0].onclick = agregarFoto;
     
 </script>
