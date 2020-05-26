@@ -3,7 +3,7 @@
     include("_navbar.html");
 ?>
 <div class = "uk-container uk-margin">
-  <h1 class="uk-text-center">¿Quiénes somos?</h1>
+  <h1 class="uk-text-center uk-animation-slide-bottom-medium">¿Quiénes somos?</h1>
   <hr class="uk-divider-icon">
   <div class = "uk-divider"></div>
   <div class = "uk-section">
