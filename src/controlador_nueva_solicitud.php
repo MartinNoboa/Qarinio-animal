@@ -4,10 +4,9 @@
     limpia_entradas($_POST);
 
 //recupera valores del formulario
-print_r($_POST);
+    //print_r($_POST);
     $idUsuario = $_POST["idUsuario"];
     $idPerro = $_POST["idPerro"];
-    /*
 
     $res1 = $_POST["res1"];
     $res2 = $_POST["res2"];
@@ -20,9 +19,9 @@ print_r($_POST);
     $res9 = $_POST["res9"];
     $res10 = $_POST["res10"];
     $res11 = $_POST["res11"];
-    $res12 = $_POST["res12"];*/
+    $res12 = $_POST["res12"];
 
 //llama a la funcion de util para agregar nueva solicitud
-    echo nuevaSolicitud($idUsuario, $idPerro);
+    echo nuevaSolicitud($idUsuario, $idPerro,$res1, $res2,$res3,$res4,$res5,$res6,$res7,$res8,$res9,$res10,$res11,$res12);
 
 ?>

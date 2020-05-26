@@ -399,13 +399,15 @@ function agregarFoto(){
 });
 }
 
-function nuevaSolicitud(idUsuario, idPerro){
-    $.post("controlador_nueva_solicitud.php", {
+function nuevaSolicitud(){    
+    $.post("controlador_nueva_solicitud.php",
+          {
         //recupera idUsuario y idPerro de la sesion
-        idUsuario : idUsuario,
-        idPerro : idPerro,
+        idUsuario : $('#idusuario').val(),
+        idPerro : $('#idperro').val(),
+        
         //si o no
-        /*res1 : $('input[name="1"]:checked').val(),
+        res1 : $('input[name="1"]:checked').val(),
         res2 : $('input[name="2"]:checked').val(),
         //textarea
         res3 : $('#3').val(),
@@ -424,10 +426,10 @@ function nuevaSolicitud(idUsuario, idPerro){
         res10 : $('#10').val(),
         res11 : $('#11').val(),
         //si o no
-        res12 : $('input[name="12"]:checked').val()*/
+        res12 : $('input[name="12"]:checked').val()
     }).done(function(data){
-        console.log(data);
-        if (data == 0){
+        //console.log(data);
+        if (data != 0){
           mostrarMensaje("Se completó la solicitud correctamente", "success");
             //redireccionar a mis solicitudes
         }else {
