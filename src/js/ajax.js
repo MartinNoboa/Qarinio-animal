@@ -432,6 +432,9 @@ function nuevaSolicitud(){
         if (data != 0){
           mostrarMensaje("Se completó la solicitud correctamente", "success");
             //redireccionar a mis solicitudes
+            setTimeout(function() {
+          window.location.href = "misSolicitudes.php";
+        }, 2000);
         }else {
             //mensaje de error
           mostrarMensaje("Error", "danger");
