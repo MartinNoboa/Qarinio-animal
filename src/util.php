@@ -496,7 +496,6 @@ function nuevaSolicitud ($idUsuario, $idPerro,$res1, $res2,$res3,$res4,$res5,$re
     $sql2 = "CALL crearFormulario((SELECT idSolicitud FROM solicitud ORDER BY idSolicitud DESC LIMIT 1),$res1, $res2,$res3,$res4,$res5,$res6,$res7,$res8,$res9,$res10,$res11,$res12)";
     
     $result1 = sqlqry($sql1); 
-    print_r($result1);
     
     if($result1){
         $result2 = sqlqry($sql2); 
