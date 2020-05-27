@@ -484,4 +484,18 @@ function muestraPreguntasFormulario() {
     }
     return $output;
 }
+
+
+
+function recuperarProximoId(){
+    $query = "SELECT idPerro as id from perros ORDER BY idPerro DESC LIMIT 1";
+    $result = sqlqry($query);
+    $row = mysqli_fetch_array($result, MYSQLI_BOTH);
+    $num = $row["id"] + 1;
+    return $num;
+}
+
 ?>
+
+
+

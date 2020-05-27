@@ -358,7 +358,7 @@ function agregarPerro() {
     }).done(function(data){
         //console.log(data);
       if(parseInt(data) != 0){
-          mostrarMensaje("Se agrego el perro exitosamente", "success");
+          mostrarMensaje("Se agregó el perro exitosamente", "success");
           setTimeout(function() {
           window.location.href = "catalogo.php";
         }, 2000);
@@ -372,29 +372,28 @@ function agregarPerro() {
 
 //funcion para agregar foto
 function agregarFoto(){
-    $(document).ready(function(){
-
-    $("#agregar").click(function(){
+    
 
         var fd = new FormData();
-        var files = $('#foto')[0].files[0];
-        fd.append('foto',files);
+        var file_data = $('#foto')[0].files[0];
+        fd.append('file',file_data);
 
         $.ajax({
             url: 'controlador_agregar_foto.php',
             type: 'post',
+            dataType : 'text',
             data: fd,
             contentType: false,
             processData: false,
             success: function(response){
                 if(response != 0){
-                    $("#img").attr("src",response);
+                    $("#foto").attr("src",response);
                     $(".preview img").show(); // Display image element
                 }else{
                     alert('file not uploaded');
                 }
             },
         });
-    });
-});
 }
+
+
