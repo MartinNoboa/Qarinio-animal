@@ -26,11 +26,11 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `crearFormulario` (IN `v_idSolicitud` INT(7), IN `res1` TEXT CHARSET utf8, IN `res2` TEXT CHARSET utf8, IN `res3` TEXT CHARSET utf8, IN `res4` TEXT CHARSET utf8, IN `res5` TEXT CHARSET utf8, IN `res6` TEXT CHARSET utf8, IN `res7` TEXT CHARSET utf8, IN `res8` TEXT CHARSET utf8, IN `res9` TEXT CHARSET utf8, IN `res10` TEXT CHARSET utf8, IN `res11` TEXT CHARSET utf8, IN `res12` TEXT CHARSET utf8)  NO SQL
+CREATE PROCEDURE `crearFormulario` (IN `v_idSolicitud` INT(7), IN `res1` TEXT CHARSET utf8, IN `res2` TEXT CHARSET utf8, IN `res3` TEXT CHARSET utf8, IN `res4` TEXT CHARSET utf8, IN `res5` TEXT CHARSET utf8, IN `res6` TEXT CHARSET utf8, IN `res7` TEXT CHARSET utf8, IN `res8` TEXT CHARSET utf8, IN `res9` TEXT CHARSET utf8, IN `res10` TEXT CHARSET utf8, IN `res11` TEXT CHARSET utf8, IN `res12` TEXT CHARSET utf8)  NO SQL
 INSERT INTO respuestas (idSolicitud, idPregunta, respuesta)
 VALUES (v_idSolicitud,1,res1),(v_idSolicitud,2,res2),(v_idSolicitud,3,res3),(v_idSolicitud,4,res4),(v_idSolicitud,5,res5),(v_idSolicitud,6,res6),(v_idSolicitud,7,res7),(v_idSolicitud,8,res8),(v_idSolicitud,9,res9),(v_idSolicitud,10,res10),(v_idSolicitud,11,res11),(v_idSolicitud,12,res12)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `crearNuevaSolicitud` (IN `p_us` INT, IN `p_perro` INT, IN `r1` TEXT CHARSET utf8, IN `r2` TEXT CHARSET utf8, IN `r3` TEXT CHARSET utf8, IN `r4` TEXT CHARSET utf8, IN `r5` TEXT CHARSET utf8, IN `r6` TEXT CHARSET utf8, IN `r7` TEXT CHARSET utf8, IN `r8` TEXT CHARSET utf8, IN `r9` TEXT CHARSET utf8, IN `r10` TEXT CHARSET utf8, IN `r11` TEXT CHARSET utf8, IN `r12` TEXT CHARSET utf8)  NO SQL
+CREATE PROCEDURE `crearNuevaSolicitud` (IN `p_us` INT, IN `p_perro` INT, IN `r1` TEXT CHARSET utf8, IN `r2` TEXT CHARSET utf8, IN `r3` TEXT CHARSET utf8, IN `r4` TEXT CHARSET utf8, IN `r5` TEXT CHARSET utf8, IN `r6` TEXT CHARSET utf8, IN `r7` TEXT CHARSET utf8, IN `r8` TEXT CHARSET utf8, IN `r9` TEXT CHARSET utf8, IN `r10` TEXT CHARSET utf8, IN `r11` TEXT CHARSET utf8, IN `r12` TEXT CHARSET utf8)  NO SQL
 BEGIN
 INSERT INTO solicitud (idUsuario, idPerro, estadoFormulario, estadoEntrevista, estadoPago)
 VALUES (p_us, p_perro, 3,3,3);
@@ -50,7 +50,7 @@ VALUES
 ((SELECT idSolicitud from solicitud ORDER BY idSolicitud DESC LIMIT 1),12,r12);
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `crearSolicitud` (IN `v_idUsuario` INT, IN `v_idPerro` INT)  NO SQL
+CREATE PROCEDURE `crearSolicitud` (IN `v_idUsuario` INT, IN `v_idPerro` INT)  NO SQL
 INSERT INTO solicitud (idUsuario, idPerro, estadoFormulario, estadoEntrevista, estadoPago)
 VALUES (v_idUsuario, v_idPerro, 3,3,3)$$
 
