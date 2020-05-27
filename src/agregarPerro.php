@@ -15,7 +15,7 @@
 
    <div class = "uk-container uk-width-xxlarge">
 
-    <form  class = "uk-align-center" action = "controlador_agregrar_perro.php" method = "POST" enctype="multipart/form-data">
+    <form  class = "uk-align-center" action = "controlador_agregar_perro.php" method = "POST" enctype="multipart/form-data">
         
 
         <fieldset class="uk-fieldset">
@@ -103,13 +103,10 @@
             </div>
         </div>
         
-        <div class='preview'>
-            <img src="" id="img" width="100" height="100">
-        </div>
         
         
         <div class="uk-margin">
-            <button type = "button" id = "agregar" class = "uk-button uk-button-primary uk-position-relative uk-position-center uk-margin-large-top uk-border-rounded">Agregar perro</button>
+            <button type = "submit" id = "agregar" class = "uk-button uk-button-primary uk-position-relative uk-position-center uk-margin-large-top uk-border-rounded">Agregar perro</button>
         </div>
         
         </fieldset>
@@ -127,6 +124,6 @@
 
 <script>
     //$("#agregar")[0].onclick = agregarPerro;
-    $("#agregar")[0].onclick = agregarFoto;
+    //$("#agregar")[0].onclick = agregarFoto;
     
 </script>
