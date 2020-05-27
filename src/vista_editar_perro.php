@@ -70,7 +70,7 @@ if(checkPriv("editar-perro")):
                 </div>
 
                 <div class="uk-margin">
-                    <label class="uk-form-label" for="raza">Raza:</label>
+                    <label class="uk-form-label" for="raza">Tipo de Actividad:</label>
                     <div class="uk-form-controls">
                         <select class="uk-select uk-border-rounded" id="raza" name="raza">
                             <?= recuperarOpcionesConSelect("idRaza", "raza", "tipo_raza", $info["raza"]); ?>
