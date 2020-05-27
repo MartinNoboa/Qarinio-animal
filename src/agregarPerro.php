@@ -42,7 +42,7 @@
         <h5>Edad</h5>
         <div class = "uk-margin-small-top">
             <div class="uk-width-1-4@s">
-                <input class="uk-input uk-border-rounded" type="number" placeholder="Meses" id = "meses" name= "meses" required>
+                <input class="uk-input uk-border-rounded" type="number" min = "0"  placeholder="Meses" id = "meses" name= "meses" required>
             </div>
         </div>
 
