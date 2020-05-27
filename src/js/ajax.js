@@ -372,32 +372,30 @@ function agregarPerro() {
 
 //funcion para agregar foto
 function agregarFoto(){
-    $(document).ready(function(){
-
-    $("#agregar").click(function(){
+    
 
         var fd = new FormData();
-        var files = $('#foto')[0].files[0];
-        fd.append('foto',files);
+        var file_data = $('#foto')[0].files[0];
+        fd.append('file',file_data);
 
         $.ajax({
             url: 'controlador_agregar_foto.php',
             type: 'post',
+            dataType : 'text',
             data: fd,
             contentType: false,
             processData: false,
             success: function(response){
                 if(response != 0){
-                    $("#img").attr("src",response);
+                    $("#foto").attr("src",response);
                     $(".preview img").show(); // Display image element
                 }else{
                     alert('file not uploaded');
                 }
             },
         });
-    });
-});
 }
+
 
 function nuevaSolicitud(){    
     $.post("controlador_nueva_solicitud.php",

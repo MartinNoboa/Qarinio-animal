@@ -1,5 +1,7 @@
 <?php
 include_once("util.php");
+include_once("controlador_catalogo.php");
+
 $_POST["idPerro"] = limpia_entrada($_POST["idPerro"]);
 session_start();
 echo $_POST["idPerro"];

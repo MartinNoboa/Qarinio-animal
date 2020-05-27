@@ -487,6 +487,7 @@ function muestraPreguntasFormulario() {
 }
 
 
+
 function nuevaSolicitud ($idUsuario, $idPerro,$res1, $res2,$res3,$res4,$res5,$res6,$res7,$res8,$res9,$res10,$res11,$res12){
     //corregir bd foreign key constraint
     /*$sql = 'INSERT INTO solicitud (idUsuario, idPerro, estadoFormulario, estadoEntrevista, estadoPago)
@@ -510,4 +511,17 @@ function nuevaSolicitud ($idUsuario, $idPerro,$res1, $res2,$res3,$res4,$res5,$re
 
 
 
+
+function recuperarProximoId(){
+    $query = "SELECT idPerro as id from perros ORDER BY idPerro DESC LIMIT 1";
+    $result = sqlqry($query);
+    $row = mysqli_fetch_array($result, MYSQLI_BOTH);
+    $num = $row["id"] + 1;
+    return $num;
+}
+
+
 ?>
+
+
+
