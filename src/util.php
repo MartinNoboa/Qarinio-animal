@@ -269,6 +269,7 @@ function agregarPerro($nombre,$size,$edad,$fechaLlegada,$sexo,$historia,$idCondi
 
     $dml = "INSERT INTO perros (nombre, tamanio, edadEstimadaLlegada, fechaLlegada, sexo, historia)
             VALUES (?,?,?,?,?,?)";
+    
 
     $dml1 = "INSERT INTO caracteristicas
             VALUES ((SELECT idPerro FROM perros ORDER BY idPerro DESC LIMIT 1), ?,?,?)";
@@ -280,7 +281,7 @@ function agregarPerro($nombre,$size,$edad,$fechaLlegada,$sexo,$historia,$idCondi
     if($first != 0){
         $sec = insertIntoDb($dml1 ,$idCondicion,$idPersonalidad,$idRaza);
         $third = insertIntoDb($dml2, $estado);
-            if (third != 0){
+            if ($third != 0){
                 $success = true;
 
             }

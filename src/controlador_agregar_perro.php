@@ -6,7 +6,7 @@
     //print_r($_POST);
 
     $nombre = $_POST["nombre"];
-    $size = $_POST["size"];
+    $tamanio = $_POST["size"];
     $meses = $_POST["meses"];
     $fechaLlegada = date('Y-m-d', strtotime($_POST['fecha']));
     $genero = $_POST["genero"];
@@ -15,6 +15,7 @@
     $raza = $_POST["raza"];
     $estado = $_POST["estado"];
     $historia = $_POST["historia"];
+
     
     //codigo para agregar foto
 
@@ -36,7 +37,7 @@
 
     //subir foto
     if ( imagejpeg($im2, $directorio.$nuevoNombre."jpeg")){
-        $call = agregarPerro($nombre,$size,$meses, $fechaLlegada, $genero, $historia, $condiciones, $personalidad,$raza, $estado);
+        $call = agregarPerro($nombre,$tamanio,$meses, $fechaLlegada, $genero, $historia, $condiciones, $personalidad,$raza, $estado);
 
         if (!$call){
             header("location: vista_successPerro");
