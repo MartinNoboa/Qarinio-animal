@@ -1,6 +1,5 @@
 <?php
 include_once("util.php");
-include_once("controlador_catalogo.php");
 
 $_POST["idPerro"] = limpia_entrada($_POST["idPerro"]);
 session_start();
@@ -54,8 +53,8 @@ $info = getDogInfoById($_POST["idPerro"]);
             </table>
         </div>
         <hr>
-        <form class="uk-form uk-align-right" action="nuevaSolicitud.php" method="post">
-            <button class="uk-button uk-button-primary uk-border-rounded uk-margin-remove-bottom" id="btn-adoptar" type="submit">Adoptar</button>
+        <form class="uk-form uk-align-right" action="nuevaSolicitud.php?idPerro=<?= $_POST['idPerro'] ?>" method="post">
+            <button class="uk-button uk-button-primary uk-border-rounded uk-margin-remove-bottom" id="btn-adoptar" type="submit" idPerro ='<?= $_POST['idPerro'] ?>' >Adoptar</button>
         </form>
     </div>
 <?php
