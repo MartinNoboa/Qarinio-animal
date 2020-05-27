@@ -358,7 +358,7 @@ function agregarPerro() {
     }).done(function(data){
         //console.log(data);
       if(parseInt(data) != 0){
-          mostrarMensaje("Se agrego el perro exitosamente", "success");
+          mostrarMensaje("Se agregó el perro exitosamente", "success");
           setTimeout(function() {
           window.location.href = "catalogo.php";
         }, 2000);
@@ -368,33 +368,118 @@ function agregarPerro() {
     });
 }
 
-
-
 //funcion para agregar foto
 function agregarFoto(){
-    $(document).ready(function(){
-
-    $("#agregar").click(function(){
+    
 
         var fd = new FormData();
-        var files = $('#foto')[0].files[0];
-        fd.append('foto',files);
+        var file_data = $('#foto')[0].files[0];
+        fd.append('file',file_data);
 
         $.ajax({
             url: 'controlador_agregar_foto.php',
             type: 'post',
+            dataType : 'text',
             data: fd,
             contentType: false,
             processData: false,
             success: function(response){
                 if(response != 0){
-                    $("#img").attr("src",response);
+                    $("#foto").attr("src",response);
                     $(".preview img").show(); // Display image element
                 }else{
                     alert('file not uploaded');
                 }
             },
         });
+}
+
+function mostrarCambiarC() {
+    $.post("vista_cambiarContra.php").done(function(data){
+        $("#modal-cambiar-c").html(data);
+        UIkit.modal($("#modal-cambiar-c")).show();
+        document.getElementById("cambiarContra").onclick = sendMailContra;
     });
-});
+}
+
+function sendMailContra(){
+    document.getElementById("cambiarContra").disabled=true;
+    document.getElementById("cambiarContra").innerHTML="<div uk-spinner class='uk-position-fixed uk-transform-center'></div>";
+    $.post("controlador_mail_cambioContra.php", {
+        mail: $("#email-contra").val()
+    }).done(function(data){
+        switch(parseInt(data)){
+            case 200:
+                mostrarMensaje("Recibirá un correo con instrucciones para cambiar su contraseña", "primary");
+                UIkit.modal($("#modal-cambiar-c")).hide();
+                break;
+            case 404:
+                mostrarMensaje("Error: La cuenta no existe", "danger");
+                mostrarCambiarC();
+                break;
+            default:
+                break;
+        }
+    })
+}
+
+function nuevaSolicitud(){    
+    $.post("controlador_nueva_solicitud.php",
+          {
+        //recupera idUsuario y idPerro de la sesion
+        idUsuario : $('#idusuario').val(),
+        idPerro : $('#idperro').val(),
+        
+        //si o no
+        res1 : $('input[name="1"]:checked').val(),
+        res2 : $('input[name="2"]:checked').val(),
+        //textarea
+        res3 : $('#3').val(),
+        res4 : $('#4').val(),
+        //numeric
+        res5 : $('#5').val(),
+        //si o no
+        res6 : $('input[name="6"]:checked').val(),
+        //casa o dep
+        res7 : $('input[name="7"]:checked').val(),
+        //jardin o patio
+        res8 : $('input[name="8"]:checked').val(),
+        //si o no
+        res9 : $('input[name="9"]:checked').val(),
+        //textarea
+        res10 : $('#10').val(),
+        res11 : $('#11').val(),
+        //si o no
+        res12 : $('input[name="12"]:checked').val()
+    }).done(function(data){
+        //console.log(data);
+        if (data != 0){
+          mostrarMensaje("Se completó la solicitud correctamente", "success");
+            //redireccionar a mis solicitudes
+            setTimeout(function() {
+          window.location.href = "misSolicitudes.php";
+        }, 2000);
+        }else {
+            //mensaje de error
+          mostrarMensaje("Error al enviar el formulario, intente nuevamente.", "danger");
+        }
+    })
+}
+
+function cambiarContra() {
+    $.post("controlador_cambiarContra.php", {
+        uid: document.getElementById("uid").value,
+        contrasenia: document.getElementById("contrasenia").value,
+        verifContrasenia: document.getElementById("verifContrasenia").value
+    }).done(function(data, status, header){
+        switch(header.status){
+            case 200:
+                mostrarMensaje(data, "primary");
+                setTimeout(()=>location.replace("iniciarSesion.php"), 2500);
+                break;
+            default:
+                mostrarMensaje(data, "danger");
+                break;
+        }
+    })
 }

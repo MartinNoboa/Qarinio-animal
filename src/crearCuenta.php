@@ -199,16 +199,8 @@
       }
       ?>
 
-
-
-
-
-
-
-
-
-
 <script src="js/validaciones.js"></script>
+<script>verifLogin()</script>
 <?php
   include("_footer.html");
 ?>

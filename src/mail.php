@@ -42,6 +42,13 @@ function send_email_verif($email, $nombre, $uid){
 }
 
 
+function send_email_contr($email, $nombre, $uid){
+    $cont="<h3>$nombre, has solicitado un cambio de contraseña.</h3>";
+    $cont.="Accede al siguiente link para cambiar tu contraseña: ";
+    $cont.="<a href='https://". get_self_domain() . "/cambiarContra?id=" . $uid ."'>Cambia tu contraseña</a>";
+    return send_email($email, "Cambia tu contraseña de Qariño Animal", $cont);
+}
+
 
 
 

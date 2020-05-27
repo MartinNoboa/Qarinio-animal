@@ -1,5 +1,6 @@
 <?php
 include_once("util.php");
+
 $_POST["idPerro"] = limpia_entrada($_POST["idPerro"]);
 session_start();
 echo $_POST["idPerro"];
@@ -9,8 +10,8 @@ $info = getDogInfoById($_POST["idPerro"]);
         <div class="uk-modal-title">
             <h1><?= $info["nombre"];?></h1>
             <div uk-lightbox="animation: fade">
-                <a href="img/Mario.jpg" data-caption=<?= $info["nombre"];?>>
-                    <img src="img/Mario.jpg" alt="Imagen del perro" class="uk-border-rounded uk-float-right uk-width-medium">
+                <a href=  <?= "img/perros/".$_POST["idPerro"].".jpeg" ?> data-caption=<?= $info["nombre"];?>>
+                    <img src= <?= "img/perros/".$_POST["idPerro"].".jpeg" ?>  alt="Imagen del perro" class="uk-border-rounded uk-float-right uk-width-medium">
                 </a>
             </div>
         </div>
@@ -52,8 +53,8 @@ $info = getDogInfoById($_POST["idPerro"]);
             </table>
         </div>
         <hr>
-        <form class="uk-form uk-align-right" action="nuevaSolicitud.php" method="post">
-            <button class="uk-button uk-button-primary uk-border-rounded uk-margin-remove-bottom" id="btn-adoptar" type="submit">Adoptar</button>
+        <form class="uk-form uk-align-right" action="nuevaSolicitud.php?idPerro=<?= $_POST['idPerro'] ?>" method="post">
+            <button class="uk-button uk-button-primary uk-border-rounded uk-margin-remove-bottom" id="btn-adoptar" type="submit" idPerro ='<?= $_POST['idPerro'] ?>' >Adoptar</button>
         </form>
     </div>
 <?php
