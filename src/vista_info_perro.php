@@ -10,8 +10,8 @@ $info = getDogInfoById($_POST["idPerro"]);
         <div class="uk-modal-title">
             <h1><?= $info["nombre"];?></h1>
             <div uk-lightbox="animation: fade">
-                <a href="img/Mario.jpg" data-caption=<?= $info["nombre"];?>>
-                    <img src="img/Mario.jpg" alt="Imagen del perro" class="uk-border-rounded uk-float-right uk-width-medium">
+                <a href=  <?= "img/perros/".$_POST["idPerro"].".jpeg" ?> data-caption=<?= $info["nombre"];?>>
+                    <img src= <?= "img/perros/".$_POST["idPerro"].".jpeg" ?>  alt="Imagen del perro" class="uk-border-rounded uk-float-right uk-width-medium">
                 </a>
             </div>
         </div>
