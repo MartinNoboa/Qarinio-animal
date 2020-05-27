@@ -121,7 +121,7 @@ function autenticar($email, $password){
 
 function setPermisos($email){
     $sql = "
-        SELECT u.nombre as nom, p.privilegio as priv
+        SELECT  u.idUsuario as id, u.nombre as nom, p.privilegio as priv
         FROM usuario u, usuario_rol ur, rol r, privilegio_rol pr, privilegios p
         WHERE u.email='$email'
         AND u.idUsuario=ur.idUsuario
@@ -135,6 +135,7 @@ function setPermisos($email){
         //asigna permisos
         $_SESSION['privilegios'][$row["priv"]] = 1;
         $_SESSION["nombre"] = $row["nom"];
+        $_SESSION["id"] = $row["id"];
     }
 }
 
@@ -241,7 +242,7 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
 
     //función para eliminar una perro
     //@param id_perro: id del perro que se va a eliminar
-  function eliminar_perro($id_perro) {
+function eliminar_perro($id_perro) {
     $sql='UPDATE estado_perro SET idEstado=6 WHERE idPerro='.$id_perro;
     $res=modifyDb($sql);
     return $res;
@@ -478,7 +479,7 @@ function muestraPreguntasFormulario() {
                 }
                 break;
             case 'numeric':
-                $output .= "<input type='number' class=\"uk-input uk-border-rounded\" name=\"".$row['id']."\">";
+                $output .= "<input type='number' class=\"uk-input uk-border-rounded\" id=\"".$row['id']."\">";
                 break;
             default:
                 $output .= "<textarea class=\"uk-textarea uk-border-rounded\" id=\"".$row['id']."\" type=\"textarea\" placeholder=\"Tu respuesta\" value=\"\"></textarea>";
@@ -500,4 +501,29 @@ function insertUid($type, $uId){
     return $uniqId;
 }
 
-?>
+
+function nuevaSolicitud ($idUsuario, $idPerro,$res1, $res2,$res3,$res4,$res5,$res6,$res7,$res8,$res9,$res10,$res11,$res12){
+    //corregir bd foreign key constraint
+    /*$sql = 'INSERT INTO solicitud (idUsuario, idPerro, estadoFormulario, estadoEntrevista, estadoPago)
+            VALUES ($idUsuario, $idPerro, 3,3,3)';*/
+    $sql1 = "CALL crearNuevaSolicitud($idUsuario,$idPerro,'$res1','$res2','$res3','$res4','$res5','$res6','$res7','$res8','$res9','$res10','$res11','$res12')";
+
+    //print_r($sql1);
+    
+    
+    return sqlqry($sql1);
+    
+    
+}
+
+function recuperarProximoId(){
+    $query = "SELECT idPerro as id from perros ORDER BY idPerro DESC LIMIT 1";
+    $result = sqlqry($query);
+    $row = mysqli_fetch_array($result, MYSQLI_BOTH);
+    $num = $row["id"] + 1;
+    return $num;
+}
+
+
+
+

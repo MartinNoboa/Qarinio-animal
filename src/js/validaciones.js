@@ -21,7 +21,7 @@ function verifCambContr(){
 
 function validar(e){
     let target =e.target;
-    console.log(target.value.length);
+    //console.log(target.value.length);
     if(target.name == 'email'){
         if(validarEmail(target.value)){
             //target.classList.add('uk-text-success');
