@@ -14,8 +14,8 @@ $result = filterDogs($minAge,$maxAge,check($_POST, "macho"),check($_POST, "hembr
 if(http_response_code() == 200 && mysqli_num_rows($result) > 0){
     while($row = mysqli_fetch_assoc($result)){
         //Des-comentar cuando se hayan agregado imagenes
-        //$img = "img/dog".$row["idPerro"].".jpg";
-        $img = "img/Mario.jpg";
+        $img = "img/perros/".$row["idPerro"].".jpeg";
+        //$img = "img/Mario.jpg";
         $name = $row["nombre"];
         $test = $row["fechaLLegada"];
         $id = $row["idPerro"];

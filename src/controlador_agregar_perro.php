@@ -18,31 +18,33 @@
     
     //codigo para agregar foto
 
-
-
     $nombreFoto = $_FILES["foto"]["name"]; //nombre actual de la foto
     $idNuevoPerro = recuperarProximoId();
     $extension = pathinfo($_FILES["foto"]["name"], PATHINFO_EXTENSION); //encontrar la extension de la imagen
-    $nuevoNombre = $idNuevoPerro . "." . $extension; //renombrarla
+    $nuevoNombre = $idNuevoPerro . "."; //renombrarla
     $directorio = 'img/perros/'; //donde se va a guardar
     $temp_name = $_FILES["foto"]["tmp_name"]; //lugar donde se guarda temporalmente
     
 
-   /* if($extension != "jpg" && $extension != "png" && $extension != "jpeg") {
-        header("location: errorPerro.html");
-    }else{*/
-        if (move_uploaded_file($temp_name,$directorio.$nuevoNombre)){
-            $call = agregarPerro($nombre,$size,$meses, $fechaLlegada, $genero, $historia, $condiciones, $personalidad,$raza, $estado);
-            
-            if (!$call){
-                header("location: vista_successPerro");
-            }else{
-                header("location: vista_errorPerro");
-                
-            }
-        }/*else {
-                header("location: vista_errorPerro");
-            }}*/
+    //resize y cortar imagen
+
+    $im1 = imagecreatefromstring(file_get_contents($_FILES["foto"]["tmp_name"]));
+    $size = min(imagesx($im1), imagesy($im1));
+    $im2 = imagescale(imagecrop($im1, ['x' => 0, 'y' => 0, 'width' => $size, 'height' => $size]),1000,1000);
+
+
+
+    //subir foto
+    if ( imagejpeg($im2, $directorio.$nuevoNombre."jpeg")){
+        $call = agregarPerro($nombre,$size,$meses, $fechaLlegada, $genero, $historia, $condiciones, $personalidad,$raza, $estado);
+
+        if (!$call){
+            header("location: vista_successPerro");
+        }else{
+            header("location: vista_errorPerro");
+
+        }
+    }
     
     
     
