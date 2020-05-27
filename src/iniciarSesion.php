@@ -16,6 +16,7 @@
         }
     }
 ?>
+<div id="modal-cambiar-c" class="uk-modal" uk-modal></div>
 <br>
 <div class="uk-container uk-align-center uk-width-large">
   <form method="post" action="iniciarSesion.php">
@@ -36,13 +37,15 @@
 
       <div class="uk-margin uk-align-center uk-width-medium uk-text-center">
           <input class="uk-input uk-button-primary uk-border-pill" type="submit" name="submit" value="Iniciar Sesión">
-          <a class="uk-button uk-button-text uk-text-meta uk-margin">Olvidé Mi contraseña</a>
+          <a class="uk-button uk-button-text uk-text-meta uk-margin" id="olv-contr">Olvidé Mi contraseña</a>
       </div>
   </form>
 
 </div>
 
-
 <?php
   include("_footer.html");
 ?>
+<script>
+    document.getElementById("olv-contr").onclick = mostrarCambiarC;
+</script>
