@@ -179,10 +179,7 @@ function crearCuenta($nombre, $apellido, $email, $telefono, $callePrincipal, $ca
     //Usa la función de insertar para agregar rol
     insertIntoDb($dml, $uId, $rId);
 
-    $uniqId = md5(uniqid());
-    $dml = "INSERT INTO confirm_email (uid, idUsuario) VALUES (?,?)";
-    insertIntoDb($dml, $uniqId, $uId);
-
+    $uniqId = insertUid("confirm_email", $uId);
     include_once("mail.php");
     send_email_verif($email, $nombre." ".$apellido, $uniqId);
 
@@ -493,4 +490,14 @@ function muestraPreguntasFormulario() {
     }
     return $output;
 }
+
+function insertUid($type, $uId){
+    do{
+        $uniqId = md5(uniqid());
+    }while(sqlqry("SELECT uid from $type where uid='$uniqId'")->num_rows>0);
+    $dml = "INSERT INTO $type (uid, idUsuario) VALUES (?,?)";
+    insertIntoDb($dml, $uniqId, $uId);
+    return $uniqId;
+}
+
 ?>

@@ -67,9 +67,8 @@
 <?php
         endif;
     else:
-        //mostrar input de correo para enviar el cambio de contra
+        header("location:iniciarSesion.php");
     endif;
   include("_footer.html");
 ?>
-<script src="js/ajax.js"></script>
 

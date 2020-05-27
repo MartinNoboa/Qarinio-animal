@@ -368,8 +368,6 @@ function agregarPerro() {
     });
 }
 
-
-
 //funcion para agregar foto
 function agregarFoto(){
     $(document).ready(function(){
@@ -397,6 +395,35 @@ function agregarFoto(){
         });
     });
 });
+}
+
+function mostrarCambiarC() {
+    $.post("vista_cambiarContra.php").done(function(data){
+        $("#modal-cambiar-c").html(data);
+        UIkit.modal($("#modal-cambiar-c")).show();
+        document.getElementById("cambiarContra").onclick = sendMailContra;
+    });
+}
+
+function sendMailContra(){
+    document.getElementById("cambiarContra").disabled=true;
+    document.getElementById("cambiarContra").innerHTML="<div uk-spinner class='uk-position-fixed uk-transform-center'></div>";
+    $.post("controlador_mail_cambioContra.php", {
+        mail: $("#email-contra").val()
+    }).done(function(data){
+        switch(parseInt(data)){
+            case 200:
+                mostrarMensaje("Recibirá un correo con instrucciones para cambiar su contraseña", "primary");
+                UIkit.modal($("#modal-cambiar-c")).hide();
+                break;
+            case 404:
+                mostrarMensaje("Error: La cuenta no existe", "danger");
+                mostrarCambiarC();
+                break;
+            default:
+                break;
+        }
+    })
 }
 
 function cambiarContra() {
