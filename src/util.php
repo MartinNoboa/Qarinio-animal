@@ -473,7 +473,7 @@ function muestraPreguntasFormulario() {
                 }
                 break;
             case 'numeric':
-                $output .= "<input type='number' min = "0" class=\"uk-input uk-border-rounded\" id=\"".$row['id']."\">";
+                $output .= "<input type='number' class=\"uk-input uk-border-rounded\" id=\"".$row['id']."\">";
                 break;
             default:
                 $output .= "<textarea class=\"uk-textarea uk-border-rounded\" id=\"".$row['id']."\" type=\"textarea\" placeholder=\"Tu respuesta\" value=\"\"></textarea>";
