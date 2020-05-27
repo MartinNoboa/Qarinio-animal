@@ -34,9 +34,9 @@
             <h5>Tamaño</h5>
             <select class="uk-select uk-border-rounded" id = "size" name = "size" required>
                 <option selected hidden>Tamaño...</option>
-                <option value = "Pequenio">Pequeño</option>
-                <option value = "mediano">Mediano</option>
-                <option value = "grande">Grande</option>
+                <option value = "Pequeño">Pequeño</option>
+                <option value = "Mediano">Mediano</option>
+                <option value = "Grande">Grande</option>
             </select>
         </div>
         <h5>Edad</h5>
@@ -71,7 +71,7 @@
             </select>
         </div>
         <div class="uk-margin">
-            <h5>Raza</h5>
+            <h5>Tipo de Actividad</h5>
             <select class="uk-select uk-border-rounded" id = "raza" name = "raza" required>
                 <option selected hidden value = "">Seleccione una opcion...</option>
                 <?= recuperarOpciones(idRaza, raza, tipo_raza) ?>

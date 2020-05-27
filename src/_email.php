@@ -16,7 +16,7 @@ return "
 </head>
 
 <body>
-<img src='https://".get_self_domain()."/img/QA.jpg' width='100'>
+<img src='https://".get_self_domain()."/img/logo.png' width='100'>
 <hr>
 $contenido
 <hr>

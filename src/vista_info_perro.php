@@ -38,7 +38,7 @@ $info = getDogInfoById($_POST["idPerro"]);
                         <td><?= $info["historia"]; ?></td>
                     </tr>
                     <tr>
-                        <td class="uk-table-shrink uk-text-bold">Raza:</td>
+                        <td class="uk-table-shrink uk-text-bold">Tipo de Actividad:</td>
                         <td><?= $info["raza"]; ?></td>
                     </tr>
                     <tr>
