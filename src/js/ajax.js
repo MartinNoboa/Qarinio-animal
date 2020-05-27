@@ -343,6 +343,7 @@ function submitEditarPreguntas(){
 
 
 
+/*
 function agregarPerro() {
     $.post("controlador_agregar_perro.php", {
         nombre : $("#nombre").val(),
@@ -367,6 +368,7 @@ function agregarPerro() {
       }
     });
 }
+*/
 
 //funcion para agregar foto
 function agregarFoto(){
