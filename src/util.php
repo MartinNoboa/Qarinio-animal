@@ -473,7 +473,7 @@ function muestraPreguntasFormulario() {
                 }
                 break;
             case 'numeric':
-                $output .= "<input type='number' class=\"uk-input uk-border-rounded\" id=\"".$row['id']."\">";
+                $output .= "<input type='number' min = "0" class=\"uk-input uk-border-rounded\" id=\"".$row['id']."\">";
                 break;
             default:
                 $output .= "<textarea class=\"uk-textarea uk-border-rounded\" id=\"".$row['id']."\" type=\"textarea\" placeholder=\"Tu respuesta\" value=\"\"></textarea>";
@@ -492,19 +492,12 @@ function nuevaSolicitud ($idUsuario, $idPerro,$res1, $res2,$res3,$res4,$res5,$re
     //corregir bd foreign key constraint
     /*$sql = 'INSERT INTO solicitud (idUsuario, idPerro, estadoFormulario, estadoEntrevista, estadoPago)
             VALUES ($idUsuario, $idPerro, 3,3,3)';*/
-    $sql1 = "CALL crearSolicitud($idUsuario,$idPerro)";
+    $sql1 = "CALL crearNuevaSolicitud($idUsuario,$idPerro,'$res1','$res2','$res3','$res4','$res5','$res6','$res7','$res8','$res9','$res10','$res11','$res12')";
+
+    //print_r($sql1);
     
-    $sql2 = "CALL crearFormulario((SELECT idSolicitud FROM solicitud ORDER BY idSolicitud DESC LIMIT 1),$res1, $res2,$res3,$res4,$res5,$res6,$res7,$res8,$res9,$res10,$res11,$res12)";
     
-    $result1 = sqlqry($sql1); 
-    
-    if($result1){
-        $result2 = sqlqry($sql2); 
-        return $result2;
-    }else{
-        return 0;
-    }
-    
+    return sqlqry($sql1);
     
     
 }

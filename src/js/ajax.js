@@ -435,7 +435,7 @@ function nuevaSolicitud(){
         }, 2000);
         }else {
             //mensaje de error
-          mostrarMensaje("Error", "danger");
+          mostrarMensaje("Error al enviar el formulario, intente nuevamente.", "danger");
         }
     })
 }
