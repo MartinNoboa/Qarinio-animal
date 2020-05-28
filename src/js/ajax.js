@@ -372,7 +372,7 @@ function agregarPerro() {
 
 //funcion para agregar foto
 function agregarFoto(){
-    
+
 
         var fd = new FormData();
         var file_data = $('#foto')[0].files[0];
@@ -425,13 +425,13 @@ function sendMailContra(){
     })
 }
 
-function nuevaSolicitud(){    
+function nuevaSolicitud(){
     $.post("controlador_nueva_solicitud.php",
           {
         //recupera idUsuario y idPerro de la sesion
         idUsuario : $('#idusuario').val(),
         idPerro : $('#idperro').val(),
-        
+
         //si o no
         res1 : $('input[name="1"]:checked').val(),
         res2 : $('input[name="2"]:checked').val(),
@@ -484,4 +484,28 @@ function cambiarContra() {
                 break;
         }
     })
+}
+
+function muestraSolicitudes() {
+
+}
+
+function muestraAlert(idSolicitud) {
+    msj = confirm("Hola");
+    if(msj) {
+        $.post("controlador_elimina_solicitud.php", {
+            idSol: idSolicitud
+        }).done(function(data,){
+            console.log(data);
+            if(parseInt(data) != 0) {
+                // TODO: ESTO NO ES AJAX, YA LO SÉ BERNIE. HAY QUE PASAR LA FUNCION MOSTRAR PREGUNTAS DE UTIL A OTRA FUNCION JS
+                location.replace("misSolicitudes.php")
+                mostrarMensaje("La solicitud fue eliminada exitosamente", "primary");
+            }
+            else {
+                mostrarMensaje("Hubo un error al eliminar la solicitud. Por favor, intenta de nuevo", "danger");
+            }
+
+        })
+    }
 }

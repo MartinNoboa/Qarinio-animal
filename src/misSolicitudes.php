@@ -12,6 +12,8 @@
     </form>
     <h5 class="uk-margin-remove-bottom">Haz clic sobre cada elemento de tu solicitud para obtener más información.</h5>
     <?= muestraSolicitudes(); ?>
+
+
 </div>
 <?php
 else:
