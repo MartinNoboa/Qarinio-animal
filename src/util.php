@@ -536,3 +536,25 @@ function eliminarSolicitud($idSolicitud) {
     $res=modifyDb($sql);
     return $res;
   }
+
+  function getUserInfoById($id){
+      $sql = "
+        SELECT nombre,
+        apellido,
+        email,
+        telefono,
+        callePrincipal,
+        calleSecundaria,
+        NumeroExterior,
+        NumeroInterior,
+        CodigoPostal,
+        Colonia,
+        Ciudad,
+        Estado,
+        fechaNacimiento
+        FROM usuario
+        WHERE idUsuario=".$id;
+
+          $res = mysqli_fetch_array(sqlqry($sql));
+          return $res;
+  }
