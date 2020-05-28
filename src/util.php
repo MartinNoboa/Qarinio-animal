@@ -153,7 +153,7 @@ function cuentaExistente($email){
 function cambiarContra($uid, $contrasenia){
     $contrasenia = password_hash($contrasenia, PASSWORD_DEFAULT);
     $dml = "UPDATE usuario u, cambio_contrasenia uc
-            SET u.Contrasenia='$contrasenia', uc.usada=true 
+            SET u.Contrasenia='$contrasenia', uc.usada=true
             WHERE uc.uid='$uid'
             AND u.idUsuario=uc.idUsuario";
     return modifyDb($dml);
@@ -269,7 +269,7 @@ function agregarPerro($nombre,$size,$edad,$fechaLlegada,$sexo,$historia,$idCondi
 
     $dml = "INSERT INTO perros (nombre, tamanio, edadEstimadaLlegada, fechaLlegada, sexo, historia)
             VALUES (?,?,?,?,?,?)";
-    
+
 
     $dml1 = "INSERT INTO caracteristicas
             VALUES ((SELECT idPerro FROM perros ORDER BY idPerro DESC LIMIT 1), ?,?,?)";
@@ -486,7 +486,7 @@ function muestraPreguntasFormulario() {
                 $output .= "<textarea class=\"uk-textarea uk-border-rounded\" id=\"".$row['id']."\" type=\"textarea\" placeholder=\"Tu respuesta\" value=\"\"></textarea>";
                 break;
         }
-        
+
         $output .= "</div>";
         $output .= "</div>";
     }
@@ -510,21 +510,20 @@ function nuevaSolicitud ($idUsuario, $idPerro,$res1, $res2,$res3,$res4,$res5,$re
     $sql1 = "CALL crearNuevaSolicitud($idUsuario,$idPerro,'$res1','$res2','$res3','$res4','$res5','$res6','$res7','$res8','$res9','$res10','$res11','$res12')";
 
     //print_r($sql1);
-    
-    
+
+
     return sqlqry($sql1);
-    
-    
+
+
 }
 
 function recuperarProximoId(){
     $query = "SELECT idPerro as id from perros ORDER BY idPerro DESC LIMIT 1";
     $result = sqlqry($query);
     $row = mysqli_fetch_array($result, MYSQLI_BOTH);
-    $num = $row["id"] + 1;
+    if($row["id"] == 0)
+        $num = 1;
+    else
+        $num = $row["id"] + 1;
     return $num;
 }
-
-
-
-
