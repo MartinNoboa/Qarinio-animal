@@ -491,7 +491,7 @@ function muestraSolicitudes() {
 }
 
 function muestraAlert(idSolicitud) {
-    msj = confirm("Hola");
+    msj = confirm("¿Estás seguro que quieres eliminar tu solicitud?\nEsta acción no se puede deshacer.");
     if(msj) {
         $.post("controlador_elimina_solicitud.php", {
             idSol: idSolicitud
