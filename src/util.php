@@ -405,6 +405,9 @@ WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.idUsuario='".$_SESSI
     while($row = mysqli_fetch_array($solicitudes, MYSQLI_BOTH)) {
         $tabla .= "<tr>";
         $tabla .= "<td>".$row['Perro']."</td>";
+        
+        //------------------------------------------------------ Estado del formulario
+        
         if($row['Formulario'] == 5) { //completado
             $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Tu formulario fue aprobado!\"></a></span></td>";
         }
@@ -414,9 +417,18 @@ WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.idUsuario='".$_SESSI
         elseif($row['Formulario'] == 3) { //incompleto
             $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Tu formulario fue rechazado\"></a></span></td>";
         }
+        
+        
+        //------------------------------------------------------ Estado de la entrevista
+        
 
         if($row['Entrevista'] == 5) { //completado
-            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Tu entrevista fue aprobada!\"></a></span></td>";
+            $tabla .= "<td class=\"uk-text-center\">
+            <a class=\"uk-link-text\" href=\"#\">
+            <span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Tu entrevista fue aprobada!\">
+            </span>
+            </a>
+            </td>";
         }
         elseif($row['Entrevista'] == 4) { //en proceso
             $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: Tu entrevista está en proceso\"></a></span></td>";
@@ -424,9 +436,18 @@ WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.idUsuario='".$_SESSI
         elseif($row['Entrevista'] == 3) { //incompleto
             $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Tu entrevista fue rechazada\"></a></span></td>";
         }
+        
+        
+        //------------------------------------------------------ Estado del pago
 
+        
         if($row['Pago'] == 5) { //completado
-            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Tu pago fue aprobado!\"></a></span></td>";
+            $tabla .= "<td class=\"uk-text-center\">
+            <a class=\"uk-link-text\" href=\"#\">
+            <span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡El pago fue aprobado!\">
+            </span>
+            </a>
+            </td>";
         }
         elseif($row['Pago'] == 4) { //en proceso
             $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: Tu pago está en proceso\"></a></span></td>";
@@ -531,14 +552,15 @@ function recuperarProximoId(){
 }
 
 function muestraTodasSolicitudes(){
-    $sql = "SELECT s.idSolicitud as 'idSolicitud', p.nombre as 'Perro', s.estadoFormulario as 'Formulario',s.estadoEntrevista as         'Entrevista', s.estadoPago as 'Pago'
+    $sql = "SELECT u.nombre as 'adoptante',s.idSolicitud as 'idSolicitud', p.nombre as 'Perro', s.estadoFormulario as 'Formulario',s.estadoEntrevista as         'Entrevista', s.estadoPago as 'Pago'
             FROM usuario as u,solicitud as s, perros as p 
             WHERE u.idUsuario = s.idUsuario AND p.idPerro = s.idPerro";
     $result = sqlqry($sql);
     $tabla = "
     <table class=\"uk-table uk-table-divider uk-table-striped uk-table-large uk-table-hover uk-animation-slide-bottom-medium\">
-        <thead clas>
+        <thead>
             <tr>
+                <th class=\"uk-width-small uk-text-secondary\">Adoptante</th>
                 <th class=\"uk-width-small uk-text-secondary\">Perro</th>
                 <th class=\"uk-text-center uk-text-secondary\">Formulario</th>
                 <th class=\"uk-text-center uk-text-secondary\">Entrevista</th>
@@ -550,7 +572,11 @@ function muestraTodasSolicitudes(){
 
     while($row = mysqli_fetch_array($result, MYSQLI_BOTH)) {
         $tabla .= "<tr>";
+        $tabla .= "<td>".$row['adoptante']."</td>";
         $tabla .= "<td>".$row['Perro']."</td>";
+        
+        //----------------------------------------estado formulario
+        
         if($row['Formulario'] == 5) { //completado
             $tabla .= "<td class=\" uk-text-center\">
             <div class = 'formulario' idSolicitud =" .$row["idSolicitud"].">
@@ -579,6 +605,10 @@ function muestraTodasSolicitudes(){
             </td>";
         }
     
+        
+        //----------------------------------------estado entrevista
+        
+        
         if($row['Entrevista'] == 5) { //completado
             $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Aprobaste esta entrevista!\"></span></a></td>";
         }
@@ -588,15 +618,36 @@ function muestraTodasSolicitudes(){
         elseif($row['Entrevista'] == 3) { //incompleto
             $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Esta entrevista fue rechazada.\"></span></a></td>";
         }
+        
+        //----------------------------------------estado pago
+
 
         if($row['Pago'] == 5) { //completado
-            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡El pago fue aprobado!\"></span></a></td>";
+            $tabla .= "<td class=\"uk-text-center\">
+            <div class = 'pago' idSolicitud =" .$row["idSolicitud"].">
+            <a class=\"uk-link-text\">
+            <span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡El pago fue aprobado!\"></span>
+            </a>
+            </div>
+            </td>";
         }
         elseif($row['Pago'] == 4) { //en proceso
-            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: El pago está en proceso.\"></span></a></td>";
+            $tabla .= "<td class=\"uk-text-center\">
+            <div class = 'pago' idSolicitud =" .$row["idSolicitud"].">
+            <a class=\"uk-link-text\" >
+            <span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: El pago está en proceso.\"></span>
+            </a>
+            </div>
+            </td>";
         }
         elseif($row['Pago'] == 3) { //incompleto
-            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: El pago fue rechazado\"></span></a></td>";
+            $tabla .= "<td class=\"uk-text-center\">
+            <div class = 'pago' idSolicitud =" .$row["idSolicitud"].">
+            <a class=\"uk-link-text\">
+            <span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: El pago fue rechazado\"></span>
+            </a>
+            </div>
+            </td>";
         }
         $tabla .= "</tr>";
     }
@@ -620,6 +671,14 @@ AND s.idUsuario = u.idUsuario";
     return $result;
 }
 
+function getPago($id){
+    $sql = "SELECT u.nombre as 'adoptante', e.nombre as 'estado', s.metodoPago as 'metodo'
+FROM solicitud as s, usuario as u, estado as e
+WHERE s.idUsuario = u.idUsuario AND s.idSolicitud = $id AND s.estadoPago = e.idEstado";
+    $result = sqlqry($sql);
+    return $result;
+}
+
 function eliminarSolicitud($idSolicitud) {
     $sql="
     DELETE FROM solicitud WHERE idSolicitud='".$idSolicitud."'";
@@ -627,7 +686,7 @@ function eliminarSolicitud($idSolicitud) {
     return $res;
   }
 
-  function getUserInfoById($id){
+function getUserInfoById($id){
       $sql = "
         SELECT nombre,
         apellido,
@@ -661,7 +720,15 @@ function editarPerfil($id, $nombre,$apellido,$telefono,$callePrincipal,$calleSec
 
 function actualizarEstadoFormulario($id,$estado){
     $sql = "UPDATE solicitud SET estadoFormulario = $estado WHERE idSolicitud = $id";
-    print_r($sql);
+    //print_r($sql);
+    $result = modifyDb($sql);
+    return $result;
+    
+}
+
+function actualizarEstadoPago($id,$estado){
+    $sql = "UPDATE solicitud SET estadoPago = $estado, fechaPago = now() WHERE idSolicitud = $id";
+    //print_r($sql);
     $result = modifyDb($sql);
     return $result;
     
