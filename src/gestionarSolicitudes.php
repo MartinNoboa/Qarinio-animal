@@ -8,8 +8,12 @@
     <h1 class="uk-text-center">Mis Solicitudes de Adopción</h1>
     <hr class="uk-divider-icon">
     <h5 class="uk-margin-remove-bottom">Haz clic sobre cada elemento de tu solicitud para obtener más información.</h5>
-    
-    <div id = "tablaSolicitudes"></div>
+
+    <div id = "tablaSolicitudes">
+        <div class="uk-position-center uk-position-relative uk-margin-xlarge-top" uk-spinner="ratio: 2">
+
+        </div>
+    </div>
 </div>
 
 <div class = "uk-modal-container" id = "formulario">
@@ -20,10 +24,10 @@ else:
     http_response_code(404);
     header("location:error");
     endif;
-    include '_footer.html'; 
+    include '_footer.html';
 ?>
 
 <script type="text/javascript">
     muestraSolicitudes();
-    
+
 </script>
