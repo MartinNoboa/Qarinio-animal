@@ -461,6 +461,7 @@ function muestraSolicitudes() {
         $("#tablaSolicitudes").html(data); 
         setELSolicitudes();
         setELSolicitudesPago();
+        setELSolicitudesEntrevista();
 
     })
     
@@ -551,7 +552,7 @@ function aprobarFormulario() {
             idSolicitud: $("#idSolicitudActiva").val(),
             aprobar : true
         }).done(function(data){
-            if(parseInt(data) != 0) {
+            if(parseInt(data) > 1 ) {
                 mostrarMensaje("El formulario se aprobó correctamente.", "success");
             }
             else {
@@ -587,6 +588,80 @@ function rechazarFormulario() {
 }
 
 
+//--------------------------------funciones para actualizar estado de la entrevista admin
+
+
+function setELSolicitudesEntrevista() {
+    let botonesSolicitudEntrevista = document.getElementsByClassName("entrevista");
+    for(btn of botonesSolicitudEntrevista) {
+        btn.addEventListener("click", function(b) {
+            //console.log(btn);
+            muestraSolicitudEntrevista(btn.getAttribute("idSolicitud"));
+            
+        });
+    }
+}
+
+function muestraSolicitudEntrevista(id) {
+
+    //console.log(id);
+    $.post("vista_aprobar_entrevista.php", {
+        idSolicitud: id
+    }).done(function (data,status,header) {
+        if(header.status===200 && status == 'success'){
+            $("#entrevista").html(data);
+            $("#entrevistaSi")[0].onclick = aprobarEntrevista;
+            $("#entrevistaNo")[0].onclick = rechazarEntrevista;
+            UIkit.modal($("#entrevista")).show();            
+        }
+    });
+}
+
+function aprobarEntrevista() {
+    msj = confirm("¿Estás seguro que deseas rechazar la entrevista?");
+    if(msj) {
+        $.post("controlador_aprobar_entrevista.php", {
+            idSolicitud: $("#idSolicitudActivaEntrevista").val(),
+            aprobarEntrevista : true
+        }).done(function(data){
+            console.log(data);
+            if(parseInt(data) != 0) {
+                mostrarMensaje("La entrevista aprobó correctamente.", "success");
+            }
+            else {
+                mostrarMensaje("Hubo un error al aprobar la entrevista.\nPor favor, intenta de nuevo.", "danger");
+            }
+            muestraSolicitudes();
+            UIkit.modal($("#entrevista")).hide();
+
+
+        });
+    }
+}
+
+function rechazarEntrevista() {
+    msj = confirm("¿Estás seguro deseas rechazar la entrevista?");
+    if(msj) {
+        $.post("controlador_aprobar_entrevista.php", {
+            idSolicitud: $("#idSolicitudActivaEntrevista").val(),
+            aprobarEntrevista : false
+        }).done(function(data){
+            //console.log(data);
+            if(parseInt(data) != 0) {
+                mostrarMensaje("La entrevista se rechazó correctamente.", "success");
+            }
+            else {
+                mostrarMensaje("Hubo un error al rechazar la entrevista.\nPor favor, intenta de nuevo.", "danger");
+            }
+            muestraSolicitudes();
+            UIkit.modal($("#entrevista")).hide();
+
+        });
+    }
+}
+
+
+
 //--------------------------------funciones para actualizar estado de pago admin
 
 function setELSolicitudesPago() {
@@ -606,6 +681,7 @@ function muestraSolicitudPago(id) {
     $.post("vista_aprobar_pago.php", {
         idSolicitud: id
     }).done(function (data,status,header) {
+        //console.log(data);
         if(header.status===200 && status == 'success'){
             $("#pago").html(data);
             $("#aprobarPago")[0].onclick = aprobarPago;
