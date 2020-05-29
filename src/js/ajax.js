@@ -326,7 +326,7 @@ function submitEditarPreguntas(){
            datos,
            datosp
         }).done(function (data) {
-           console.log(data);
+           //console.log(data);
             if(parseInt(data)!== 0) {
                 mostrarMensaje("Se actualizaron las preguntas exitosamente","primary");
                 mostrarPreguntas();
