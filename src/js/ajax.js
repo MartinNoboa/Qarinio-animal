@@ -592,8 +592,8 @@ function rechazarFormulario() {
 
 
 function setELSolicitudesEntrevista() {
-    let botonesSolicitudPago = document.getElementsByClassName("entrevista");
-    for(btn of botonesSolicitudPago) {
+    let botonesSolicitudEntrevista = document.getElementsByClassName("entrevista");
+    for(btn of botonesSolicitudEntrevista) {
         btn.addEventListener("click", function(b) {
             //console.log(btn);
             muestraSolicitudEntrevista(btn.getAttribute("idSolicitud"));
@@ -610,8 +610,8 @@ function muestraSolicitudEntrevista(id) {
     }).done(function (data,status,header) {
         if(header.status===200 && status == 'success'){
             $("#entrevista").html(data);
-            $("#aprobarEntrevista")[0].onclick = aprobarEntrevista;
-            $("#rechazarEntrevista")[0].onclick = rechazarEntrevista;
+            $("#entrevistaSi")[0].onclick = aprobarEntrevista;
+            $("#entrevistaNo")[0].onclick = rechazarEntrevista;
             UIkit.modal($("#entrevista")).show();            
         }
     });
@@ -622,7 +622,7 @@ function aprobarEntrevista() {
     if(msj) {
         $.post("controlador_aprobar_entrevista.php", {
             idSolicitud: $("#idSolicitudActivaEntrevista").val(),
-            aprobarPago : true
+            aprobarEntrevista : true
         }).done(function(data){
             console.log(data);
             if(parseInt(data) != 0) {
@@ -644,7 +644,7 @@ function rechazarEntrevista() {
     if(msj) {
         $.post("controlador_aprobar_entrevista.php", {
             idSolicitud: $("#idSolicitudActivaEntrevista").val(),
-            aprobarPago : false
+            aprobarEntrevista : false
         }).done(function(data){
             //console.log(data);
             if(parseInt(data) != 0) {
@@ -681,6 +681,7 @@ function muestraSolicitudPago(id) {
     $.post("vista_aprobar_pago.php", {
         idSolicitud: id
     }).done(function (data,status,header) {
+        //console.log(data);
         if(header.status===200 && status == 'success'){
             $("#pago").html(data);
             $("#aprobarPago")[0].onclick = aprobarPago;

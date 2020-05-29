@@ -6,8 +6,8 @@
     //print_r($aprobarPago);
 
     if ($aprobarEntrevista == 'true'){
-        echo actualizarEstadoPago($id,5);
+        echo actualizarEstadoEntrevista($id,5);
     }else{
-        echo actualizarEstadoPago($id,3);
+        echo actualizarEstadoEntrevista($id,3);
     }
 ?>

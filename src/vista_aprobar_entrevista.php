@@ -29,7 +29,7 @@
                 
                     while($row = mysqli_fetch_array($result, MYSQLI_BOTH)) {
                         $ans .= "<tr>";
-                        $ans .= "<td>".$row['nombre']. $row['apellido']"</td>";
+                        $ans .= "<td>".$row['nombre']. " " .$row['apellido'] . "</td>";
                         $ans .= "<td>".$row['telf']."</td>";
                         $ans .= "<td>".$row['estado']."</td>";
                         
@@ -45,15 +45,15 @@
                     
                     <div class="uk-child-width-expand@s uk-text-center uk-margin-top" uk-grid>
                         <div>
-                            <input class="uk-button uk-button-default uk-border-rounded uk-width-1-1" type="button"  value = "Aprobar entrevista" id = "aprobarEntrevista"></input>
+                            <input class="uk-button uk-button-default uk-border-rounded uk-width-1-1" type="button"  value = "Aprobar entrevista" id = "entrevistaSi"></input>
                         </div>
                         <div>
-                            <input class="uk-button uk-button-danger uk-modal-close uk-border-rounded uk-width-1-1" type="button" id = "rechazarEntrevista" value = "Rechazar entrevista"></input>
+                            <input class="uk-button uk-button-danger uk-modal-close uk-border-rounded uk-width-1-1" type="button" id = "entrevistaNo" value = "Rechazar entrevista"></input>
                         </div>
                     </div>
 
                 
-                    <input id = "idSolicitudActivaPago" type = "number" value = <?= $idSolicitud ?> hidden readonly></input>
+                    <input id = "idSolicitudActivaEntrevista" type = "number" value = <?= $idSolicitud ?> hidden readonly></input>
 
             </form>
         </div>

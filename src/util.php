@@ -698,7 +698,7 @@ WHERE s.idUsuario = u.idUsuario AND s.idSolicitud = $id AND s.estadoPago = e.idE
 }
 
 function getEntrevista($id){
-    $sql = "SELECT u.nombre as 'nombre', u.apellido as 'apellido', u.telefono as 'telf', e.nombre as 'entrevista'
+    $sql = "SELECT u.nombre as 'nombre', u.apellido as 'apellido', u.telefono as 'telf', e.nombre as 'estado'
 FROM usuario as u, solicitud as s, estado as e
 WHERE u.idUsuario = s.idUsuario AND s.idSolicitud = $id AND s.estadoEntrevista = e.idEstado";
     $result = sqlqry($sql);
@@ -756,10 +756,15 @@ function actualizarEstadoFormulario($id,$estado){
     
 }
 
+function actualizarEstadoEntrevista($id,$estado){
+    $sql = "UPDATE solicitud SET estadoEntrevista = $estado WHERE idSolicitud = $id";
+    $result = modifyDb($sql);
+    return $result;
+}
+
 function actualizarEstadoPago($id,$estado){
     $sql = "UPDATE solicitud SET estadoPago = $estado, fechaPago = now() WHERE idSolicitud = $id";
     //print_r($sql);
     $result = modifyDb($sql);
     return $result;
-    
 }
