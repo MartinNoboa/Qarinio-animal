@@ -467,6 +467,18 @@ function muestraSolicitudes() {
     
 }
 
+function muestraMisSolicitudes() {
+    $.get("vista_misSolicitudes.php").done(function(data){
+        //console.log(data);
+        $("#tablaMisSolicitudes").html(data); 
+        setELSolicitudes_UR();
+        setELSolicitudesPago_UR();
+        setELSolicitudesEntrevista_UR();
+
+    })
+    
+}
+
 function muestraAlert(idSolicitud) {
     msj = confirm("¿Estás seguro que quieres eliminar tu solicitud?\nEsta acción no se puede deshacer.");
     if(msj) {
@@ -515,6 +527,9 @@ function editarPerfil() {
         });
     }
 }
+
+
+//!!!!!!!!!!!!!!--------------------------------MANEJO SOLICITUDES ADMIN-------------------------------!!!!!!!!!
 
 //--------------------------------funciones para actualizar estado del formulario admin
 
@@ -736,5 +751,95 @@ function rechazarPago() {
 
 
 
+//!!!!!!!!!!!!!!--------------------------------MANEJO SOLICITUDES USUARIO REGISTRADO-------------------------------!!!!!!!!!
 
-//
+function setELSolicitudes_UR() {
+    let botonesSolicitud = document.getElementsByClassName("formulario");
+    for(btn of botonesSolicitud) {
+        btn.addEventListener("click", function(b) {
+            //console.log(btn);
+            muestraSolicitud(btn.getAttribute("idSolicitud"));
+            
+        });
+    }
+}
+
+function muestraSolicitud(id) {
+
+    //console.log(id);
+    $.post("vista_solicitud.php", {
+        idSolicitud: id
+    }).done(function (data,status,header) {
+        if(header.status===200 && status == 'success'){
+            $("#formulario").html(data);
+            $("#aprobar")[0].onclick = aprobarFormulario;
+            $("#rechazar")[0].onclick = rechazarFormulario;
+            UIkit.modal($("#formulario")).show();            
+        }
+    });
+}
+
+
+
+
+//--------------------------------funciones para actualizar estado de la entrevista admin
+
+
+function setELSolicitudesEntrevista_UR() {
+    let botonesSolicitudEntrevista = document.getElementsByClassName("entrevista");
+    for(btn of botonesSolicitudEntrevista) {
+        btn.addEventListener("click", function(b) {
+            //console.log(btn);
+            muestraSolicitudEntrevista(btn.getAttribute("idSolicitud"));
+            
+        });
+    }
+}
+
+function muestraSolicitudEntrevista(id) {
+
+    //console.log(id);
+    $.post("vista_aprobar_entrevista.php", {
+        idSolicitud: id
+    }).done(function (data,status,header) {
+        if(header.status===200 && status == 'success'){
+            $("#entrevista").html(data);
+            $("#entrevistaSi")[0].onclick = aprobarEntrevista;
+            $("#entrevistaNo")[0].onclick = rechazarEntrevista;
+            UIkit.modal($("#entrevista")).show();            
+        }
+    });
+}
+
+
+
+
+//--------------------------------funciones para actualizar estado de pago admin
+
+function setELSolicitudesPago_UR() {
+    let botonesSolicitudPago = document.getElementsByClassName("pago");
+    for(btn of botonesSolicitudPago) {
+        btn.addEventListener("click", function(b) {
+            //console.log(btn);
+            muestraSolicitudPago(btn.getAttribute("idSolicitud"));
+            
+        });
+    }
+}
+
+function muestraSolicitudPago(id) {
+
+    //console.log(id);
+    $.post("vista_aprobar_pago.php", {
+        idSolicitud: id
+    }).done(function (data,status,header) {
+        //console.log(data);
+        if(header.status===200 && status == 'success'){
+            $("#pago").html(data);
+            UIkit.modal($("#pago")).show();            
+        }
+    });
+}
+
+
+

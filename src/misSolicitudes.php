@@ -11,7 +11,17 @@
         <button class="uk-button uk-button-primary uk-border-rounded" type="submit" name="button">Adoptar un perro</button>
     </form>
     <h5 class="uk-margin-remove-bottom">Haz clic sobre cada elemento de tu solicitud para obtener más información.</h5>
-    <?= muestraSolicitudes(); ?>
+ 
+    <div id = "tablaMisSolicitudes">
+        <div class="uk-position-center uk-position-relative uk-margin-xlarge-top" uk-spinner="ratio: 2">
+
+        </div>
+    </div>
+</div>
+
+<div class = "uk-modal-container" id = "urformulario"></div>
+<div class = "uk-modal-container" id = "urpago"></div>
+<div class = "uk-modal-container" id = "urentrevista"></div>
 
 
 </div>
@@ -21,3 +31,7 @@ else:
     header("location:error");
 endif;
 include '_footer.html'; ?>
+<script type="text/javascript">
+    muestraMisSolicitudes();
+
+</script>
