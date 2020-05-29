@@ -37,7 +37,7 @@ function setElEditar() {
     let botonesEditar = document.getElementsByClassName("boton-editar");
     for(btn of botonesEditar) {
         btn.addEventListener("click", function(b) {
-            muestraEditarPerro(b.srcElement.getAttribute("idPerro"));
+            muestraEditarPerro(b.target.getAttribute("idPerro"));
         });
     }
 }
@@ -46,7 +46,7 @@ function setElInfo() {
     let botonesInfo = document.getElementsByClassName("boton-info");
     for(btn of botonesInfo) {
         btn.addEventListener("click", function(b) {
-            muestraInfoPerro(b.srcElement.getAttribute("idPerro"));
+            muestraInfoPerro(b.target.getAttribute("idPerro"));
         });
     }
 }
@@ -371,7 +371,7 @@ function agregarPerro() {
 */
 
 //funcion para agregar foto
-function agregarFoto(){
+/*function agregarFoto(){
     
 
         var fd = new FormData();
@@ -394,7 +394,7 @@ function agregarFoto(){
                 }
             },
         });
-}
+}*/
 
 function mostrarCambiarC() {
     $.post("vista_cambiarContra.php").done(function(data){
@@ -484,4 +484,27 @@ function cambiarContra() {
                 break;
         }
     })
+}
+
+
+function setSolicitudes() {
+    let botonesSolicitud = document.getElementsByClassName("formulario");
+    for(btn of botonesSolicitud) {
+        btn.addEventListener("click", function(b) {
+            //console.log(b.target.getAttribute("idSolicitud"));
+            muestraSolicitud(b.target.getAttribute("idSolicitud"));
+        });
+    }
+}
+
+function muestraSolicitud(id) {
+    console.log(id);
+    $.post("vista_solicitud.php", {
+        idSolicitud: id
+    }).done(function (data,status,header) {
+        if(header.status===200 && status == 'success'){
+            $("#formulario").html(data);
+            UIkit.modal($("#formulario")).show();
+        }
+    });
 }
