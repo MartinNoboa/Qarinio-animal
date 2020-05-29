@@ -610,13 +610,31 @@ function muestraTodasSolicitudes(){
         
         
         if($row['Entrevista'] == 5) { //completado
-            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Aprobaste esta entrevista!\"></span></a></td>";
+            $tabla .= "<td class=\"uk-text-center\">
+            <div class = \"entrevista \" idSolicitud =".$row["idSolicitud"].">
+            <a class=\"uk-link-text\">
+            <span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Aprobaste esta entrevista!\"></span>
+            </a>
+            </div>
+            </td>";
         }
         elseif($row['Entrevista'] == 4) { //en proceso
-            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: Esta entrevista está en proceso.\"></span></a></td>";
+            $tabla .= "<td class=\"uk-text-center\">
+            <div class = \"entrevista \" idSolicitud =".$row["idSolicitud"].">
+            <a class=\"uk-link-text\">
+            <span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: Esta entrevista está en proceso.\"></span>
+            </a>
+            </div>
+            </td>";
         }
         elseif($row['Entrevista'] == 3) { //incompleto
-            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Esta entrevista fue rechazada.\"></span></a></td>";
+            $tabla .= "<td class=\"uk-text-center\">
+            <div class = \"entrevista \" idSolicitud =".$row["idSolicitud"].">
+            <a class=\"uk-link-text\">
+            <span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Esta entrevista fue rechazada.\"></span>
+            </a>
+            </div>
+            </td>";
         }
         
         //----------------------------------------estado pago
@@ -679,6 +697,14 @@ WHERE s.idUsuario = u.idUsuario AND s.idSolicitud = $id AND s.estadoPago = e.idE
     return $result;
 }
 
+function getEntrevista($id){
+    $sql = "SELECT u.nombre as 'nombre', u.apellido as 'apellido', u.telefono as 'telf', e.nombre as 'entrevista'
+FROM usuario as u, solicitud as s, estado as e
+WHERE u.idUsuario = s.idUsuario AND s.idSolicitud = $id AND s.estadoEntrevista = e.idEstado";
+    $result = sqlqry($sql);
+    return $result;
+}
+
 function eliminarSolicitud($idSolicitud) {
     $sql="
     DELETE FROM solicitud WHERE idSolicitud='".$idSolicitud."'";
@@ -720,9 +746,13 @@ function editarPerfil($id, $nombre,$apellido,$telefono,$callePrincipal,$calleSec
 
 function actualizarEstadoFormulario($id,$estado){
     $sql = "UPDATE solicitud SET estadoFormulario = $estado WHERE idSolicitud = $id";
-    //print_r($sql);
     $result = modifyDb($sql);
-    return $result;
+    $idperro = sqlqry("SELECT p.idPerro FROM perros  as  p, solicitud as s WHERE p.idPerro = $id");
+    
+    $sql2 = "UPDATE estado_perro SET idEstado = 6 WHERE idPerro = $idperro";
+    $result2 = sqlqry($sql2);
+    
+    return $result + $result2;
     
 }
 

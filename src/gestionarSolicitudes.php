@@ -18,6 +18,7 @@
 
 <div class = "uk-modal-container" id = "formulario">
 <div class = "uk-modal-container" id = "pago">
+<div class = "uk-modal-container" id = "entrevista">
 </div>
 
 <?php
