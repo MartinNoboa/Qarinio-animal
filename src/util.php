@@ -552,34 +552,51 @@ function muestraTodasSolicitudes(){
         $tabla .= "<tr>";
         $tabla .= "<td>".$row['Perro']."</td>";
         if($row['Formulario'] == 5) { //completado
-            $tabla .= "<td class=\" uk-text-center\"><a class=\" uk-link-text\" idSolicitud =" .$row["idSolicitud"]."><span class=\" formulario uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Ya aprobaste este formulario!\"></a></span></td>";
+            $tabla .= "<td class=\" uk-text-center\">
+            <div class = 'formulario' idSolicitud =" .$row["idSolicitud"].">
+            <a class=\" uk-link-text\">
+            <span class=\" uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Ya aprobaste este formulario!\"></span>
+            </a>
+            </div>
+            </td>";
         }
         elseif($row['Formulario'] == 4) { //en proceso
-            $tabla .= "<td class=\" uk-text-center\"><a class=\" uk-link-text\" idSolicitud =" .$row["idSolicitud"]."><span class=\" formulario uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: No ha sido revisado este formulario.\"></a></span></td>";
+            $tabla .= "<td class=\" uk-text-center\">
+            <div class = ' formulario 'idSolicitud =" .$row["idSolicitud"].">
+            <a class=\" uk-link-text\">
+            <span class=\" formulario uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: No ha sido revisado este formulario.\"></span>
+            </a>
+            </div>
+            </td>";
         }
         elseif($row['Formulario'] == 3) { //incompleto
-            $tabla .= "<td class=\" uk-text-center\"><a class=\"formulario uk-link-text\"  idSolicitud =" .$row["idSolicitud"].">Formulario</a></td>";
+            $tabla .= "<td class=\" uk-text-center\">
+            <div class = \"formulario \" idSolicitud =".$row["idSolicitud"].">
+            <a class=\" uk-link-text\">
+            <span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Rechazaste este formulario\"></span>
+            </a>
+            </div>
+            </td>";
         }
-        /*<span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Rechazaste este formulario\"></span>
-*/
+    
         if($row['Entrevista'] == 5) { //completado
-            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Aprobaste esta entrevista!\"></a></span></td>";
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Aprobaste esta entrevista!\"></span></a></td>";
         }
         elseif($row['Entrevista'] == 4) { //en proceso
-            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: Esta entrevista está en proceso.\"></a></span></td>";
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: Esta entrevista está en proceso.\"></span></a></td>";
         }
         elseif($row['Entrevista'] == 3) { //incompleto
-            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Esta entrevista fue rechazada.\"></a></span></td>";
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Esta entrevista fue rechazada.\"></span></a></td>";
         }
 
         if($row['Pago'] == 5) { //completado
-            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡El pago fue aprobado!\"></a></span></td>";
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡El pago fue aprobado!\"></span></a></td>";
         }
         elseif($row['Pago'] == 4) { //en proceso
-            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: El pago está en proceso.\"></a></span></td>";
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: El pago está en proceso.\"></span></a></td>";
         }
         elseif($row['Pago'] == 3) { //incompleto
-            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: El pago fue rechazado\"></a></span></td>";
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: El pago fue rechazado\"></span></a></td>";
         }
         $tabla .= "</tr>";
     }
@@ -640,4 +657,12 @@ function editarPerfil($id, $nombre,$apellido,$telefono,$callePrincipal,$calleSec
     Colonia='".$colonia."', Ciudad='".$ciudad."', Estado='".$estado."', fechaNacimiento='".$fechaNacimiento."'
     WHERE u.idUsuario='".$id."'";
     return modifyDb($sql);
+}
+
+function actualizarEstadoFormulario($id,$estado){
+    $sql = "UPDATE solicitud SET estadoFormulario = $estado WHERE idSolicitud = $id";
+    print_r($sql);
+    $result = modifyDb($sql);
+    return $result;
+    
 }
