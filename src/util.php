@@ -383,7 +383,7 @@ function muestraSolicitudes(){
     $conDb = connectDb();
 
     $sql = "
-    SELECT p.nombre as 'Perro', s.estadoFormulario as 'Formulario', s.estadoEntrevista as 'Entrevista', s.estadoPago as 'Pago'
+    SELECT s.idSolicitud as 'idSolicitud', p.nombre as 'Perro', s.estadoFormulario as 'Formulario', s.estadoEntrevista as 'Entrevista', s.estadoPago as 'Pago'
 FROM perros p, usuario u, solicitud s
 WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.nombre='".$_SESSION["nombre"]."'";
 
@@ -395,6 +395,7 @@ WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.nombre='".$_SESSION[
                 <th class=\"uk-text-center uk-text-secondary\">Formulario</th>
                 <th class=\"uk-text-center uk-text-secondary\">Entrevista</th>
                 <th class=\"uk-text-center uk-text-secondary\">Pago</th>
+                <th class=\"uk-text-center uk-text-secondary uk-width-small\"></th>
             </tr>
         </thead>
         <tbody>
@@ -402,7 +403,7 @@ WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.nombre='".$_SESSION[
 
     $solicitudes = $conDb->query($sql);
     while($row = mysqli_fetch_array($solicitudes, MYSQLI_BOTH)) {
-        $tabla .= "<tr onclick=\"window.location='catalogo';\">";
+        $tabla .= "<tr>";
         $tabla .= "<td>".$row['Perro']."</td>";
         if($row['Formulario'] == 5) { //completado
             $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Tu formulario fue aprobado!\"></a></span></td>";
@@ -433,6 +434,7 @@ WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.nombre='".$_SESSION[
         elseif($row['Pago'] == 3) { //incompleto
             $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Tu pago fue rechazado\"></a></span></td>";
         }
+        $tabla .= '<td ><button type="submit" name="btn-elimina-solicitud" id="'.$row['idSolicitud'].'" class="uk-button-danger uk-button-small uk-button uk-border-rounded uk-align-center" uk-tooltip="title: Eliminar solicitud" onclick="muestraAlert('.$row['idSolicitud'].')"><span uk-icon="icon: trash"></span></button></td>';
         $tabla .= "</tr>";
     }
     mysqli_free_result($solicitudes); //Liberar la memoria
@@ -526,4 +528,43 @@ function recuperarProximoId(){
     else
         $num = $row["id"] + 1;
     return $num;
+}
+
+function eliminarSolicitud($idSolicitud) {
+    $sql="
+    DELETE FROM solicitud WHERE idSolicitud='".$idSolicitud."'";
+    $res=modifyDb($sql);
+    return $res;
+  }
+
+  function getUserInfoById($id){
+      $sql = "
+        SELECT nombre,
+        apellido,
+        email,
+        telefono,
+        callePrincipal,
+        calleSecundaria,
+        NumeroExterior,
+        NumeroInterior,
+        CodigoPostal,
+        Colonia,
+        Ciudad,
+        Estado,
+        fechaNacimiento
+        FROM usuario
+        WHERE idUsuario=".$id;
+
+          $res = mysqli_fetch_array(sqlqry($sql));
+          return $res;
+  }
+
+function editarPerfil($id, $nombre,$apellido,$telefono,$callePrincipal,$calleSecundaria,$numeroExterior,$numeroInterior,$codigoPostal,$colonia,$ciudad,$estado,$fechaNacimiento) {
+    $sql = "
+    UPDATE usuario u SET nombre='".$nombre."', apellido='".$apellido."',
+    telefono='".$telefono."', callePrincipal='".$callePrincipal."', calleSecundaria='".$calleSecundaria."',
+    NumeroExterior='".$numeroExterior."', NumeroInterior='".$numeroInterior."', CodigoPostal='".$codigoPostal."',
+    Colonia='".$colonia."', Ciudad='".$ciudad."', Estado='".$estado."', fechaNacimiento='".$fechaNacimiento."'
+    WHERE u.idUsuario='".$id."'";
+    return modifyDb($sql);
 }

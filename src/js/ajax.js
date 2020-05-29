@@ -372,7 +372,7 @@ function agregarPerro() {
 
 //funcion para agregar foto
 function agregarFoto(){
-    
+
 
         var fd = new FormData();
         var file_data = $('#foto')[0].files[0];
@@ -422,16 +422,39 @@ function sendMailContra(){
             default:
                 break;
         }
-    })
+        document.getElementById("cambiarContra").disabled=false;
+        document.getElementById("cambiarContra").innerHTML="Cambiar mi contraseña";
+    });
 }
 
-function nuevaSolicitud(){    
+function sendMailContraNoModal(){
+    document.getElementById("cambiarContra").disabled=true;
+    document.getElementById("cambiarContra").innerHTML="<div uk-spinner class='uk-position-fixed uk-transform-center'></div>";
+    $.post("controlador_mail_cambioContra.php", {
+        mail: $("#email-contra").val()
+    }).done(function(data){
+        switch(parseInt(data)){
+            case 200:
+                mostrarMensaje("Recibirá un correo con instrucciones para cambiar su contraseña", "primary");
+                break;
+            case 404:
+                mostrarMensaje("Error: La cuenta no existe", "danger");
+                break;
+            default:
+                break;
+        }
+        document.getElementById("cambiarContra").disabled=false;
+        document.getElementById("cambiarContra").innerHTML="Cambiar mi contraseña";
+    });
+}
+
+function nuevaSolicitud(){
     $.post("controlador_nueva_solicitud.php",
           {
         //recupera idUsuario y idPerro de la sesion
         idUsuario : $('#idusuario').val(),
         idPerro : $('#idperro').val(),
-        
+
         //si o no
         res1 : $('input[name="1"]:checked').val(),
         res2 : $('input[name="2"]:checked').val(),
@@ -465,7 +488,7 @@ function nuevaSolicitud(){
             //mensaje de error
           mostrarMensaje("Error al enviar el formulario, intente nuevamente.", "danger");
         }
-    })
+    });
 }
 
 function cambiarContra() {
@@ -483,5 +506,58 @@ function cambiarContra() {
                 mostrarMensaje(data, "danger");
                 break;
         }
-    })
+    });
+}
+
+function muestraSolicitudes() {
+
+}
+
+function muestraAlert(idSolicitud) {
+    msj = confirm("¿Estás seguro que quieres eliminar tu solicitud?\nEsta acción no se puede deshacer.");
+    if(msj) {
+        $.post("controlador_elimina_solicitud.php", {
+            idSol: idSolicitud
+        }).done(function(data){
+            //console.log(data);
+            if(parseInt(data) != 0) {
+                // TODO: ESTO NO ES AJAX, YA LO SÉ BERNIE. HAY QUE PASAR LA FUNCION MOSTRAR PREGUNTAS DE UTIL A OTRA FUNCION JS
+                location.replace("misSolicitudes.php")
+                mostrarMensaje("La solicitud fue eliminada exitosamente", "primary");
+            }
+            else {
+                mostrarMensaje("Hubo un error al eliminar la solicitud.\nPor favor, intenta de nuevo.", "danger");
+            }
+
+        });
+    }
+}
+
+function editarPerfil() {
+    msj = confirm("¿Estás seguro que quieres aplicar tus cambios?\nEsta acción no se puede deshacer.");
+    if(msj) {
+        $.post("controlador_edita_perfil.php", {
+            idUsuario: $("#idUsuario").val(),
+            nombre: $("#nombre").val(),
+            apellido: $("#apellido").val(),
+            fechaNacimiento: $("#fechaNacimiento").val(),
+            telefono: $("#telefono").val(),
+            principal: $("#principal").val(),
+            secundaria: $("#secundaria").val(),
+            numExt: $("#numExt").val(),
+            numInt: $("#numInt").val(),
+            cp: $("#cp").val(),
+            colonia: $("#colonia").val(),
+            ciudad: $("#ciudad").val(),
+            estado: $("#estado").val()
+        }).done(function(data) {
+            console.log(data);
+            if(parseInt(data) != 0) {
+                mostrarMensaje("Tu perfil se actualizó correctamente","primary");
+            }
+            else{
+                mostrarMensaje("Hubo un problema actualizando tu perfil.\nPor favor, intenta de nuevo.","danger");
+            }
+        });
+    }
 }
