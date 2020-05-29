@@ -10,7 +10,7 @@
     <h5 class="uk-margin-remove-bottom">Haz clic sobre cada elemento de tu solicitud para obtener más información.</h5>
     <?= muestraTodasSolicitudes(); ?>
 </div>
-<div class = "uk-modal-container" id = "formulario"></div>
+<div class = "uk-modal-container uk-width-large" id = "formulario"></div>
 
 <?php
 else:

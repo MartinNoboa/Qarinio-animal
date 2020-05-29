@@ -5,9 +5,9 @@
     $idSolicitud = limpia_entrada($_POST['idSolicitud']);
     
 ?>
-<div class="uk-modal-dialog uk-modal-body uk-border-rounded uk-width-large">
+<div class="uk-modal-dialog uk-modal-body uk-border-rounded uk-width-expand">
         <div class="uk-modal-title">
-                <h1>Formulario</h1>
+                <h1 class = "uk-text-center">Formulario</h1>
         </div>
         <div class="uk-modal-body">
             <form  id="formulario" class="uk-form-horizontal uk-margin-large">
@@ -18,19 +18,26 @@
                     $cont = true;
                     while($row = mysqli_fetch_array($result, MYSQLI_BOTH)) {
                         if ($cont){
-                            $ans .= "<h3>". $row["usuario"]. " - ". $row["perro"] . "</h3>";
+                            $ans .= "<h1>". $row["usuario"]. " - ". $row["perro"] . "</h1>";
                             $cont = false;
                         }
-                        $ans .= "<h5>" .$row["n"] ." ". $row["pregunta"] ."</h5>";
-                        $ans .= "<p>" . $row["respuesta"] ."</p>";
+                        $ans .= "<h4>" .$row["n"] ." ". $row["pregunta"] ."</h4>";
+                        $ans .= "<p class = \" uk-text-bold\">" . $row["respuesta"] ."</p>";
                         $ans .= "<hr>";
                     }
 
                     $ans .= "</div>";
                     echo $ans;
                 ?>
-                    <input class="uk-button uk-button-default uk-modal-close uk-border-rounded" type="button" value="Cancelar"></input>
-                    <input class="uk-button uk-button-primary uk-border-rounded" id="btn-editar-preguntas" type="button" value="Guardar"></input>
+                <div class="uk-child-width-expand@s uk-text-center uk-margin-top" uk-grid>
+                    <div>
+                        <input class="uk-button uk-button-default uk-modal-close uk-border-rounded uk-width-1-1" type="button" value="Cancelar"></input>
+                    </div>
+                    <div>
+                        <input class="uk-button uk-button-primary uk-border-rounded uk-width-1-1" id="estado-formulario" type="button" value="Guardar"></input>
+                    </div>
+                </div>
+                    
                 </div>
             </form>
         </div>
