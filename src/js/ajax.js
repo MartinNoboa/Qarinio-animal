@@ -37,7 +37,7 @@ function setElEditar() {
     let botonesEditar = document.getElementsByClassName("boton-editar");
     for(btn of botonesEditar) {
         btn.addEventListener("click", function(b) {
-            muestraEditarPerro(b.srcElement.getAttribute("idPerro"));
+            muestraEditarPerro(b.target.getAttribute("idPerro"));
         });
     }
 }
@@ -46,7 +46,7 @@ function setElInfo() {
     let botonesInfo = document.getElementsByClassName("boton-info");
     for(btn of botonesInfo) {
         btn.addEventListener("click", function(b) {
-            muestraInfoPerro(b.srcElement.getAttribute("idPerro"));
+            muestraInfoPerro(b.target.getAttribute("idPerro"));
         });
     }
 }
@@ -371,6 +371,9 @@ function agregarPerro() {
 */
 
 //funcion para agregar foto
+/*function agregarFoto(){
+    
+
 function agregarFoto(){
 
 
@@ -394,7 +397,7 @@ function agregarFoto(){
                 }
             },
         });
-}
+}*/
 
 function mostrarCambiarC() {
     $.post("vista_cambiarContra.php").done(function(data){
@@ -510,7 +513,13 @@ function cambiarContra() {
 }
 
 function muestraSolicitudes() {
+    $.get("vista_gestionar_solicitudes.php").done(function(data){
+        //console.log(data);
+        $("#tablaSolicitudes").html(data); 
+        setELSolicitudes();
 
+    })
+    
 }
 
 function muestraAlert(idSolicitud) {
@@ -561,3 +570,74 @@ function editarPerfil() {
         });
     }
 }
+
+
+function setELSolicitudes() {
+    let botonesSolicitud = document.getElementsByClassName("formulario");
+    for(btn of botonesSolicitud) {
+        btn.addEventListener("click", function(b) {
+            //console.log(btn);
+            muestraSolicitud(btn.getAttribute("idSolicitud"));
+            
+        });
+    }
+}
+
+
+function aprobarFormulario() {
+    msj = confirm("¿Estás seguro que quieres aprobar este formulario?");
+    if(msj) {
+        $.post("controlador_aprobar_formulario.php", {
+            idSolicitud: $("#idSolicitudActiva").val(),
+            aprobar : true
+        }).done(function(data){
+            if(parseInt(data) != 0) {
+                mostrarMensaje("El formulario se aprobó correctamente.", "success");
+            }
+            else {
+                mostrarMensaje("Hubo un error aprobar al formulario.\nPor favor, intenta de nuevo.", "danger");
+            }
+            muestraSolicitudes();
+            UIkit.modal($("#formulario")).hide();
+
+
+        });
+    }
+}
+
+
+function rechazarFormulario() {
+    msj = confirm("¿Estás seguro que quieres rechazar este formulario?");
+    if(msj) {
+        $.post("controlador_aprobar_formulario.php", {
+            idSolicitud: $("#idSolicitudActiva").val(),
+            aprobar : false
+        }).done(function(data){
+            //console.log(data);
+            if(parseInt(data) != 0) {
+                mostrarMensaje("El formulario se rechazó correctamente.", "success");
+            }
+            else {
+                mostrarMensaje("Hubo un error al rechazar el formulario.\nPor favor, intenta de nuevo.", "danger");
+            }
+            muestraSolicitudes();
+            UIkit.modal($("#formulario")).hide();
+
+        });
+    }
+}
+
+function muestraSolicitud(id) {
+    //console.log(id);
+    $.post("vista_solicitud.php", {
+        idSolicitud: id
+    }).done(function (data,status,header) {
+        if(header.status===200 && status == 'success'){
+            $("#formulario").html(data);
+            $("#aprobar")[0].onclick = aprobarFormulario;
+            $("#rechazar")[0].onclick = rechazarFormulario;
+            UIkit.modal($("#formulario")).show();            
+        }
+    });
+}
+

@@ -385,7 +385,7 @@ function muestraSolicitudes(){
     $sql = "
     SELECT s.idSolicitud as 'idSolicitud', p.nombre as 'Perro', s.estadoFormulario as 'Formulario', s.estadoEntrevista as 'Entrevista', s.estadoPago as 'Pago'
 FROM perros p, usuario u, solicitud s
-WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.nombre='".$_SESSION["nombre"]."'";
+WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.idUsuario='".$_SESSION["id"]."'";
 
     $tabla = "
     <table class=\"uk-table uk-table-divider uk-table-striped uk-table-large uk-table-hover uk-animation-slide-bottom-medium\">
@@ -419,17 +419,17 @@ WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.nombre='".$_SESSION[
             $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Tu entrevista fue aprobada!\"></a></span></td>";
         }
         elseif($row['Entrevista'] == 4) { //en proceso
-            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: Tu entrevista está en proceso de aprobación\"></a></span></td>";
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: Tu entrevista está en proceso\"></a></span></td>";
         }
         elseif($row['Entrevista'] == 3) { //incompleto
-            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Tu entrevista fue rechazado\"></a></span></td>";
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Tu entrevista fue rechazada\"></a></span></td>";
         }
 
         if($row['Pago'] == 5) { //completado
             $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Tu pago fue aprobado!\"></a></span></td>";
         }
         elseif($row['Pago'] == 4) { //en proceso
-            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: Tu pago está en proceso de aprobación\"></a></span></td>";
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: Tu pago está en proceso\"></a></span></td>";
         }
         elseif($row['Pago'] == 3) { //incompleto
             $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Tu pago fue rechazado\"></a></span></td>";
@@ -530,6 +530,96 @@ function recuperarProximoId(){
     return $num;
 }
 
+function muestraTodasSolicitudes(){
+    $sql = "SELECT s.idSolicitud as 'idSolicitud', p.nombre as 'Perro', s.estadoFormulario as 'Formulario',s.estadoEntrevista as         'Entrevista', s.estadoPago as 'Pago'
+            FROM usuario as u,solicitud as s, perros as p 
+            WHERE u.idUsuario = s.idUsuario AND p.idPerro = s.idPerro";
+    $result = sqlqry($sql);
+    $tabla = "
+    <table class=\"uk-table uk-table-divider uk-table-striped uk-table-large uk-table-hover uk-animation-slide-bottom-medium\">
+        <thead clas>
+            <tr>
+                <th class=\"uk-width-small uk-text-secondary\">Perro</th>
+                <th class=\"uk-text-center uk-text-secondary\">Formulario</th>
+                <th class=\"uk-text-center uk-text-secondary\">Entrevista</th>
+                <th class=\"uk-text-center uk-text-secondary\">Pago</th>
+            </tr>
+        </thead>
+        <tbody>
+    ";
+
+    while($row = mysqli_fetch_array($result, MYSQLI_BOTH)) {
+        $tabla .= "<tr>";
+        $tabla .= "<td>".$row['Perro']."</td>";
+        if($row['Formulario'] == 5) { //completado
+            $tabla .= "<td class=\" uk-text-center\">
+            <div class = 'formulario' idSolicitud =" .$row["idSolicitud"].">
+            <a class=\" uk-link-text\">
+            <span class=\" uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Ya aprobaste este formulario!\"></span>
+            </a>
+            </div>
+            </td>";
+        }
+        elseif($row['Formulario'] == 4) { //en proceso
+            $tabla .= "<td class=\" uk-text-center\">
+            <div class = ' formulario 'idSolicitud =" .$row["idSolicitud"].">
+            <a class=\" uk-link-text\">
+            <span class=\" formulario uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: No ha sido revisado este formulario.\"></span>
+            </a>
+            </div>
+            </td>";
+        }
+        elseif($row['Formulario'] == 3) { //incompleto
+            $tabla .= "<td class=\" uk-text-center\">
+            <div class = \"formulario \" idSolicitud =".$row["idSolicitud"].">
+            <a class=\" uk-link-text\">
+            <span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Rechazaste este formulario\"></span>
+            </a>
+            </div>
+            </td>";
+        }
+    
+        if($row['Entrevista'] == 5) { //completado
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Aprobaste esta entrevista!\"></span></a></td>";
+        }
+        elseif($row['Entrevista'] == 4) { //en proceso
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: Esta entrevista está en proceso.\"></span></a></td>";
+        }
+        elseif($row['Entrevista'] == 3) { //incompleto
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Esta entrevista fue rechazada.\"></span></a></td>";
+        }
+
+        if($row['Pago'] == 5) { //completado
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡El pago fue aprobado!\"></span></a></td>";
+        }
+        elseif($row['Pago'] == 4) { //en proceso
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: El pago está en proceso.\"></span></a></td>";
+        }
+        elseif($row['Pago'] == 3) { //incompleto
+            $tabla .= "<td class=\"uk-text-center\"><a class=\"uk-link-text\" href=\"#\"><span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: El pago fue rechazado\"></span></a></td>";
+        }
+        $tabla .= "</tr>";
+    }
+    mysqli_free_result($result); //Liberar la memoria
+    $tabla .= "</tbody></table>";
+    return $tabla;
+    
+}
+
+function getFormulario($id){
+    $sql = "SELECT p.idPregunta as 'n', p.pregunta as 'pregunta', r.respuesta as 'respuesta', pe.nombre as 'perro', u.nombre as 'usuario'
+FROM preguntas as p, respuestas as r, solicitud as s, perros as pe , usuario as u 
+WHERE p.idPregunta = r.idPregunta AND $id = r.idSolicitud 
+AND s.idPerro = pe.idPerro
+AND s.idUsuario = u.idUsuario";
+    
+    $result = sqlqry($sql);
+
+    
+    
+    return $result;
+}
+
 function eliminarSolicitud($idSolicitud) {
     $sql="
     DELETE FROM solicitud WHERE idSolicitud='".$idSolicitud."'";
@@ -567,4 +657,12 @@ function editarPerfil($id, $nombre,$apellido,$telefono,$callePrincipal,$calleSec
     Colonia='".$colonia."', Ciudad='".$ciudad."', Estado='".$estado."', fechaNacimiento='".$fechaNacimiento."'
     WHERE u.idUsuario='".$id."'";
     return modifyDb($sql);
+}
+
+function actualizarEstadoFormulario($id,$estado){
+    $sql = "UPDATE solicitud SET estadoFormulario = $estado WHERE idSolicitud = $id";
+    print_r($sql);
+    $result = modifyDb($sql);
+    return $result;
+    
 }
