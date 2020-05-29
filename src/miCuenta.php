@@ -8,7 +8,7 @@
     <div class="uk-container uk-margin-top">
         <h1 class="uk-text-center uk-animation-slide-bottom">Ajustes de Cuenta</h1>
         <hr class="uk-divider-icon uk-margin-large-left uk-margin-large-right">
-        <form class="uk-form-horizontal uk-margin-large-left uk-margin-large-right">
+        <form class="uk-form-horizontal uk-margin-large-left uk-margin-large-right" onsubmit="editarPerfil(); return false;">
             <input type="number" name="idUsuario" id="idUsuario" value=<?= $idUsuario; ?> hidden readonly>
 
             <div class="uk-margin">
@@ -38,7 +38,8 @@
 
                 <div class="uk-inline-clip" uk-scrollspy="cls:uk-animation-slide-left;">
                     <div class="uk-form-controls">
-                        <button name="cambia-contrasenia" class="uk-button uk-button-primary uk-button-small uk-border-rounded">Cambiar mi contraseña</button>
+                        <input type="text" id="email-contra" name="" value=<?= $info["email"] ?> hidden readonly>
+                        <button name="cambia-contrasenia" id="cambiarContra" class="uk-button uk-button-primary uk-button-small uk-width-medium uk-input uk-border-rounded">Cambiar mi contraseña</button>
                     </div>
                 </div>
 
@@ -111,7 +112,7 @@
             <hr>
             <div class="uk-margin uk-animation-fade">
                 <div class="uk-form-controls">
-                    <button id="editar-perfil" class="uk-button uk-button-primary uk-align-right uk-border-rounded" >Guardar</button>
+                    <button id="editar-perfil" class="uk-button uk-button-primary uk-align-right uk-border-rounded" type="submit">Guardar</button>
                 </div>
             </div>
         </form>
@@ -126,5 +127,5 @@ endif;
     include("_footer.html");
  ?>
 <script type="text/javascript">
-    document.getElementById('editar-perfil').onclick = editarPerfil;
+    document.getElementById('cambiarContra').onclick = sendMailContraNoModal;
 </script>

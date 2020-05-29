@@ -422,7 +422,30 @@ function sendMailContra(){
             default:
                 break;
         }
-    })
+        document.getElementById("cambiarContra").disabled=false;
+        document.getElementById("cambiarContra").innerHTML="Cambiar mi contraseña";
+    });
+}
+
+function sendMailContraNoModal(){
+    document.getElementById("cambiarContra").disabled=true;
+    document.getElementById("cambiarContra").innerHTML="<div uk-spinner class='uk-position-fixed uk-transform-center'></div>";
+    $.post("controlador_mail_cambioContra.php", {
+        mail: $("#email-contra").val()
+    }).done(function(data){
+        switch(parseInt(data)){
+            case 200:
+                mostrarMensaje("Recibirá un correo con instrucciones para cambiar su contraseña", "primary");
+                break;
+            case 404:
+                mostrarMensaje("Error: La cuenta no existe", "danger");
+                break;
+            default:
+                break;
+        }
+        document.getElementById("cambiarContra").disabled=false;
+        document.getElementById("cambiarContra").innerHTML="Cambiar mi contraseña";
+    });
 }
 
 function nuevaSolicitud(){
@@ -465,7 +488,7 @@ function nuevaSolicitud(){
             //mensaje de error
           mostrarMensaje("Error al enviar el formulario, intente nuevamente.", "danger");
         }
-    })
+    });
 }
 
 function cambiarContra() {
@@ -483,7 +506,7 @@ function cambiarContra() {
                 mostrarMensaje(data, "danger");
                 break;
         }
-    })
+    });
 }
 
 function muestraSolicitudes() {
@@ -506,7 +529,7 @@ function muestraAlert(idSolicitud) {
                 mostrarMensaje("Hubo un error al eliminar la solicitud.\nPor favor, intenta de nuevo.", "danger");
             }
 
-        })
+        });
     }
 }
 
@@ -534,10 +557,7 @@ function editarPerfil() {
             }
             else{
                 mostrarMensaje("Hubo un problema actualizando tu perfil.\nPor favor, intenta de nuevo.","danger");
-
             }
-        }).fail(function(data){
-            console.log("fail");
         });
     }
 }
