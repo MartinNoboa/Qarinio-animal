@@ -558,3 +558,13 @@ function eliminarSolicitud($idSolicitud) {
           $res = mysqli_fetch_array(sqlqry($sql));
           return $res;
   }
+
+function editarPerfil($id, $nombre,$apellido,$telefono,$callePrincipal,$calleSecundaria,$numeroExterior,$numeroInterior,$codigoPostal,$colonia,$ciudad,$estado,$fechaNacimiento) {
+    $sql = "
+    UPDATE usuario u SET nombre='".$nombre."', apellido='".$apellido."',
+    telefono='".$telefono."', callePrincipal='".$callePrincipal."', calleSecundaria='".$calleSecundaria."',
+    NumeroExterior='".$numeroExterior."', NumeroInterior='".$numeroInterior."', CodigoPostal='".$codigoPostal."',
+    Colonia='".$colonia."', Ciudad='".$ciudad."', Estado='".$estado."', fechaNacimiento='".$fechaNacimiento."'
+    WHERE u.idUsuario='".$id."'";
+    return modifyDb($sql);
+}

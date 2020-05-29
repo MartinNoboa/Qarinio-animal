@@ -9,7 +9,7 @@
         <h1 class="uk-text-center uk-animation-slide-bottom">Ajustes de Cuenta</h1>
         <hr class="uk-divider-icon uk-margin-large-left uk-margin-large-right">
         <form class="uk-form-horizontal uk-margin-large-left uk-margin-large-right">
-
+            <input type="number" name="idUsuario" id="idUsuario" value=<?= $idUsuario; ?> hidden readonly>
 
             <div class="uk-margin">
                 <p class="uk-text-lead uk-animation-fade">Información Básica</p>
@@ -111,7 +111,7 @@
             <hr>
             <div class="uk-margin uk-animation-fade">
                 <div class="uk-form-controls">
-                    <button type="submit" name="editar-perfil" class="uk-button uk-button-primary uk-align-right uk-border-rounded">Guardar</button>
+                    <button id="editar-perfil" class="uk-button uk-button-primary uk-align-right uk-border-rounded" >Guardar</button>
                 </div>
             </div>
         </form>
@@ -125,3 +125,6 @@ else:
 endif;
     include("_footer.html");
  ?>
+<script type="text/javascript">
+    document.getElementById('editar-perfil').onclick = editarPerfil;
+</script>
