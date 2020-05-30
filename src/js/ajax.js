@@ -633,7 +633,7 @@ function aprobarEntrevista() {
             aprobarEntrevista : true
         }).done(function(data){
             if(parseInt(data) != 0) {
-                mostrarMensaje("La entrevista aprobó correctamente.", "success");
+                mostrarMensaje("La entrevista se aprobó correctamente.", "success");
             }
             else {
                 mostrarMensaje("Hubo un error al aprobar la entrevista.\nPor favor, intenta de nuevo.", "danger");
