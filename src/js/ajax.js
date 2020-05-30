@@ -466,6 +466,21 @@ function muestraSolicitudes() {
     
 }
 
+function muestraMisSolicitudes() {
+    $.post("vista_misSolicitudes.php",{
+        idUsuario: $("#idUsuario").val()
+    }).done(function(data){
+        
+        //console.log(data);
+        $("#tablaMisSolicitudes").html(data); 
+        setELSolicitudes_UR();
+        setELSolicitudesPago_UR();
+        setELSolicitudesEntrevista_UR();
+
+    })
+    
+}
+
 function muestraAlert(idSolicitud) {
     msj = confirm("¿Estás seguro que quieres eliminar tu solicitud?\nEsta acción no se puede deshacer.");
     if(msj) {
@@ -512,6 +527,9 @@ function editarPerfil() {
         });
     }
 }
+
+
+//!!!!!!!!!!!!!!--------------------------------MANEJO SOLICITUDES ADMIN-------------------------------!!!!!!!!!
 
 //--------------------------------funciones para actualizar estado del formulario admin
 
@@ -718,5 +736,118 @@ function rechazarPago() {
 
 
 
+//!!!!!!!!!!!!!!--------------------------------MANEJO SOLICITUDES USUARIO REGISTRADO-------------------------------!!!!!!!!!
 
-//
+
+//--------------------------------funciones para mostrar modal con formulario
+
+
+function setELSolicitudes_UR() {
+    let botonesSolicitudUR = document.getElementsByClassName("urformulario");
+    for(btn of botonesSolicitudUR) {
+        btn.addEventListener("click", function(b) {
+            //console.log(btn);
+            muestraSolicitudUR(btn.getAttribute("idSolicitud"));
+            
+        });
+    }
+}
+
+function muestraSolicitudUR(id) {
+
+    //console.log(id);
+    $.post("vista_solicitud_ur.php", {
+        idSolicitud: id
+    }).done(function (data,status,header) {
+        if(header.status===200 && status == 'success'){
+            $("#urformulario").html(data);
+            UIkit.modal($("#urformulario")).show();            
+        }
+    });
+}
+
+
+
+
+//--------------------------------funciones para mostrar modal estado de entrevista
+
+
+function setELSolicitudesEntrevista_UR() {
+    let botonesSolicitudEntrevistaUR = document.getElementsByClassName("urentrevista");
+    for(btn of botonesSolicitudEntrevistaUR) {
+        btn.addEventListener("click", function(b) {
+            //console.log(btn);
+            muestraSolicitudEntrevistaUR(btn.getAttribute("idSolicitud"));
+            
+        });
+    }
+}
+
+function muestraSolicitudEntrevistaUR(id) {
+
+    //console.log(id);
+    $.post("vista_entrevista_ur.php", {
+        idSolicitud: id
+    }).done(function (data,status,header) {
+        if(header.status===200 && status == 'success'){
+            $("#urentrevista").html(data);
+            UIkit.modal($("#urentrevista")).show();            
+        }
+    });
+}
+
+
+
+
+//--------------------------------funciones para mostrar y actualizar estado de pago 
+
+function setELSolicitudesPago_UR() {
+    let botonesSolicitudPagoUR = document.getElementsByClassName("urpago");
+    for(btn of botonesSolicitudPagoUR) {
+        btn.addEventListener("click", function(b) {
+            //console.log(btn);
+            muestraSolicitudPagoUR(btn.getAttribute("idSolicitud"));
+            
+        });
+    }
+}
+
+function muestraSolicitudPagoUR(id) {
+
+    //console.log(id);
+    $.post("vista_pago_ur.php", {
+        idSolicitud: id
+    }).done(function (data,status,header) {
+        //console.log(data);
+        if(header.status===200 && status == 'success'){
+            $("#urpago").html(data);
+            $("#actualizarMetodo")[0].onclick = actualizarMetodoPago;
+            UIkit.modal($("#urpago")).show();            
+        }
+    });
+}
+
+function actualizarMetodoPago() {
+    msj = confirm("¿Estás seguro que deseas usar este método de pago?");
+    if(msj) {
+        $.post("controlador_actualizar_pago.php", {
+            idSolicitud: $("#idSolicitudActivaMetodoPago").val(),
+            metodo : $("#metodoPago").val()
+        }).done(function(data){
+            console.log(data);
+            if(parseInt(data) != 0) {
+                mostrarMensaje("El método de pago se actualizó correctamente.", "success");
+            }
+            else {
+                mostrarMensaje("Hubo un error al actualizar el método pago.\nPor favor, intenta de nuevo.", "danger");
+            }
+            muestraSolicitudes();
+            UIkit.modal($("#urpago")).hide();
+
+
+        });
+    }
+}
+
+
+
