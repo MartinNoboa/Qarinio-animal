@@ -5,7 +5,6 @@ function mostrarMensaje(mensaje,status) {
 
 //Función que detonará la petición asíncrona como se hace ahora con la librería jquery
 function filtrar() {
-    console.log($("#buscarNom").val());
     $.post("controlador_catalogo.php", {
         busq: $("#buscarNom").val(),
         minAge: $("#minAge").val(),
@@ -16,7 +15,11 @@ function filtrar() {
         hembra: $("#hembra").is(":checked"),
         pequeno: $("#pequeno").is(":checked"),
         mediano: $("#mediano").is(":checked"),
-        grande: $("#grande").is(":checked")
+        grande: $("#grande").is(":checked"),
+        raza: $("#filtro-raza").val(),
+        personalidad: $("#filtro-personalidad").val(),
+        condicion: $("#filtro-condicion").val(),
+        estado: $("#filtro-estado").val()
     }).done(function (data) {
         $("#contenido-catalogo").html(data);
         setElEditar();
@@ -91,19 +94,21 @@ function eliminar() {
 
 function submitEdicion() {
         //$.post manda la petición asíncrona por el método post. También existe $.get
-    $.post("controlador_editar_perro.php", {
-        idPerro: $("#eliminar").attr("idPerro"),
-        nombre: $("#nombre").val(),
-        tamanio: $("#tamanio").val(),
-        anios: $("#anios").val(),
-        meses: $("#meses").val(),
-        sexo: $('input[name="sexo"]:checked').val(),
-        historia: $("#historia").val(),
-        raza: $("#raza").val(),
-        condiciones_medicas: $("#condiciones-medicas").val(),
-        personalidad: $("#personalidad").val()
+    $.post("controlador_editar_perro.php",{
+            idPerro: $("#eliminar").attr("idPerro"),
+            nombre: $("#nombre").val(),
+            tamanio: $("#tamanio").val(),
+            anios: $("#anios").val(),
+            meses: $("#meses").val(),
+            sexo: $('input[name="sexo"]:checked').val(),
+            historia: $("#historia").val(),
+            raza: $("#raza").val(),
+            condiciones_medicas: $("#condiciones-medicas").val(),
+            personalidad: $("#personalidad").val(),
+            estado: $("#estado").val()
     }).done(function (data) {
-        if(parseInt(data)!==0) {
+        console.log(data);
+        if(parseInt(data)>0) {
             UIkit.modal($("#modal-editar")).hide();
             filtrar();
             mostrarMensaje("Se actualizó el perro exitosamente","primary");
@@ -475,7 +480,7 @@ function muestraAlert(idSolicitud) {
         }).done(function(data){
             if(parseInt(data) != 0) {
                 // TODO: ESTO NO ES AJAX, YA LO SÉ BERNIE. HAY QUE PASAR LA FUNCION MOSTRAR PREGUNTAS DE UTIL A OTRA FUNCION JS
-                location.replace("misSolicitudes.php")
+                location.replace("misSolicitudes.php");
                 mostrarMensaje("La solicitud fue eliminada exitosamente", "primary");
             }
             else {

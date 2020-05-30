@@ -5,12 +5,15 @@ if(!isset($_SESSION)){
 }
 $_POST = limpia_entradas($_POST);
 
-$minAge = isset($_POST["minAge"])?limpia_entrada($_POST["minAge"]):0;
-$maxAge = isset($_POST["maxAge"])?limpia_entrada($_POST["maxAge"]):144;
-$sort = isset($_POST["sort"])?limpia_entrada($_POST["sort"]):"";
-$order = isset($_POST["order"])?$_POST["order"]:false;
-$busq = isset($_POST["busq"])?limpia_entrada($_POST["busq"]):"";
-
+$minAge = $_POST["minAge"]??0;
+$maxAge = $_POST["maxAge"]??144;
+$sort = $_POST["sort"]??"";
+$order = $_POST["order"]??false;
+$busq = $_POST["busq"]??"";
+$raza = $_POST["raza"]??0;
+$personalidad = $_POST["personalidad"]??0;
+$condicion = $_POST["condicion"]??0;
+$estado = $_POST["estado"]??"Disponible";
 
 $result = filterDogs(
                 $busq,
@@ -21,6 +24,10 @@ $result = filterDogs(
                 check($_POST, "pequeno"),
                 check($_POST, "mediano"),
                 check($_POST, "grande"),
+                $raza,
+                $personalidad,
+                $condicion,
+                $estado,
                 $sort,
                 $order
             );

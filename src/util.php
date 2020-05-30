@@ -121,7 +121,7 @@ function autenticar($email, $password){
 
 function setPermisos($email){
     $sql = "
-        SELECT  u.idUsuario as id, u.nombre as nom, p.privilegio as priv
+        SELECT  u.idUsuario as id, u.nombre as nom, u.apellido ap, u.email em, p.privilegio as priv
         FROM usuario u, usuario_rol ur, rol r, privilegio_rol pr, privilegios p
         WHERE u.email='$email'
         AND u.idUsuario=ur.idUsuario
@@ -131,11 +131,15 @@ function setPermisos($email){
     ";
     $result = sqlqry($sql);
 
+    $_SESSION['privilegios'] = [];
+
     while ($row = mysqli_fetch_array($result, MYSQLI_BOTH)) {
         //asigna permisos
         $_SESSION['privilegios'][$row["priv"]] = 1;
         $_SESSION["nombre"] = $row["nom"];
+        $_SESSION["apellido"] = $row["ap"];
         $_SESSION["id"] = $row["id"];
+        $_SESSION["email"] = $row["em"];
     }
 }
 
@@ -189,7 +193,7 @@ function crearCuenta($nombre, $apellido, $email, $telefono, $callePrincipal, $ca
 
 
 
-function filterDogs($busq, $minA, $maxA, $male, $female, $peq, $med, $gra, $sort, $order){
+function filterDogs($busq, $minA, $maxA, $male, $female, $peq, $med, $gra, $raz, $pers, $cond, $estado, $sort, $order){
     if($maxA==144){
         $maxA=9999;
     }
@@ -200,10 +204,16 @@ function filterDogs($busq, $minA, $maxA, $male, $female, $peq, $med, $gra, $sort
             p.nombre,
             fechaLLegada,
             TIMESTAMPDIFF(MONTH, DATE_ADD(fechaLLegada, INTERVAL -edadEstimadaLLegada MONTH), CURDATE()) as edad
-        FROM perros as p,estado_perro as e,estado
+        FROM perros as p,estado_perro as e,estado, caracteristicas c
         WHERE p.idPerro=e.idPerro
         AND e.idEstado=estado.idEstado
-        AND estado.nombre='disponible'";
+        AND c.idPerro=p.idPerro";
+
+    if(checkPriv("editar-perro")){
+        $sql.= " AND estado.nombre='$estado'";
+    } else{
+        $sql.= " AND estado.nombre='Disponible'";
+    }
 
 
     $female = ($female=="true");
@@ -240,6 +250,16 @@ function filterDogs($busq, $minA, $maxA, $male, $female, $peq, $med, $gra, $sort
         $sql.=")";
     }
 
+    if($cond!=0){
+        $sql.=" AND idCondicion=$cond";
+    }
+    if($pers!=0){
+        $sql.=" AND idPersonalidad=$pers";
+    }
+    if($raz!=0){
+        $sql.=" AND idRaza=$raz";
+    }
+
     $sql.=" AND p.nombre LIKE '%$busq%'";
 
     $sql.=" HAVING Edad BETWEEN " . $minA . " AND " . $maxA;
@@ -271,16 +291,26 @@ function filterDogs($busq, $minA, $maxA, $male, $female, $peq, $med, $gra, $sort
     //función para eliminar una perro
     //@param id_perro: id del perro que se va a eliminar
 function eliminar_perro($id_perro) {
-    $sql='UPDATE estado_perro SET idEstado=6 WHERE idPerro='.$id_perro;
+    $sql="UPDATE estado_perro SET idEstado=(SELECT idEstado from estado where nombre='Eliminado') WHERE idPerro=$id_perro";
     $res=modifyDb($sql);
     return $res;
   }
 
-function editarPerro($idPerro,$nombre,$size,$edad,$sexo,$historia,$idCondicion,$idRaza,$idPersonalidad) {
-    $sql = "UPDATE perros p, caracteristicas c
-            SET nombre='$nombre', tamanio='$size', edadEstimadaLLegada=TIMESTAMPDIFF(MONTH, DATE_ADD(CURDATE(), INTERVAL -$edad-1 MONTH), fechaLLegada),
-            sexo='$sexo', historia='$historia', idCondicion=$idCondicion, idRaza=$idRaza, idPersonalidad=$idPersonalidad
-            WHERE p.idPerro=c.idPerro AND p.idPerro=$idPerro";
+function editarPerro($idPerro,$nombre,$size,$edad,$sexo,$historia,$idCondicion,$idRaza,$idPersonalidad, $estado) {
+    $sql = "UPDATE perros p, caracteristicas c, estado_perro e
+            SET nombre='$nombre',
+                tamanio='$size',
+                edadEstimadaLLegada=TIMESTAMPDIFF(MONTH, DATE_ADD(CURDATE(), INTERVAL -$edad-1 MONTH), fechaLLegada),
+                sexo='$sexo',
+                historia='$historia',
+                idCondicion=$idCondicion,
+                idRaza=$idRaza,
+                idPersonalidad=$idPersonalidad,
+                idEstado=$estado
+            WHERE p.idPerro=$idPerro
+              AND p.idPerro=c.idPerro
+              AND p.idPerro=e.idPerro";
+    //echo $sql;
     return modifyDb($sql);
 }
 
@@ -331,15 +361,15 @@ function recuperarOpciones($id, $campo, $tabla){
     return $option;
   }
 
-function recuperarEstado($id, $campo, $tabla){
-    $sql = "SELECT $id, $campo FROM $tabla WHERE perro = 1";
+function recuperarEstadosPerros($val, $selected){
+    $sql = "SELECT $val, nombre FROM estado WHERE perro = 1";
     $result = sqlqry($sql);
     $option = "";
 
     while($row = mysqli_fetch_array($result)){
-    $option = $option."<option value=".$row[0].">".ucfirst($row[1])."</option>";    }
+    $option = $option."<option value='".$row[0]."' ".($row[1]==$selected?"selected":"").">".ucfirst($row[1])."</option>";    }
 
-    echo $option;
+    return $option;
   }
 
 function recuperarOpcionesConSelect($id, $campo, $tabla, $selected){
@@ -357,7 +387,7 @@ function recuperarOpcionesConSelect($id, $campo, $tabla, $selected){
 function getDogInfoById($id){
     $sql = "
         SELECT
-               nombre,
+               p.nombre nombre,
                tamanio,
                TIMESTAMPDIFF(MONTH, DATE_ADD(fechaLLegada, INTERVAL -edadEstimadaLLegada MONTH), CURDATE()) as edad,
                sexo,
@@ -367,12 +397,15 @@ function getDogInfoById($id){
                personalidad,
                pers.descripcion,
                raza,
-               rz.descripcion
-        FROM perros p, caracteristicas c, condiciones_medicas med, tipo_personalidad pers, tipo_raza rz
+               rz.descripcion,
+               e.nombre estado
+        FROM perros p, caracteristicas c, condiciones_medicas med, tipo_personalidad pers, tipo_raza rz, estado_perro ep, estado e
         WHERE p.idPerro=c.idPerro
         AND c.idCondicion=med.idCondicion
         AND c.idPersonalidad=pers.idPersonalidad
         AND c.idRaza=rz.idRaza
+        AND p.idPerro=ep.idPerro
+        AND ep.idEstado=e.idEstado
         AND p.idPerro=$id
         GROUP BY p.idPerro";
 

@@ -95,6 +95,14 @@ if(checkPriv("editar-perro")):
                         </select>
                     </div>
                 </div>
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="personalidad">Estado:</label>
+                    <div class="uk-form-controls">
+                        <select class="uk-select uk-border-rounded" id="estado" name="estado">
+                            <?= recuperarEstadosPerros("idEstado", $info["estado"]); ?>
+                        </select>
+                    </div>
+                </div>
                 <p class="uk-text-right">
                     <button class="uk-button uk-button-default uk-modal-close uk-border-rounded">Cancelar</button>
                     <button class="uk-button uk-button-primary uk-border-rounded" id="btn-editar" type="button">Guardar</button>

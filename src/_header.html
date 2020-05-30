@@ -17,4 +17,7 @@
 <?php
     session_start();
     include_once("util.php");
+    if(isset($_SESSION["email"])){
+        setPermisos($_SESSION["email"]);
+    }
 ?>
