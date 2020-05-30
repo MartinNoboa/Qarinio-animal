@@ -811,3 +811,11 @@ function actualizarEstadoPago($id,$estado){
     $result = modifyDb($sql);
     return $result;
 }
+
+function actualizarMetodoPago($id, $metodo){
+    $sql = "UPDATE solicitud SET metodoPago = \"$metodo\" WHERE idSolicitud = $id";
+    $result = sqlqry($sql);
+    return $result;
+}
+
+

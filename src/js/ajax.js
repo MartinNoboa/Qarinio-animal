@@ -756,6 +756,10 @@ function rechazarPago() {
 
 //!!!!!!!!!!!!!!--------------------------------MANEJO SOLICITUDES USUARIO REGISTRADO-------------------------------!!!!!!!!!
 
+
+//--------------------------------funciones para mostrar modal con formulario
+
+
 function setELSolicitudes_UR() {
     let botonesSolicitudUR = document.getElementsByClassName("urformulario");
     for(btn of botonesSolicitudUR) {
@@ -783,7 +787,7 @@ function muestraSolicitudUR(id) {
 
 
 
-//--------------------------------funciones para actualizar estado de la entrevista admin
+//--------------------------------funciones para mostrar modal estado de entrevista
 
 
 function setELSolicitudesEntrevista_UR() {
@@ -813,7 +817,7 @@ function muestraSolicitudEntrevistaUR(id) {
 
 
 
-//--------------------------------funciones para actualizar estado de pago admin
+//--------------------------------funciones para mostrar y actualizar estado de pago 
 
 function setELSolicitudesPago_UR() {
     let botonesSolicitudPagoUR = document.getElementsByClassName("urpago");
@@ -835,9 +839,32 @@ function muestraSolicitudPagoUR(id) {
         //console.log(data);
         if(header.status===200 && status == 'success'){
             $("#urpago").html(data);
+            $("#actualizarMetodo")[0].onclick = actualizarMetodoPago;
             UIkit.modal($("#urpago")).show();            
         }
     });
+}
+
+function actualizarMetodoPago() {
+    msj = confirm("¿Estás seguro que deseas usar este método de pago?");
+    if(msj) {
+        $.post("controlador_actualizar_pago.php", {
+            idSolicitud: $("#idSolicitudActivaMetodoPago").val(),
+            metodo : $("#metodoPago").val()
+        }).done(function(data){
+            console.log(data);
+            if(parseInt(data) != 0) {
+                mostrarMensaje("El método de pago se actualizó correctamente.", "success");
+            }
+            else {
+                mostrarMensaje("Hubo un error al actualizar el método pago.\nPor favor, intenta de nuevo.", "danger");
+            }
+            muestraSolicitudes();
+            UIkit.modal($("#urpago")).hide();
+
+
+        });
+    }
 }
 
 
