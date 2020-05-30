@@ -20,7 +20,7 @@ include_once("util.php")
             <li class="uk-parent">
                 <a href="#">Filtros</a>
                 <ul class="uk-nav-sub">
-                    <li>Genero</li>
+                    <li>Sexo</li>
                     <li><label><input id="hembra" class="uk-checkbox uk-border-rounded" type="checkbox"> Hembra</label></li>
                     <li><label><input id="macho" class="uk-checkbox uk-border-rounded" type="checkbox"> Macho</label></li>
                     <hr>
@@ -33,8 +33,12 @@ include_once("util.php")
                             <input id="maxAge" name="maxAge" type="number" class="validate">
                             <label for="maxAge">Max</label>
                         </div>
-
                     </li>
+                    <hr>
+                    <li>Tamaño</li>
+                    <li><label><input id="pequeno" class="uk-checkbox uk-border-rounded" type="checkbox"> Pequeño</label></li>
+                    <li><label><input id="mediano" class="uk-checkbox uk-border-rounded" type="checkbox"> Mediano</label></li>
+                    <li><label><input id="grande" class="uk-checkbox uk-border-rounded" type="checkbox"> Grande</label></li>
                 </ul>
             </li>
             <li class="uk-parent">
