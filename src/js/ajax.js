@@ -13,6 +13,9 @@ function filtrar() {
         order: $('input[name="order"]:checked').val(),
         macho: $("#macho").is(":checked"),
         hembra: $("#hembra").is(":checked"),
+        pequeno: $("#pequeno").is(":checked"),
+        mediano: $("#mediano").is(":checked"),
+        grande: $("#grande").is(":checked"),
     }).done(function (data) {
         $("#contenido-catalogo").html(data);
         setElEditar();
@@ -99,7 +102,6 @@ function submitEdicion() {
         condiciones_medicas: $("#condiciones-medicas").val(),
         personalidad: $("#personalidad").val()
     }).done(function (data) {
-        console.log(data);
         if(parseInt(data)!==0) {
             UIkit.modal($("#modal-editar")).hide();
             filtrar();
@@ -138,7 +140,6 @@ function mostrarPreguntas(){
                 "</li>";
         }
         document.getElementById('lista-preguntas').innerHTML=concatenacion;
-        console.log(concatenacion);
     });
 
 }
@@ -423,7 +424,6 @@ function nuevaSolicitud(){
         //si o no
         res12 : $('input[name="12"]:checked').val()
     }).done(function(data){
-        //console.log(data);
         if (data != 0){
           mostrarMensaje("Se completó la solicitud correctamente", "success");
             //redireccionar a mis solicitudes
@@ -457,7 +457,6 @@ function cambiarContra() {
 
 function muestraSolicitudes() {
     $.get("vista_gestionar_solicitudes.php").done(function(data){
-        //console.log(data);
         $("#tablaSolicitudes").html(data); 
         setELSolicitudes();
         setELSolicitudesPago();
@@ -473,7 +472,6 @@ function muestraAlert(idSolicitud) {
         $.post("controlador_elimina_solicitud.php", {
             idSol: idSolicitud
         }).done(function(data){
-            //console.log(data);
             if(parseInt(data) != 0) {
                 // TODO: ESTO NO ES AJAX, YA LO SÉ BERNIE. HAY QUE PASAR LA FUNCION MOSTRAR PREGUNTAS DE UTIL A OTRA FUNCION JS
                 location.replace("misSolicitudes.php")
@@ -505,7 +503,6 @@ function editarPerfil() {
             ciudad: $("#ciudad").val(),
             estado: $("#estado").val()
         }).done(function(data) {
-            console.log(data);
             if(parseInt(data) != 0) {
                 mostrarMensaje("Tu perfil se actualizó correctamente","primary");
             }
@@ -523,7 +520,6 @@ function setELSolicitudes() {
     let botonesSolicitud = document.getElementsByClassName("formulario");
     for(btn of botonesSolicitud) {
         btn.addEventListener("click", function(b) {
-            //console.log(btn);
             muestraSolicitud(btn.getAttribute("idSolicitud"));
             
         });
@@ -531,8 +527,6 @@ function setELSolicitudes() {
 }
 
 function muestraSolicitud(id) {
-
-    //console.log(id);
     $.post("vista_solicitud.php", {
         idSolicitud: id
     }).done(function (data,status,header) {
@@ -573,7 +567,6 @@ function rechazarFormulario() {
             idSolicitud: $("#idSolicitudActiva").val(),
             aprobar : false
         }).done(function(data){
-            //console.log(data);
             if(parseInt(data) != 0) {
                 mostrarMensaje("El formulario se rechazó correctamente.", "success");
             }
@@ -595,7 +588,6 @@ function setELSolicitudesEntrevista() {
     let botonesSolicitudEntrevista = document.getElementsByClassName("entrevista");
     for(btn of botonesSolicitudEntrevista) {
         btn.addEventListener("click", function(b) {
-            //console.log(btn);
             muestraSolicitudEntrevista(btn.getAttribute("idSolicitud"));
             
         });
@@ -603,8 +595,6 @@ function setELSolicitudesEntrevista() {
 }
 
 function muestraSolicitudEntrevista(id) {
-
-    //console.log(id);
     $.post("vista_aprobar_entrevista.php", {
         idSolicitud: id
     }).done(function (data,status,header) {
@@ -624,7 +614,6 @@ function aprobarEntrevista() {
             idSolicitud: $("#idSolicitudActivaEntrevista").val(),
             aprobarEntrevista : true
         }).done(function(data){
-            console.log(data);
             if(parseInt(data) != 0) {
                 mostrarMensaje("La entrevista aprobó correctamente.", "success");
             }
@@ -646,7 +635,6 @@ function rechazarEntrevista() {
             idSolicitud: $("#idSolicitudActivaEntrevista").val(),
             aprobarEntrevista : false
         }).done(function(data){
-            //console.log(data);
             if(parseInt(data) != 0) {
                 mostrarMensaje("La entrevista se rechazó correctamente.", "success");
             }
@@ -668,7 +656,6 @@ function setELSolicitudesPago() {
     let botonesSolicitudPago = document.getElementsByClassName("pago");
     for(btn of botonesSolicitudPago) {
         btn.addEventListener("click", function(b) {
-            //console.log(btn);
             muestraSolicitudPago(btn.getAttribute("idSolicitud"));
             
         });
@@ -676,12 +663,9 @@ function setELSolicitudesPago() {
 }
 
 function muestraSolicitudPago(id) {
-
-    //console.log(id);
     $.post("vista_aprobar_pago.php", {
         idSolicitud: id
     }).done(function (data,status,header) {
-        //console.log(data);
         if(header.status===200 && status == 'success'){
             $("#pago").html(data);
             $("#aprobarPago")[0].onclick = aprobarPago;
@@ -698,7 +682,6 @@ function aprobarPago() {
             idSolicitud: $("#idSolicitudActivaPago").val(),
             aprobarPago : true
         }).done(function(data){
-            console.log(data);
             if(parseInt(data) != 0) {
                 mostrarMensaje("El pago se aprobó correctamente.", "success");
             }
@@ -720,7 +703,6 @@ function rechazarPago() {
             idSolicitud: $("#idSolicitudActivaPago").val(),
             aprobarPago : false
         }).done(function(data){
-            //console.log(data);
             if(parseInt(data) != 0) {
                 mostrarMensaje("El pago se rechazó correctamente.", "success");
             }
