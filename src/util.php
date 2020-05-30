@@ -189,7 +189,7 @@ function crearCuenta($nombre, $apellido, $email, $telefono, $callePrincipal, $ca
 
 
 
-function filterDogs($minA, $maxA, $male, $female, $sort, $order){
+function filterDogs($minA, $maxA, $male, $female, $peq, $med, $gra, $sort, $order){
     if($maxA==144){
         $maxA=9999;
     }
@@ -208,6 +208,9 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
 
     $female = ($female=="true");
     $male = ($male=="true");
+    $peq = ($peq=="true");
+    $med = ($med=="true");
+    $gra= ($gra=="true");
 
     if($male XOR $female){
         if($male AND !$female){
@@ -216,6 +219,29 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
             $sql .= " AND sexo='hembra'";
         }
     }
+
+    if(($peq XOR $med XOR $gra) AND !($peq AND $med AND $gra)){
+        $sql.=" AND (";
+
+        if($peq){
+            $sql.="p.tamanio='Pequeño'";
+            if($med){
+                $sql.=" OR ";
+            }
+        }
+        if($med){
+            $sql.="p.tamanio='Mediano'";
+            if($gra){
+                $sql.=" OR ";
+            }
+        }
+        if($gra){
+            $sql.="p.tamanio='Grande'";
+        }
+
+        $sql.=")";
+    }
+
 
     $sql.=" HAVING Edad BETWEEN " . $minA . " AND " . $maxA;
 
@@ -233,7 +259,7 @@ function filterDogs($minA, $maxA, $male, $female, $sort, $order){
     if($sort!="" AND $order){
         $sql.=" ".$order;
     }
-    //echo $sql;
+    //print_r($sql);
     return sqlqry($sql);
 }
 
@@ -250,7 +276,7 @@ function eliminar_perro($id_perro) {
 
 function editarPerro($idPerro,$nombre,$size,$edad,$sexo,$historia,$idCondicion,$idRaza,$idPersonalidad) {
     $sql = "UPDATE perros p, caracteristicas c
-            SET nombre='$nombre', tamanio='$size', edadEstimadaLLegada=TIMESTAMPDIFF(MONTH, DATE_ADD(CURDATE(), INTERVAL -$edad MONTH), fechaLLegada),
+            SET nombre='$nombre', tamanio='$size', edadEstimadaLLegada=TIMESTAMPDIFF(MONTH, DATE_ADD(CURDATE(), INTERVAL -$edad-1 MONTH), fechaLLegada),
             sexo='$sexo', historia='$historia', idCondicion=$idCondicion, idRaza=$idRaza, idPersonalidad=$idPersonalidad
             WHERE p.idPerro=c.idPerro AND p.idPerro=$idPerro";
     return modifyDb($sql);
