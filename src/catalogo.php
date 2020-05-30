@@ -18,8 +18,16 @@ include_once("util.php")
     <div id="filterMenu" class="uk-width-1-4 uk-margin-left">
         <ul id="listaFiltro" class="uk-nav-primary uk-nav-parent-icon uk-margin-top" uk-nav="multiple: true">
             <li class="uk-parent">
-                <a href="#">Filtros</a>
-                <ul class="uk-nav-sub">
+            <a href="#">Filtros</a>
+            <ul class="uk-nav-sub">
+                    <li>Buscar</li>
+                    <li>
+                        <div class="uk-search uk-search-default">
+                            <span uk-search-icon></span>
+                            <input id="buscarNom" class="uk-search-input" type="search" placeholder="Search...">
+                        </div>
+                    </li>
+                    <hr>
                     <li>Sexo</li>
                     <li><label><input id="hembra" class="uk-checkbox uk-border-rounded" type="checkbox"> Hembra</label></li>
                     <li><label><input id="macho" class="uk-checkbox uk-border-rounded" type="checkbox"> Macho</label></li>
@@ -39,6 +47,13 @@ include_once("util.php")
                     <li><label><input id="pequeno" class="uk-checkbox uk-border-rounded" type="checkbox"> Pequeño</label></li>
                     <li><label><input id="mediano" class="uk-checkbox uk-border-rounded" type="checkbox"> Mediano</label></li>
                     <li><label><input id="grande" class="uk-checkbox uk-border-rounded" type="checkbox"> Grande</label></li>
+                    <hr>
+                    <li></li>
+                    <li>
+                        <select class="uk-select uk-border-rounded" id="raza" name="raza">
+                            <?= recuperarOpciones("idRaza", "raza", "tipo_raza") ?>
+                        </select>
+                    </li>
                 </ul>
             </li>
             <li class="uk-parent">
@@ -56,7 +71,7 @@ include_once("util.php")
                     <li>Orden</li>
                     <li>
                         <label>
-                            <input class="uk-radio" name="order" type="radio" value="asc"/>
+                            <input class="uk-radio" name="order" type="radio" value="asc" checked/>
                             <span>Ascendente</span>
                         </label>
                     </li>
@@ -86,6 +101,11 @@ include_once("util.php")
 <script>
     //Asignar al botón buscar, la función buscar()
     document.getElementById("filtrar").onclick = filtrar;
+
+    document.getElementById("buscarNom").onchange = filtrar;
+
+
+
     setElEditar();
     setElInfo();
 </script>

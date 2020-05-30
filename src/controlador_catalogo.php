@@ -3,16 +3,17 @@ require_once "util.php";
 if(!isset($_SESSION)){
     session_start();
 }
-
 $_POST = limpia_entradas($_POST);
 
 $minAge = isset($_POST["minAge"])?limpia_entrada($_POST["minAge"]):0;
 $maxAge = isset($_POST["maxAge"])?limpia_entrada($_POST["maxAge"]):144;
 $sort = isset($_POST["sort"])?limpia_entrada($_POST["sort"]):"";
 $order = isset($_POST["order"])?$_POST["order"]:false;
+$busq = isset($_POST["busq"])?limpia_entrada($_POST["busq"]):"";
 
 
 $result = filterDogs(
+                $busq,
                 $minAge,
                 $maxAge,
                 check($_POST, "macho"),

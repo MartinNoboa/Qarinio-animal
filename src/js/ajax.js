@@ -5,8 +5,9 @@ function mostrarMensaje(mensaje,status) {
 
 //Función que detonará la petición asíncrona como se hace ahora con la librería jquery
 function filtrar() {
-    //$.post manda la petición asíncrona por el método post. También existe $.get
+    console.log($("#buscarNom").val());
     $.post("controlador_catalogo.php", {
+        busq: $("#buscarNom").val(),
         minAge: $("#minAge").val(),
         maxAge: $("#maxAge").val(),
         sort: $("#sort").val(),
@@ -15,7 +16,7 @@ function filtrar() {
         hembra: $("#hembra").is(":checked"),
         pequeno: $("#pequeno").is(":checked"),
         mediano: $("#mediano").is(":checked"),
-        grande: $("#grande").is(":checked"),
+        grande: $("#grande").is(":checked")
     }).done(function (data) {
         $("#contenido-catalogo").html(data);
         setElEditar();

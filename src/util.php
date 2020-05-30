@@ -189,7 +189,7 @@ function crearCuenta($nombre, $apellido, $email, $telefono, $callePrincipal, $ca
 
 
 
-function filterDogs($minA, $maxA, $male, $female, $peq, $med, $gra, $sort, $order){
+function filterDogs($busq, $minA, $maxA, $male, $female, $peq, $med, $gra, $sort, $order){
     if($maxA==144){
         $maxA=9999;
     }
@@ -222,7 +222,6 @@ function filterDogs($minA, $maxA, $male, $female, $peq, $med, $gra, $sort, $orde
 
     if(($peq XOR $med XOR $gra) AND !($peq AND $med AND $gra)){
         $sql.=" AND (";
-
         if($peq){
             $sql.="p.tamanio='Pequeño'";
             if($med){
@@ -238,10 +237,10 @@ function filterDogs($minA, $maxA, $male, $female, $peq, $med, $gra, $sort, $orde
         if($gra){
             $sql.="p.tamanio='Grande'";
         }
-
         $sql.=")";
     }
 
+    $sql.=" AND p.nombre LIKE '$busq%'";
 
     $sql.=" HAVING Edad BETWEEN " . $minA . " AND " . $maxA;
 
@@ -326,7 +325,7 @@ function recuperarOpciones($id, $campo, $tabla){
     while($row = mysqli_fetch_array($result)){
     $option = $option."<option value=".$row[0].">".ucfirst($row[1])."</option>";    }
 
-    echo $option;
+    return $option;
   }
 
 function recuperarEstado($id, $campo, $tabla){

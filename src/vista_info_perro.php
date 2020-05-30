@@ -30,7 +30,7 @@ $info = getDogInfoById($_POST["idPerro"]);
                     </tr>
                     <tr>
                         <td class="uk-table-shrink uk-text-bold">Sexo:</td>
-                        <td><?= $info["sexo"]; ?></td>
+                        <td><?= ucfirst($info["sexo"]) ?></td>
                     </tr>
                     <tr>
                         <td class="uk-table-shrink uk-text-bold">Historia:</td>
