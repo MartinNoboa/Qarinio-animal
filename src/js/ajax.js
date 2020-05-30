@@ -425,7 +425,7 @@ function nuevaSolicitud(){
         res12 : $('input[name="12"]:checked').val()
     }).done(function(data){
         if (data != 0){
-          mostrarMensaje("Se completó la solicitud correctamente", "success");
+          mostrarMensaje("Se completó el formulario correctamente", "success");
             //redireccionar a mis solicitudes
             setTimeout(function() {
           window.location.href = "misSolicitudes.php";
@@ -457,28 +457,28 @@ function cambiarContra() {
 
 function muestraSolicitudes() {
     $.get("vista_gestionar_solicitudes.php").done(function(data){
-        $("#tablaSolicitudes").html(data); 
+        $("#tablaSolicitudes").html(data);
         setELSolicitudes();
         setELSolicitudesPago();
         setELSolicitudesEntrevista();
 
     })
-    
+
 }
 
 function muestraMisSolicitudes() {
     $.post("vista_misSolicitudes.php",{
         idUsuario: $("#idUsuario").val()
     }).done(function(data){
-        
+
         //console.log(data);
-        $("#tablaMisSolicitudes").html(data); 
+        $("#tablaMisSolicitudes").html(data);
         setELSolicitudes_UR();
         setELSolicitudesPago_UR();
         setELSolicitudesEntrevista_UR();
 
     })
-    
+
 }
 
 function muestraAlert(idSolicitud) {
@@ -539,7 +539,7 @@ function setELSolicitudes() {
     for(btn of botonesSolicitud) {
         btn.addEventListener("click", function(b) {
             muestraSolicitud(btn.getAttribute("idSolicitud"));
-            
+
         });
     }
 }
@@ -552,7 +552,7 @@ function muestraSolicitud(id) {
             $("#formulario").html(data);
             $("#aprobar")[0].onclick = aprobarFormulario;
             $("#rechazar")[0].onclick = rechazarFormulario;
-            UIkit.modal($("#formulario")).show();            
+            UIkit.modal($("#formulario")).show();
         }
     });
 }
@@ -607,7 +607,7 @@ function setELSolicitudesEntrevista() {
     for(btn of botonesSolicitudEntrevista) {
         btn.addEventListener("click", function(b) {
             muestraSolicitudEntrevista(btn.getAttribute("idSolicitud"));
-            
+
         });
     }
 }
@@ -620,7 +620,7 @@ function muestraSolicitudEntrevista(id) {
             $("#entrevista").html(data);
             $("#entrevistaSi")[0].onclick = aprobarEntrevista;
             $("#entrevistaNo")[0].onclick = rechazarEntrevista;
-            UIkit.modal($("#entrevista")).show();            
+            UIkit.modal($("#entrevista")).show();
         }
     });
 }
@@ -675,7 +675,7 @@ function setELSolicitudesPago() {
     for(btn of botonesSolicitudPago) {
         btn.addEventListener("click", function(b) {
             muestraSolicitudPago(btn.getAttribute("idSolicitud"));
-            
+
         });
     }
 }
@@ -688,7 +688,7 @@ function muestraSolicitudPago(id) {
             $("#pago").html(data);
             $("#aprobarPago")[0].onclick = aprobarPago;
             $("#rechazarPago")[0].onclick = rechazarPago;
-            UIkit.modal($("#pago")).show();            
+            UIkit.modal($("#pago")).show();
         }
     });
 }
@@ -748,7 +748,7 @@ function setELSolicitudes_UR() {
         btn.addEventListener("click", function(b) {
             //console.log(btn);
             muestraSolicitudUR(btn.getAttribute("idSolicitud"));
-            
+
         });
     }
 }
@@ -761,7 +761,7 @@ function muestraSolicitudUR(id) {
     }).done(function (data,status,header) {
         if(header.status===200 && status == 'success'){
             $("#urformulario").html(data);
-            UIkit.modal($("#urformulario")).show();            
+            UIkit.modal($("#urformulario")).show();
         }
     });
 }
@@ -778,7 +778,7 @@ function setELSolicitudesEntrevista_UR() {
         btn.addEventListener("click", function(b) {
             //console.log(btn);
             muestraSolicitudEntrevistaUR(btn.getAttribute("idSolicitud"));
-            
+
         });
     }
 }
@@ -791,7 +791,7 @@ function muestraSolicitudEntrevistaUR(id) {
     }).done(function (data,status,header) {
         if(header.status===200 && status == 'success'){
             $("#urentrevista").html(data);
-            UIkit.modal($("#urentrevista")).show();            
+            UIkit.modal($("#urentrevista")).show();
         }
     });
 }
@@ -799,7 +799,7 @@ function muestraSolicitudEntrevistaUR(id) {
 
 
 
-//--------------------------------funciones para mostrar y actualizar estado de pago 
+//--------------------------------funciones para mostrar y actualizar estado de pago
 
 function setELSolicitudesPago_UR() {
     let botonesSolicitudPagoUR = document.getElementsByClassName("urpago");
@@ -807,7 +807,7 @@ function setELSolicitudesPago_UR() {
         btn.addEventListener("click", function(b) {
             //console.log(btn);
             muestraSolicitudPagoUR(btn.getAttribute("idSolicitud"));
-            
+
         });
     }
 }
@@ -822,7 +822,7 @@ function muestraSolicitudPagoUR(id) {
         if(header.status===200 && status == 'success'){
             $("#urpago").html(data);
             $("#actualizarMetodo")[0].onclick = actualizarMetodoPago;
-            UIkit.modal($("#urpago")).show();            
+            UIkit.modal($("#urpago")).show();
         }
     });
 }
@@ -848,6 +848,3 @@ function actualizarMetodoPago() {
         });
     }
 }
-
-
-
