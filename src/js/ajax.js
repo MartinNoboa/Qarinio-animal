@@ -13,6 +13,9 @@ function filtrar() {
         order: $('input[name="order"]:checked').val(),
         macho: $("#macho").is(":checked"),
         hembra: $("#hembra").is(":checked"),
+        pequeno: $("#pequeno").is(":checked"),
+        mediano: $("#mediano").is(":checked"),
+        grande: $("#grande").is(":checked"),
     }).done(function (data) {
         $("#contenido-catalogo").html(data);
         setElEditar();
@@ -99,7 +102,6 @@ function submitEdicion() {
         condiciones_medicas: $("#condiciones-medicas").val(),
         personalidad: $("#personalidad").val()
     }).done(function (data) {
-        console.log(data);
         if(parseInt(data)!==0) {
             UIkit.modal($("#modal-editar")).hide();
             filtrar();
@@ -138,7 +140,6 @@ function mostrarPreguntas(){
                 "</li>";
         }
         document.getElementById('lista-preguntas').innerHTML=concatenacion;
-        console.log(concatenacion);
     });
 
 }
@@ -423,9 +424,8 @@ function nuevaSolicitud(){
         //si o no
         res12 : $('input[name="12"]:checked').val()
     }).done(function(data){
-        //console.log(data);
         if (data != 0){
-          mostrarMensaje("Se completó la solicitud correctamente", "success");
+          mostrarMensaje("Se completó el formulario correctamente", "success");
             //redireccionar a mis solicitudes
             setTimeout(function() {
           window.location.href = "misSolicitudes.php";
@@ -457,29 +457,28 @@ function cambiarContra() {
 
 function muestraSolicitudes() {
     $.get("vista_gestionar_solicitudes.php").done(function(data){
-        //console.log(data);
-        $("#tablaSolicitudes").html(data); 
+        $("#tablaSolicitudes").html(data);
         setELSolicitudes();
         setELSolicitudesPago();
         setELSolicitudesEntrevista();
 
     })
-    
+
 }
 
 function muestraMisSolicitudes() {
     $.post("vista_misSolicitudes.php",{
         idUsuario: $("#idUsuario").val()
     }).done(function(data){
-        
+
         //console.log(data);
-        $("#tablaMisSolicitudes").html(data); 
+        $("#tablaMisSolicitudes").html(data);
         setELSolicitudes_UR();
         setELSolicitudesPago_UR();
         setELSolicitudesEntrevista_UR();
 
     })
-    
+
 }
 
 function muestraAlert(idSolicitud) {
@@ -488,7 +487,6 @@ function muestraAlert(idSolicitud) {
         $.post("controlador_elimina_solicitud.php", {
             idSol: idSolicitud
         }).done(function(data){
-            //console.log(data);
             if(parseInt(data) != 0) {
                 // TODO: ESTO NO ES AJAX, YA LO SÉ BERNIE. HAY QUE PASAR LA FUNCION MOSTRAR PREGUNTAS DE UTIL A OTRA FUNCION JS
                 location.replace("misSolicitudes.php")
@@ -520,7 +518,6 @@ function editarPerfil() {
             ciudad: $("#ciudad").val(),
             estado: $("#estado").val()
         }).done(function(data) {
-            console.log(data);
             if(parseInt(data) != 0) {
                 mostrarMensaje("Tu perfil se actualizó correctamente","primary");
             }
@@ -545,14 +542,11 @@ function setELSolicitudes() {
         //console.log(id);
         btn.addEventListener("click", function(b) {
             muestraSolicitud(id);
-            
         });
     }
 }
 
 function muestraSolicitud(id) {
-
-    console.log(id);
     $.post("vista_solicitud.php", {
         idSolicitud: id
     }).done(function (data,status,header) {
@@ -560,7 +554,7 @@ function muestraSolicitud(id) {
             $("#formulario").html(data);
             $("#aprobar")[0].onclick = aprobarFormulario;
             $("#rechazar")[0].onclick = rechazarFormulario;
-            UIkit.modal($("#formulario")).show();            
+            UIkit.modal($("#formulario")).show();
         }
     });
 }
@@ -593,7 +587,6 @@ function rechazarFormulario() {
             idSolicitud: $("#idSolicitudActiva").val(),
             aprobar : false
         }).done(function(data){
-            //console.log(data);
             if(parseInt(data) != 0) {
                 mostrarMensaje("El formulario se rechazó correctamente.", "success");
             }
@@ -616,16 +609,14 @@ function setELSolicitudesEntrevista() {
     for(btn of botonesSolicitudEntrevista) {
         let id = btn.getAttribute("idSolicitud");
         btn.addEventListener("click", function(b) {
-            //console.log(btn);
+
             muestraSolicitudEntrevista(id);
-            
+
         });
     }
 }
 
 function muestraSolicitudEntrevista(id) {
-
-    //console.log(id);
     $.post("vista_aprobar_entrevista.php", {
         idSolicitud: id
     }).done(function (data,status,header) {
@@ -634,6 +625,7 @@ function muestraSolicitudEntrevista(id) {
             $("#entrevistaSi").onclick = aprobarEntrevista;
             $("#entrevistaNo").onclick = rechazarEntrevista;
             UIkit.modal($("#entrevista")).show();            
+
         }
     });
 }
@@ -645,9 +637,8 @@ function aprobarEntrevista() {
             idSolicitud: $("#idSolicitudActivaEntrevista").val(),
             aprobarEntrevista : true
         }).done(function(data){
-            console.log(data);
             if(parseInt(data) != 0) {
-                mostrarMensaje("La entrevista aprobó correctamente.", "success");
+                mostrarMensaje("La entrevista se aprobó correctamente.", "success");
             }
             else {
                 mostrarMensaje("Hubo un error al aprobar la entrevista.\nPor favor, intenta de nuevo.", "danger");
@@ -667,7 +658,6 @@ function rechazarEntrevista() {
             idSolicitud: $("#idSolicitudActivaEntrevista").val(),
             aprobarEntrevista : false
         }).done(function(data){
-            //console.log(data);
             if(parseInt(data) != 0) {
                 mostrarMensaje("La entrevista se rechazó correctamente.", "success");
             }
@@ -690,25 +680,21 @@ function setELSolicitudesPago() {
     for(btn of botonesSolicitudPago) {
         let id = btn.getAttribute("idSolicitud");
         btn.addEventListener("click", function(b) {
-            //console.log(btn);
             muestraSolicitudPago(id);
-            
+
         });
     }
 }
 
 function muestraSolicitudPago(id) {
-
-    //console.log(id);
     $.post("vista_aprobar_pago.php", {
         idSolicitud: id
     }).done(function (data,status,header) {
-        //console.log(data);
         if(header.status===200 && status == 'success'){
             $("#pago").html(data);
             $("#aprobarPago")[0].onclick = aprobarPago;
             $("#rechazarPago")[0].onclick = rechazarPago;
-            UIkit.modal($("#pago")).show();            
+            UIkit.modal($("#pago")).show();
         }
     });
 }
@@ -720,7 +706,6 @@ function aprobarPago() {
             idSolicitud: $("#idSolicitudActivaPago").val(),
             aprobarPago : true
         }).done(function(data){
-            console.log(data);
             if(parseInt(data) != 0) {
                 mostrarMensaje("El pago se aprobó correctamente.", "success");
             }
@@ -742,7 +727,6 @@ function rechazarPago() {
             idSolicitud: $("#idSolicitudActivaPago").val(),
             aprobarPago : false
         }).done(function(data){
-            //console.log(data);
             if(parseInt(data) != 0) {
                 mostrarMensaje("El pago se rechazó correctamente.", "success");
             }
@@ -769,9 +753,7 @@ function setELSolicitudes_UR() {
     for(btn of botonesSolicitudUR) {
         let id = btn.getAttribute("idSolicitud");
         btn.addEventListener("click", function(b) {
-            //console.log(btn);
             muestraSolicitudUR(id);
-            
         });
     }
 }
@@ -784,7 +766,7 @@ function muestraSolicitudUR(id) {
     }).done(function (data,status,header) {
         if(header.status===200 && status == 'success'){
             $("#urformulario").html(data);
-            UIkit.modal($("#urformulario")).show();            
+            UIkit.modal($("#urformulario")).show();
         }
     });
 }
@@ -800,9 +782,7 @@ function setELSolicitudesEntrevista_UR() {
     for(btn of botonesSolicitudEntrevistaUR) {
         let id = btn.getAttribute("idSolicitud");
         btn.addEventListener("click", function(b) {
-            //console.log(btn);
             muestraSolicitudEntrevistaUR(id);
-            
         });
     }
 }
@@ -815,7 +795,7 @@ function muestraSolicitudEntrevistaUR(id) {
     }).done(function (data,status,header) {
         if(header.status===200 && status == 'success'){
             $("#urentrevista").html(data);
-            UIkit.modal($("#urentrevista")).show();            
+            UIkit.modal($("#urentrevista")).show();
         }
     });
 }
@@ -823,7 +803,7 @@ function muestraSolicitudEntrevistaUR(id) {
 
 
 
-//--------------------------------funciones para mostrar y actualizar estado de pago 
+//--------------------------------funciones para mostrar y actualizar estado de pago
 
 function setELSolicitudesPago_UR() {
     let botonesSolicitudPagoUR = document.getElementsByClassName("urpago");
@@ -832,7 +812,6 @@ function setELSolicitudesPago_UR() {
         btn.addEventListener("click", function(b) {
             //console.log(btn);
             muestraSolicitudPagoUR(id);
-            
         });
     }
 }
@@ -847,7 +826,7 @@ function muestraSolicitudPagoUR(id) {
         if(header.status===200 && status == 'success'){
             $("#urpago").html(data);
             $("#actualizarMetodo")[0].onclick = actualizarMetodoPago;
-            UIkit.modal($("#urpago")).show();            
+            UIkit.modal($("#urpago")).show();
         }
     });
 }
@@ -873,6 +852,3 @@ function actualizarMetodoPago() {
         });
     }
 }
-
-
-

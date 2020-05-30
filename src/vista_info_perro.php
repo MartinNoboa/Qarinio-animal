@@ -3,7 +3,6 @@ include_once("util.php");
 
 $_POST["idPerro"] = limpia_entrada($_POST["idPerro"]);
 session_start();
-echo $_POST["idPerro"];
 $info = getDogInfoById($_POST["idPerro"]);
 ?>
     <div class="uk-modal-dialog uk-modal-body uk-border-rounded">
