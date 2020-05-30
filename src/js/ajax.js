@@ -468,7 +468,10 @@ function muestraSolicitudes() {
 }
 
 function muestraMisSolicitudes() {
-    $.get("vista_misSolicitudes.php").done(function(data){
+    $.post("vista_misSolicitudes.php",{
+        idUsuario: $("#idUsuario").val()
+    }).done(function(data){
+        
         //console.log(data);
         $("#tablaMisSolicitudes").html(data); 
         setELSolicitudes_UR();
@@ -754,27 +757,25 @@ function rechazarPago() {
 //!!!!!!!!!!!!!!--------------------------------MANEJO SOLICITUDES USUARIO REGISTRADO-------------------------------!!!!!!!!!
 
 function setELSolicitudes_UR() {
-    let botonesSolicitud = document.getElementsByClassName("formulario");
-    for(btn of botonesSolicitud) {
+    let botonesSolicitudUR = document.getElementsByClassName("urformulario");
+    for(btn of botonesSolicitudUR) {
         btn.addEventListener("click", function(b) {
             //console.log(btn);
-            muestraSolicitud(btn.getAttribute("idSolicitud"));
+            muestraSolicitudUR(btn.getAttribute("idSolicitud"));
             
         });
     }
 }
 
-function muestraSolicitud(id) {
+function muestraSolicitudUR(id) {
 
     //console.log(id);
-    $.post("vista_solicitud.php", {
+    $.post("vista_solicitud_ur.php", {
         idSolicitud: id
     }).done(function (data,status,header) {
         if(header.status===200 && status == 'success'){
-            $("#formulario").html(data);
-            $("#aprobar")[0].onclick = aprobarFormulario;
-            $("#rechazar")[0].onclick = rechazarFormulario;
-            UIkit.modal($("#formulario")).show();            
+            $("#urformulario").html(data);
+            UIkit.modal($("#urformulario")).show();            
         }
     });
 }
@@ -786,27 +787,25 @@ function muestraSolicitud(id) {
 
 
 function setELSolicitudesEntrevista_UR() {
-    let botonesSolicitudEntrevista = document.getElementsByClassName("entrevista");
-    for(btn of botonesSolicitudEntrevista) {
+    let botonesSolicitudEntrevistaUR = document.getElementsByClassName("urentrevista");
+    for(btn of botonesSolicitudEntrevistaUR) {
         btn.addEventListener("click", function(b) {
             //console.log(btn);
-            muestraSolicitudEntrevista(btn.getAttribute("idSolicitud"));
+            muestraSolicitudEntrevistaUR(btn.getAttribute("idSolicitud"));
             
         });
     }
 }
 
-function muestraSolicitudEntrevista(id) {
+function muestraSolicitudEntrevistaUR(id) {
 
     //console.log(id);
-    $.post("vista_aprobar_entrevista.php", {
+    $.post("vista_entrevista_ur.php", {
         idSolicitud: id
     }).done(function (data,status,header) {
         if(header.status===200 && status == 'success'){
-            $("#entrevista").html(data);
-            $("#entrevistaSi")[0].onclick = aprobarEntrevista;
-            $("#entrevistaNo")[0].onclick = rechazarEntrevista;
-            UIkit.modal($("#entrevista")).show();            
+            $("#urentrevista").html(data);
+            UIkit.modal($("#urentrevista")).show();            
         }
     });
 }
@@ -817,26 +816,26 @@ function muestraSolicitudEntrevista(id) {
 //--------------------------------funciones para actualizar estado de pago admin
 
 function setELSolicitudesPago_UR() {
-    let botonesSolicitudPago = document.getElementsByClassName("pago");
-    for(btn of botonesSolicitudPago) {
+    let botonesSolicitudPagoUR = document.getElementsByClassName("urpago");
+    for(btn of botonesSolicitudPagoUR) {
         btn.addEventListener("click", function(b) {
             //console.log(btn);
-            muestraSolicitudPago(btn.getAttribute("idSolicitud"));
+            muestraSolicitudPagoUR(btn.getAttribute("idSolicitud"));
             
         });
     }
 }
 
-function muestraSolicitudPago(id) {
+function muestraSolicitudPagoUR(id) {
 
     //console.log(id);
-    $.post("vista_aprobar_pago.php", {
+    $.post("vista_pago_ur.php", {
         idSolicitud: id
     }).done(function (data,status,header) {
         //console.log(data);
         if(header.status===200 && status == 'success'){
-            $("#pago").html(data);
-            UIkit.modal($("#pago")).show();            
+            $("#urpago").html(data);
+            UIkit.modal($("#urpago")).show();            
         }
     });
 }

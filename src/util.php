@@ -379,13 +379,13 @@ function sintaxisEdad($meses) {
     return $age;
 }
 
-function muestraSolicitudes(){
+function muestraSolicitudes($id){
     $conDb = connectDb();
 
     $sql = "
     SELECT s.idSolicitud as 'idSolicitud', p.nombre as 'Perro', s.estadoFormulario as 'Formulario', s.estadoEntrevista as 'Entrevista', s.estadoPago as 'Pago'
 FROM perros p, usuario u, solicitud s
-WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.idUsuario='".$_SESSION["id"]."'";
+WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.idUsuario= $id";
 
     $tabla = "
     <table class=\"uk-table uk-table-divider uk-table-striped uk-table-large uk-table-hover uk-animation-slide-bottom-medium\">
@@ -719,7 +719,7 @@ function muestraTodasSolicitudes(){
 }
 
 function getFormulario($id){
-    $sql = "SELECT p.idPregunta as 'n', p.pregunta as 'pregunta', r.respuesta as 'respuesta', pe.nombre as 'perro', u.nombre as 'usuario'
+    $sql = "SELECT p.idPregunta as 'n', p.pregunta as 'pregunta', r.respuesta as 'respuesta', pe.nombre as 'perro', u.nombre as 'usuario', u.apellido as 'apellido'
 FROM preguntas as p, respuestas as r, solicitud as s, perros as pe , usuario as u 
 WHERE p.idPregunta = r.idPregunta AND $id = r.idSolicitud 
 AND s.idPerro = pe.idPerro

@@ -1,6 +1,7 @@
 <?php
     include '_header.html';
     include '_navbar.html';
+    $idUsuario = $_SESSION["id"];
     if(checkPriv("adoptar")):
 ?>
 
@@ -22,6 +23,9 @@
 <div class = "uk-modal-container" id = "urformulario"></div>
 <div class = "uk-modal-container" id = "urpago"></div>
 <div class = "uk-modal-container" id = "urentrevista"></div>
+<form>
+    <input id = "idUsuario" type = number value = <?= $idUsuario ?> hidden readonly >
+</form>
 
 
 </div>
@@ -32,6 +36,7 @@ else:
 endif;
 include '_footer.html'; ?>
 <script type="text/javascript">
+    
     muestraMisSolicitudes();
 
 </script>
