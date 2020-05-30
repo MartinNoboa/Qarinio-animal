@@ -539,10 +539,12 @@ function editarPerfil() {
 
 function setELSolicitudes() {
     let botonesSolicitud = document.getElementsByClassName("formulario");
+    
     for(btn of botonesSolicitud) {
+        let id = btn.getAttribute("idSolicitud");
+        //console.log(id);
         btn.addEventListener("click", function(b) {
-            //console.log(btn);
-            muestraSolicitud(btn.getAttribute("idSolicitud"));
+            muestraSolicitud(id);
             
         });
     }
@@ -550,7 +552,7 @@ function setELSolicitudes() {
 
 function muestraSolicitud(id) {
 
-    //console.log(id);
+    console.log(id);
     $.post("vista_solicitud.php", {
         idSolicitud: id
     }).done(function (data,status,header) {
@@ -612,9 +614,10 @@ function rechazarFormulario() {
 function setELSolicitudesEntrevista() {
     let botonesSolicitudEntrevista = document.getElementsByClassName("entrevista");
     for(btn of botonesSolicitudEntrevista) {
+        let id = btn.getAttribute("idSolicitud");
         btn.addEventListener("click", function(b) {
             //console.log(btn);
-            muestraSolicitudEntrevista(btn.getAttribute("idSolicitud"));
+            muestraSolicitudEntrevista(id);
             
         });
     }
@@ -628,8 +631,8 @@ function muestraSolicitudEntrevista(id) {
     }).done(function (data,status,header) {
         if(header.status===200 && status == 'success'){
             $("#entrevista").html(data);
-            $("#entrevistaSi")[0].onclick = aprobarEntrevista;
-            $("#entrevistaNo")[0].onclick = rechazarEntrevista;
+            $("#entrevistaSi").onclick = aprobarEntrevista;
+            $("#entrevistaNo").onclick = rechazarEntrevista;
             UIkit.modal($("#entrevista")).show();            
         }
     });
@@ -685,9 +688,10 @@ function rechazarEntrevista() {
 function setELSolicitudesPago() {
     let botonesSolicitudPago = document.getElementsByClassName("pago");
     for(btn of botonesSolicitudPago) {
+        let id = btn.getAttribute("idSolicitud");
         btn.addEventListener("click", function(b) {
             //console.log(btn);
-            muestraSolicitudPago(btn.getAttribute("idSolicitud"));
+            muestraSolicitudPago(id);
             
         });
     }
@@ -763,9 +767,10 @@ function rechazarPago() {
 function setELSolicitudes_UR() {
     let botonesSolicitudUR = document.getElementsByClassName("urformulario");
     for(btn of botonesSolicitudUR) {
+        let id = btn.getAttribute("idSolicitud");
         btn.addEventListener("click", function(b) {
             //console.log(btn);
-            muestraSolicitudUR(btn.getAttribute("idSolicitud"));
+            muestraSolicitudUR(id);
             
         });
     }
@@ -793,9 +798,10 @@ function muestraSolicitudUR(id) {
 function setELSolicitudesEntrevista_UR() {
     let botonesSolicitudEntrevistaUR = document.getElementsByClassName("urentrevista");
     for(btn of botonesSolicitudEntrevistaUR) {
+        let id = btn.getAttribute("idSolicitud");
         btn.addEventListener("click", function(b) {
             //console.log(btn);
-            muestraSolicitudEntrevistaUR(btn.getAttribute("idSolicitud"));
+            muestraSolicitudEntrevistaUR(id);
             
         });
     }
@@ -822,9 +828,10 @@ function muestraSolicitudEntrevistaUR(id) {
 function setELSolicitudesPago_UR() {
     let botonesSolicitudPagoUR = document.getElementsByClassName("urpago");
     for(btn of botonesSolicitudPagoUR) {
+        let id = btn.getAttribute("idSolicitud");
         btn.addEventListener("click", function(b) {
             //console.log(btn);
-            muestraSolicitudPagoUR(btn.getAttribute("idSolicitud"));
+            muestraSolicitudPagoUR(id);
             
         });
     }

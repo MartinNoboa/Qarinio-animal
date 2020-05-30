@@ -16,8 +16,8 @@
     </div>
 </div>
 
-<div class = "uk-modal-container" id = "formulario">
-<div class = "uk-modal-container" id = "pago">
+<div class = "uk-modal-container" id = "formulario"></div>
+    <div class = "uk-modal-container" id = "pago"></div>
 <div class = "uk-modal-container" id = "entrevista">
 </div>
 

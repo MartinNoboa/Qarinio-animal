@@ -3,6 +3,7 @@
 
 
     $idSolicitud = limpia_entrada($_POST['idSolicitud']);
+    print_r($idSolicitud);
     
 ?>
 <div class="uk-modal-dialog uk-modal-body uk-border-rounded">

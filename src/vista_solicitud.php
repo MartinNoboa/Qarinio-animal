@@ -2,7 +2,7 @@
     include_once("util.php");
 
 
-    $idSolicitud = limpia_entrada($_POST['idSolicitud']);
+    $idSolicitud = $_POST['idSolicitud'];
     
 ?>
 <div class="uk-modal-dialog uk-modal-body uk-border-rounded">
@@ -41,7 +41,7 @@
                     </div>
 
                 </div>
-                    <input id = "idSolicitudActiva" type = "number" value = <?= $idSolicitud ?> hidden readonly></input>
+                    <input id = "idSolicitudActiva" type = "number" value = <?= $idSolicitud ?>  readonly></input>
 
             </form>
         </div>
