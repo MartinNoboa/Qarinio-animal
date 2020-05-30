@@ -47,13 +47,27 @@ include_once("util.php")
                     <li><label><input id="pequeno" class="uk-checkbox uk-border-rounded" type="checkbox"> Pequeño</label></li>
                     <li><label><input id="mediano" class="uk-checkbox uk-border-rounded" type="checkbox"> Mediano</label></li>
                     <li><label><input id="grande" class="uk-checkbox uk-border-rounded" type="checkbox"> Grande</label></li>
-                    <hr>
-                    <li></li>
-                    <li>
-                        <select class="uk-select uk-border-rounded" id="raza" name="raza">
-                            <?= recuperarOpciones("idRaza", "raza", "tipo_raza") ?>
-                        </select>
-                    </li>
+                <hr>
+                <li></li>
+                <li>
+                    <select class="uk-select uk-border-rounded" id="raza" name="raza">
+                        <?= recuperarOpciones("idRaza", "raza", "tipo_raza") ?>
+                    </select>
+                </li>
+                <hr>
+                <li></li>
+                <li>
+                    <select class="uk-select uk-border-rounded" id="raza" name="raza">
+                        <?= recuperarOpciones("idPersonalidad", "personalidad", "tipo_personalidad") ?>
+                    </select>
+                </li>
+                <hr>
+                <li></li>
+                <li>
+                    <select class="uk-select uk-border-rounded" id="raza" name="raza">
+                        <?= recuperarOpciones("idCondicion", "condicion", "condiciones_medicas") ?>
+                    </select>
+                </li>
                 </ul>
             </li>
             <li class="uk-parent">
@@ -62,9 +76,10 @@ include_once("util.php")
                     <li>Ordenar Por</li>
                     <li>
                         <select id="sort" name="sort" class="uk-select uk-border-rounded">
-                            <option value="idPerro" disabled selected>Seleccione una opción</option>
+                            <option value="idPerro" selected>Seleccione una opción</option>
                             <option value="name">Nombre</option>
                             <option value="timeIn">Tiempo en el refugio</option>
+                            <option value="age">Edad</option>
                         </select>
                     </li>
                     <hr>
@@ -102,7 +117,13 @@ include_once("util.php")
     //Asignar al botón buscar, la función buscar()
     document.getElementById("filtrar").onclick = filtrar;
 
-    document.getElementById("buscarNom").onchange = filtrar;
+    let waitForTypeStop = null;
+    document.getElementById("buscarNom").addEventListener("input", function(){
+        clearTimeout(waitForTypeStop);
+        waitForTypeStop = setTimeout(function(){
+            filtrar();
+        }, 500)
+    });
 
 
 

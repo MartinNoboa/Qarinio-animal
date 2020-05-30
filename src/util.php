@@ -240,7 +240,7 @@ function filterDogs($busq, $minA, $maxA, $male, $female, $peq, $med, $gra, $sort
         $sql.=")";
     }
 
-    $sql.=" AND p.nombre LIKE '$busq%'";
+    $sql.=" AND p.nombre LIKE '%$busq%'";
 
     $sql.=" HAVING Edad BETWEEN " . $minA . " AND " . $maxA;
 
@@ -251,9 +251,12 @@ function filterDogs($busq, $minA, $maxA, $male, $female, $peq, $med, $gra, $sort
         case "timeIn":
             $sql.=" ORDER BY fechaLlegada";
             break;
-        default:
+        case "age":
+            $sql.=" ORDER BY edad";
             break;
-
+        default:
+            $sort="";
+            break;
     }
     if($sort!="" AND $order){
         $sql.=" ".$order;
