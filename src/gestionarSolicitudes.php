@@ -5,7 +5,7 @@
 ?>
 
 <div class="uk-container uk-margin uk-margin-large-bottom">
-    <h1 class="uk-text-center">Mis Solicitudes de Adopción</h1>
+    <h1 class="uk-text-center">Gestionar Solicitudes de Adopción</h1>
     <hr class="uk-divider-icon">
     <h5 class="uk-margin-remove-bottom">Haz clic sobre cada elemento de tu solicitud para obtener más información.</h5>
 
@@ -17,6 +17,8 @@
 </div>
 
 <div class = "uk-modal-container" id = "formulario">
+<div class = "uk-modal-container" id = "pago">
+<div class = "uk-modal-container" id = "entrevista">
 </div>
 
 <?php
