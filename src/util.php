@@ -659,7 +659,7 @@ function muestraTodasSolicitudes(){
             $tabla .= "<td class=\" uk-text-center\">
             <div class = ' formulario 'idSolicitud =" .$row["idSolicitud"].">
             <a class=\" uk-link-text\">
-            <span class=\" formulario uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: No ha sido revisado este formulario.\"></span>
+            <span class=\" uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: No ha sido revisado este formulario.\"></span>
             </a>
             </div>
             </td>";
@@ -745,9 +745,9 @@ function muestraTodasSolicitudes(){
 }
 
 function getFormulario($id){
-    $sql = "SELECT p.idPregunta as 'n', p.pregunta as 'pregunta', r.respuesta as 'respuesta', pe.nombre as 'perro', u.nombre as 'usuario', u.apellido as 'apellido'
+    $sql = "SELECT s.idSolicitud as 'id', p.idPregunta as 'n', p.pregunta as 'pregunta', r.respuesta as 'respuesta', pe.nombre as 'perro', u.nombre as 'usuario', u.apellido as 'apellido'
 FROM preguntas as p, respuestas as r, solicitud as s, perros as pe , usuario as u 
-WHERE p.idPregunta = r.idPregunta AND $id = r.idSolicitud 
+WHERE p.idPregunta = r.idPregunta AND $id = s.idSolicitud  AND r.idSolicitud = s.idSolicitud
 AND s.idPerro = pe.idPerro
 AND s.idUsuario = u.idUsuario";
     
