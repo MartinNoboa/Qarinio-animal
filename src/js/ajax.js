@@ -138,7 +138,6 @@ function mostrarPreguntas(){
                 "</li>";
         }
         document.getElementById('lista-preguntas').innerHTML=concatenacion;
-        console.log(concatenacion);
     });
 
 }
