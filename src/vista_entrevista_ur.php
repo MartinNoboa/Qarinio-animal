@@ -3,7 +3,6 @@
 
 
     $idSolicitud = limpia_entrada($_POST['idSolicitud']);
-    print_r($idSolicitud);
     
 ?>
 <div class="uk-modal-dialog uk-modal-body uk-border-rounded">
@@ -21,8 +20,8 @@
                     <thead>
                         <tr>
                             <th class=\"uk-width-small uk-text-secondary\">Adoptante</th>
-                            <th class=\"uk-width-small uk-text-secondary\">Número de teléfono</th>
                             <th class=\"uk-width-small uk-text-secondary\">Estado</th>
+                            <th class=\"uk-width-small uk-text-secondary\">Comentario</th>
                             </tr>
                     </thead>
                     <tbody>";
@@ -31,8 +30,19 @@
                     while($row = mysqli_fetch_array($result, MYSQLI_BOTH)) {
                         $ans .= "<tr>";
                         $ans .= "<td>".$row['nombre']. " " .$row['apellido'] . "</td>";
-                        $ans .= "<td>".$row['telf']."</td>";
                         $ans .= "<td>".$row['estado']."</td>";
+                        
+                        if ($row["estado"] == 'Aprobado'){
+                            $ans .= "<td>¡Ya realizaste tu entrevista y fue aprobada!</td>";
+                            
+                        }elseif ($row["estado"] == 'En proceso'){
+                            $ans .= "<td>Todavia no has realizado tu entrevista. Alguien se pondrá en contacto contigo lo mas pronto posible.</td>";
+                            
+                        }elseif ($row["estado"] == 'Rechazado'){
+                            $ans .= "<td>Desafortunadamente, no pasaste la entrevista. Si deseas adoptar al perro, vuelve a inciar el proceso de adopción.</td>";
+                            
+                        }
+                        
                         
                         $ans .= "</tr>";
     
@@ -44,15 +54,6 @@
                     
                     ?>
                     
-                    <div class="uk-child-width-expand@s uk-text-center uk-margin-top" uk-grid>
-                        <div>
-                            <input class="uk-button uk-button-default uk-border-rounded uk-width-1-1" type="button"  value = "Aprobar entrevista" id = "entrevistaSi"></input>
-                        </div>
-                        <div>
-                            <input class="uk-button uk-button-danger uk-modal-close uk-border-rounded uk-width-1-1" type="button" id = "entrevistaNo" value = "Rechazar entrevista"></input>
-                        </div>
-                    </div>
-
                 
                     <input id = "idSolicitudActivaEntrevista" type = "number" value = <?= $idSolicitud ?> hidden readonly></input>
 
