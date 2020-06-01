@@ -151,7 +151,9 @@
           </div>
           <div class="uk-margin" uk-scrollspy="cls:uk-animation-slide-left;">
               <label class="uk-form-label">Fecha de Nacimiento:<label class="uk-form-label uk-text-danger">*</label></label>
-              <input class="uk-input uk-border-rounded" type="date" max="2001-01-01"  min="1950-01-01" name="fechaNacimiento" placeholder="Fecha de Nacimiento" <?= isset($_POST["fechaNacimiento"])?"value='{$_POST['fechaNacimiento']}'":"" ?>>
+
+              <input class="uk-input" type="date" max="<?= date("Y-m-d",strtotime("-18 years")) ?>" min="<?= date("Y-m-d",strtotime("-120 years")) ?>" name="fechaNacimiento" placeholder="Fecha de Nacimiento" <?= isset($_POST["fechaNacimiento"])?"value='{$_POST['fechaNacimiento']}'":"" ?>>
+
           </div>
       </div>
       <div <?= $_SESSION["createState"]!=2?"hidden":"" ?>>
