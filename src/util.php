@@ -879,4 +879,11 @@ function actualizarMetodoPago($id, $metodo){
     return $result;
 }
 
+function agregarOperador($email){
+    $sql1="UPDATE usuario_rol
+    SET idRol = 2
+    WHERE idUsuario=(select idUsuario from  usuario where email='".$email."')";
+    return modifyDb($sql1);
+}
+
 
