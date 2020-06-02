@@ -1,5 +1,6 @@
 <?php
     include("util.php");
+    session_start();
     $email = limpia_entrada($_POST["email-operador"]);
     $result=agregarOperador($email);
   
