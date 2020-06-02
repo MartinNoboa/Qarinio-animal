@@ -107,7 +107,6 @@ function submitEdicion() {
             personalidad: $("#personalidad").val(),
             estado: $("#estado").val()
     }).done(function (data) {
-        console.log(data);
         if(parseInt(data)>0) {
             UIkit.modal($("#modal-editar")).hide();
             filtrar();
@@ -139,11 +138,14 @@ function mostrarPreguntas(){
         let i = 0;
         let concatenacion="";
         for(i=0;i<data.length;i++){
-            concatenacion+=
+            if(data[i].pregunta != "" && data[i].respuesta != ""){
+               concatenacion+=
                 '<li class="uk-closed"><a class="uk-accordion-title" href="#">'+
                 data[i].pregunta +"</a>"+
                 '<div class="uk-accordion-content"><p>'+data[i].respuesta + '</p></div>'+
                 "</li>";
+               }
+            
         }
         document.getElementById('lista-preguntas').innerHTML=concatenacion;
     });
@@ -476,8 +478,6 @@ function muestraMisSolicitudes() {
     $.post("vista_misSolicitudes.php",{
         idUsuario: $("#idUsuario").val()
     }).done(function(data){
-
-        //console.log(data);
         $("#tablaMisSolicitudes").html(data);
         setELSolicitudes_UR();
         setELSolicitudesPago_UR();
@@ -545,7 +545,6 @@ function setELSolicitudes() {
     
     for(btn of botonesSolicitud) {
         let id = btn.getAttribute("idSolicitud");
-        //console.log(id);
         btn.addEventListener("click", function(b) {
             muestraSolicitud(id);
         });
@@ -765,8 +764,6 @@ function setELSolicitudes_UR() {
 }
 
 function muestraSolicitudUR(id) {
-
-    //console.log(id);
     $.post("vista_solicitud_ur.php", {
         idSolicitud: id
     }).done(function (data,status,header) {
@@ -794,8 +791,6 @@ function setELSolicitudesEntrevista_UR() {
 }
 
 function muestraSolicitudEntrevistaUR(id) {
-
-    //console.log(id);
     $.post("vista_entrevista_ur.php", {
         idSolicitud: id
     }).done(function (data,status,header) {
@@ -816,19 +811,16 @@ function setELSolicitudesPago_UR() {
     for(btn of botonesSolicitudPagoUR) {
         let id = btn.getAttribute("idSolicitud");
         btn.addEventListener("click", function(b) {
-            //console.log(btn);
+   
             muestraSolicitudPagoUR(id);
         });
     }
 }
 
 function muestraSolicitudPagoUR(id) {
-
-    //console.log(id);
     $.post("vista_pago_ur.php", {
         idSolicitud: id
     }).done(function (data,status,header) {
-        //console.log(data);
         if(header.status===200 && status == 'success'){
             $("#urpago").html(data);
             $("#actualizarMetodo")[0].onclick = actualizarMetodoPago;
@@ -844,7 +836,6 @@ function actualizarMetodoPago() {
             idSolicitud: $("#idSolicitudActivaMetodoPago").val(),
             metodo : $("#metodoPago").val()
         }).done(function(data){
-            console.log(data);
             if(parseInt(data) != 0) {
                 mostrarMensaje("El método de pago se actualizó correctamente.", "success");
             }
