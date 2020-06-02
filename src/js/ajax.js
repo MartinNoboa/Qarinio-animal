@@ -139,11 +139,15 @@ function mostrarPreguntas(){
         let i = 0;
         let concatenacion="";
         for(i=0;i<data.length;i++){
-            concatenacion+=
+            console.log(data[i].pregunta);
+            if(data[i].pregunta != "" && data[i].respuesta != ""){
+               concatenacion+=
                 '<li class="uk-closed"><a class="uk-accordion-title" href="#">'+
                 data[i].pregunta +"</a>"+
                 '<div class="uk-accordion-content"><p>'+data[i].respuesta + '</p></div>'+
                 "</li>";
+               }
+            
         }
         document.getElementById('lista-preguntas').innerHTML=concatenacion;
     });

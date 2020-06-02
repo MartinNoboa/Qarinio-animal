@@ -13,6 +13,7 @@
             $data[$key]['pregunta'] = $datosp[$key];
         }
     }
+    print_r($data);
     $newJsonString = json_encode($data);
     echo file_put_contents('preguntas.json', $newJsonString);
 ?>
