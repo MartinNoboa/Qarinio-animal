@@ -34,7 +34,7 @@ mostrarContacto();
 <?php unset($_SESSION["error"]); endif; ?>
 <?php if(isset($_SESSION["mensaje"]) && $_SESSION["mensaje"]!=""): ?>
     <script>
-        window.onload = mostrarMensaje('<?= $_SESSION["mensaje"] ?>',"primary");
+        window.onload = mostrarMensaje('<?= $_SESSION["mensaje"] ?>',"success");
     </script>
 <?php unset($_SESSION["mensaje"]); endif; ?>
 </body>

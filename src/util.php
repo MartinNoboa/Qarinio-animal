@@ -466,9 +466,9 @@ WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.idUsuario= $id";
     while($row = mysqli_fetch_array($solicitudes, MYSQLI_BOTH)) {
         $tabla .= "<tr>";
         $tabla .= "<td>".$row['Perro']."</td>";
-        
+
         //------------------------------------------------------ Estado del formulario
-        
+
        if($row['Formulario'] == 5) { //completado
             $tabla .= "<td class=\" uk-text-center\">
             <div class = 'urformulario' idSolicitud =" .$row["idSolicitud"].">
@@ -496,10 +496,10 @@ WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.idUsuario= $id";
             </div>
             </td>";
         }
-        
-        
+
+
         //------------------------------------------------------ Estado de la entrevista
-        
+
 
         if($row['Entrevista'] == 5) { //completado
             $tabla .= "<td class=\"uk-text-center\">
@@ -528,7 +528,7 @@ WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.idUsuario= $id";
             </div>
             </td>";
         }
-        
+
         //----------------------------------------estado pago
 
 
@@ -657,7 +657,7 @@ function recuperarProximoId(){
 
 function muestraTodasSolicitudes(){
     $sql = "SELECT u.nombre as 'adoptante',s.idSolicitud as 'idSolicitud', p.nombre as 'Perro', s.estadoFormulario as 'Formulario',s.estadoEntrevista as         'Entrevista', s.estadoPago as 'Pago'
-            FROM usuario as u,solicitud as s, perros as p 
+            FROM usuario as u,solicitud as s, perros as p
             WHERE u.idUsuario = s.idUsuario AND p.idPerro = s.idPerro";
     $result = sqlqry($sql);
     $tabla = "
@@ -678,9 +678,9 @@ function muestraTodasSolicitudes(){
         $tabla .= "<tr>";
         $tabla .= "<td>".$row['adoptante']."</td>";
         $tabla .= "<td>".$row['Perro']."</td>";
-        
+
         //----------------------------------------estado formulario
-        
+
         if($row['Formulario'] == 5) { //completado
             $tabla .= "<td class=\" uk-text-center\">
             <div class = 'formulario' idSolicitud =" .$row["idSolicitud"].">
@@ -708,11 +708,11 @@ function muestraTodasSolicitudes(){
             </div>
             </td>";
         }
-    
-        
+
+
         //----------------------------------------estado entrevista
-        
-        
+
+
         if($row['Entrevista'] == 5) { //completado
             $tabla .= "<td class=\"uk-text-center\">
             <div class = \"entrevista \" idSolicitud =".$row["idSolicitud"].">
@@ -740,7 +740,7 @@ function muestraTodasSolicitudes(){
             </div>
             </td>";
         }
-        
+
         //----------------------------------------estado pago
 
 
@@ -776,20 +776,20 @@ function muestraTodasSolicitudes(){
     mysqli_free_result($result); //Liberar la memoria
     $tabla .= "</tbody></table>";
     return $tabla;
-    
+
 }
 
 function getFormulario($id){
     $sql = "SELECT s.idSolicitud as 'id', p.idPregunta as 'n', p.pregunta as 'pregunta', r.respuesta as 'respuesta', pe.nombre as 'perro', u.nombre as 'usuario', u.apellido as 'apellido'
-FROM preguntas as p, respuestas as r, solicitud as s, perros as pe , usuario as u 
+FROM preguntas as p, respuestas as r, solicitud as s, perros as pe , usuario as u
 WHERE p.idPregunta = r.idPregunta AND $id = s.idSolicitud  AND r.idSolicitud = s.idSolicitud
 AND s.idPerro = pe.idPerro
 AND s.idUsuario = u.idUsuario";
-    
+
     $result = sqlqry($sql);
 
-    
-    
+
+
     return $result;
 }
 
@@ -852,12 +852,12 @@ function actualizarEstadoFormulario($id,$estado){
     $sql = "UPDATE solicitud SET estadoFormulario = $estado WHERE idSolicitud = $id";
     $result = modifyDb($sql);
     $idperro = sqlqry("SELECT p.idPerro FROM perros  as  p, solicitud as s WHERE p.idPerro = $id");
-    
+
     $sql2 = "UPDATE estado_perro SET idEstado = 6 WHERE idPerro = $idperro";
     $result2 = sqlqry($sql2);
-    
+
     return $result + $result2;
-    
+
 }
 
 function actualizarEstadoEntrevista($id,$estado){
@@ -886,4 +886,38 @@ function agregarOperador($email){
     return modifyDb($sql1);
 }
 
+function muestraOperadores() {
+    $sql = "SELECT u.idUsuario as 'id', u.nombre as 'nombre', u.apellido as 'apellido', u.email as 'email'
+            FROM usuario as u, usuario_rol as ur
+            WHERE u.idUsuario=ur.IdUsuario AND idRol=2";
+    $result = sqlqry($sql);
+    $tabla = "
+    <table class=\"uk-table uk-table-divider uk-table-striped uk-table-large uk-table-hover uk-animation-slide-bottom-medium\">
+        <thead>
+            <tr>
+                <th class=\"uk-width-small uk-text-secondary\">Nombre</th>
+                <th class=\"uk-width-small uk-text-secondary\">Correo Electrónico</th>
+                <th class=\"uk-text-secondary uk-table-shrink\"></th>
+            </tr>
+        </thead>
+        <tbody>
+    ";
+    while($row = mysqli_fetch_array($result, MYSQLI_BOTH)) {
+        $tabla .= "<tr>";
+        $tabla .= "<td>".$row['nombre']. " ". $row['apellido'] ."</td>";
+        $tabla .= "<td>".$row['email']."</td>";
+        $tabla .= '<td><button type="submit" name="btn-elimina-solicitud" id="'.$row['id'].'" class="uk-button-danger uk-button-small uk-button uk-border-rounded" uk-tooltip="title: Eliminar operador" onclick="muestraAlertOperador('.$row['id'].')"><span uk-icon="icon: trash"></span></button></td>';
+        $tabla .= "</tr>";
+    }
+    mysqli_free_result($result); //Liberar la memoria
+    $tabla .= "</tbody></table>";
+    return $tabla;
 
+}
+
+function eliminaOperador($id) {
+    $sql1="UPDATE usuario_rol
+    SET idRol = 3
+    WHERE idUsuario=$id";
+    return modifyDb($sql1);
+}
