@@ -7,16 +7,15 @@ include_once("util.php")
 <div id="modal-info" class="uk-modal-container" uk-modal></div>
 <div id="modal-editar" class="uk-modal-container" uk-modal></div>
 <div class="uk-container uk-margin uk-animation-slide-bottom-medium">
-    <h1 class="uk-text-center">Nuestros Perros</h1>
+    <h1 class="uk-text-center">Nuestros Perros </h1>
     <hr class="uk-divider-icon">
 </div>
-
-
 <?php if(checkPriv("registrar")){
     echo "<a href='agregarPerro' uk-tooltip = 'Agregar perro' class='uk-icon-link uk-align-right uk-margin-large-right' uk-icon='plus-circle'; ratio ='2'></a>";
 }
 ?>
-<div id="main" class="uk-margin uk-grid-divider" uk-grid>
+
+<div id="main" class="uk-margin uk-grid-divider uk-margin-small-left uk-margin-small-right" uk-grid>
     <div id="filterMenu" class="uk-margin-left uk-width-1-4@m uk-margin-remove">
         <?php if(checkPriv("editar-perro")){
             echo "<span>Mostrar Por Estado:</span>
@@ -115,6 +114,7 @@ include_once("util.php")
             <button id="filtrar" class="uk-button uk-button-primary uk-align-right uk-border-rounded uk-overflow-auto">Aplicar</button>
         </ul>
     </div>
+
 
     <div class="uk-width-expand uk-margin-right">
         <div class="uk-animation-slide-bottom-medium" id="contenido-catalogo" uk-grid>
