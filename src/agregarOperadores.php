@@ -13,8 +13,8 @@ if(checkPriv("editar-faq") && checkPriv("editar-info-contacto")):
                  <input class="uk-input uk-border-rounded uk-width-medium" placeholder="jperez@ejemplo.com" type="email" id="email-operador" name="email-operador">
                 <button class="uk-button uk-button-primary uk-border-rounded uk-width-auto " id="agregar-operador">
                 Agregar</button>
-
         </form>
+        <?= muestraOperadores(); ?>
     </div>
 
 

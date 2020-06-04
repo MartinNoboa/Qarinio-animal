@@ -486,7 +486,25 @@ function muestraMisSolicitudes() {
     })
 
 }
+function muestraAlertOperador(idUsuario) {
+    msj = confirm("¿Estás seguro que quieres eliminar este operador?\nEsta acción no se puede deshacer.");
+    if(msj) {
+        $.post("controlador_elimina_operador.php", {
+            id: idUsuario
+        }).done(function(data){
+            if(parseInt(data) != 0) {
+                // TODO: ESTO NO ES AJAX, YA LO SÉ BERNIE. HAY QUE PASAR LA FUNCION MOSTRAR PREGUNTAS DE UTIL A OTRA FUNCION JS
+                location.replace("agregarOperadores.php");
+                mostrarMensaje("El operador fue eliminado exitosamente", "success");
+            }
+            else {
+                mostrarMensaje("Hubo un error al eliminar al operador.\nPor favor, intenta de nuevo.", "danger");
+            }
 
+        });
+    }
+}
+// TODO: CAMBIAR NOMBRE DE FUNCION, MAS ESPECIFICO
 function muestraAlert(idSolicitud) {
     msj = confirm("¿Estás seguro que quieres eliminar tu solicitud?\nEsta acción no se puede deshacer.");
     if(msj) {
