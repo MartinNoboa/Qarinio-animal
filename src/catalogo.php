@@ -17,9 +17,7 @@ include_once("util.php")
 }
 ?>
 <div id="main" class="uk-margin uk-grid-divider" uk-grid>
-    <div id="filterMenu" class="uk-width-1-4 uk-margin-left">
-
-
+    <div id="filterMenu" class="uk-margin-left uk-width-1-4@m uk-margin-remove">
         <?php if(checkPriv("editar-perro")){
             echo "<span>Mostrar Por Estado:</span>
                  <select class='uk-select uk-border-rounded' id='filtro-estado' name='estado'>"

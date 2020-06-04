@@ -14,10 +14,10 @@ $info = getDogInfoById($_POST["idPerro"]);
                 </a>
             </div>
         </div>
-        <div class="uk-modal-body uk-margin-remove uk-width-2-3 ">
+        <div class="uk-modal-body uk-margin-remove uk-width-2-3@m ">
             <button class="uk-modal-close-default" type="button" uk-close></button>
 
-            <table class="uk-table uk-table-divider">
+            <table class="uk-table uk-table-divider uk-table-responsive uk-table">
                 <tbody>
                     <tr>
                         <td class="uk-table-shrink uk-text-bold">Tamaño:</td>
