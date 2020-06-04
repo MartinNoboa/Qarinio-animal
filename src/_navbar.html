@@ -10,7 +10,7 @@
                     <li class="uk-parent"><a href="catalogo">Nuestros Perros <i class="fas fa-dog uk-margin-small-left"></i></a></li>
                     <li class="uk-parent"><a href="comoAyudar">¿Cómo ayudar? <i class="fas fa-hands-helping uk-margin-small-left"></i></a></li>
                     <li class="uk-parent"><a href="quienesSomos">¿Quiénes somos? <i class="fas fa-people-carry uk-margin-small-left"></i></a></li>
-                    <li class="uk-parent"><a href="preguntasFrecuentes" id="preguntasFrecuentes">Preguntas Frecuentes <i class="fas fa-question uk-margin-small-left"></i></a></li>
+                    <li class="uk-parent"><a href="preguntasFrecuentes">Preguntas Frecuentes <i class="fas fa-question uk-margin-small-left"></i></a></li>
                     <li class="uk-parent"><a href="contactanos">Contáctanos <i class="fas fa-comments uk-margin-small-left"></i></a></li>
                     <li class="uk-parent">
                       <a href="" ><i class="fas fa-user-circle uk-margin-small-right" ></i><?= isset($_SESSION["nombre"])?$_SESSION["nombre"]:"Mi Cuenta" ?></a>
@@ -66,14 +66,15 @@
 </nav>
 
 
-<div id="my-id" uk-offcanvas>
-        <div class="uk-offcanvas-bar">
-            <ul class="uk-nav uk-nav-default uk-margin-auto-vertical">
-                    <li class="uk-parent"><a href="catalogo">Nuestros Perros <i class="fas fa-dog uk-margin-small-left"></i></a></li>
-                    <li class="uk-parent"><a href="comoAyudar">¿Cómo ayudar? <i class="fas fa-hands-helping uk-margin-small-left"></i></a></li>
-                    <li class="uk-parent"><a href="quienesSomos">¿Quiénes somos? <i class="fas fa-people-carry uk-margin-small-left"></i></a></li>
-                    <li class="uk-parent"><a href="preguntasFrecuentes" id="preguntasFrecuentes">Preguntas Frecuentes <i class="fas fa-question uk-margin-small-left"></i></a></li>
-                    <li class="uk-parent"><a href="contactanos">Contáctanos <i class="fas fa-comments uk-margin-small-left"></i></a></li>
+<div id="my-id" class="offcanvas-nav-primary uk-width-medium" uk-offcanvas>
+        <div class="uk-offcanvas-bar uk-width-medium">
+            <ul class="uk-nav uk-nav-primary uk-margin-auto-vertical">
+                    <li class="uk-parent"><a href="catalogo">Nuestros Perros<i class="fas fa-dog uk-margin-small-left"></i></a></li>
+                    <li class="uk-parent"><a href="comoAyudar">¿Cómo ayudar?<i class="fas fa-hands-helping uk-margin-small-left"></i></a></li>
+                    <li class="uk-parent"><a href="quienesSomos">¿Quiénes somos?<i class="fas fa-people-carry uk-margin-small-left"></i></a></li>
+                    <li class="uk-parent"><a href="preguntasFrecuentes">Preguntas Frecuentes<i class="fas fa-question uk-margin-small-left"></i></a></li>
+                    <li class="uk-parent"><a href="contactanos">Contáctanos<i class="fas fa-comments uk-margin-small-left"></i></a></li>
+                <hr>
                     <li class="uk-parent">
                       <a href="" class="uk-parent"><?= isset($_SESSION["nombre"])?$_SESSION["nombre"]:"Mi Cuenta" ?> <i class="fas fa-user-circle uk-margin-small-left" ></i></a>
                         <ul class="uk-nav-sub">
