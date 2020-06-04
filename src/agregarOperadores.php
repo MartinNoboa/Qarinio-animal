@@ -9,12 +9,12 @@ if(checkPriv("editar-faq") && checkPriv("editar-info-contacto")):
     <hr class="uk-divider-icon">
         <h3 class="">Introduce el correo de la cuenta que quieres hacer operador.</h3>
         <form class="uk-form " action="controlador_agregar_operador.php" method="post">
-            
-                 <input class="uk-input uk-border-rounded uk-width-medium uk-margin-medium-right" placeholder="jperez@ejemplo.com" type="email" id="email-operador" name="email-operador">
+
+                 <input class="uk-input uk-border-rounded uk-width-medium" placeholder="jperez@ejemplo.com" type="email" id="email-operador" name="email-operador">
                 <button class="uk-button uk-button-primary uk-border-rounded uk-width-auto " id="agregar-operador">
                 Agregar</button>
-            
-        </form> 
+
+        </form>
     </div>
 
 

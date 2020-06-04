@@ -82,7 +82,7 @@ function eliminar() {
             if(parseInt(data)!==0) {
                 UIkit.modal($("#modal-editar")).hide();
                 filtrar();
-                mostrarMensaje("Se eliminó el perro exitosamente","primary");
+                mostrarMensaje("Se eliminó el perro exitosamente","success");
             } else {
                 mostrarMensaje("Hubo un error al eliminar al perro","danger");
             }
@@ -110,7 +110,7 @@ function submitEdicion() {
         if(parseInt(data)>0) {
             UIkit.modal($("#modal-editar")).hide();
             filtrar();
-            mostrarMensaje("Se actualizó el perro exitosamente","primary");
+            mostrarMensaje("Se actualizó el perro exitosamente","success");
         } else {
             mostrarMensaje("Hubo un error al actualizar al perro","danger");
         }
@@ -145,7 +145,7 @@ function mostrarPreguntas(){
                 '<div class="uk-accordion-content"><p>'+data[i].respuesta + '</p></div>'+
                 "</li>";
                }
-            
+
         }
         document.getElementById('lista-preguntas').innerHTML=concatenacion;
     });
@@ -304,7 +304,7 @@ function submitEditarContacto(){
            telefono
         }).done(function (data) {
             if(parseInt(data)!== 0) {
-                mostrarMensaje("Se actualizó la información de contacto exitosamente","primary");
+                mostrarMensaje("Se actualizó la información de contacto exitosamente","success");
                 mostrarContacto();
                 mostrarEdicionContacto();
             } else {
@@ -337,7 +337,7 @@ function submitEditarPreguntas(){
            datosp
         }).done(function (data) {
             if(parseInt(data)!== 0) {
-                mostrarMensaje("Se actualizaron las preguntas exitosamente","primary");
+                mostrarMensaje("Se actualizaron las preguntas exitosamente","success");
                 mostrarPreguntas();
                 UIkit.modal($("#modal-editar-preguntas")).hide();
             } else {
@@ -496,7 +496,7 @@ function muestraAlert(idSolicitud) {
             if(parseInt(data) != 0) {
                 // TODO: ESTO NO ES AJAX, YA LO SÉ BERNIE. HAY QUE PASAR LA FUNCION MOSTRAR PREGUNTAS DE UTIL A OTRA FUNCION JS
                 location.replace("misSolicitudes.php");
-                mostrarMensaje("La solicitud fue eliminada exitosamente", "primary");
+                mostrarMensaje("La solicitud fue eliminada exitosamente", "success");
             }
             else {
                 mostrarMensaje("Hubo un error al eliminar la solicitud.\nPor favor, intenta de nuevo.", "danger");
@@ -525,7 +525,7 @@ function editarPerfil() {
             estado: $("#estado").val()
         }).done(function(data) {
             if(parseInt(data) != 0) {
-                mostrarMensaje("Tu perfil se actualizó correctamente","primary");
+                mostrarMensaje("Tu perfil se actualizó correctamente","success");
             }
             else{
                 mostrarMensaje("Hubo un problema actualizando tu perfil.\nPor favor, intenta de nuevo.","danger");
@@ -542,7 +542,7 @@ function editarPerfil() {
 
 function setELSolicitudes() {
     let botonesSolicitud = document.getElementsByClassName("formulario");
-    
+
     for(btn of botonesSolicitud) {
         let id = btn.getAttribute("idSolicitud");
         btn.addEventListener("click", function(b) {
@@ -629,7 +629,7 @@ function muestraSolicitudEntrevista(id) {
             $("#entrevista").html(data);
             $("#entrevistaSi").onclick = aprobarEntrevista;
             $("#entrevistaNo").onclick = rechazarEntrevista;
-            UIkit.modal($("#entrevista")).show();            
+            UIkit.modal($("#entrevista")).show();
 
         }
     });
@@ -811,7 +811,7 @@ function setELSolicitudesPago_UR() {
     for(btn of botonesSolicitudPagoUR) {
         let id = btn.getAttribute("idSolicitud");
         btn.addEventListener("click", function(b) {
-   
+
             muestraSolicitudPagoUR(id);
         });
     }
