@@ -1,7 +1,6 @@
 <?php
     include_once("util.php");
     include("_header.html");
-    include("_navbar.html");
 
     if(isset($_POST["email"], $_POST["pass"])){
             $_POST["email"] = limpia_entrada($_POST["email"]);
@@ -15,6 +14,7 @@
             $_SESSION["error"] = "Correo o contraseña incorrectos";
         }
     }
+    include("_navbar.html");
 ?>
 <div id="modal-cambiar-c" class="uk-modal" uk-modal></div>
 <br>

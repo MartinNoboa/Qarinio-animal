@@ -48,12 +48,12 @@
 
         <div class = "uk-margin">
             <h5>Fecha de Llegada</h5>
-            <input class = "uk-input uk-border-rounded " type = "date" id = "fecha" name = "fecha" required>
+            <input class = "uk-input uk-border-rounded " type = "date" id = "fecha" name = "fecha" value="<?= date('Y-m-d') ?>" required>
         </div>
 
             <h5>Género</h5>
         <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-radio" type="radio" name="genero"  value = "macho" checked> Macho</label>
+            <label><input class="uk-radio" type="radio" name="genero"  value = "macho"> Macho</label>
             <label><input class="uk-radio" type="radio" name="genero" value = "hembra"> Hembra</label>
         </div>
         <div class="uk-margin">
@@ -85,7 +85,7 @@
             </h5>
             <select class="uk-select uk-border-rounded" id = "estado" name = "estado" required>
                 <option selected hidden value = "">Seleccione una opcion...</option>
-                <?= recuperarEstado(idEstado, nombre, estado) ?>
+                <?= recuperarEstadosPerros("idEstado", "Disponible") ?>
             </select>
         </div>
         <div class="uk-margin">

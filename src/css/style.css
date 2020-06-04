@@ -27,3 +27,12 @@ html {
 #footer {
     z-index: 999;
 }
+
+.dis-none{
+    display: none;
+}
+#navbar_toggle{
+    position: absolute;
+    right: 1em;
+    top: 2em;
+}

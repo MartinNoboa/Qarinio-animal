@@ -3,7 +3,7 @@
     include("_navbar.html");
     include_once("util.php");
 ?>
-<div class="uk-container uk-margin-top">
+<div class="uk-container uk-margin-top uk-margin-bottom">
     <h1 class="uk-text-center uk-animation-slide-bottom-medium">Preguntas Frecuentes</h1>
     <hr class="uk-divider-icon">
 

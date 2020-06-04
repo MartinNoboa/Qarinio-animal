@@ -23,6 +23,7 @@
 <!-- Compiled and minified JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="js/ajax.js"></script>
+<script src="js/toggleNavbar.js"></script>
 <script>
 mostrarContacto();
 </script>
@@ -34,7 +35,7 @@ mostrarContacto();
 <?php unset($_SESSION["error"]); endif; ?>
 <?php if(isset($_SESSION["mensaje"]) && $_SESSION["mensaje"]!=""): ?>
     <script>
-        window.onload = mostrarMensaje('<?= $_SESSION["mensaje"] ?>',"primary");
+        window.onload = mostrarMensaje('<?= $_SESSION["mensaje"] ?>',"success");
     </script>
 <?php unset($_SESSION["mensaje"]); endif; ?>
 </body>

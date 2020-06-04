@@ -11,10 +11,14 @@
         <link rel = "stylesheet" href = "css/style.css" >
         <link href="css/nouislider.min.css" rel="stylesheet">
         <link rel='icon' href='img/logo.ico' type='image/x-icon'/ >
+        <link href="css/hamburgers.css" rel="stylesheet">
         <script src="https://kit.fontawesome.com/aa768a5eb1.js" crossorigin="anonymous"></script>
     </head>
 <body>
 <?php
     session_start();
     include_once("util.php");
+    if(isset($_SESSION["email"])){
+        setPermisos($_SESSION["email"]);
+    }
 ?>
