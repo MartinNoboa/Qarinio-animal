@@ -1,10 +1,7 @@
-<nav class="uk-navbar-container uk-height-max-small uk-box-shadow-small" uk-navbar uk-sticky>
+<nav class="uk-navbar-container uk-height-max-small uk-box-shadow-small uk-visible@l" uk-navbar uk-sticky>
     <div class="uk-navbar-left">
        <a class="uk-navbar-item uk-logo uk-margin-small uk-margin-small-top" href="/">
            <img id="navLogo" src="img/logo.png" class="uk-border-rounded">
-       </a>
-       <a class="uk-navbar-toggle dis-none h-40" id="navbar_toggle">
-           <i uk-icon="icon: menu; ratio: 2"></i>
        </a>
     </div>
     <div class="uk-navbar-right">
@@ -43,8 +40,66 @@
             </ul>
         </div>
     </div>
+</nav>
 
+
+
+
+
+
+
+
+<nav class="uk-navbar-container uk-height-max-small uk-box-shadow-small uk-hidden@l" uk-navbar uk-sticky>
+    <div class="uk-navbar-left">
+       <a class="uk-navbar-item uk-logo uk-margin-small uk-margin-small-top" href="/">
+           <img id="navLogo" src="img/logo.png" class="uk-border-rounded">
+       </a>
+    </div>
+    <div class="uk-navbar-right uk-margin-right">
+        <button class="hamburger hamburger--squeeze" type="button" onclick="toggleOffCanvas()" id="hamburger-btn">
+            <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+            </span>
+        </button>
+    </div>
 
 </nav>
+
+
+<div id="my-id" uk-offcanvas>
+        <div class="uk-offcanvas-bar">
+            <ul class="uk-nav uk-nav-default uk-margin-auto-vertical">
+                    <li class="uk-parent"><a href="catalogo">Nuestros Perros <i class="fas fa-dog uk-margin-small-left"></i></a></li>
+                    <li class="uk-parent"><a href="comoAyudar">¿Cómo ayudar? <i class="fas fa-hands-helping uk-margin-small-left"></i></a></li>
+                    <li class="uk-parent"><a href="quienesSomos">¿Quiénes somos? <i class="fas fa-people-carry uk-margin-small-left"></i></a></li>
+                    <li class="uk-parent"><a href="preguntasFrecuentes" id="preguntasFrecuentes">Preguntas Frecuentes <i class="fas fa-question uk-margin-small-left"></i></a></li>
+                    <li class="uk-parent"><a href="contactanos">Contáctanos <i class="fas fa-comments uk-margin-small-left"></i></a></li>
+                    <li class="uk-parent">
+                      <a href="" class="uk-parent"><?= isset($_SESSION["nombre"])?$_SESSION["nombre"]:"Mi Cuenta" ?> <i class="fas fa-user-circle uk-margin-small-left" ></i></a>
+                        <ul class="uk-nav-sub">
+                            <?php if(isset($_SESSION["nombre"])): ?>
+                                <?php if(checkPriv("adoptar")): ?>
+                                    <li class="uk-text-nowrap"><a href="misSolicitudes"><span uk-icon="icon: file-text"></span> Mis solicitudes de adopción</a></li>
+                                <?php endif; ?>
+                                <?php if(checkPriv("ver-todas-solicitudes")): ?>
+                                    <li class="uk-text-nowrap"><a href="gestionarSolicitudes"><span uk-icon="icon: table"></span> Ver todas las solicitudes</a></li>
+                                    <hr>
+                                    <li class="uk-text-nowrap"><a href="panelControl"><span uk-icon="icon: settings"></span> Panel de control de la página</a></li>
+                                    <li class="uk-text-nowrap"><a href="agregarOperadores"><span uk-icon="icon: users"></span> Agregar operadores</a></li>
+                                <?php endif; ?>
+                                <hr>
+                                <li class="uk-text-nowrap"><a href="miCuenta"><span uk-icon="icon: cog"></span> Ajustes de cuenta</a></li>
+                                <hr>
+                                <li class="uk-text-nowrap"><a href="cerrarSesion"><span uk-icon="icon: sign-out"></span> Cerrar sesión</a></li>
+                            <?php else: ?>
+                                <li class="uk-text-nowrap"><a href="iniciarSesion"><span uk-icon="icon: sign-in"></span> Iniciar sesión</a></li>
+                                <li class="uk-text-nowrap"><a href="crearCuenta"><span uk-icon="icon: user"></span> Crear cuenta</a></li>
+                            <?php endif; ?>
+                        </ul>
+                    </li>
+            </ul>
+        </div>
+</div>
+
     <div uk-spinner="ratio: 3" class="uk-position-fixed uk-transform-center" style="left: 50%; top: 50%" hidden></div>
 <div id="content">
