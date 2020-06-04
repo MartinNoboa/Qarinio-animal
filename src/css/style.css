@@ -27,3 +27,36 @@ html {
 #footer {
     z-index: 999;
 }
+
+.dis-none{
+    display: none;
+}
+#navbar_toggle{
+    position: absolute;
+    right: 1em;
+    top: 2em;
+}
+
+
+@media screen and (max-width:768px){
+    .uk-navbar-right{
+        display: block;
+        width: 100%;
+    }
+    .uk-navbar-item{ display: inline; }
+
+    .uk-navbar-nav{ display:block;}
+    .navbar-collapse{ width:100%; }
+    .uk-navbar-nav li{
+        background-color: #f8f8f8;
+        display: block;
+        padding: 10px;
+        height: 40px;
+        border-bottom: 1px solid #ddd;
+    }
+    .uk-navbar-nav li a{
+        display: block;
+        width: 80%;
+        padding: 0.5rem 1rem;
+    }
+}
