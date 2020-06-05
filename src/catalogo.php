@@ -11,7 +11,7 @@ include_once("util.php")
     <hr class="uk-divider-icon">
 </div>
 <?php if(checkPriv("registrar")){
-    echo "<a href='agregarPerro' uk-tooltip = 'Agregar perro' class='uk-icon-link uk-align-right uk-margin-large-right' uk-icon='plus-circle'; ratio ='2'></a>";
+    echo "<a id='btnAgregar' href='agregarPerro' uk-tooltip='Agregar perro' class='uk-icon-link uk-align-right uk-margin-large-right' uk-icon='plus-circle'; ratio ='2' style='display: none;'></a>";
 }
 ?>
 
@@ -111,7 +111,14 @@ include_once("util.php")
                     <hr>
                 </ul>
             </li>
-            <button id="filtrar" class="uk-button uk-button-primary uk-align-right uk-border-rounded uk-overflow-auto">Aplicar</button>
+            <div class="uk-align-right">
+
+                <?php if(checkPriv("registrar")){
+                    echo "<a id='btnAgregarMovil' href='agregarPerro' uk-tooltip='Agregar perro' class='uk-icon-link' uk-icon='plus-circle' ratio='1.5' style='display: none;'></a>";
+                }
+                ?>
+                <button id="filtrar" class="uk-button uk-button-primary uk-border-rounded uk-overflow-auto">Aplicar</button>
+            </div>
         </ul>
     </div>
 
@@ -148,3 +155,4 @@ if(checkPriv("editar-perro"))
 </script>
 <script src="js/nouislider.min.js"></script>
 <script src="js/ageRangeSlider.js"></script>
+<script>updateScreen();</script>
