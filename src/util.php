@@ -159,7 +159,8 @@ function cambiarContra($uid, $contrasenia){
     $dml = "UPDATE usuario u, cambio_contrasenia uc
             SET u.Contrasenia='$contrasenia', uc.usada=true
             WHERE uc.uid='$uid'
-            AND u.idUsuario=uc.idUsuario";
+            AND u.idUsuario=uc.idUsuario
+            AND uc.usada=false";
     return modifyDb($dml);
 }
 
