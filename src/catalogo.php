@@ -16,7 +16,7 @@ include_once("util.php")
 ?>
 
 <div id="main" class="uk-margin uk-grid-divider uk-margin-small-left uk-margin-small-right" uk-grid>
-    <div id="filterMenu" class="uk-margin-left uk-width-1-4@m uk-margin-remove">
+    <div id="filterMenu" class="uk-margin-left uk-width-1-4@m uk-margin-remove uk-padding-remove">
         <?php if(checkPriv("editar-perro")){
             echo "<span>Mostrar Por Estado:</span>
                  <select class='uk-select uk-border-rounded' id='filtro-estado' name='estado'>"
@@ -116,12 +116,12 @@ include_once("util.php")
     </div>
 
 
-    <div class="uk-width-expand uk-margin-right">
-        <div class="uk-animation-slide-bottom-medium" id="contenido-catalogo" uk-grid>
+    <div class="uk-width-expand uk-margin-remove uk-animation-slide-bottom-medium" id="contenido-catalogo" uk-grid>
+
         <?php
             include("controlador_catalogo.php");
         ?>
-        </div>
+
     </div>
 
 </div>
