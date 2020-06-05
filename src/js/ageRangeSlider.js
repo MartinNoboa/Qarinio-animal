@@ -1,6 +1,21 @@
-if(window.matchMedia("(max-width: 700px)").matches){
-    $("#main")[0].classList.add("uk-flex-column");
-    $("#listaFiltro")[0].setAttribute("uk-nav", "multiple: false");
+window.addEventListener("resize", updateScreen);
+
+function updateScreen(){
+    if(window.matchMedia("(max-width: 700px)").matches){
+        $("#main")[0].classList.add("uk-flex-column");
+        $("#listaFiltro")[0].setAttribute("uk-nav", "multiple: false");
+        $("#contenido-catalogo").addClass("uk-padding-remove");
+        $("#contenido-catalogo").children().addClass("uk-padding-remove");
+        $("#btnAgregarMovil").show();
+        $("#btnAgregar").hide();
+    } else {
+        $("#main")[0].classList.remove("uk-flex-column");
+        $("#listaFiltro")[0].setAttribute("uk-nav", "multiple: true");
+        $("#contenido-catalogo").removeClass("uk-padding-remove");
+        $("#contenido-catalogo").children().removeClass("uk-padding-remove");
+        $("#btnAgregarMovil").hide();
+        $("#btnAgregar").show()
+    }
 }
 
 let ageSlider = document.getElementById('ageSlider');

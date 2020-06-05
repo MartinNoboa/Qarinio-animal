@@ -1,6 +1,6 @@
 <div class="uk-modal-dialog uk-modal-body uk-border-rounded uk-width-large">
 <div class="uk-container uk-align-center uk-width-large">
-  <form>
+  <form onsubmit="sendMailContra(); return false;">
     <legend class="uk-legend uk-text-center">Ingresa tu correo para cambiar tu contraseña:</legend>
     <div class="uk-margin">
         <div class="uk-inline uk-width-1-1">
