@@ -7,7 +7,7 @@
                 if ($topMost == __FILE__)
                     $titulo="";
                 else
-                    $titulo=preg_replace('/(?<!\ )[A-Z]/', ' $0',ucfirst(basename($topMost, ".php")));
+                    $titulo=ucfirst(preg_replace('/(?<!\ )[A-Z]/', ' $0',basename($topMost, ".php")));
             }
         ?>
         <title><?= isset($titulo)&&$titulo!=""?$titulo." - ":"" ?>Qariño Animal</title>
