@@ -494,7 +494,7 @@ function muestraAlertOperador(idUsuario) {
         }).done(function(data){
             if(parseInt(data) != 0) {
                 // TODO: ESTO NO ES AJAX, YA LO SÉ BERNIE. HAY QUE PASAR LA FUNCION MOSTRAR PREGUNTAS DE UTIL A OTRA FUNCION JS
-                location.replace("agregarOperadores.php");
+                location.replace("gestionarOperadores");
                 mostrarMensaje("El operador fue eliminado exitosamente", "success");
             }
             else {
