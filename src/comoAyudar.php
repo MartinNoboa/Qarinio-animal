@@ -1,4 +1,5 @@
 <?php
+$titulo = "Cómo Ayudar";
     include("_header.html");
     include("_navbar.html");
 ?>

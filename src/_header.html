@@ -1,7 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Qariño Animal</title>
+        <?php
+            if(!isset($titulo)){
+                $topMost = get_included_files()[0];
+                if ($topMost == __FILE__)
+                    $titulo="";
+                else
+                    $titulo=preg_replace('/(?<!\ )[A-Z]/', ' $0',ucfirst(basename($topMost, ".php")));
+            }
+        ?>
+        <title><?= isset($titulo)&&$titulo!=""?$titulo." - ":"" ?>Qariño Animal</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/uikit.min.css" />
@@ -21,4 +30,5 @@
     if(isset($_SESSION["email"])){
         setPermisos($_SESSION["email"]);
     }
+
 ?>
