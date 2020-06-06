@@ -25,12 +25,6 @@ if(checkPriv("adoptar")):
     </div>
 </div>
 
-    <script>
-        //var idPerro = <?php echo $idPerro; ?>;
-        var idUsuario = <?php echo $idUsuario; ?>;
-        //console.log(idPerro, idUsuario);
-        $("#enviarFormulario")[0].onclick = nuevaSolicitud;
-    </script>
 
 <?php
     http_response_code(200);
@@ -40,3 +34,9 @@ else:
     header("location:iniciarSesion");
 endif;
 ?>
+<script>
+    //var idPerro = <?php echo $idPerro; ?>;
+    var idUsuario = <?php echo $idUsuario; ?>;
+    //console.log(idPerro, idUsuario);
+    $("#enviarFormulario")[0].onclick = nuevaSolicitud;
+</script>
