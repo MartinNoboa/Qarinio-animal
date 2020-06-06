@@ -594,12 +594,6 @@ function muestraPreguntasFormulario() {
                 $output .= "<label><input type='radio' class=\"uk-radio\" name=\"".$row['id']."\" value=\"departamento\"> Departamento</label>";
                 $output .= "</div>";
                 }
-                elseif($row['id'] == 8) {
-                    $output .= "<div class=\"uk-margin uk-grid-small uk-child-width-auto uk-grid\">";
-                    $output .= "<label><input type='radio' class=\"uk-radio\" name=\"".$row['id']."\" value=\"jardin\"> Jardín</label>";
-                    $output .= "<label><input type='radio' class=\"uk-radio\" name=\"".$row['id']."\" value=\"patio\"> Patio</label>";
-                    $output .= "</div>";
-                }
                 else {
                     $output .= "<div class=\"uk-margin uk-grid-small uk-child-width-auto uk-grid\">";
                     $output .= "<label><input type='radio' class=\"uk-radio\" name=\"".$row['id']."\" value=\"sí\"> Sí</label>";
