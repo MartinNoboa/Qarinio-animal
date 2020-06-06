@@ -67,7 +67,7 @@
 <?php
         endif;
     else:
-        header("location:iniciarSesion.php");
+        header("location:iniciarSesion");
     endif;
   include("_footer.html");
 ?>

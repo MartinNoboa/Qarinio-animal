@@ -436,7 +436,7 @@ function nuevaSolicitud(){
           mostrarMensaje("Se completó el formulario correctamente", "success");
             //redireccionar a mis solicitudes
             setTimeout(function() {
-          window.location.href = "misSolicitudes.php";
+          window.location.href = "misSolicitudes";
         }, 2000);
         }else {
             //mensaje de error
@@ -454,7 +454,7 @@ function cambiarContra() {
         switch(header.status){
             case 200:
                 mostrarMensaje(data, "primary");
-                setTimeout(()=>location.replace("iniciarSesion.php"), 2500);
+                setTimeout(()=>location.replace("iniciarSesion"), 2500);
                 break;
             default:
                 mostrarMensaje(data, "danger");
@@ -494,7 +494,7 @@ function muestraAlertOperador(idUsuario) {
         }).done(function(data){
             if(parseInt(data) != 0) {
                 // TODO: ESTO NO ES AJAX, YA LO SÉ BERNIE. HAY QUE PASAR LA FUNCION MOSTRAR PREGUNTAS DE UTIL A OTRA FUNCION JS
-                location.replace("agregarOperadores.php");
+                location.replace("gestionarOperadores");
                 mostrarMensaje("El operador fue eliminado exitosamente", "success");
             }
             else {
@@ -513,7 +513,7 @@ function muestraAlert(idSolicitud) {
         }).done(function(data){
             if(parseInt(data) != 0) {
                 // TODO: ESTO NO ES AJAX, YA LO SÉ BERNIE. HAY QUE PASAR LA FUNCION MOSTRAR PREGUNTAS DE UTIL A OTRA FUNCION JS
-                location.replace("misSolicitudes.php");
+                location.replace("misSolicitudes");
                 mostrarMensaje("La solicitud fue eliminada exitosamente", "success");
             }
             else {

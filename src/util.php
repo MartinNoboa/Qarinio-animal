@@ -159,7 +159,8 @@ function cambiarContra($uid, $contrasenia){
     $dml = "UPDATE usuario u, cambio_contrasenia uc
             SET u.Contrasenia='$contrasenia', uc.usada=true
             WHERE uc.uid='$uid'
-            AND u.idUsuario=uc.idUsuario";
+            AND u.idUsuario=uc.idUsuario
+            AND uc.usada=false";
     return modifyDb($dml);
 }
 
@@ -874,16 +875,28 @@ function actualizarEstadoPago($id,$estado){
 }
 
 function actualizarMetodoPago($id, $metodo){
-    $sql = "UPDATE solicitud SET metodoPago = \"$metodo\" WHERE idSolicitud = $id";
+    $sql = "UPDATE solicitud SET metodoPago ='$metodo' WHERE idSolicitud = $id";
     $result = sqlqry($sql);
     return $result;
 }
 
 function agregarOperador($email){
-    $sql1="UPDATE usuario_rol
-    SET idRol = 2
-    WHERE idUsuario=(select idUsuario from  usuario where email='".$email."')";
-    return modifyDb($sql1);
+    $sql1="select u.idUsuario id from  usuario u, usuario_rol ur, rol r
+            where email='$email'
+              and u.idUsuario=ur.idUsuario
+              and ur.idRol=r.idRol
+            and r.rol='registrado'";
+    $idU=sqlqry($sql1);
+    if($idU->num_rows>0){
+        $idU=mysqli_fetch_array($idU)["id"];
+        $sql2="UPDATE usuario_rol
+                SET idRol = 2
+                WHERE idUsuario='$idU'";
+        return modifyDb($sql2);
+    }
+    else {
+        return "2";
+    }
 }
 
 function muestraOperadores() {
@@ -916,8 +929,9 @@ function muestraOperadores() {
 }
 
 function eliminaOperador($id) {
-    $sql1="UPDATE usuario_rol
-    SET idRol = 3
-    WHERE idUsuario=$id";
+    $sql1="UPDATE usuario_rol ur, rol r
+    SET ur.idRol = 3
+    WHERE ur.idUsuario=$id
+    AND r.rol='operador'";
     return modifyDb($sql1);
 }

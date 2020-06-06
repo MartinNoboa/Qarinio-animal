@@ -1,4 +1,5 @@
 <?php
+    $titulo = "Quiénes Somos";
     include("_header.html");
     include("_navbar.html");
 ?>
