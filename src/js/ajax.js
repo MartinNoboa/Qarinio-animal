@@ -589,7 +589,7 @@ function aprobarFormulario() {
             idSolicitud: $("#idSolicitudActiva").val(),
             aprobar : true
         }).done(function(data){
-            if(parseInt(data) > 1 ) {
+            if(parseInt(data) != 0 ) {
                 mostrarMensaje("El formulario se aprobó correctamente.", "success");
             }
             else {
