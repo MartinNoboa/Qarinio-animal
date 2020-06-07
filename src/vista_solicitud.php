@@ -3,7 +3,7 @@
 
 
     $idSolicitud = $_POST['idSolicitud'];
-    
+
 ?>
 <div class="uk-modal-dialog uk-modal-body uk-border-rounded">
         <div class="uk-modal-title">
@@ -13,7 +13,7 @@
             <form  id="formulario" class="uk-form-horizontal uk-margin-large">
                 <div class="uk-align-right">
                    <?php
- 
+
                     $result = getFormulario($idSolicitud);
                     $ans = "<div class = \"uk-container\">";
                     $cont = true;
@@ -30,7 +30,7 @@
                     $ans .= "</div>";
                     echo $ans;
                     ?>
-                    
+
                     <div class="uk-child-width-expand@s uk-text-center uk-margin-top" uk-grid>
                         <div>
                             <input class="uk-button uk-button-primary uk-border-rounded uk-width-1-1" type="button"  value = "Aprobar formulario" id = "aprobar"></input>
@@ -41,10 +41,9 @@
                     </div>
 
                 </div>
-                    <input id = "idSolicitudActiva" type = "number" value = <?= $idSolicitud ?>  readonly></input>
+                    <input id = "idSolicitudActiva" type = "number" value = <?= $idSolicitud ?>  hidden readonly></input>
 
             </form>
         </div>
     </div>
 </div>
-
