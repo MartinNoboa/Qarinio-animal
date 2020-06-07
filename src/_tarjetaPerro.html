@@ -1,9 +1,9 @@
 <div class="uk-card uk-width-1-1@s uk-width-1-2@m uk-width-1-3@l uk-width-1-3@xl uk-padding-remove@m" uk-scrollspy="cls:uk-animation-fade; repeat: true"  >
     <div class="uk-card uk-card-hover uk-box-shadow-medium uk-border-rounded">
-        <div idPerro= <?= $id ?> class="boton-info uk-card-media-top uk-height-medium dog-card-image" id="imagen-tarjeta" style=<?="background-image:url('".$img."');" ?>> </div>
-        <div class="uk-card uk-card-body">
-            <h3 class="uk-card-title"><?= $name ?></h3>
-            <p><?= $age ?></p>
+        <div idPerro= <?= $id ?> class=" uk-card-media-top uk-height-medium dog-card-image" id="imagen-tarjeta" style=<?="background-image:url('".$img."');" ?>> </div>
+        <div class="uk-card uk-card-body boton-info" idPerro=<?= $id ?>>
+            <h3 class="uk-card-title" idPerro=<?= $id ?>><?= $name ?></h3>
+            <p  idPerro=<?= $id ?>><?= $age ?></p>
                 <?= "<a class='boton-info uk-button uk-button-text uk-align-left uk-text-meta' idPerro=" . $id . ">Leer más</a>" ?>
                 <?php
                 if(checkPriv("editar-perro")){
