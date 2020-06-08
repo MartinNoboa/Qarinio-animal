@@ -846,9 +846,10 @@ function editarPerfil($id, $nombre,$apellido,$telefono,$callePrincipal,$calleSec
 function actualizarEstadoFormulario($id,$estado){
     $sql = "UPDATE solicitud SET estadoFormulario = $estado WHERE idSolicitud = $id";
     $result = modifyDb($sql);
-    $idperro = sqlqry("SELECT p.idPerro FROM perros  as  p, solicitud as s WHERE p.idPerro = $id");
+    $idperro = sqlqry("SELECT p.idPerro FROM perros  as  p, solicitud as s WHERE p.idPerro=s.idPerro AND s.idSolicitud=$id");
+    $row = mysqli_fetch_array($idperro);
 
-    $sql2 = "UPDATE estado_perro SET idEstado = 6 WHERE idPerro = $idperro";
+    $sql2 = "UPDATE estado_perro SET idEstado=6 WHERE idPerro=$row[0]";
     $result2 = sqlqry($sql2);
 
     return $result + $result2;

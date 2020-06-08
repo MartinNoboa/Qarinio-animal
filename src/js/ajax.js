@@ -610,7 +610,6 @@ function rechazarFormulario() {
             idSolicitud: $("#idSolicitudActiva").val(),
             aprobar : false
         }).done(function(data){
-            console.log(data);
             if(parseInt(data) != 0) {
                 mostrarMensaje("El formulario se rechazó correctamente.", "success");
             }
@@ -661,7 +660,6 @@ function aprobarEntrevista() {
             idSolicitud: $("#idSolicitudActivaEntrevista").val(),
             aprobarEntrevista : true
         }).done(function(data){
-            console.log(data);
             if(parseInt(data) != 0) {
                 mostrarMensaje("La entrevista se aprobó correctamente.", "success");
             }
