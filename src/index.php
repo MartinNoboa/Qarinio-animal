@@ -15,9 +15,9 @@
     </div>
     <div class="uk-section">
         <div class="uk-container">
-            <h1 class="uk-text-center">¿Quiénes Somos?</h1>
+            <h2 class="uk-text-center">¿Quiénes Somos?</h2>
             <hr class="uk-divider-icon">
-            <div class="uk-grid-match uk-child-width-1-2@m" uk-grid="parallax: 250">
+            <div class="uk-grid-match uk-child-width-1-2@m uk-padding-remove" uk-grid="parallax: 250">
                 <div uk-scrollspy="cls: uk-animation-slide-bottom-medium; repeat:true" class="uk-width-auto">
                     <div class="uk-card uk-card-default uk-card-body">
                         <h3 class="uk-card-title uk-text-center">Labor con amor<i class="fas fa-heart uk-margin-small-left"></i></h3>
