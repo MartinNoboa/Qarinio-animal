@@ -70,10 +70,10 @@
                 "registrado-no-verificado"
             ];
             if(crearCuenta(...$datosCuenta)){
-                $_SESSION["mensaje"]="Se ha creado la cuenta con éxito.\nTe hemos enviado un correo de confirmación.";
+                $_SESSION["mensaje"]="Se ha creado la cuenta con éxito.<br>Te hemos enviado un correo de confirmación.";
                 $_SESSION["createState"]=null;
                 autenticar($_POST["email"], $_POST["contrasenia"]);
-                header("location:/");
+                header("location:catalogo.php");
                 exit;
             } else{
                 $_SESSION["error"] = "Hubo un error al crear la cuenta";
