@@ -1,7 +1,6 @@
 <?php
     include_once ("util.php");
     include("_header.html");
-    include("_navbar.html");
     foreach($_POST as &$key){
         $key = limpia_entrada($key);
     }
@@ -13,6 +12,9 @@
         $_SESSION["error"] = false;
     }
 
+    if (!($_SESSION["createState"] == 2 && $_POST["submit"] == "Terminar")) {
+        include("_navbar.html");
+    }
     $camposRequeridos = [
         "nombre",
         "apellido",
@@ -68,10 +70,10 @@
                 "registrado-no-verificado"
             ];
             if(crearCuenta(...$datosCuenta)){
-                $_SESSION["mensaje"]="Se ha creado la sesión con éxito";
+                $_SESSION["mensaje"]="Se ha creado la cuenta con éxito.<br>Te hemos enviado un correo de confirmación.";
                 $_SESSION["createState"]=null;
                 autenticar($_POST["email"], $_POST["contrasenia"]);
-                header("location:/");
+                header("location:catalogo.php");
                 exit;
             } else{
                 $_SESSION["error"] = "Hubo un error al crear la cuenta";
