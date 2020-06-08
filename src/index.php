@@ -1,5 +1,6 @@
 
 <?php
+    $titulo="";
   include("_header.html");
   include("_navbar.html");
 ?>

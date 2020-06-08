@@ -36,3 +36,11 @@ html {
     right: 1em;
     top: 2em;
 }
+
+.uk-navbar-nav>li>a {
+    color: black !important;
+}
+
+.uk-navbar-nav>li>a:hover {
+    color: #1e87f0 !important;
+}

@@ -3,11 +3,13 @@
     session_start();
     $email = limpia_entrada($_POST["email-operador"]);
     $result=agregarOperador($email);
-
-    if($result =="1"){
+    if($result=="1"){
         $_SESSION["mensaje"] = $email." ahora es operador.";
-    }else{
+    } elseif ($result=="2"){
+        $_SESSION["error"] = "Este usuario no puede convertirse en operador";
+    }
+    else{
         $_SESSION["error"] = "Hubo un problema al agregar al operador.";
     }
-    header("location:agregarOperadores");
+    header("location:gestionarOperadores");
 ?>
