@@ -849,7 +849,8 @@ function actualizarEstadoFormulario($id,$estado){
     $idperro = sqlqry("SELECT p.idPerro FROM perros  as  p, solicitud as s WHERE p.idPerro=s.idPerro AND s.idSolicitud=$id");
     $row = mysqli_fetch_array($idperro);
 
-    $sql2 = "UPDATE estado_perro SET idEstado=6 WHERE idPerro=$row[0]";
+    $sql2 = $estado==3 ? "UPDATE estado_perro SET idEstado=2 WHERE idPerro=$row[0]":"UPDATE estado_perro SET idEstado=6 WHERE idPerro=$row[0]";
+
     $result2 = sqlqry($sql2);
 
     return $result + $result2;
