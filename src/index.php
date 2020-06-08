@@ -65,8 +65,30 @@
             </div>
         </div>
     </div>
-    <!-- Empieza slideshow -->
+
+    <!------------------------------------ Empieza slideshow ------------------------------------->
+     <div class = "uk-section">
+        <div class = "uk-container">
+           <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow = "autoplay:true; autoplay-interval: 5000">
+                        <ul class="uk-slideshow-items">
+                            <li>
+                               <img src="img/landing/proceso.png" alt="" uk-cover>
+                                <div class="uk-overlay uk-light uk-position-bottom-center">
+                                     <a href = "preguntasFrecuentes.php">Mas información en Preguntas Frecuentes</a>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="img/landing/cuidarPerro.png" alt="" uk-cover>
+                            </li>
+                            
+                        </ul>
+                <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a> 
+            </div>
+        </div>
+    </div>
 <script>
 UIkit.parallax();
+    UIkit.slideshow(element, options);
 </script>
 <?php include("_footer.html");?>
