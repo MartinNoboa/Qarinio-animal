@@ -469,6 +469,8 @@ function muestraSolicitudes() {
         setELSolicitudes();
         setELSolicitudesPago();
         setELSolicitudesEntrevista();
+        setELAprobarSolicitudes();
+        setELRechazarSolicitudes();
 
     })
 
@@ -486,6 +488,7 @@ function muestraMisSolicitudes() {
     })
 
 }
+
 function muestraAlertOperador(idUsuario) {
     msj = confirm("¿Estás seguro que quieres eliminar este operador?\nEsta acción no se puede deshacer.");
     if(msj) {
@@ -557,7 +560,7 @@ function editarPerfil() {
 
 //--------------------------------funciones para actualizar estado del formulario admin
 
-
+//set event listeners para la solicitud
 function setELSolicitudes() {
     let botonesSolicitud = document.getElementsByClassName("formulario");
 
@@ -764,6 +767,70 @@ function rechazarPago() {
 }
 
 
+//--------------------------------funciones para actualizar estado final de la solicitud
+
+//event listeners para los botones de aprobar solicitud
+function setELAprobarSolicitudes() {
+    let botonesSolicitudPago = document.getElementsByClassName("apruebaSolicitud");
+    for(btn of botonesSolicitudPago) {
+        let id = btn.getAttribute("idSolicitud");
+        btn.addEventListener("click", function(b) {
+            apruebaSolicitud(id);
+
+        });
+    }
+}
+
+
+//event listeners para los botones de aprobar solicitud
+function setELRechazarSolicitudes() {
+    let botonesSolicitudPago = document.getElementsByClassName("rechazarSolicitud");
+    for(btn of botonesSolicitudPago) {
+        let id = btn.getAttribute("idSolicitud");
+        btn.addEventListener("click", function(b) {
+            rechazarSolicitud(id);
+
+        });
+    }
+}
+
+
+function apruebaSolicitud() {
+    msj = confirm("¿Estás seguro que deseas aprobar esta solicitud?");
+    if(msj) {
+        $.post("controlador_aprobar_solicitud.php", {
+            idSolicitud: $("#idSolicitudActivaPago").val(),
+            aprobarPago : true
+        }).done(function(data){
+            if(parseInt(data) != 0) {
+                mostrarMensaje("Se aprobó correctamente la solicitud.", "success");
+            }
+            else {
+                mostrarMensaje("Hubo un error al aprobar la solicitud.\nPor favor, intenta de nuevo.", "danger");
+            }
+            muestraSolicitudes();
+        });
+    }
+}
+
+function rechazarSolicitud() {
+    msj = confirm("¿Estás seguro que deseas rechazar esta solicitud?");
+    if(msj) {
+        $.post("controlador_aprobar_solicitud.php", {
+            idSolicitud: $("#idSolicitudActivaPago").val(),
+            aprobarPago : false
+        }).done(function(data){
+            if(parseInt(data) != 0) {
+                mostrarMensaje("Se rechazó correctamente la solicitud.", "success");
+            }
+            else {
+                mostrarMensaje("Hubo un error al rechazar la solicitud.\nPor favor, intenta de nuevo.", "danger");
+            }
+            muestraSolicitudes();
+        });
+    }
+}
+
 
 //!!!!!!!!!!!!!!--------------------------------MANEJO SOLICITUDES USUARIO REGISTRADO-------------------------------!!!!!!!!!
 
@@ -797,7 +864,6 @@ function muestraSolicitudUR(id) {
 
 //--------------------------------funciones para mostrar modal estado de entrevista
 
-
 function setELSolicitudesEntrevista_UR() {
     let botonesSolicitudEntrevistaUR = document.getElementsByClassName("urentrevista");
     for(btn of botonesSolicitudEntrevistaUR) {
@@ -807,6 +873,7 @@ function setELSolicitudesEntrevista_UR() {
         });
     }
 }
+
 
 function muestraSolicitudEntrevistaUR(id) {
     $.post("vista_entrevista_ur.php", {
