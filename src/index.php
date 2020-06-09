@@ -22,20 +22,18 @@
                     <div class="uk-card uk-card-default uk-card-body">
                         <h3 class="uk-card-title uk-text-center">Labor con amor<i class="fas fa-heart uk-margin-small-left"></i></h3>
                         <p>
-                            La asociación  surge  formalmente  en mayo de 2013 cuando nos constituimos, sin embargo
-                            ya teníamos 4 años anteriores trabajando en favor de uno de los sectores más vulnerables
-                            y sin derechos: el medio ambiente y su cuidado, concientizando en la tenencia responsable
+                            La asociación  surge  formalmente  en   Mayo de 2013;sin embargo,
+                            ya teníamos 4 años trabajando en uno de los sectores más vulnerables
+                            y sin derechos: el medio ambiente y su cuidado. Concientizando en la tenencia responsable
                             de mascotas para evitar enfermedades zoonóticas, protegiendo y cuidando animales
-                            abandonados o maltratados, atendiéndolos en un albergue, en el que se les da atención,
-                            limpieza, alimento, techo, cariño, y atención médica.<br><br>
+                            abandonados o maltratados y atendiéndolos en un albergue, en el que se les da atención médica,
+                            limpieza, alimento, techo y cariño.<br><br>
                             Nuestra asociación surge al no tener
                             respuesta de las unidades de control animal para atender toda la problemática de perros y
-                            gatos abandonados en la calle y/o en situación de maltrato y violencia; pues nos percatamos
-                            que esta situación rebasa a las instituciones de gobierno y lo que puede hacer; por lo tanto
-                            comenzamos a trabajar para darles un lugar seguro en el que puedan estar resguardados
-                            mientras se recuperan de lesiones o para esperar mientras se encuentra una familia u hogar
-                            para ellos, y así favorecer la concientización del cuidado de los mismos para prevenir la
-                            contaminación por éstos.
+                            gatos abandonados en la calle y/o en situación de maltrato y violencia, pues nos percatamos
+                            que esta situación rebasa a las instituciones de gobierno y lo que puede hacer. Por lo tanto
+                            comenzamos a trabajar para darles un lugar seguro
+                            mientras se recuperan de lesiones y esperan encuentrar una familia. De esta manera,fomentar la concientización del cuidado de los mismos.
                         </p>
                     </div>
                 </div>
@@ -44,8 +42,8 @@
                         <h3 class="uk-card-title">Nuestra Labor <i class="fas fa-hands-helping uk-margin-small-left"></i></h3>
                         <p>
                             Además de los perros rescatados que viven en el albergue, ayudamos promoviendo y
-                            realizando campañas de esterilización, concientización en diferentes comunidades sobre
-                            todo para cambiar la situación de los perros y gatos, y con esto colaborar con nuestro Estado
+                            realizando campañas de esterilización, campañas de concientización en diferentes comunidades sobre
+                            el trato de perros y gatos, y colaborar con nuestro Estado
                             en materia de protección y cuidado del medio ambiente.
                         </p>
                     </div>
@@ -65,7 +63,6 @@
             </div>
         </div>
     </div>
-
     <!------------------------------------ Empieza slideshow ------------------------------------->
      <div class = "uk-section">
         <div class = "uk-container">
