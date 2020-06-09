@@ -7,6 +7,10 @@
     <div class="uk-navbar-right">
         <div class="navbar-collapse" id="navbar_collapse">
             <ul class="uk-navbar-nav">
+
+                    <div class="uk-navbar-item">
+                        <button id="boton-donacion" uk-toggle="target: #modal-donacion" type="button" class="uk-box-shadow-medium uk-button uk-border-rounded uk-text-emphasis" style="background-color: #ffc439"><i class="fas fa-donate uk-margin-small-right"></i>Donar</button>
+                    </div>
                     <li class="uk-parent "><a href="catalogo">Nuestros Perros <i class="fas fa-dog uk-margin-small-left"></i></a></li>
                     <li class="uk-parent"><a href="comoAyudar">¿Cómo ayudar? <i class="fas fa-hands-helping uk-margin-small-left"></i></a></li>
                     <li class="uk-parent"><a href="preguntasFrecuentes">Preguntas Frecuentes <i class="fas fa-question uk-margin-small-left"></i></a></li>
@@ -68,10 +72,14 @@
 <div id="my-id" class="offcanvas-nav-primary uk-width-medium" uk-offcanvas>
         <div class="uk-offcanvas-bar uk-width-medium">
             <ul class="uk-nav uk-nav-primary uk-margin-auto-vertical">
+
                     <li class="uk-parent"><a href="catalogo">Nuestros Perros<i class="fas fa-dog uk-margin-small-left"></i></a></li>
                     <li class="uk-parent"><a href="comoAyudar">¿Cómo ayudar?<i class="fas fa-hands-helping uk-margin-small-left"></i></a></li>
                     <li class="uk-parent"><a href="preguntasFrecuentes">Preguntas Frecuentes<i class="fas fa-question uk-margin-small-left"></i></a></li>
                     <li class="uk-parent"><a href="contactanos">Contáctanos<i class="fas fa-comments uk-margin-small-left"></i></a></li>
+                    <div class="">
+                        <button id="boton-donacion" uk-toggle="target: #modal-donacion" type="button" class="uk-button uk-border-rounded uk-position-bottom-center uk-margin" style="background-color: #ffc439; color: #2c2e2f"><i class="fas fa-donate uk-margin-small-right"></i>Donar</button>
+                    </div>
                 <hr>
                     <li class="uk-parent">
                       <a href="" class="uk-parent"><?= isset($_SESSION["nombre"])?$_SESSION["nombre"]:"Mi Cuenta" ?> <i class="fas fa-user-circle uk-margin-small-left" ></i></a>
@@ -99,6 +107,16 @@
             </ul>
         </div>
 </div>
+
+<div id="modal-donacion" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body uk-border-rounded">
+        <h1 class="uk-text-center">Realizar una donación</h1>
+        <hr>
+        <div id="paypal-button-container"></div>
+
+    </div>
+</div>
+
 
     <div uk-spinner="ratio: 3" class="uk-position-fixed uk-transform-center" style="left: 50%; top: 50%" hidden></div>
 <div id="content">
