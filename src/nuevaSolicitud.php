@@ -11,7 +11,7 @@ if(checkPriv("adoptar")):
     <h1 class="uk-text-center">Nueva Solicitud de Adopción</h1>
     <hr class="uk-divider-icon">
     <h2 class="uk-text-center">Formulario de Adopción</h2>
-    <a href='catalogo.php' uk-tooltip = 'Click para retroceder' class='uk-icon-link uk-align-left' uk-icon='arrow-left'; ratio ='2'></a>
+    <a href='catalogo' uk-tooltip = 'Click para retroceder' class='uk-icon-link uk-align-left' uk-icon='arrow-left'; ratio ='2'></a>
     <div class="uk-margin-xlarge-right uk-margin-xlarge-left">
         <form class="uk-form">
             <?= muestraPreguntasFormulario(); ?>
