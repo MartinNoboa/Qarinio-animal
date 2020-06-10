@@ -5,8 +5,8 @@
     $aprobar = limpia_entrada($_POST["aprobar"]);
 
     if ($aprobar == 'true'){
-        //echo actualizarEstadoFormulario($id,5);
+        echo aprobarSolicitud($id);
     }else{
-        //echo actualizarEstadoFormulario($id,3);
+        echo eliminarSolicitud($id);
     }
 ?>

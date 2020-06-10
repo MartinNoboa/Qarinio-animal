@@ -831,6 +831,18 @@ function eliminarSolicitud($idSolicitud) {
     return $res;
   }
 
+function aceptarSolicitud($idSolicitud) {
+    $sql="
+    UPDATE solicitudes SET aprobada = 1, activa = 0 WHERE idSolicitud = $idSolicitud 
+    ";
+    $sql1="
+    UPDATE estado_perro SET idEstado = 1 WHERE idPerro = (SELECT idPerro FROM solicitud as s WHERE s.idSolicitud = $idSolicitud)
+    ";
+    $res=modifyDb($sql);
+    $res1=modifyDb($sql1);
+    return $res && $res1;
+  }
+
 function getUserInfoById($id){
       $sql = "
         SELECT nombre,

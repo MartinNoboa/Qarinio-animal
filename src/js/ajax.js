@@ -789,7 +789,6 @@ function setELRechazarSolicitudes() {
         let id = btn.getAttribute("idSolicitud");
         btn.addEventListener("click", function(b) {
             rechazarSolicitud(id);
-
         });
     }
 }
@@ -799,7 +798,7 @@ function apruebaSolicitud() {
     msj = confirm("¿Estás seguro que deseas aprobar esta solicitud?");
     if(msj) {
         $.post("controlador_aprobar_solicitud.php", {
-            idSolicitud: $("#idSolicitudActivaPago").val(),
+            idSolicitud: idSolicitud,
             aprobarPago : true
         }).done(function(data){
             if(parseInt(data) != 0) {
@@ -817,7 +816,7 @@ function rechazarSolicitud() {
     msj = confirm("¿Estás seguro que deseas rechazar esta solicitud?");
     if(msj) {
         $.post("controlador_aprobar_solicitud.php", {
-            idSolicitud: $("#idSolicitudActivaPago").val(),
+            idSolicitud: idSolicitud,
             aprobarPago : false
         }).done(function(data){
             if(parseInt(data) != 0) {
