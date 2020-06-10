@@ -1,11 +1,13 @@
 
 <body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
     src="https://www.paypal.com/sdk/js?locale=es_MX&currency=MXN&client-id=AXaKjbCnOPQrKwgDgiShyp0krjWymPBs7Rso0Yi2KI6I5crN9cKtVzR0CSkF9tsNl0O5TpMTEu7h_Yf5"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
 </script>
 
 <input id="cantidad" type="number" value="1" min="1">
-
+<br>
 <div id="paypal-button-container"></div>
 
 <script>
@@ -18,18 +20,18 @@
                 purchase_units: [{
                     amount: {
                         value: cantidad.toString(),
-                        currency: 'MXN',
                     }
                 }]
             });
         },
         onApprove: function(data, actions) {
             // This function captures the funds from the transaction.
-            console.log(data);
-            console.log(data["orderID"]);
+            $.post("testing2.php?id=1",{
+                oId:data["orderID"]
+            });
             return actions.order.capture().then(function(details) {
                 // This function shows a transaction success message to your buyer.
-                alert('Transaction completed by ' + details.payer.name.given_name);
+                alert('Muchas Gracias ' + details.payer.name.given_name);
             });
         }
     }).render('#paypal-button-container');
