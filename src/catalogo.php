@@ -11,12 +11,12 @@ include_once("util.php")
     <hr class="uk-divider-icon">
 </div>
 <?php if(checkPriv("registrar")){
-    echo "<a href='agregarPerro' uk-tooltip = 'Agregar perro' class='uk-icon-link uk-align-right uk-margin-large-right' uk-icon='plus-circle'; ratio ='2'></a>";
+    echo "<a id='btnAgregar' href='agregarPerro' uk-tooltip='Agregar perro' class='uk-icon-link uk-align-right uk-margin-large-right' uk-icon='plus-circle'; ratio ='2' style='display: none;'></a>";
 }
 ?>
 
 <div id="main" class="uk-margin uk-grid-divider uk-margin-small-left uk-margin-small-right" uk-grid>
-    <div id="filterMenu" class="uk-margin-left uk-width-1-4@m uk-margin-remove">
+    <div id="filterMenu" class="uk-margin-left uk-width-1-4@m uk-margin-remove uk-padding-remove">
         <?php if(checkPriv("editar-perro")){
             echo "<span>Mostrar Por Estado:</span>
                  <select class='uk-select uk-border-rounded' id='filtro-estado' name='estado'>"
@@ -111,17 +111,24 @@ include_once("util.php")
                     <hr>
                 </ul>
             </li>
-            <button id="filtrar" class="uk-button uk-button-primary uk-align-right uk-border-rounded uk-overflow-auto">Aplicar</button>
+            <div class="uk-align-right">
+
+                <?php if(checkPriv("registrar")){
+                    echo "<a id='btnAgregarMovil' href='agregarPerro' uk-tooltip='Agregar perro' class='uk-icon-link' uk-icon='plus-circle' ratio='1.5' style='display: none;'></a>";
+                }
+                ?>
+                <button id="filtrar" class="uk-button uk-button-primary uk-border-rounded uk-overflow-auto">Aplicar</button>
+            </div>
         </ul>
     </div>
 
 
-    <div class="uk-width-expand uk-margin-right">
-        <div class="uk-animation-slide-bottom-medium" id="contenido-catalogo" uk-grid>
+    <div class="uk-width-expand uk-margin-remove uk-animation-slide-bottom-medium" id="contenido-catalogo" uk-grid>
+
         <?php
             include("controlador_catalogo.php");
         ?>
-        </div>
+
     </div>
 
 </div>
@@ -148,3 +155,4 @@ if(checkPriv("editar-perro"))
 </script>
 <script src="js/nouislider.min.js"></script>
 <script src="js/ageRangeSlider.js"></script>
+<script>updateScreen();</script>

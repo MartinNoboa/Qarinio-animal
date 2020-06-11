@@ -1,21 +1,17 @@
 <?php
 include_once('util.php');
 include("_header.html");
-include("_navbar.html");
 if(checkPriv("adoptar")):
+    include("_navbar.html");
     $idPerro = limpia_entrada($_GET['idPerro']);
     $idUsuario = $_SESSION["id"];
     //echo $idUsuario;
-    
-    
-
-
 ?>
 <div class="uk-container uk-margin">
     <h1 class="uk-text-center">Nueva Solicitud de Adopción</h1>
     <hr class="uk-divider-icon">
     <h2 class="uk-text-center">Formulario de Adopción</h2>
-    <a href='catalogo.php' uk-tooltip = 'Click para retroceder' class='uk-icon-link uk-align-left' uk-icon='arrow-left'; ratio ='2'></a>
+    <a href='catalogo' uk-tooltip = 'Click para retroceder' class='uk-icon-link uk-align-left' uk-icon='arrow-left'; ratio ='2'></a>
     <div class="uk-margin-xlarge-right uk-margin-xlarge-left">
         <form class="uk-form">
             <?= muestraPreguntasFormulario(); ?>
@@ -29,15 +25,15 @@ if(checkPriv("adoptar")):
     </div>
 </div>
 
-<?php
-http_response_code(200);
-else:
-    http_response_code(404);
-    header("location:error");
-endif;
-    include("_footer.html");
-?>
 
+<?php
+    http_response_code(200);
+    include("_footer.html");
+else:
+    $_SESSION["error"]="Por favor inicia sesión para poder adoptar";
+    header("location:iniciarSesion");
+endif;
+?>
 <script>
     //var idPerro = <?php echo $idPerro; ?>;
     var idUsuario = <?php echo $idUsuario; ?>;

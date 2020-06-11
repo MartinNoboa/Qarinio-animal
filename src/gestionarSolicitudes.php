@@ -17,9 +17,8 @@
 </div>
 
 <div class = "uk-modal-container" id = "formulario"></div>
-    <div class = "uk-modal-container" id = "pago"></div>
-<div class = "uk-modal-container" id = "entrevista">
-</div>
+<div class = "uk-modal-container" id = "pago"></div>
+<div class = "uk-modal-container" id = "entrevista"></div>
 
 <?php
 else:

@@ -436,7 +436,7 @@ function nuevaSolicitud(){
           mostrarMensaje("Se completó el formulario correctamente", "success");
             //redireccionar a mis solicitudes
             setTimeout(function() {
-          window.location.href = "misSolicitudes.php";
+          window.location.href = "misSolicitudes";
         }, 2000);
         }else {
             //mensaje de error
@@ -454,7 +454,7 @@ function cambiarContra() {
         switch(header.status){
             case 200:
                 mostrarMensaje(data, "primary");
-                setTimeout(()=>location.replace("iniciarSesion.php"), 2500);
+                setTimeout(()=>location.replace("iniciarSesion"), 2500);
                 break;
             default:
                 mostrarMensaje(data, "danger");
@@ -469,6 +469,8 @@ function muestraSolicitudes() {
         setELSolicitudes();
         setELSolicitudesPago();
         setELSolicitudesEntrevista();
+        setELAprobarSolicitudes();
+        setELRechazarSolicitudes();
 
     })
 
@@ -486,6 +488,7 @@ function muestraMisSolicitudes() {
     })
 
 }
+
 function muestraAlertOperador(idUsuario) {
     msj = confirm("¿Estás seguro que quieres eliminar este operador?\nEsta acción no se puede deshacer.");
     if(msj) {
@@ -494,7 +497,7 @@ function muestraAlertOperador(idUsuario) {
         }).done(function(data){
             if(parseInt(data) != 0) {
                 // TODO: ESTO NO ES AJAX, YA LO SÉ BERNIE. HAY QUE PASAR LA FUNCION MOSTRAR PREGUNTAS DE UTIL A OTRA FUNCION JS
-                location.replace("agregarOperadores.php");
+                location.replace("gestionarOperadores");
                 mostrarMensaje("El operador fue eliminado exitosamente", "success");
             }
             else {
@@ -513,7 +516,7 @@ function muestraAlert(idSolicitud) {
         }).done(function(data){
             if(parseInt(data) != 0) {
                 // TODO: ESTO NO ES AJAX, YA LO SÉ BERNIE. HAY QUE PASAR LA FUNCION MOSTRAR PREGUNTAS DE UTIL A OTRA FUNCION JS
-                location.replace("misSolicitudes.php");
+                location.replace("misSolicitudes");
                 mostrarMensaje("La solicitud fue eliminada exitosamente", "success");
             }
             else {
@@ -557,7 +560,7 @@ function editarPerfil() {
 
 //--------------------------------funciones para actualizar estado del formulario admin
 
-
+//set event listeners para la solicitud
 function setELSolicitudes() {
     let botonesSolicitud = document.getElementsByClassName("formulario");
 
@@ -589,7 +592,7 @@ function aprobarFormulario() {
             idSolicitud: $("#idSolicitudActiva").val(),
             aprobar : true
         }).done(function(data){
-            if(parseInt(data) > 1 ) {
+            if(parseInt(data) != 0 ) {
                 mostrarMensaje("El formulario se aprobó correctamente.", "success");
             }
             else {
@@ -645,8 +648,8 @@ function muestraSolicitudEntrevista(id) {
     }).done(function (data,status,header) {
         if(header.status===200 && status == 'success'){
             $("#entrevista").html(data);
-            $("#entrevistaSi").onclick = aprobarEntrevista;
-            $("#entrevistaNo").onclick = rechazarEntrevista;
+            $("#entrevistaSi")[0].onclick = aprobarEntrevista;
+            $("#entrevistaNo")[0].onclick = rechazarEntrevista;
             UIkit.modal($("#entrevista")).show();
 
         }
@@ -764,6 +767,69 @@ function rechazarPago() {
 }
 
 
+//--------------------------------funciones para actualizar estado final de la solicitud
+
+//event listeners para los botones de aprobar solicitud
+function setELAprobarSolicitudes() {
+    let botonesSolicitudPago = document.getElementsByClassName("apruebaSolicitud");
+    for(btn of botonesSolicitudPago) {
+        let id = btn.getAttribute("idSolicitud");
+        btn.addEventListener("click", function(b) {
+            apruebaSolicitud(id);
+
+        });
+    }
+}
+
+
+//event listeners para los botones de aprobar solicitud
+function setELRechazarSolicitudes() {
+    let botonesSolicitudPago = document.getElementsByClassName("rechazarSolicitud");
+    for(btn of botonesSolicitudPago) {
+        let id = btn.getAttribute("idSolicitud");
+        btn.addEventListener("click", function(b) {
+            rechazarSolicitud(id);
+        });
+    }
+}
+
+
+function apruebaSolicitud() {
+    msj = confirm("¿Estás seguro que deseas aprobar esta solicitud?");
+    if(msj) {
+        $.post("controlador_aprobar_solicitud.php", {
+            idSolicitud: idSolicitud,
+            aprobarPago : true
+        }).done(function(data){
+            if(parseInt(data) != 0) {
+                mostrarMensaje("Se aprobó correctamente la solicitud.", "success");
+            }
+            else {
+                mostrarMensaje("Hubo un error al aprobar la solicitud.\nPor favor, intenta de nuevo.", "danger");
+            }
+            muestraSolicitudes();
+        });
+    }
+}
+
+function rechazarSolicitud() {
+    msj = confirm("¿Estás seguro que deseas rechazar esta solicitud?");
+    if(msj) {
+        $.post("controlador_aprobar_solicitud.php", {
+            idSolicitud: idSolicitud,
+            aprobarPago : false
+        }).done(function(data){
+            if(parseInt(data) != 0) {
+                mostrarMensaje("Se rechazó correctamente la solicitud.", "success");
+            }
+            else {
+                mostrarMensaje("Hubo un error al rechazar la solicitud.\nPor favor, intenta de nuevo.", "danger");
+            }
+            muestraSolicitudes();
+        });
+    }
+}
+
 
 //!!!!!!!!!!!!!!--------------------------------MANEJO SOLICITUDES USUARIO REGISTRADO-------------------------------!!!!!!!!!
 
@@ -797,7 +863,6 @@ function muestraSolicitudUR(id) {
 
 //--------------------------------funciones para mostrar modal estado de entrevista
 
-
 function setELSolicitudesEntrevista_UR() {
     let botonesSolicitudEntrevistaUR = document.getElementsByClassName("urentrevista");
     for(btn of botonesSolicitudEntrevistaUR) {
@@ -807,6 +872,7 @@ function setELSolicitudesEntrevista_UR() {
         });
     }
 }
+
 
 function muestraSolicitudEntrevistaUR(id) {
     $.post("vista_entrevista_ur.php", {
