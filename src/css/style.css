@@ -9,7 +9,10 @@ html {
 }
 
 #navLogo{
-  height: 100px!important;
+    height: 100px!important;
+}
+#navLogoMov{
+    height: 80px!important;
 }
 
 .valid{

@@ -29,6 +29,9 @@ if(checkPriv("adoptar")):
 <?php
     http_response_code(200);
     include("_footer.html");
+elseif(isset($_SESSION["id"])):
+          $_SESSION["error"]="Por favor verificar tu cuenta mediante el correo enviado";
+          header("location:catalogo");           
 else:
     $_SESSION["error"]="Por favor inicia sesión para poder adoptar";
     header("location:iniciarSesion");

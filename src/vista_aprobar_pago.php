@@ -34,7 +34,7 @@
                         
                         if ($row['metodo'] == null){
                             $ans .= "<td> El adoptante no ha seleccionado su método de pago.</td>";
-                        }elseif ($row["metodo"] != "Efectivo"){
+                        }elseif ($row["metodo"] != "Efectivo" && $row["metodo"] != "Transferencia"){
                             $ans .= "<td uk-tooltip = 'title: El adoptante no ha realizado su pago.'>".$row['metodo']."</td>";
                         }else{
                             //metodo de pago es efectivo
@@ -56,11 +56,11 @@
                     
                     <div class="uk-child-width-expand@s uk-text-center uk-margin-top" uk-grid>
                         <div>
-                            <input class="uk-button uk-button-default uk-border-rounded uk-width-1-1" type="button"  value = "Aprobar pago" id = "aprobarPago"
-                            <?php if($noCambio){ echo "disabled uk-tooltip:'title:No puede modificar el estado de pago."; } ?>></input>
+                            <input class="uk-button uk-button-primary uk-border-rounded uk-width-1-1" type="button"  value = "Aprobar pago" id = "aprobarPago"
+                            <?= $noCambio?"disabled uk-tooltip:'title:No puede modificar el estado de pago.":"" ?>'></input>
                         </div>
                         <div>
-                            <input class="uk-button uk-button-danger uk-modal-close uk-border-rounded uk-width-1-1" type="button" id = "rechazarPago" value = "Rechazar pago"<?php if($noCambio){ echo "disabled uk-tooltip:'title:No puede modificar el estado de pago."; } ?>></input>
+                            <input class="uk-button uk-button-danger uk-modal-close uk-border-rounded uk-width-1-1" type="button" id = "rechazarPago" value = "Rechazar pago"<?= $noCambio?"disabled uk-tooltip:'title:No puede modificar el estado de pago.":"" ?>'></input>
                         </div>
                     </div>
 

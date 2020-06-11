@@ -1,9 +1,7 @@
 <?php
     require_once "util.php";
-    //echo "Hola";
     
     limpia_entradas($_POST);
-    //print_r($_POST);
 
     $nombre = $_POST["nombre"];
     $tamanio = $_POST["size"];

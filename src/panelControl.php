@@ -13,11 +13,18 @@
         <div class="uk-modal-container" id="modal-editar-preguntas" ></div>
     </div>
     <hr>
+    <div class="uk-animation-fade">
+        <h3>Cuota de Recuperación</h3>
+        <input type="number" class="uk-input uk-border-rounded uk-width-medium" id="cuota" value="<?= getCuota();  ?>" placeholder="Cantidad en pesos" min="0" step="0.01">
+        <button class="uk-button uk-button-primary uk-border-rounded" id="editar-cuota" type="button">Guardar</button>
+    </div>
+    <hr>
     <div class=" uk-animation-fade">
         <h3>Información de Contacto</h3>
         <div id="seccion-contacto"></div>
             <button class="uk-button uk-button-primary uk-border-rounded uk-align-right" id="editar-contacto" type="button">Guardar</button>
     </div>
+
 </div>
 
 </div>
@@ -32,6 +39,7 @@ include("_footer.html")
 <script type="text/javascript">
     document.getElementById("editar-preguntas").onclick=editarPreguntas;
     document.getElementById("editar-contacto").onclick=submitEditarContacto;
+    document.getElementById("editar-cuota").onclick=submitEditarCuota;
     mostrarContacto();
     mostrarEdicionContacto();
 </script>
