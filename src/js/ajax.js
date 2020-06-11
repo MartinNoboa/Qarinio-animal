@@ -915,7 +915,6 @@ function setELSolicitudesPago_UR() {
     for(btn of botonesSolicitudPagoUR) {
         let id = btn.getAttribute("idSolicitud");
         btn.addEventListener("click", function(b) {
-
             muestraSolicitudPagoUR(id);
         });
     }
@@ -1002,3 +1001,18 @@ function submitEditarCuota(){
     }//terminacion del if confirm
 
 }
+
+
+//!!!!!!!!!!!!!!--------------------------------MANEJO DONACIONES ------------------!!!!!!!!!
+
+function filtrarDonaciones(){
+    $.post("vista_donativos.php",{
+     periodo : $("#periodo").val(),   
+     donante : $("#buscarDonante").val(),  
+     transac : $("#buscarTransac").val()   
+    }).done(function(data){
+        $("#tablaDonaciones").html(data);
+        
+    })
+}
+

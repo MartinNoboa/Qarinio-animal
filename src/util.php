@@ -923,22 +923,73 @@ function eliminaOperador($id) {
     return modifyDb($sql1);
 }
 
-function muestraDonaciones() {
+function muestraDonaciones($periodo, $nombre, $num) {
     $sql = "
-    SELECT d.*, u.nombre as 'nombre'
+    SELECT d.*, u.nombre as 'nombre', u.apellido as 'apellido'
     FROM donacion d, usuario u
     WHERE d.idUsuario IS NULL OR u.idUsuario=d.idUsuario
+    
+    ";
+    
+    $sql .= " AND u.nombre LIKE '%$nombre%' OR u.apellido LIKE '%$nombre%'";
+    $sql .= " AND d.numeroTransaccion LIKE '$num%'";
+    
+    switch ($periodo){
+        //ultimo mes
+        case 1:
+            $meses =1;
+        break;
+        
+        //ultimos 3 meses
+        case 2:
+            $meses =3;
+        break;
+            
+        //ultimos 6 meses
+        case 3:
+            $meses =6;
+
+        break;
+        
+        //ultimo año
+        case 4:
+            $meses =12;
+
+        break;
+        
+        //todos
+        case 5:
+        default: 
+        break;
+        
+    }
+    if(isset($meses)){
+        $sql .= " AND fechaDonacion >= DATE_SUB(NOW(),INTERVAL $meses MONTH)";
+        
+    }
+    
+    $sql .= " 
     group by d.numeroTransaccion
     order by fechaDonacion
     ";
+    
+    
     $result = sqlqry($sql);
     $tabla = "";
     while ($row = mysqli_fetch_array($result)) {
         $tabla .= "<tr>";
         if($row['idUsuario']==NULL) {
-            $row['nombre']="Anónimo";
+            $row['nombre']="Donación";
+            $row['apellido']="anónima";
+            
         }
-        $tabla .= "<td>".$row['nombre']."</td>";
+        if($row['monto']==NULL) {
+            $row['monto']="-";
+        }
+        if($row['cuota']==NULL) {
+            $row['cuota']="-";
+        }
+        $tabla .= "<td>".$row['nombre']. " ".$row['apellido'] . "</td>";
         $tabla .= "<td>".$row['monto']."</td>";
         $tabla .= "<td>".$row['cuota']."</td>";
         $tabla .= "<td>".$row['numeroTransaccion']."</td>";
