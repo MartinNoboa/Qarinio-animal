@@ -4,7 +4,7 @@
 
     if(checkPriv("editar-faq")):
         $cuota = limpia_entrada($_POST["cuota"]);
-        echo setCuota();
+        echo setCuota($cuota);
 ?>
 
 

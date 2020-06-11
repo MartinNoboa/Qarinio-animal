@@ -93,6 +93,11 @@ function getCuota(){
     return mysqli_fetch_array(sqlqry($sql))[0];
 }
 
+function setCuota($cuota) {
+    $sql = "UPDATE cuotaDeRecuperacion SET cuota=$cuota WHERE true";
+    return modifyDb($sql);
+}
+
 function recuperarUsuarios(){
     $sql = "SELECT u.nombre,u.nombre,r.rol from usuario u, rol r, usuario_rol ur WHERE u.idUsuario=ur.idUsuario AND r.idRol=ur.idRol";
     return sqlqry($sql);

@@ -15,7 +15,7 @@
     <hr>
     <div class="uk-animation-fade">
         <h3>Cuota de Recuperación</h3>
-        <input type="number" class="uk-input uk-border-rounded uk-width-medium" id="cuota" value="" placeholder="Cantidad en pesos" min="0">
+        <input type="number" class="uk-input uk-border-rounded uk-width-medium" id="cuota" value="<?= getCuota();  ?>" placeholder="Cantidad en pesos" min="0" step="0.01">
         <button class="uk-button uk-button-primary uk-border-rounded" id="editar-cuota" type="button">Guardar</button>
     </div>
     <hr>

@@ -976,7 +976,6 @@ function submitEditarCuota(){
             } else {
                 mostrarMensaje("Hubo un error al actualizar la cuota de recuperación","danger");
             }
-            mostrarCuota();
         });
 
 
