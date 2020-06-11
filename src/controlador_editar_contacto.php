@@ -1,6 +1,9 @@
 <?php
     require_once("util.php");
     session_start();
+session_start();
+
+if(checkPriv("editar-info-contacto")){
     $nombre = limpia_entrada($_POST["nombre"]);
     $correo = limpia_entrada($_POST["correo"]);
     $direccion = limpia_entrada($_POST["direccion"]);
@@ -16,4 +19,7 @@
     $data[0]['telefono']=$telefono;
     $newJsonString = json_encode($data);
     echo file_put_contents('contacto.json', $newJsonString);
+} else {
+    echo "";
+}
 ?>

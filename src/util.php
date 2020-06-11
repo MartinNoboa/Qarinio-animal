@@ -88,8 +88,10 @@ function modifyDb($dml){
     return $res;
 }
 
-
-
+function getCuota(){
+    $sql= "SELECT * FROM cuotaDeRecuperacion";
+    return mysqli_fetch_array(sqlqry($sql))[0];
+}
 
 function recuperarUsuarios(){
     $sql = "SELECT u.nombre,u.nombre,r.rol from usuario u, rol r, usuario_rol ur WHERE u.idUsuario=ur.idUsuario AND r.idRol=ur.idRol";

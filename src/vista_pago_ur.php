@@ -1,9 +1,6 @@
 <?php
     include_once("util.php");
-
-
     $idSolicitud = limpia_entrada($_POST['idSolicitud']);
-    
 ?>
 <div class="uk-modal-dialog uk-modal-body uk-border-rounded">
         <div class="uk-modal-title">
@@ -32,7 +29,7 @@
                 
                     while($row = mysqli_fetch_array($result, MYSQLI_BOTH)) {
                         $ans .= "<tr>";
-                        $ans .= "<td>$700</td>";
+                        $ans .= "<td>$". getCuota() ."</td>";
                         $ans .= "<td>
                             <select class=\"uk-select uk-border-rounded\" id = \"metodoPago\" name = \"metodoPago\" required>";
                         
