@@ -965,3 +965,20 @@ function actualizarMetodoPago() {
         });
     }
 }
+
+function submitEditarCuota(){
+    if(confirm("¿Estas seguro de modificar la cuota de recuperación?")){
+       $.post("controlador_editar_cuota.php", {
+           cuota : $("#cuota").val()
+        }).done(function (data) {
+            if(parseInt(data)!== 0) {
+                mostrarMensaje("Se actualizó la cuota de recuperación exitosamente","success");
+            } else {
+                mostrarMensaje("Hubo un error al actualizar la cuota de recuperación","danger");
+            }
+        });
+
+
+    }//terminacion del if confirm
+
+}

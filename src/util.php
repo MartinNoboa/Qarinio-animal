@@ -93,6 +93,11 @@ function getCuota(){
     return mysqli_fetch_array(sqlqry($sql))[0];
 }
 
+function setCuota($cuota) {
+    $sql = "UPDATE cuotaDeRecuperacion SET cuota=$cuota WHERE true";
+    return modifyDb($sql);
+}
+
 function recuperarUsuarios(){
     $sql = "SELECT u.nombre,u.nombre,r.rol from usuario u, rol r, usuario_rol ur WHERE u.idUsuario=ur.idUsuario AND r.idRol=ur.idRol";
     return sqlqry($sql);
@@ -816,14 +821,14 @@ function muestraTodasSolicitudes(){
             </div>
             </td>";
         }
-        
+
         $a = '';
         if($row['Pago'] == 5 && $row['Entrevista'] == 5 && $row['Formulario'] == 5){
             $a = '';
         }else{
             $a = 'disabled';
         }
-        
+
         $tabla .= "<td>
         <button type='submit' name='apruebaSolicitud'  class='apruebaSolicitud uk-button-primary uk-button-small uk-button uk-border-rounded uk-align-center' uk-tooltip='title: Aprobar solicitud' $a idSolicitud = " . $row['idSolicitud'] . ">
         <span uk-icon='icon: check'></span>
@@ -833,9 +838,9 @@ function muestraTodasSolicitudes(){
         <button type='submit' name='rechazaSolicitud'  class='rechazaSolicitud uk-button-danger uk-button-small uk-button uk-border-rounded uk-align-center' uk-tooltip='title: Rechazar solicitud' idSolicitud = " . $row['idSolicitud']. "><span uk-icon='icon: ban'></span></button>
         </td>";
         $tabla .= "</tr>";
-        
+
     }
-    
+
     mysqli_free_result($result); //Liberar la memoria
     $tabla .= "</tbody></table>";
     return $tabla;
@@ -884,7 +889,7 @@ function eliminarSolicitud($idSolicitud) {
 
 function aceptarSolicitud($idSolicitud) {
     $sql="
-    UPDATE solicitudes SET aprobada = 1, activa = 0 WHERE idSolicitud = $idSolicitud 
+    UPDATE solicitudes SET aprobada = 1, activa = 0 WHERE idSolicitud = $idSolicitud
     ";
     $sql1="
     UPDATE estado_perro SET idEstado = 1 WHERE idPerro = (SELECT idPerro FROM solicitud as s WHERE s.idSolicitud = $idSolicitud)
