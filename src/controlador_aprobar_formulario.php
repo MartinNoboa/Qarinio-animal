@@ -3,7 +3,7 @@
     include("util.php");
     $id = limpia_entrada($_POST["idSolicitud"]);
     $aprobar = limpia_entrada($_POST["aprobar"]);
-session_start();
+    session_start();
 
 if(checkPriv("ver-todas-solicitudes")){
     if ($aprobar == 'true'){
