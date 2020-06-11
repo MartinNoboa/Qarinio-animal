@@ -1,6 +1,6 @@
 <?php
 
-include("util.php");
+include_once("util.php");
 $id = limpia_entrada($_POST["idSolicitud"]);
 
 session_start();
