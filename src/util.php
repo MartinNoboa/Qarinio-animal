@@ -1022,3 +1022,31 @@ function eliminaOperador($id) {
     AND r.rol='operador'";
     return modifyDb($sql1);
 }
+
+function muestraDonaciones() {
+    $sql = "
+    SELECT d.*, u.nombre as 'nombre'
+    FROM donacion d, usuario u
+    WHERE d.idUsuario IS NULL OR u.idUsuario=d.idUsuario
+    group by d.numeroTransaccion
+    order by fechaDonacion
+    ";
+    $result = sqlqry($sql);
+    $tabla = "";
+    while ($row = mysqli_fetch_array($result)) {
+        $tabla .= "<tr>";
+        if($row['idUsuario']==NULL) {
+            $row['nombre']="Anónimo";
+        }
+        $tabla .= "<td>".$row['nombre']."</td>";
+        $tabla .= "<td>".$row['monto']."</td>";
+        $tabla .= "<td>".$row['cuota']."</td>";
+        $tabla .= "<td>".$row['numeroTransaccion']."</td>";
+        $tabla .= "<td>".$row['fechaDonacion']."</td>";
+        $tabla .= "</tr>";
+    }
+
+    return $tabla;
+
+
+}

@@ -28,6 +28,7 @@
                                     <hr>
                                     <li class="uk-text-nowrap"><a href="panelControl"><span uk-icon="icon: settings"></span> Panel de control de la página</a></li>
                                     <li class="uk-text-nowrap"><a href="gestionarOperadores"><span uk-icon="icon: users"></span> Gestionar operadores</a></li>
+                                    <li class="uk-text-nowrap"><a href="historialDonaciones"><span uk-icon="icon: history"></span> Historial de Donaciones</a></li>
                                 <?php endif; ?>
                                 <hr>
                                 <li class="uk-text-nowrap"><a href="miCuenta"><span uk-icon="icon: cog"></span> Ajustes de cuenta</a></li>
@@ -72,15 +73,11 @@
 <div id="my-id" class="offcanvas-nav-primary uk-width-medium" uk-offcanvas>
         <div class="uk-offcanvas-bar uk-width-medium">
             <ul class="uk-nav uk-nav-primary uk-margin-auto-vertical">
-
                     <li class="uk-parent"><a href="catalogo">Nuestros Perros<i class="fas fa-dog uk-margin-small-left"></i></a></li>
                     <li class="uk-parent"><a href="comoAyudar">¿Cómo ayudar?<i class="fas fa-hands-helping uk-margin-small-left"></i></a></li>
                     <li class="uk-parent"><a href="preguntasFrecuentes">Preguntas Frecuentes<i class="fas fa-question uk-margin-small-left"></i></a></li>
                     <li class="uk-parent"><a href="contactanos">Contáctanos<i class="fas fa-comments uk-margin-small-left"></i></a></li>
-                    <div class="">
-                        <button id="boton-donacion-movil" uk-toggle="target: #modal-donacion" type="button" class="uk-button uk-border-rounded uk-position-bottom-center uk-margin" style="background-color: #ffc439; color: #2c2e2f"><i class="fas fa-donate uk-margin-small-right"></i>Donar</button>
-                    </div>
-                <hr>
+
                     <li class="uk-parent">
                       <a href="" class="uk-parent"><?= isset($_SESSION["nombre"])?$_SESSION["nombre"]:"Mi Cuenta" ?> <i class="fas fa-user-circle uk-margin-small-left" ></i></a>
                         <ul class="uk-nav-sub">
@@ -93,6 +90,7 @@
                                     <hr>
                                     <li class="uk-text-nowrap"><a href="panelControl"><span uk-icon="icon: settings"></span> Panel de control de la página</a></li>
                                     <li class="uk-text-nowrap"><a href="gestionarOperadores"><span uk-icon="icon: users"></span> Gestionar operadores</a></li>
+                                    <li class="uk-text-nowrap"><a href="gestionarOperadores"><span uk-icon="icon: history"></span> Historial de Donaciones</a></li>
                                 <?php endif; ?>
                                 <hr>
                                 <li class="uk-text-nowrap"><a href="miCuenta"><span uk-icon="icon: cog"></span> Ajustes de cuenta</a></li>
@@ -104,6 +102,7 @@
                             <?php endif; ?>
                         </ul>
                     </li>
+                    <li class="uk-parent"><button id="boton-donacion-movil" uk-toggle="target: #modal-donacion" type="button" class="uk-button uk-border-rounded uk-position-bottom-center uk-margin" style="background-color: #ffc439; color: #2c2e2f"><i class="fas fa-donate uk-margin-small-right"></i>Donar</button></li>
             </ul>
         </div>
 </div>
