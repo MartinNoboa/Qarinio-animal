@@ -9,9 +9,14 @@
         <div class="uk-modal-body">
             <form  id="pago" class="uk-form-horizontal uk-margin-large">
                    <?php
-                    
-                    $result = getPago($idSolicitud);
-                    $noCambio = true;
+
+                   $result = getPago($idSolicitud);
+                   $arr = mysqli_fetch_array($result,MYSQLI_ASSOC);
+                    $metodo = $arr['metodo'];
+                    $estado = $arr['estado'];
+
+                    $cantChange = ($estado=="Aprobado"||($estado=="En espera"&&$metodo=="Paypal"));
+
                     $ans = "
                     <div class = 'uk-container'>
                     <table class=\"uk-table uk-table-divider uk-table-striped uk-table-large uk-table-hover uk-animation-slide-bottom-medium \">
@@ -26,31 +31,55 @@
                     </thead>
                     <tbody>";
                 
-                
-                    while($row = mysqli_fetch_array($result, MYSQLI_BOTH)) {
+
                         $ans .= "<tr>";
                         $ans .= "<td>$".  getCuota() ."</td>";
                         $ans .= "<td>
-                            <select class=\"uk-select uk-border-rounded\" id = \"metodoPago\" name = \"metodoPago\" required ". ($row['estado']=="Aprobado"?"disabled":"") .">";
+                            <select class=\"uk-select uk-border-rounded\" id = \"metodoPago\" name = \"metodoPago\" required ". ($cantChange?"disabled":"") .">";
 
 
-                        $ans .= "<option ". ($row['metodo']==null?"selected":"") ." hidden value='' >No ha seleccionado un método de pago.</option>
-                                 <option ". ($row['metodo']=="Efectivo"?"selected":"") ." value='Efectivo'>Efectivo</option>
-                                 <option ". ($row['metodo']=="Paypal"?"selected":"") ." value='Paypal'>Paypal</option>
-                                 <option ". ($row['metodo']=="Transferencia"?"selected":"") ." value='Transferencia'>Transferencia</option>";
+                        $ans .= "<option ". ($metodo==null?"selected":"") ." hidden value='' >No ha seleccionado un método de pago.</option>
+                                 <option ". ($metodo=="Efectivo"?"selected":"") ." value='Efectivo'>Efectivo</option>
+                                 <option ". ($metodo=="Paypal"?"selected":"") ." value='Paypal'>Paypal</option>
+                                 <option ". ($metodo=="Transferencia"?"selected":"") ." value='Transferencia'>Transferencia</option>";
 
                         $ans .= " </select>";
                         
-                        $ans .= "<td>".$row['estado']."</td>";
+                        $ans .= "<td>".$estado."</td>";
                         
                         $ans .= "</tr>";
-    
-   
-                    }
+
+
                     mysqli_free_result($result); //Liberar la memoria
                     $ans .= "</tbody></table></div>";
                     echo $ans;
-                    
+
+
+                   $instruccionesPago="<br>";
+                   if($estado!=5){
+                       switch ($metodo){
+                           case "Efectivo":
+                           case "Transferencia":
+                               $instruccionesPago.="
+                                        <div><h4 class='uk-text-center'>Alguien se pondrá en contacto contigo para completar el pago.</h4></div>
+                                    ";
+                               break;
+                           case "Paypal":
+                               if(!($estado=="Aprobado"||$estado=="En espera")){
+                                   $instruccionesPago.="
+                                        <div id='paypal-button-container-cuota' class='uk-align-center uk-text-center'></div>
+                                        <input id='paypal-cuota-rec' type='number' value='". getCuota() ."' hidden readonly></input>
+                                    ";
+                               }
+                               break;
+                           default:
+                               $instruccionesPago="";
+                               break;
+                       }
+                   }
+
+                    echo $instruccionesPago;
+
                     ?>
                     <div class="uk-child-width-expand@s uk-text-center uk-margin-top" uk-grid>
                         <div>
@@ -64,4 +93,3 @@
         </div>
     </div>
 </div>
-

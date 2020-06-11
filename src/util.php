@@ -563,7 +563,7 @@ WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.idUsuario=$id AND s.
             $tabla .= "<td class=\"uk-text-center\">
             <div class = 'urpago' idSolicitud =" .$row["idSolicitud"].">
             <a class=\"uk-link-text\">
-            <span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: warning\" uk-tooltip=\"title: Tu pago está en proceso\"></span>
+            <span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: clock\" uk-tooltip=\"title: Tu pago está en proceso\"></span>
             </a>
             </div>
             </td>";
@@ -954,7 +954,11 @@ function actualizarEstadoPago($id,$estado){
 }
 
 function actualizarMetodoPago($id, $metodo){
-    $sql = "UPDATE solicitud SET metodoPago='$metodo', estadoPago=9 WHERE idSolicitud=$id and estadoPago!=5";
+    if($metodo=="Paypal"){
+        $sql = "UPDATE solicitud SET metodoPago='$metodo', estadoPago=4 WHERE idSolicitud=$id and estadoPago!=5";
+    } else{
+        $sql = "UPDATE solicitud SET metodoPago='$metodo', estadoPago=9 WHERE idSolicitud=$id and estadoPago!=5";
+    }
     return sqlqry($sql);
 }
 
