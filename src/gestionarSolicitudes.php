@@ -9,21 +9,20 @@
     <hr class="uk-divider-icon">
     
 
-    <div class = "uk-container uk-align-center" id = "filtrosSolicitudes">
+    <div  id = "filtrosSolicitudes">
     
         <select id = "estado" class = "uk-select uk-border-rounded uk-width-medium">
             <option selected value="1">Solicitudes en proceso</option>
             <option value = "2">Solicitudes rechazadas</option>
             <option  value = "3">Solicitudes aprobadas</option>
         </select>
-        
-        <div class="uk-search uk-search-default ">
-            <span uk-search-icon></span>
-            <input id="nombre" class="uk-search-input uk-border-rounded uk-width-medium" type="search" placeholder="Buscar...">
-        </div>        
-        
+
         <button class = "uk-button uk-button-primary uk-border-rounded" id = "filtroSolicitudes">Aplicar</button>
     </div>
+    <div class="uk-search uk-search-default uk-margin">
+            <span uk-search-icon></span>
+            <input id="nombre" class="uk-search-input uk-border-rounded uk-width-medium" type="search" placeholder="Buscar...">
+        </div>  
     
     <h5 class="uk-margin-remove-bottom">Haz clic sobre cada elemento de tu solicitud para obtener más información.</h5>
 

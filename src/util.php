@@ -680,7 +680,7 @@ function recuperarProximoId(){
 }
 
 function muestraTodasSolicitudes($estado, $nombre){
-    $sql = "SELECT u.nombre as 'nombre', u.apellido as 'apellido',s.idSolicitud as 'idSolicitud', p.nombre as 'Perro', s.estadoFormulario as 'Formulario',s.estadoEntrevista as         'Entrevista', s.estadoPago as 'Pago'
+    $sql = "SELECT u.nombre as 'nombre', u.apellido as 'apellido',s.idSolicitud as 'idSolicitud', p.nombre as 'Perro', s.estadoFormulario as 'Formulario',s.estadoEntrevista as 'Entrevista', s.estadoPago as 'Pago', s.aprobada as 'aprobada'
             FROM usuario as u,solicitud as s, perros as p
             WHERE u.idUsuario = s.idUsuario AND p.idPerro = s.idPerro";
             

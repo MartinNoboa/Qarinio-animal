@@ -128,13 +128,18 @@
             $a = 'disabled';
         }
         
+        $aprobada = '';
+        if ($row['aprobada'] != NULL){
+            $aprobada = 'disabled';
+        }
+        
         $tabla .= "<td>
-        <button type='submit' name='apruebaSolicitud'  class='apruebaSolicitud uk-button-primary uk-button-small uk-button uk-border-rounded uk-align-center' uk-tooltip='title: Aprobar solicitud' $a idSolicitud = " . $row['idSolicitud'] . ">
+        <button type='submit' name='apruebaSolicitud'  class='apruebaSolicitud uk-button-primary uk-button-small uk-button uk-border-rounded uk-align-center' uk-tooltip='title: Aprobar solicitud' $aprobada $a idSolicitud = " . $row['idSolicitud'] . ">
         <span uk-icon='icon: check'></span>
         </button>
         </td>";
         $tabla .= "<td>
-        <button type='submit' name='rechazaSolicitud'  class='rechazaSolicitud uk-button-danger uk-button-small uk-button uk-border-rounded uk-align-center' uk-tooltip='title: Rechazar solicitud' idSolicitud = " . $row['idSolicitud']. "><span uk-icon='icon: ban'></span></button>
+        <button type='submit' name='rechazaSolicitud'  class='rechazaSolicitud uk-button-danger uk-button-small uk-button uk-border-rounded uk-align-center' uk-tooltip='title: Rechazar solicitud' $aprobada idSolicitud = " . $row['idSolicitud']. "><span uk-icon='icon: ban'></span></button>
         </td>";
         $tabla .= "</tr>";
         
