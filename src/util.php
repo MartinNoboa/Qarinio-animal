@@ -651,7 +651,7 @@ function recuperarProximoId(){
 }
 
 function muestraTodasSolicitudes(){
-    $sql = "SELECT u.nombre as 'adoptante',s.idSolicitud as 'idSolicitud', p.nombre as 'Perro', s.estadoFormulario as 'Formulario',s.estadoEntrevista as         'Entrevista', s.estadoPago as 'Pago'
+    $sql = "SELECT u.nombre as 'nombre', u.apellido as 'apellido',s.idSolicitud as 'idSolicitud', p.nombre as 'Perro', s.estadoFormulario as 'Formulario',s.estadoEntrevista as         'Entrevista', s.estadoPago as 'Pago'
             FROM usuario as u,solicitud as s, perros as p
             WHERE u.idUsuario = s.idUsuario AND p.idPerro = s.idPerro";
     $result = sqlqry($sql);
@@ -664,6 +664,8 @@ function muestraTodasSolicitudes(){
                 <th class=\"uk-text-center uk-text-secondary\">Formulario</th>
                 <th class=\"uk-text-center uk-text-secondary\">Entrevista</th>
                 <th class=\"uk-text-center uk-text-secondary\">Pago</th>
+                <th class=\"uk-text-center uk-text-secondary uk-width-small\"></th>
+                <th class=\"uk-text-center uk-text-secondary uk-width-small\"></th>
             </tr>
         </thead>
         <tbody>
@@ -671,7 +673,7 @@ function muestraTodasSolicitudes(){
 
     while($row = mysqli_fetch_array($result, MYSQLI_BOTH)) {
         $tabla .= "<tr>";
-        $tabla .= "<td>".$row['adoptante']."</td>";
+        $tabla .= "<td>".$row['nombre']. $row['apellido'] ."</td>";
         $tabla .= "<td>".$row['Perro']."</td>";
 
         //----------------------------------------estado formulario
@@ -766,8 +768,26 @@ function muestraTodasSolicitudes(){
             </div>
             </td>";
         }
+        
+        $a = '';
+        if($row['Pago'] == 5 && $row['Entrevista'] == 5 && $row['Formulario'] == 5){
+            $a = '';
+        }else{
+            $a = 'disabled';
+        }
+        
+        $tabla .= "<td>
+        <button type='submit' name='apruebaSolicitud'  class='apruebaSolicitud uk-button-primary uk-button-small uk-button uk-border-rounded uk-align-center' uk-tooltip='title: Aprobar solicitud' $a idSolicitud = " . $row['idSolicitud'] . ">
+        <span uk-icon='icon: check'></span>
+        </button>
+        </td>";
+        $tabla .= "<td>
+        <button type='submit' name='rechazaSolicitud'  class='rechazaSolicitud uk-button-danger uk-button-small uk-button uk-border-rounded uk-align-center' uk-tooltip='title: Rechazar solicitud' idSolicitud = " . $row['idSolicitud']. "><span uk-icon='icon: ban'></span></button>
+        </td>";
         $tabla .= "</tr>";
+        
     }
+    
     mysqli_free_result($result); //Liberar la memoria
     $tabla .= "</tbody></table>";
     return $tabla;
@@ -809,6 +829,18 @@ function eliminarSolicitud($idSolicitud) {
     DELETE FROM solicitud WHERE idSolicitud='".$idSolicitud."'";
     $res=modifyDb($sql);
     return $res;
+  }
+
+function aceptarSolicitud($idSolicitud) {
+    $sql="
+    UPDATE solicitudes SET aprobada = 1, activa = 0 WHERE idSolicitud = $idSolicitud 
+    ";
+    $sql1="
+    UPDATE estado_perro SET idEstado = 1 WHERE idPerro = (SELECT idPerro FROM solicitud as s WHERE s.idSolicitud = $idSolicitud)
+    ";
+    $res=modifyDb($sql);
+    $res1=modifyDb($sql1);
+    return $res && $res1;
   }
 
 function getUserInfoById($id){
