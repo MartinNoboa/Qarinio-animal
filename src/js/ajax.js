@@ -27,6 +27,21 @@ function filtrar() {
     });
 }
 
+//funcion para filtrar solicitudes
+function filtrarSolicitudes() {
+    $.post("controlador_gestionar_solicitudes.php", {
+        estado: $("#estado").val(),
+        nombre: $("#nombre").val()
+    }).done(function (data) {
+        $("#tablaSolicitudes").html(data);
+        setELSolicitudes();
+        setELSolicitudesPago();
+        setELSolicitudesEntrevista();
+        setELAprobarSolicitudes();
+        setELRechazarSolicitudes();
+    });
+}
+
 function muestraEditarPerro(id) {
     $.post("vista_editar_perro.php", {
         idPerro: id
@@ -463,12 +478,23 @@ function cambiarContra() {
     });
 }
 
+function setEventListenerSolicitudes(){
+    setELSolicitudes();
+    setELSolicitudesPago();
+    setELSolicitudesEntrevista();
+    setELAprobarSolicitudes();
+    setELRechazarSolicitudes();
+}
+
+//posible eliminacion
 function muestraSolicitudes() {
-    $.get("vista_gestionar_solicitudes.php").done(function(data){
+    $.get("controlador_gestionar_solicitudes.php").done(function(data){
         $("#tablaSolicitudes").html(data);
         setELSolicitudes();
         setELSolicitudesPago();
         setELSolicitudesEntrevista();
+        setELAprobarSolicitudes();
+        setELRechazarSolicitudes();
 
     })
 
@@ -486,6 +512,7 @@ function muestraMisSolicitudes() {
     })
 
 }
+
 function muestraAlertOperador(idUsuario) {
     msj = confirm("¿Estás seguro que quieres eliminar este operador?\nEsta acción no se puede deshacer.");
     if(msj) {
@@ -557,7 +584,7 @@ function editarPerfil() {
 
 //--------------------------------funciones para actualizar estado del formulario admin
 
-
+//set event listeners para la solicitud
 function setELSolicitudes() {
     let botonesSolicitud = document.getElementsByClassName("formulario");
 
@@ -632,9 +659,7 @@ function setELSolicitudesEntrevista() {
     for(btn of botonesSolicitudEntrevista) {
         let id = btn.getAttribute("idSolicitud");
         btn.addEventListener("click", function(b) {
-
             muestraSolicitudEntrevista(id);
-
         });
     }
 }
@@ -764,6 +789,67 @@ function rechazarPago() {
 }
 
 
+//--------------------------------funciones para actualizar estado final de la solicitud
+
+//event listeners para los botones de aprobar solicitud
+function setELAprobarSolicitudes() {
+    let botonesSolicitudPago = document.getElementsByClassName("apruebaSolicitud");
+    for(btn of botonesSolicitudPago) {
+        let id = btn.getAttribute("idSolicitud");
+        btn.addEventListener("click", function(b) {
+            apruebaSolicitud(id);
+
+        });
+    }
+}
+
+
+//event listeners para los botones de aprobar solicitud
+function setELRechazarSolicitudes() {
+    let botonesSolicitudPago = document.getElementsByClassName("rechazaSolicitud");
+    for(btn of botonesSolicitudPago) {
+        let id = btn.getAttribute("idSolicitud");
+        btn.addEventListener("click", function(b) {
+            rechazarSolicitud(id);
+        });
+    }
+}
+
+
+function apruebaSolicitud(id) {
+    msj = confirm("¿Estás seguro que deseas aprobar esta solicitud?");
+    if(msj) {
+        $.post("controlador_aprobar_solicitud.php", {
+            idSolicitud: id
+        }).done(function(data){
+            if(parseInt(data) != 0) {
+                mostrarMensaje("Se aprobó correctamente la solicitud.", "success");
+            }
+            else {
+                mostrarMensaje("Hubo un error al aprobar la solicitud.\nPor favor, intenta de nuevo.", "danger");
+            }
+            muestraSolicitudes();
+        });
+    }
+}
+
+function rechazarSolicitud(id) {
+    msj = confirm("¿Estás seguro que deseas rechazar esta solicitud?");
+    if(msj) {
+        $.post("controlador_rechazar_solicitud.php", {
+            idSolicitud: id
+        }).done(function(data){
+            if(parseInt(data) != 0) {
+                mostrarMensaje("Se rechazó correctamente la solicitud.", "success");
+            }
+            else {
+                mostrarMensaje("Hubo un error al rechazar la solicitud.\nPor favor, intenta de nuevo.", "danger");
+            }
+            muestraSolicitudes();
+        });
+    }
+}
+
 
 //!!!!!!!!!!!!!!--------------------------------MANEJO SOLICITUDES USUARIO REGISTRADO-------------------------------!!!!!!!!!
 
@@ -797,7 +883,6 @@ function muestraSolicitudUR(id) {
 
 //--------------------------------funciones para mostrar modal estado de entrevista
 
-
 function setELSolicitudesEntrevista_UR() {
     let botonesSolicitudEntrevistaUR = document.getElementsByClassName("urentrevista");
     for(btn of botonesSolicitudEntrevistaUR) {
@@ -807,6 +892,7 @@ function setELSolicitudesEntrevista_UR() {
         });
     }
 }
+
 
 function muestraSolicitudEntrevistaUR(id) {
     $.post("vista_entrevista_ur.php", {
@@ -829,7 +915,6 @@ function setELSolicitudesPago_UR() {
     for(btn of botonesSolicitudPagoUR) {
         let id = btn.getAttribute("idSolicitud");
         btn.addEventListener("click", function(b) {
-
             muestraSolicitudPagoUR(id);
         });
     }
@@ -844,6 +929,38 @@ function muestraSolicitudPagoUR(id) {
             $("#actualizarMetodo")[0].onclick = actualizarMetodoPago;
             UIkit.modal($("#urpago")).show();
         }
+        if(document.getElementById("paypal-button-container-cuota")){
+            paypal.Buttons({
+                createOrder: function(data, actions) {
+                    let cantidad = document.getElementById("paypal-cuota-rec").value;
+                    // This function sets up the details of the transaction, including the amount and line item details.
+                    return actions.order.create({
+                        purchase_units: [{
+                            description: "Cuota de Recuperación",
+                            amount: {
+                                value: cantidad.toString(),
+                            }
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    // This function captures the funds from the transaction.
+                    $.post("PayPalCliente.php?caso=cuotaRecuperacion",{
+                        oId:data["orderID"],
+                        sId:id
+                    });
+                    return actions.order.capture().then(function(details) {
+                        // This function shows a transaction success message to your buyer.
+                        mostrarMensaje('Muchas gracias, tu pago ha sido realizado. Puede tardar hasta 48 horas en verificarse', 'success');
+                        UIkit.modal($("#urpago")).hide();
+                    });
+                }
+            }).render('#paypal-button-container-cuota');
+            //This function displays Smart Payment Buttons on your web page.
+
+            //---PayPal---------------------------------
+        }
+
     });
 }
 
@@ -867,3 +984,35 @@ function actualizarMetodoPago() {
         });
     }
 }
+
+function submitEditarCuota(){
+    if(confirm("¿Estas seguro de modificar la cuota de recuperación?")){
+       $.post("controlador_editar_cuota.php", {
+           cuota : $("#cuota").val()
+        }).done(function (data) {
+            if(parseInt(data)!== 0) {
+                mostrarMensaje("Se actualizó la cuota de recuperación exitosamente","success");
+            } else {
+                mostrarMensaje("Hubo un error al actualizar la cuota de recuperación","danger");
+            }
+        });
+
+
+    }//terminacion del if confirm
+
+}
+
+
+//!!!!!!!!!!!!!!--------------------------------MANEJO DONACIONES ------------------!!!!!!!!!
+
+function filtrarDonaciones(){
+    $.post("vista_donativos.php",{
+     periodo : $("#periodo").val(),   
+     donante : $("#buscarDonante").val(),  
+     transac : $("#buscarTransac").val()   
+    }).done(function(data){
+        $("#tablaDonaciones").html(data);
+        
+    })
+}
+

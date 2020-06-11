@@ -88,8 +88,15 @@ function modifyDb($dml){
     return $res;
 }
 
+function getCuota(){
+    $sql= "SELECT * FROM cuotaDeRecuperacion";
+    return mysqli_fetch_array(sqlqry($sql))[0];
+}
 
-
+function setCuota($cuota) {
+    $sql = "UPDATE cuotaDeRecuperacion SET cuota=$cuota WHERE true";
+    return modifyDb($sql);
+}
 
 function recuperarUsuarios(){
     $sql = "SELECT u.nombre,u.nombre,r.rol from usuario u, rol r, usuario_rol ur WHERE u.idUsuario=ur.idUsuario AND r.idRol=ur.idRol";
@@ -362,6 +369,7 @@ function recuperarOpciones($id, $campo, $tabla){
     return $option;
   }
 
+
 function recuperarEstadosPerros($val, $selected){
     $sql = "SELECT $val, nombre FROM estado WHERE perro = 1";
     $result = sqlqry($sql);
@@ -442,16 +450,14 @@ function sintaxisEdad($meses) {
 }
 
 function muestraSolicitudes($id){
-    $conDb = connectDb();
-
     $sql = "
     SELECT s.idSolicitud as 'idSolicitud', p.nombre as 'Perro', s.estadoFormulario as 'Formulario', s.estadoEntrevista as 'Entrevista', s.estadoPago as 'Pago'
 FROM perros p, usuario u, solicitud s
-WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.idUsuario= $id";
+WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.idUsuario=$id AND s.activa";
 
     $tabla = "
     <table class=\"uk-table uk-table-divider uk-table-striped uk-table-large uk-table-hover uk-animation-slide-bottom-medium\">
-        <thead clas>
+        <thead>
             <tr>
                 <th class=\"uk-width-small uk-text-secondary\">Perro</th>
                 <th class=\"uk-text-center uk-text-secondary\">Formulario</th>
@@ -463,41 +469,40 @@ WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.idUsuario= $id";
         <tbody>
     ";
 
-    $solicitudes = $conDb->query($sql);
+    $solicitudes = sqlqry($sql);
     while($row = mysqli_fetch_array($solicitudes, MYSQLI_BOTH)) {
         $tabla .= "<tr>";
         $tabla .= "<td>".$row['Perro']."</td>";
-
         //------------------------------------------------------ Estado del formulario
+       $icono="";
+       $tooltip="";
+       $color="";
+       switch($row['Formulario']){
+           case 5:
+               $icono="check";
+               $tooltip="¡Tu formulario fue aprobado!";
+               $color="success";
+               break;
+           case 3:
+               $icono="close";
+               $tooltip="Tu formulario fue rechazado.";
+               $color="danger";
+               break;
+           case 4:
+           default:
+               $icono="minus";
+               $tooltip="No se ha revisado tu formulario todavía.";
+               $color="warning";
+               break;
+       }
 
-       if($row['Formulario'] == 5) { //completado
-            $tabla .= "<td class=\" uk-text-center\">
-            <div class = 'urformulario' idSolicitud =" .$row["idSolicitud"].">
-            <a class=\" uk-link-text\">
-            <span class=\" uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Tu formulario fue aprobado!\"></span>
+       $tabla .= "<td class=\" uk-text-center\">
+            <div class = 'urformulario ' idSolicitud =".$row["idSolicitud"].">
+            <a class='uk-link-text'>
+            <span class='uk-text-center uk-text-".$color."' uk-icon='icon:". $icono ."' uk-tooltip='title:". $tooltip ."'></span>
             </a>
             </div>
             </td>";
-        }
-        elseif($row['Formulario'] == 4) { //en proceso
-            $tabla .= "<td class=\" uk-text-center\">
-            <div class = 'urformulario 'idSolicitud =" .$row["idSolicitud"].">
-            <a class=\" uk-link-text\">
-            <span class=\" formulario uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: No se ha revisado tu formulario todavía.\"></span>
-            </a>
-            </div>
-            </td>";
-        }
-        elseif($row['Formulario'] == 3) { //incompleto
-            $tabla .= "<td class=\" uk-text-center\">
-            <div class = \"urformulario \" idSolicitud =".$row["idSolicitud"].">
-            <a class=\" uk-link-text\">
-            <span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Tu formulario fue rechazado.\"></span>
-            </a>
-            </div>
-            </td>";
-        }
-
 
         //------------------------------------------------------ Estado de la entrevista
 
@@ -560,13 +565,53 @@ WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.idUsuario= $id";
             </div>
             </td>";
         }
+        elseif($row['Pago'] == 9) { //en proceso
+            $tabla .= "<td class=\"uk-text-center\">
+            <div class = 'urpago' idSolicitud =" .$row["idSolicitud"].">
+            <a class=\"uk-link-text\">
+            <span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: clock\" uk-tooltip=\"title: Tu pago está en proceso\"></span>
+            </a>
+            </div>
+            </td>";
+        }
         $tabla .= '<td ><button type="submit" name="btn-elimina-solicitud" id="'.$row['idSolicitud'].'" class="uk-button-danger uk-button-small uk-button uk-border-rounded uk-align-center" uk-tooltip="title: Cancelar solicitud" onclick="muestraAlert('.$row['idSolicitud'].')"><span uk-icon="icon: trash"></span></button></td>';
         $tabla .= "</tr>";
     }
-    mysqli_free_result($solicitudes); //Liberar la memoria
-    closeDb($conDb);
-    $tabla .= "</tbody></table>";
-    return $tabla;
+    $tabla .= "</tbody></table>
+            <hr class='uk-divider-icon'>
+            <h3>Solicitudes finalizadas</h3>
+            <table class='uk-table uk-table-divider uk-table-striped uk-table-large uk-table-hover uk-animation-slide-bottom-medium'><thead>
+            <tr>
+                <th class='uk-width-small uk-text-secondary'>Perro</th>
+                <th class='uk-text-center uk-text-secondary'>Estado del proceso de adopción</th>
+            </tr>
+            </thead><tbody>";
+
+    $sql = "
+    SELECT p.nombre as 'Perro', s.aprobada as 'apr'
+    FROM perros p, usuario u, solicitud s
+    WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.idUsuario=$id AND s.aprobada IS NOT NULL";
+
+    $solicitudes = sqlqry($sql);
+    while($row = mysqli_fetch_array($solicitudes, MYSQLI_BOTH)){
+        if($row['apr']) {
+            $icono = "check";
+            $tooltip = "¡Tu solicitud ha sido completada y aprobada!";
+            $color = "success";
+        } else {
+            $icono="close";
+            $tooltip="Tu solicitud ha sido completada pero fue rechazada.";
+            $color="danger";
+        }
+        $tabla.="<tr>
+                    <td>". $row['Perro'] ."</td>
+                    <td class='uk-text-center'> <span class='uk-text-center uk-text-".$color."' uk-icon='icon: ".$icono."' uk-tooltip='title: ".$tooltip."'></span></td>
+                </tr>";
+    }
+    $tabla.="</tbody></table>";
+
+
+        return $tabla;
 }
 
 function muestraPreguntasFormulario() {
@@ -602,7 +647,7 @@ function muestraPreguntasFormulario() {
                 }
                 break;
             case 'numeric':
-                $output .= "<input type='number' class=\"uk-input uk-border-rounded\" id=\"".$row['id']."\">";
+                $output .= "<input type='number' min=0 class=\"uk-input uk-border-rounded\" id=\"".$row['id']."\">";
                 break;
             default:
                 $output .= "<textarea class=\"uk-textarea uk-border-rounded\" id=\"".$row['id']."\" type=\"textarea\" placeholder=\"Tu respuesta\" value=\"\"></textarea>";
@@ -650,127 +695,27 @@ function recuperarProximoId(){
     return $num;
 }
 
-function muestraTodasSolicitudes(){
-    $sql = "SELECT u.nombre as 'adoptante',s.idSolicitud as 'idSolicitud', p.nombre as 'Perro', s.estadoFormulario as 'Formulario',s.estadoEntrevista as         'Entrevista', s.estadoPago as 'Pago'
+function muestraTodasSolicitudes($estado, $nombre){
+    $sql = "SELECT u.nombre as 'nombre', u.apellido as 'apellido',s.idSolicitud as 'idSolicitud', p.nombre as 'Perro', s.estadoFormulario as 'Formulario',s.estadoEntrevista as 'Entrevista', s.estadoPago as 'Pago', s.aprobada as 'aprobada'
             FROM usuario as u,solicitud as s, perros as p
             WHERE u.idUsuario = s.idUsuario AND p.idPerro = s.idPerro";
-    $result = sqlqry($sql);
-    $tabla = "
-    <table class=\"uk-table uk-table-divider uk-table-striped uk-table-large uk-table-hover uk-animation-slide-bottom-medium\">
-        <thead>
-            <tr>
-                <th class=\"uk-width-small uk-text-secondary\">Adoptante</th>
-                <th class=\"uk-width-small uk-text-secondary\">Perro</th>
-                <th class=\"uk-text-center uk-text-secondary\">Formulario</th>
-                <th class=\"uk-text-center uk-text-secondary\">Entrevista</th>
-                <th class=\"uk-text-center uk-text-secondary\">Pago</th>
-            </tr>
-        </thead>
-        <tbody>
-    ";
 
-    while($row = mysqli_fetch_array($result, MYSQLI_BOTH)) {
-        $tabla .= "<tr>";
-        $tabla .= "<td>".$row['adoptante']."</td>";
-        $tabla .= "<td>".$row['Perro']."</td>";
-
-        //----------------------------------------estado formulario
-
-        if($row['Formulario'] == 5) { //completado
-            $tabla .= "<td class=\" uk-text-center\">
-            <div class = 'formulario' idSolicitud =" .$row["idSolicitud"].">
-            <a class=\" uk-link-text\">
-            <span class=\" uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Ya aprobaste este formulario!\"></span>
-            </a>
-            </div>
-            </td>";
-        }
-        elseif($row['Formulario'] == 4) { //en proceso
-            $tabla .= "<td class=\" uk-text-center\">
-            <div class = ' formulario 'idSolicitud =" .$row["idSolicitud"].">
-            <a class=\" uk-link-text\">
-            <span class=\" uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: No ha sido revisado este formulario.\"></span>
-            </a>
-            </div>
-            </td>";
-        }
-        elseif($row['Formulario'] == 3) { //incompleto
-            $tabla .= "<td class=\" uk-text-center\">
-            <div class = \"formulario \" idSolicitud =".$row["idSolicitud"].">
-            <a class=\" uk-link-text\">
-            <span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Rechazaste este formulario\"></span>
-            </a>
-            </div>
-            </td>";
-        }
-
-
-        //----------------------------------------estado entrevista
-
-
-        if($row['Entrevista'] == 5) { //completado
-            $tabla .= "<td class=\"uk-text-center\">
-            <div class = \"entrevista \" idSolicitud =".$row["idSolicitud"].">
-            <a class=\"uk-link-text\">
-            <span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Aprobaste esta entrevista!\"></span>
-            </a>
-            </div>
-            </td>";
-        }
-        elseif($row['Entrevista'] == 4) { //en proceso
-            $tabla .= "<td class=\"uk-text-center\">
-            <div class = \"entrevista \" idSolicitud =".$row["idSolicitud"].">
-            <a class=\"uk-link-text\">
-            <span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: Esta entrevista está en proceso.\"></span>
-            </a>
-            </div>
-            </td>";
-        }
-        elseif($row['Entrevista'] == 3) { //incompleto
-            $tabla .= "<td class=\"uk-text-center\">
-            <div class = \"entrevista \" idSolicitud =".$row["idSolicitud"].">
-            <a class=\"uk-link-text\">
-            <span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Esta entrevista fue rechazada.\"></span>
-            </a>
-            </div>
-            </td>";
-        }
-
-        //----------------------------------------estado pago
-
-
-        if($row['Pago'] == 5) { //completado
-            $tabla .= "<td class=\"uk-text-center\">
-            <div class = 'pago' idSolicitud =" .$row["idSolicitud"].">
-            <a class=\"uk-link-text\">
-            <span class=\"uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡El pago fue aprobado!\"></span>
-            </a>
-            </div>
-            </td>";
-        }
-        elseif($row['Pago'] == 4) { //en proceso
-            $tabla .= "<td class=\"uk-text-center\">
-            <div class = 'pago' idSolicitud =" .$row["idSolicitud"].">
-            <a class=\"uk-link-text\" >
-            <span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: El pago está en proceso.\"></span>
-            </a>
-            </div>
-            </td>";
-        }
-        elseif($row['Pago'] == 3) { //incompleto
-            $tabla .= "<td class=\"uk-text-center\">
-            <div class = 'pago' idSolicitud =" .$row["idSolicitud"].">
-            <a class=\"uk-link-text\">
-            <span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: El pago fue rechazado\"></span>
-            </a>
-            </div>
-            </td>";
-        }
-        $tabla .= "</tr>";
+            
+                
+    $nombrePerro = " AND p.nombre LIKE '%$nombre%'";
+    
+    if ($estado == 1){
+        $sql .= " AND activa = 1";
+    }else if ($estado == 2){
+        $sql .= "  AND activa = 0 AND aprobada = 0";
+    }else if ($estado == 3){
+        $sql .= "  AND activa = 0 AND aprobada = 1";
     }
-    mysqli_free_result($result); //Liberar la memoria
-    $tabla .= "</tbody></table>";
-    return $tabla;
+    
+    $sql .= $nombrePerro;
+    $result = sqlqry($sql);
+    
+    return $result;
 
 }
 
@@ -805,10 +750,53 @@ WHERE u.idUsuario = s.idUsuario AND s.idSolicitud = $id AND s.estadoEntrevista =
 }
 
 function eliminarSolicitud($idSolicitud) {
-    $sql="
-    DELETE FROM solicitud WHERE idSolicitud='".$idSolicitud."'";
-    $res=modifyDb($sql);
-    return $res;
+    $sql1="
+    UPDATE solicitud SET activa=false WHERE idSolicitud='$idSolicitud'
+    ";
+    $sql2="
+    UPDATE estado_perro ep, solicitud s SET ep.idEstado=2 WHERE ep.idPerro=s.idPerro AND idSolicitud='$idSolicitud'
+    ";
+    return modifyDb($sql1) && modifyDb($sql2);
+  }
+
+
+function rechazarSolicitud($idSolicitud) {
+    $sql0="
+    UPDATE solicitud SET activa=false WHERE idSolicitud='$idSolicitud'
+    ";
+    $sql1="
+    UPDATE solicitud SET aprobada=false WHERE idSolicitud='$idSolicitud'
+    ";
+    $sql2="
+    UPDATE estado_perro ep, solicitud s SET ep.idEstado=2 WHERE ep.idPerro=s.idPerro AND idSolicitud='$idSolicitud'
+    ";
+    
+    $result1 = modifyDb($sql1);
+    $result2 = modifyDb($sql2);
+    $result3 = modifyDb($sql0);
+    
+    return  ($result1 && $result2) && result3;
+  }
+
+function aceptarSolicitud($idSolicitud) {
+
+    $sql0="
+    UPDATE solicitud SET activa=false WHERE idSolicitud='$idSolicitud'
+
+    ";
+    $sql1="
+    UPDATE solicitud SET aprobada=true WHERE idSolicitud='$idSolicitud'
+    ";
+    $sql2="
+    UPDATE estado_perro ep, solicitud s SET ep.idEstado=1 WHERE ep.idPerro=s.idPerro AND idSolicitud='$idSolicitud'
+    ";
+    $sql3="
+    UPDATE solicitud s SET s.aprobada=0 WHERE s.idPerro=(SELECT idPerro FROM solicitud s WHERE idSolicitud = $idSolicitud) AND idSolicitud<>'$idSolicitud'
+    ";
+    
+    
+    return (modifyDb($sql1) && modifyDb($sql2)) && modifyDb($sql0);
+    //return (modifyDb($sql1) && modifyDb($sql2)) && (modifyDb($sql0) && modifyDb(sql3);
   }
 
 function getUserInfoById($id){
@@ -871,9 +859,12 @@ function actualizarEstadoPago($id,$estado){
 }
 
 function actualizarMetodoPago($id, $metodo){
-    $sql = "UPDATE solicitud SET metodoPago ='$metodo' WHERE idSolicitud = $id";
-    $result = sqlqry($sql);
-    return $result;
+    if($metodo=="Paypal"){
+        $sql = "UPDATE solicitud SET metodoPago='$metodo', estadoPago=4 WHERE idSolicitud=$id and estadoPago!=5";
+    } else{
+        $sql = "UPDATE solicitud SET metodoPago='$metodo', estadoPago=9 WHERE idSolicitud=$id and estadoPago!=5";
+    }
+    return sqlqry($sql);
 }
 
 function agregarOperador($email){
@@ -930,4 +921,83 @@ function eliminaOperador($id) {
     WHERE ur.idUsuario=$id
     AND r.rol='operador'";
     return modifyDb($sql1);
+}
+
+function muestraDonaciones($periodo, $nombre, $num) {
+    $sql = "
+    SELECT d.*, u.nombre as 'nombre', u.apellido as 'apellido'
+    FROM donacion d, usuario u
+    WHERE d.idUsuario IS NULL OR u.idUsuario=d.idUsuario
+    
+    ";
+    
+    $sql .= " AND u.nombre LIKE '%$nombre%' OR u.apellido LIKE '%$nombre%'";
+    $sql .= " AND d.numeroTransaccion LIKE '$num%'";
+    
+    switch ($periodo){
+        //ultimo mes
+        case 1:
+            $meses =1;
+        break;
+        
+        //ultimos 3 meses
+        case 2:
+            $meses =3;
+        break;
+            
+        //ultimos 6 meses
+        case 3:
+            $meses =6;
+
+        break;
+        
+        //ultimo año
+        case 4:
+            $meses =12;
+
+        break;
+        
+        //todos
+        case 5:
+        default: 
+        break;
+        
+    }
+    if(isset($meses)){
+        $sql .= " AND fechaDonacion >= DATE_SUB(NOW(),INTERVAL $meses MONTH)";
+        
+    }
+    
+    $sql .= " 
+    group by d.numeroTransaccion
+    order by fechaDonacion
+    ";
+    
+    
+    $result = sqlqry($sql);
+    $tabla = "";
+    while ($row = mysqli_fetch_array($result)) {
+        $tabla .= "<tr>";
+        if($row['idUsuario']==NULL) {
+            $row['nombre']="Donación";
+            $row['apellido']="anónima";
+            
+        }
+        if($row['monto']==NULL) {
+            $row['monto']="-";
+        }
+        if($row['cuota']==NULL) {
+            $row['cuota']="-";
+        }
+        $tabla .= "<td>".$row['nombre']. " ".$row['apellido'] . "</td>";
+        $tabla .= "<td>".$row['monto']."</td>";
+        $tabla .= "<td>".$row['cuota']."</td>";
+        $tabla .= "<td>".$row['numeroTransaccion']."</td>";
+        $tabla .= "<td>".$row['fechaDonacion']."</td>";
+        $tabla .= "</tr>";
+    }
+
+    return $tabla;
+
+
 }

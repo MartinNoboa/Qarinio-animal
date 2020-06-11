@@ -52,7 +52,7 @@ $info = getDogInfoById($_POST["idPerro"]);
             </table>
         </div>
         <hr>
-        <form class="uk-form uk-align-right" action="nuevaSolicitud.php?idPerro=<?= $_POST['idPerro'] ?>" method="post">
+        <form class="uk-form uk-align-right" action="nuevaSolicitud?idPerro=<?= $_POST['idPerro'] ?>" method="post">
             <button class="uk-button uk-button-primary uk-border-rounded uk-margin-remove-bottom" id="btn-adoptar" type="submit" idPerro ='<?= $_POST['idPerro'] ?>' >Adoptar</button>
         </form>
     </div>

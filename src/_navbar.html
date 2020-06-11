@@ -7,6 +7,10 @@
     <div class="uk-navbar-right">
         <div class="navbar-collapse" id="navbar_collapse">
             <ul class="uk-navbar-nav">
+
+                    <div class="uk-navbar-item">
+                        <button id="boton-donacion" uk-toggle="target: #modal-donacion" type="button" class="uk-box-shadow-medium uk-button uk-border-rounded uk-text-emphasis" style="background-color: #ffc439"><i class="fas fa-donate uk-margin-small-right"></i>Donar</button>
+                    </div>
                     <li class="uk-parent "><a href="catalogo">Nuestros Perros <i class="fas fa-dog uk-margin-small-left"></i></a></li>
                     <li class="uk-parent"><a href="comoAyudar">¿Cómo ayudar? <i class="fas fa-hands-helping uk-margin-small-left"></i></a></li>
                     <li class="uk-parent"><a href="preguntasFrecuentes">Preguntas Frecuentes <i class="fas fa-question uk-margin-small-left"></i></a></li>
@@ -24,6 +28,7 @@
                                     <hr>
                                     <li class="uk-text-nowrap"><a href="panelControl"><span uk-icon="icon: settings"></span> Panel de control de la página</a></li>
                                     <li class="uk-text-nowrap"><a href="gestionarOperadores"><span uk-icon="icon: users"></span> Gestionar operadores</a></li>
+                                    <li class="uk-text-nowrap"><a href="historialDonaciones"><span uk-icon="icon: history"></span> Historial de Donaciones</a></li>
                                 <?php endif; ?>
                                 <hr>
                                 <li class="uk-text-nowrap"><a href="miCuenta"><span uk-icon="icon: cog"></span> Ajustes de cuenta</a></li>
@@ -51,7 +56,7 @@
 <nav class="uk-navbar-container uk-height-max-small uk-box-shadow-small uk-hidden@l" uk-navbar uk-sticky>
     <div class="uk-navbar-left">
        <a class="uk-navbar-item uk-logo uk-margin-small uk-margin-small-top" href="/">
-           <img id="navLogo" src="img/logo.png" class="uk-border-rounded">
+           <img id="navLogoMov" src="img/logo.png" class="uk-border-rounded">
        </a>
     </div>
     <div class="uk-navbar-right uk-margin-right">
@@ -72,7 +77,7 @@
                     <li class="uk-parent"><a href="comoAyudar">¿Cómo ayudar?<i class="fas fa-hands-helping uk-margin-small-left"></i></a></li>
                     <li class="uk-parent"><a href="preguntasFrecuentes">Preguntas Frecuentes<i class="fas fa-question uk-margin-small-left"></i></a></li>
                     <li class="uk-parent"><a href="contactanos">Contáctanos<i class="fas fa-comments uk-margin-small-left"></i></a></li>
-                <hr>
+
                     <li class="uk-parent">
                       <a href="" class="uk-parent"><?= isset($_SESSION["nombre"])?$_SESSION["nombre"]:"Mi Cuenta" ?> <i class="fas fa-user-circle uk-margin-small-left" ></i></a>
                         <ul class="uk-nav-sub">
@@ -85,6 +90,7 @@
                                     <hr>
                                     <li class="uk-text-nowrap"><a href="panelControl"><span uk-icon="icon: settings"></span> Panel de control de la página</a></li>
                                     <li class="uk-text-nowrap"><a href="gestionarOperadores"><span uk-icon="icon: users"></span> Gestionar operadores</a></li>
+                                    <li class="uk-text-nowrap"><a href="gestionarOperadores"><span uk-icon="icon: history"></span> Historial de Donaciones</a></li>
                                 <?php endif; ?>
                                 <hr>
                                 <li class="uk-text-nowrap"><a href="miCuenta"><span uk-icon="icon: cog"></span> Ajustes de cuenta</a></li>
@@ -96,9 +102,22 @@
                             <?php endif; ?>
                         </ul>
                     </li>
+                    <li class="uk-parent"><button id="boton-donacion-movil" uk-toggle="target: #modal-donacion" type="button" class="uk-button uk-border-rounded uk-position-bottom-center uk-margin" style="background-color: #ffc439; color: #2c2e2f"><i class="fas fa-donate uk-margin-small-right"></i>Donar</button></li>
             </ul>
         </div>
 </div>
+
+<div id="modal-donacion" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body uk-border-rounded">
+        <h1 class="uk-text-center">Realizar una donación</h1>
+        <hr>
+        <label for="cantidadDonativo">Cantidad a pagar (MXN):</label>
+        <input class="uk-input uk-border-rounded uk-margin uk-margin-remove-top" type="number" id="cantidadDonativo" name="" value="50.00" placeholder="" min="0">
+        <div id="paypal-button-container-donacion"></div>
+
+    </div>
+</div>
+
 
     <div uk-spinner="ratio: 3" class="uk-position-fixed uk-transform-center" style="left: 50%; top: 50%" hidden></div>
 <div id="content">

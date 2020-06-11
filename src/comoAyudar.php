@@ -9,7 +9,7 @@ $titulo = "Cómo Ayudar";
   <hr class="uk-divider-icon">
 </div>
 
-<div class="uk-section">
+
   <div class="uk-container">
     <div>
       <h3><span uk-icon="icon: heart; ratio: 1.2"></span>  Hacer una Donación</h3>
@@ -52,7 +52,7 @@ $titulo = "Cómo Ayudar";
     </div>
 
   </div>
-</div>
+
 
 
 <?php include("_footer.html"); ?>

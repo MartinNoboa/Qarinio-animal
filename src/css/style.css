@@ -9,7 +9,10 @@ html {
 }
 
 #navLogo{
-  height: 100px!important;
+    height: 100px!important;
+}
+#navLogoMov{
+    height: 80px!important;
 }
 
 .valid{
@@ -43,4 +46,8 @@ html {
 
 .uk-navbar-nav>li>a:hover {
     color: #1e87f0 !important;
+}
+
+#boton-donacion:hover {
+    filter: brightness(0.95) !important;
 }
