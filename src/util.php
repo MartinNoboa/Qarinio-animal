@@ -690,13 +690,12 @@ function muestraTodasSolicitudes($estado, $nombre){
     if ($estado == 1){
         $sql .= " AND activa = 1";
     }else if ($estado == 2){
-        $sql .= " AND activa = 0 AND aprobada = 0";
+        $sql .= "  AND activa = 0 AND aprobada = 0";
     }else if ($estado == 3){
-        $sql .= " AND activa = 0 AND aprobada = 1";
+        $sql .= "  AND activa = 0 AND aprobada = 1";
     }
     
     $sql .= $nombrePerro;
-    
     $result = sqlqry($sql);
     
     return $result;
@@ -743,16 +742,36 @@ function eliminarSolicitud($idSolicitud) {
     return modifyDb($sql1) && modifyDb($sql2);
   }
 
-function aceptarSolicitud($idSolicitud) {
-    $sql="
-    UPDATE solicitudes SET aprobada = 1, activa = 0 WHERE idSolicitud = $idSolicitud 
+
+function rechazarSolicitud($idSolicitud) {
+    $sql0="
+    UPDATE solicitud SET activa=false WHERE idSolicitud='$idSolicitud'
     ";
     $sql1="
-    UPDATE estado_perro SET idEstado = 1 WHERE idPerro = (SELECT idPerro FROM solicitud as s WHERE s.idSolicitud = $idSolicitud)
+    UPDATE solicitud SET aprobada=false WHERE idSolicitud='$idSolicitud'
     ";
-    $res=modifyDb($sql);
-    $res1=modifyDb($sql1);
-    return $res && $res1;
+    $sql2="
+    UPDATE estado_perro ep, solicitud s SET ep.idEstado=2 WHERE ep.idPerro=s.idPerro AND idSolicitud='$idSolicitud'
+    ";
+    
+    $result1 = modifyDb($sql1);
+    $result2 = modifyDb($sql2);
+    $result3 = modifyDb($sql0);
+    
+    return  ($result1 && $result2) && result3;
+  }
+
+function aceptarSolicitud($idSolicitud) {
+    $sql0="
+    UPDATE solicitud SET activa=false WHERE idSolicitud='$idSolicitud'
+    ";
+    $sql1="
+    UPDATE solicitud SET aprobada=true WHERE idSolicitud='$idSolicitud'
+    ";
+    $sql2="
+    UPDATE estado_perro ep, solicitud s SET ep.idEstado=1 WHERE ep.idPerro=s.idPerro AND idSolicitud='$idSolicitud'
+    ";
+    return (modifyDb($sql1) && modifyDb($sql2)) && modifyDb($sql0);
   }
 
 function getUserInfoById($id){

@@ -478,6 +478,13 @@ function cambiarContra() {
     });
 }
 
+function setEventListenerSolicitudes(){
+    setELSolicitudes();
+    setELSolicitudesPago();
+    setELSolicitudesEntrevista();
+    setELAprobarSolicitudes();
+    setELRechazarSolicitudes();
+}
 
 //posible eliminacion
 function muestraSolicitudes() {
@@ -652,9 +659,7 @@ function setELSolicitudesEntrevista() {
     for(btn of botonesSolicitudEntrevista) {
         let id = btn.getAttribute("idSolicitud");
         btn.addEventListener("click", function(b) {
-
             muestraSolicitudEntrevista(id);
-
         });
     }
 }
@@ -801,7 +806,7 @@ function setELAprobarSolicitudes() {
 
 //event listeners para los botones de aprobar solicitud
 function setELRechazarSolicitudes() {
-    let botonesSolicitudPago = document.getElementsByClassName("rechazarSolicitud");
+    let botonesSolicitudPago = document.getElementsByClassName("rechazaSolicitud");
     for(btn of botonesSolicitudPago) {
         let id = btn.getAttribute("idSolicitud");
         btn.addEventListener("click", function(b) {
@@ -811,12 +816,11 @@ function setELRechazarSolicitudes() {
 }
 
 
-function apruebaSolicitud() {
+function apruebaSolicitud(id) {
     msj = confirm("¿Estás seguro que deseas aprobar esta solicitud?");
     if(msj) {
         $.post("controlador_aprobar_solicitud.php", {
-            idSolicitud: idSolicitud,
-            aprobarPago : true
+            idSolicitud: id
         }).done(function(data){
             if(parseInt(data) != 0) {
                 mostrarMensaje("Se aprobó correctamente la solicitud.", "success");
@@ -829,12 +833,11 @@ function apruebaSolicitud() {
     }
 }
 
-function rechazarSolicitud() {
+function rechazarSolicitud(id) {
     msj = confirm("¿Estás seguro que deseas rechazar esta solicitud?");
     if(msj) {
-        $.post("controlador_aprobar_solicitud.php", {
-            idSolicitud: idSolicitud,
-            aprobarPago : false
+        $.post("controlador_rechazar_solicitud.php", {
+            idSolicitud: id
         }).done(function(data){
             if(parseInt(data) != 0) {
                 mostrarMensaje("Se rechazó correctamente la solicitud.", "success");

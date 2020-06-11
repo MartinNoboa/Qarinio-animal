@@ -41,7 +41,7 @@
         }
         elseif($row['Formulario'] == 4) { //en proceso
             $tabla .= "<td class=\" uk-text-center\">
-            <div class = ' formulario 'idSolicitud =" .$row["idSolicitud"].">
+            <div class = ' formulario' idSolicitud =" .$row["idSolicitud"].">
             <a class=\" uk-link-text\">
             <span class=\" uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: No ha sido revisado este formulario.\"></span>
             </a>

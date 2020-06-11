@@ -49,8 +49,8 @@ else:
 ?>
 
 <script type="text/javascript">
-    //muestraSolicitudes();
-   // $("#filtroSolicictudes")[0].onclick = filtrarSolicitudes;
+    setEventListenerSolicitudes();
+    
     document.getElementById("filtroSolicitudes").onclick = filtrarSolicitudes;
 
     let waitForTypeStop = null;
