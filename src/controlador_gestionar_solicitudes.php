@@ -120,6 +120,16 @@
             </div>
             </td>";
         }
+        elseif($row['Pago'] == 9) { 
+            //en espera
+            $tabla .= "<td class=\"uk-text-center\">
+            <div class = 'pago' idSolicitud =" .$row["idSolicitud"].">
+            <a class=\"uk-link-text\">
+            <span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: warning\" uk-tooltip=\"title: El pago está esperando aprobación\"></span>
+            </a>
+            </div>
+            </td>";
+        }
         
         $a = '';
         if($row['Pago'] == 5 && $row['Entrevista'] == 5 && $row['Formulario'] == 5){
