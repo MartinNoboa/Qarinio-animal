@@ -559,6 +559,15 @@ WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.idUsuario=$id AND s.
             </div>
             </td>";
         }
+        elseif($row['Pago'] == 9) { //en proceso
+            $tabla .= "<td class=\"uk-text-center\">
+            <div class = 'urpago' idSolicitud =" .$row["idSolicitud"].">
+            <a class=\"uk-link-text\">
+            <span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: warning\" uk-tooltip=\"title: Tu pago está en proceso\"></span>
+            </a>
+            </div>
+            </td>";
+        }
         $tabla .= '<td ><button type="submit" name="btn-elimina-solicitud" id="'.$row['idSolicitud'].'" class="uk-button-danger uk-button-small uk-button uk-border-rounded uk-align-center" uk-tooltip="title: Cancelar solicitud" onclick="muestraAlert('.$row['idSolicitud'].')"><span uk-icon="icon: trash"></span></button></td>';
         $tabla .= "</tr>";
     }
@@ -798,6 +807,15 @@ function muestraTodasSolicitudes(){
             </div>
             </td>";
         }
+        elseif($row['Pago'] == 9) { //en espera
+            $tabla .= "<td class=\"uk-text-center\">
+            <div class = 'pago' idSolicitud =" .$row["idSolicitud"].">
+            <a class=\"uk-link-text\">
+            <span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: warning\" uk-tooltip=\"title: El pago está esperando aprobación\"></span>
+            </a>
+            </div>
+            </td>";
+        }
         
         $a = '';
         if($row['Pago'] == 5 && $row['Entrevista'] == 5 && $row['Formulario'] == 5){
@@ -936,9 +954,8 @@ function actualizarEstadoPago($id,$estado){
 }
 
 function actualizarMetodoPago($id, $metodo){
-    $sql = "UPDATE solicitud SET metodoPago ='$metodo' WHERE idSolicitud = $id";
-    $result = sqlqry($sql);
-    return $result;
+    $sql = "UPDATE solicitud SET metodoPago='$metodo', estadoPago=9 WHERE idSolicitud=$id and estadoPago!=5";
+    return sqlqry($sql);
 }
 
 function agregarOperador($email){

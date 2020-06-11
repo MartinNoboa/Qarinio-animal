@@ -46,7 +46,7 @@
 
                     <div class="uk-child-width-expand@s uk-text-center uk-margin-top" uk-grid>
                         <div>
-                            <input class="uk-button uk-button-default uk-border-rounded uk-width-1-1" type="button"  value = "Aprobar entrevista" id = "entrevistaSi"></input>
+                            <input class="uk-button uk-button-primary uk-border-rounded uk-width-1-1" type="button"  value = "Aprobar entrevista" id = "entrevistaSi"></input>
                         </div>
                         <div>
                             <input class="uk-button uk-button-danger uk-modal-close uk-border-rounded uk-width-1-1" type="button" id = "entrevistaNo" value = "Rechazar entrevista"></input>

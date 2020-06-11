@@ -29,31 +29,16 @@
                 
                     while($row = mysqli_fetch_array($result, MYSQLI_BOTH)) {
                         $ans .= "<tr>";
-                        $ans .= "<td>$". getCuota() ."</td>";
+                        $ans .= "<td>$".  getCuota() ."</td>";
                         $ans .= "<td>
-                            <select class=\"uk-select uk-border-rounded\" id = \"metodoPago\" name = \"metodoPago\" required>";
-                        
-                        if ($row['metodo'] == null){
-                            $ans .= "<option selected hidden value = \"\">No ha seleccionado un método de pago.</option>
-                                    <option value = \"Efectivo\">Efectivo</option>
-                                    <option value = \"Paypal\">Paypal</option>
-                                    <option value = \"Transferencia\">Transferencia</option>";
-                        }elseif ($row["metodo"] == "Efectivo"){
-                            $ans .= "
-                                    <option selected hidden value = \"Efectivo\">Efectivo</option>
-                                    <option value = \"Paypal\">Paypal</option>
-                                    <option value = \"Transferencia\">Transferencia</option>";
-                        }elseif ($row["metodo"] == "Paypal"){
-                            $ans .= "
-                                    <option selected hidden value = \"Paypal\">Paypal</option>
-                                    <option value = \"Efectivo\">Efectivo</option>
-                                    <option value = \"Transferencia\">Transferencia</option>";
-                        }elseif ($row["metodo"] == "Transferencia"){
-                            $ans .= "
-                                    <option selected hidden value = \"Transferencia\">Transferencia</option>
-                                    <option value = \"Paypal\">Paypal</option>
-                                    <option value = \"Efectivo\">Efectivo</option>";
-                        }
+                            <select class=\"uk-select uk-border-rounded\" id = \"metodoPago\" name = \"metodoPago\" required ". ($row['estado']=="Aprobado"?"disabled":"") .">";
+
+
+                        $ans .= "<option ". ($row['metodo']==null?"selected":"") ." hidden value='' >No ha seleccionado un método de pago.</option>
+                                 <option ". ($row['metodo']=="Efectivo"?"selected":"") ." value='Efectivo'>Efectivo</option>
+                                 <option ". ($row['metodo']=="Paypal"?"selected":"") ." value='Paypal'>Paypal</option>
+                                 <option ". ($row['metodo']=="Transferencia"?"selected":"") ." value='Transferencia'>Transferencia</option>";
+
                         $ans .= " </select>";
                         
                         $ans .= "<td>".$row['estado']."</td>";
