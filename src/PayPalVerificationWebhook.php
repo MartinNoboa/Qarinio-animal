@@ -10,7 +10,8 @@ if(comparePaypalUid($_GET["uid"])) {
     $response = json_decode(file_get_contents("php://input"));
     $noTrans = $response->resource->id;
     $monto = $response->resource->seller_receivable_breakdown->net_amount->value;
-    $sql="UPDATE donacion SET monto='$monto' WHERE numeroTransaccion='$noTrans'";
+    $cuota = $response->resource->seller_receivable_breakdown->paypal_fee->value;
+    $sql="UPDATE donacion SET monto='$monto', cuota='$cuota' WHERE numeroTransaccion='$noTrans'";
 
     if(!modifyDb($sql)){
         $sql="UPDATE solicitud SET estadoPago=5 WHERE noTransaccion='$noTrans' AND estadoPago=9";
