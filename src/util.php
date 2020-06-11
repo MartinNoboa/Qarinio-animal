@@ -778,7 +778,7 @@ function rechazarSolicitud($idSolicitud) {
     return  ($result1 && $result2) && result3;
   }
 
-function aceptarSolicitud($idSolicitud) {
+function aprobarSolicitud($idSolicitud) {
 
     $sql0="
     UPDATE solicitud SET activa=false WHERE idSolicitud='$idSolicitud'
