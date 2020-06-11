@@ -43,5 +43,3 @@ endif;
     //console.log(idPerro, idUsuario);
     $("#enviarFormulario")[0].onclick = nuevaSolicitud;
 </script>
-
-else if session[id] iser por favor verifica tu sesion
