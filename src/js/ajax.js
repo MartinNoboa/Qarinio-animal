@@ -27,6 +27,21 @@ function filtrar() {
     });
 }
 
+//funcion para filtrar solicitudes
+function filtrarSolicitudes() {
+    $.post("controlador_gestionar_solicitudes.php", {
+        estado: $("#estado").val(),
+        nombre: $("#nombre").val()
+    }).done(function (data) {
+        $("#tablaSolicitudes").html(data);
+        setELSolicitudes();
+        setELSolicitudesPago();
+        setELSolicitudesEntrevista();
+        setELAprobarSolicitudes();
+        setELRechazarSolicitudes();
+    });
+}
+
 function muestraEditarPerro(id) {
     $.post("vista_editar_perro.php", {
         idPerro: id
@@ -463,8 +478,10 @@ function cambiarContra() {
     });
 }
 
+
+//posible eliminacion
 function muestraSolicitudes() {
-    $.get("vista_gestionar_solicitudes.php").done(function(data){
+    $.get("controlador_gestionar_solicitudes.php").done(function(data){
         $("#tablaSolicitudes").html(data);
         setELSolicitudes();
         setELSolicitudesPago();
