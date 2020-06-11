@@ -442,16 +442,14 @@ function sintaxisEdad($meses) {
 }
 
 function muestraSolicitudes($id){
-    $conDb = connectDb();
-
     $sql = "
     SELECT s.idSolicitud as 'idSolicitud', p.nombre as 'Perro', s.estadoFormulario as 'Formulario', s.estadoEntrevista as 'Entrevista', s.estadoPago as 'Pago'
 FROM perros p, usuario u, solicitud s
-WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.idUsuario= $id";
+WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.idUsuario=$id AND s.activa";
 
     $tabla = "
     <table class=\"uk-table uk-table-divider uk-table-striped uk-table-large uk-table-hover uk-animation-slide-bottom-medium\">
-        <thead clas>
+        <thead>
             <tr>
                 <th class=\"uk-width-small uk-text-secondary\">Perro</th>
                 <th class=\"uk-text-center uk-text-secondary\">Formulario</th>
@@ -463,41 +461,40 @@ WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.idUsuario= $id";
         <tbody>
     ";
 
-    $solicitudes = $conDb->query($sql);
+    $solicitudes = sqlqry($sql);
     while($row = mysqli_fetch_array($solicitudes, MYSQLI_BOTH)) {
         $tabla .= "<tr>";
         $tabla .= "<td>".$row['Perro']."</td>";
-
         //------------------------------------------------------ Estado del formulario
+       $icono="";
+       $tooltip="";
+       $color="";
+       switch($row['Formulario']){
+           case 5:
+               $icono="check";
+               $tooltip="¡Tu formulario fue aprobado!";
+               $color="success";
+               break;
+           case 3:
+               $icono="close";
+               $tooltip="Tu formulario fue rechazado.";
+               $color="danger";
+               break;
+           case 4:
+           default:
+               $icono="minus";
+               $tooltip="No se ha revisado tu formulario todavía.";
+               $color="warning";
+               break;
+       }
 
-       if($row['Formulario'] == 5) { //completado
-            $tabla .= "<td class=\" uk-text-center\">
-            <div class = 'urformulario' idSolicitud =" .$row["idSolicitud"].">
-            <a class=\" uk-link-text\">
-            <span class=\" uk-text-center uk-text-success\" uk-icon=\"icon: check\" uk-tooltip=\"title: ¡Tu formulario fue aprobado!\"></span>
+       $tabla .= "<td class=\" uk-text-center\">
+            <div class = 'urformulario ' idSolicitud =".$row["idSolicitud"].">
+            <a class='uk-link-text'>
+            <span class='uk-text-center uk-text-".$color."' uk-icon='icon:". $icono ."' uk-tooltip='title:". $tooltip ."'></span>
             </a>
             </div>
             </td>";
-        }
-        elseif($row['Formulario'] == 4) { //en proceso
-            $tabla .= "<td class=\" uk-text-center\">
-            <div class = 'urformulario 'idSolicitud =" .$row["idSolicitud"].">
-            <a class=\" uk-link-text\">
-            <span class=\" formulario uk-text-center uk-text-warning\" uk-icon=\"icon: minus\" uk-tooltip=\"title: No se ha revisado tu formulario todavía.\"></span>
-            </a>
-            </div>
-            </td>";
-        }
-        elseif($row['Formulario'] == 3) { //incompleto
-            $tabla .= "<td class=\" uk-text-center\">
-            <div class = \"urformulario \" idSolicitud =".$row["idSolicitud"].">
-            <a class=\" uk-link-text\">
-            <span class=\"uk-text-center uk-text-danger\" uk-icon=\"icon: close\" uk-tooltip=\"title: Tu formulario fue rechazado.\"></span>
-            </a>
-            </div>
-            </td>";
-        }
-
 
         //------------------------------------------------------ Estado de la entrevista
 
@@ -563,10 +560,41 @@ WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.idUsuario= $id";
         $tabla .= '<td ><button type="submit" name="btn-elimina-solicitud" id="'.$row['idSolicitud'].'" class="uk-button-danger uk-button-small uk-button uk-border-rounded uk-align-center" uk-tooltip="title: Cancelar solicitud" onclick="muestraAlert('.$row['idSolicitud'].')"><span uk-icon="icon: trash"></span></button></td>';
         $tabla .= "</tr>";
     }
-    mysqli_free_result($solicitudes); //Liberar la memoria
-    closeDb($conDb);
-    $tabla .= "</tbody></table>";
-    return $tabla;
+    $tabla .= "</tbody></table>
+            <hr class='uk-divider-icon'>
+            <h3>Solicitudes finalizadas</h3>
+            <table class='uk-table uk-table-divider uk-table-striped uk-table-large uk-table-hover uk-animation-slide-bottom-medium'><thead>
+            <tr>
+                <th class='uk-width-small uk-text-secondary'>Perro</th>
+                <th class='uk-text-center uk-text-secondary'>Estado del proceso de adopción</th>
+            </tr>
+            </thead><tbody>";
+
+    $sql = "
+    SELECT p.nombre as 'Perro', s.aprobada as 'apr'
+    FROM perros p, usuario u, solicitud s
+    WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.idUsuario=$id AND s.aprobada IS NOT NULL";
+
+    $solicitudes = sqlqry($sql);
+    while($row = mysqli_fetch_array($solicitudes, MYSQLI_BOTH)){
+        if($row['apr']) {
+            $icono = "check";
+            $tooltip = "¡Tu solicitud ha sido completada y aprobada!";
+            $color = "success";
+        } else {
+            $icono="close";
+            $tooltip="Tu solicitud ha sido completada pero fue rechazada.";
+            $color="danger";
+        }
+        $tabla.="<tr>
+                    <td>". $row['Perro'] ."</td>
+                    <td class='uk-text-center'> <span class='uk-text-center uk-text-".$color."' uk-icon='icon: ".$icono."' uk-tooltip='title: ".$tooltip."'></span></td>
+                </tr>";
+    }
+    $tabla.="</tbody></table>";
+
+
+        return $tabla;
 }
 
 function muestraPreguntasFormulario() {
@@ -602,7 +630,7 @@ function muestraPreguntasFormulario() {
                 }
                 break;
             case 'numeric':
-                $output .= "<input type='number' class=\"uk-input uk-border-rounded\" id=\"".$row['id']."\">";
+                $output .= "<input type='number' min=0 class=\"uk-input uk-border-rounded\" id=\"".$row['id']."\">";
                 break;
             default:
                 $output .= "<textarea class=\"uk-textarea uk-border-rounded\" id=\"".$row['id']."\" type=\"textarea\" placeholder=\"Tu respuesta\" value=\"\"></textarea>";
@@ -825,10 +853,13 @@ WHERE u.idUsuario = s.idUsuario AND s.idSolicitud = $id AND s.estadoEntrevista =
 }
 
 function eliminarSolicitud($idSolicitud) {
-    $sql="
-    DELETE FROM solicitud WHERE idSolicitud='".$idSolicitud."'";
-    $res=modifyDb($sql);
-    return $res;
+    $sql1="
+    UPDATE solicitud SET activa=false WHERE idSolicitud='$idSolicitud'
+    ";
+    $sql2="
+    UPDATE estado_perro ep, solicitud s SET ep.idEstado=2 WHERE ep.idPerro=s.idPerro AND idSolicitud='$idSolicitud'
+    ";
+    return modifyDb($sql1) && modifyDb($sql2);
   }
 
 function aceptarSolicitud($idSolicitud) {
