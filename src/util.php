@@ -771,7 +771,13 @@ function aceptarSolicitud($idSolicitud) {
     $sql2="
     UPDATE estado_perro ep, solicitud s SET ep.idEstado=1 WHERE ep.idPerro=s.idPerro AND idSolicitud='$idSolicitud'
     ";
+    $sql3="
+    UPDATE solicitud s SET s.aprobada=0 WHERE s.idPerro=(SELECT idPerro FROM solicitud s WHERE idSolicitud = $idSolicitud) AND idSolicitud<>'$idSolicitud'
+    ";
+    
+    
     return (modifyDb($sql1) && modifyDb($sql2)) && modifyDb($sql0);
+    //return (modifyDb($sql1) && modifyDb($sql2)) && (modifyDb($sql0) && modifyDb(sql3);
   }
 
 function getUserInfoById($id){
