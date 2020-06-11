@@ -925,63 +925,50 @@ function eliminaOperador($id) {
 
 function muestraDonaciones($periodo, $nombre, $num) {
     $sql = "
-    SELECT d.*, u.nombre as 'nombre', u.apellido as 'apellido'
-    FROM donacion d, usuario u
-    WHERE d.idUsuario IS NULL OR u.idUsuario=d.idUsuario
-    
+    SELECT * from
+        (SELECT d.*, CONCAT(u.nombre, ' ', u.apellido) as 'na' from donacion d LEFT JOIN usuario u on d.idUsuario=u.idUsuario) as t1
     ";
-    
-    $sql .= " AND u.nombre LIKE '%$nombre%' OR u.apellido LIKE '%$nombre%'";
-    $sql .= " AND d.numeroTransaccion LIKE '$num%'";
-    
+
+    $sql .= " WHERE numeroTransaccion LIKE '$num%'";
+    if(!isset($nombre) || $nombre!=""){
+        $sql .= " AND na LIKE '%$nombre%'";
+    }
+
     switch ($periodo){
         //ultimo mes
         case 1:
             $meses =1;
-        break;
-        
+            break;
         //ultimos 3 meses
         case 2:
             $meses =3;
-        break;
-            
+            break;
         //ultimos 6 meses
         case 3:
             $meses =6;
-
-        break;
-        
+            break;
         //ultimo año
         case 4:
             $meses =12;
-
-        break;
-        
+            break;
         //todos
         case 5:
-        default: 
-        break;
-        
+        default:
+            break;
     }
     if(isset($meses)){
         $sql .= " AND fechaDonacion >= DATE_SUB(NOW(),INTERVAL $meses MONTH)";
         
     }
     
-    $sql .= " 
-    group by d.numeroTransaccion
-    order by fechaDonacion
-    ";
-    
-    
+    $sql .= " order by fechaDonacion DESC";
+
     $result = sqlqry($sql);
     $tabla = "";
     while ($row = mysqli_fetch_array($result)) {
         $tabla .= "<tr>";
         if($row['idUsuario']==NULL) {
-            $row['nombre']="Donación";
-            $row['apellido']="anónima";
-            
+            $row['na']="Donación anónima";
         }
         if($row['monto']==NULL) {
             $row['monto']="-";
@@ -989,7 +976,7 @@ function muestraDonaciones($periodo, $nombre, $num) {
         if($row['cuota']==NULL) {
             $row['cuota']="-";
         }
-        $tabla .= "<td>".$row['nombre']. " ".$row['apellido'] . "</td>";
+        $tabla .= "<td>".$row['na']. "</td>";
         $tabla .= "<td>".$row['monto']."</td>";
         $tabla .= "<td>".$row['cuota']."</td>";
         $tabla .= "<td>".$row['numeroTransaccion']."</td>";
