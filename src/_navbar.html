@@ -55,7 +55,7 @@
 <nav class="uk-navbar-container uk-height-max-small uk-box-shadow-small uk-hidden@l" uk-navbar uk-sticky>
     <div class="uk-navbar-left">
        <a class="uk-navbar-item uk-logo uk-margin-small uk-margin-small-top" href="/">
-           <img id="navLogo" src="img/logo.png" class="uk-border-rounded">
+           <img id="navLogoMov" src="img/logo.png" class="uk-border-rounded">
        </a>
     </div>
     <div class="uk-navbar-right uk-margin-right">
@@ -78,7 +78,7 @@
                     <li class="uk-parent"><a href="preguntasFrecuentes">Preguntas Frecuentes<i class="fas fa-question uk-margin-small-left"></i></a></li>
                     <li class="uk-parent"><a href="contactanos">Contáctanos<i class="fas fa-comments uk-margin-small-left"></i></a></li>
                     <div class="">
-                        <button id="boton-donacion" uk-toggle="target: #modal-donacion" type="button" class="uk-button uk-border-rounded uk-position-bottom-center uk-margin" style="background-color: #ffc439; color: #2c2e2f"><i class="fas fa-donate uk-margin-small-right"></i>Donar</button>
+                        <button id="boton-donacion-movil" uk-toggle="target: #modal-donacion" type="button" class="uk-button uk-border-rounded uk-position-bottom-center uk-margin" style="background-color: #ffc439; color: #2c2e2f"><i class="fas fa-donate uk-margin-small-right"></i>Donar</button>
                     </div>
                 <hr>
                     <li class="uk-parent">
@@ -112,9 +112,9 @@
     <div class="uk-modal-dialog uk-modal-body uk-border-rounded">
         <h1 class="uk-text-center">Realizar una donación</h1>
         <hr>
-        <label for="cantidad">Cantidad a pagar (MXN):</label>
-        <input class="uk-input uk-border-rounded uk-margin uk-margin-remove-top" type="number" id="cantidad" name="" value="" placeholder="" min="0">
-        <div id="paypal-button-container"></div>
+        <label for="cantidadDonativo">Cantidad a pagar (MXN):</label>
+        <input class="uk-input uk-border-rounded uk-margin uk-margin-remove-top" type="number" id="cantidadDonativo" name="" value="50.00" placeholder="" min="0">
+        <div id="paypal-button-container-donacion"></div>
 
     </div>
 </div>
