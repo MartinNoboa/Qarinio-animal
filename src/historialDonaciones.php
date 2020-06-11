@@ -7,21 +7,29 @@ if(checkPriv("editar-faq")):
 <div class="uk-container uk-margin">
     <h1 class="uk-text-center">Historial de Donaciones</h1>
     <hr class="uk-divider-icon">
+    <div>
+    <select id = "periodo" class = "uk-select uk-border-rounded uk-width-medium">
+        <option selected value = "1">Último mes</option>
+        <option value = "2">Últimos 3 mes</option>
+        <option value = "3">Últimos 6 mes</option>
+        <option value = "4">Último año</option>
+        <option value = "5">Todas las donaciones</option>
+    </select>
+        
+    </div>
+    <div class="uk-search uk-search-default uk-width-expand uk-margin">
+            <span uk-search-icon></span>
+            <input id="buscarDonante" class="uk-search-input uk-border-rounded uk-width-medium" type="search" placeholder="Buscar por donante...">        
+    </div>
+    <div class="uk-search uk-search-default uk-width-expand">
+
+        <span uk-search-icon></span>
+        <input id="buscarTransac" class="uk-search-input uk-border-rounded uk-width-medium" type="search" placeholder="Buscar por número de transacción...">
+    </div>
+    
+    <hr class="uk-divider-icon">
     <div id = "tablaDonaciones">
-        <table class="uk-table uk-table-divider uk-table-striped uk-table-large uk-table-hover uk-animation-slide-bottom-medium">
-            <thead>
-                <tr>
-                    <th class="uk-width-small uk-text-secondary">Nombre</th>
-                    <th class="uk-width-small uk-text-secondary">Cantidad</th>
-                    <th class="uk-width-small uk-text-secondary">Comisión de Paypal</th>
-                    <th class="uk-width-small uk-text-secondary">No. transacción</th>
-                    <th class="uk-width-small uk-text-secondary">Fecha</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?= muestraDonaciones();  ?>
-            </tbody>
-        </table>
+        
     </div>
 </div>
 <?php
@@ -31,3 +39,22 @@ else:
 endif;
 include("_footer.html")
 ?>
+<script>
+    filtrarDonaciones();
+    document.getElementById("periodo").addEventListener("change", filtrarDonaciones);
+    let waitForTypeStopD = null;
+    document.getElementById("buscarDonante").addEventListener("input", function(){
+        clearTimeout(waitForTypeStopD);
+        waitForTypeStopD = setTimeout(function(){
+            filtrarDonaciones();
+        }, 500)
+    });
+    
+    let waitForTypeStopT = null;
+    document.getElementById("buscarTransac").addEventListener("input", function(){
+        clearTimeout(waitForTypeStopT);
+        waitForTypeStopT = setTimeout(function(){
+            filtrarDonaciones();
+        }, 500)
+    });
+</script>
