@@ -27,6 +27,21 @@ function filtrar() {
     });
 }
 
+//funcion para filtrar solicitudes
+function filtrarSolicitudes() {
+    $.post("controlador_gestionar_solicitudes.php", {
+        estado: $("#estado").val(),
+        nombre: $("#nombre").val()
+    }).done(function (data) {
+        $("#tablaSolicitudes").html(data);
+        setELSolicitudes();
+        setELSolicitudesPago();
+        setELSolicitudesEntrevista();
+        setELAprobarSolicitudes();
+        setELRechazarSolicitudes();
+    });
+}
+
 function muestraEditarPerro(id) {
     $.post("vista_editar_perro.php", {
         idPerro: id
@@ -463,8 +478,17 @@ function cambiarContra() {
     });
 }
 
+function setEventListenerSolicitudes(){
+    setELSolicitudes();
+    setELSolicitudesPago();
+    setELSolicitudesEntrevista();
+    setELAprobarSolicitudes();
+    setELRechazarSolicitudes();
+}
+
+//posible eliminacion
 function muestraSolicitudes() {
-    $.get("vista_gestionar_solicitudes.php").done(function(data){
+    $.get("controlador_gestionar_solicitudes.php").done(function(data){
         $("#tablaSolicitudes").html(data);
         setELSolicitudes();
         setELSolicitudesPago();
@@ -635,9 +659,7 @@ function setELSolicitudesEntrevista() {
     for(btn of botonesSolicitudEntrevista) {
         let id = btn.getAttribute("idSolicitud");
         btn.addEventListener("click", function(b) {
-
             muestraSolicitudEntrevista(id);
-
         });
     }
 }
@@ -784,7 +806,7 @@ function setELAprobarSolicitudes() {
 
 //event listeners para los botones de aprobar solicitud
 function setELRechazarSolicitudes() {
-    let botonesSolicitudPago = document.getElementsByClassName("rechazarSolicitud");
+    let botonesSolicitudPago = document.getElementsByClassName("rechazaSolicitud");
     for(btn of botonesSolicitudPago) {
         let id = btn.getAttribute("idSolicitud");
         btn.addEventListener("click", function(b) {
@@ -794,12 +816,11 @@ function setELRechazarSolicitudes() {
 }
 
 
-function apruebaSolicitud() {
+function apruebaSolicitud(id) {
     msj = confirm("¿Estás seguro que deseas aprobar esta solicitud?");
     if(msj) {
         $.post("controlador_aprobar_solicitud.php", {
-            idSolicitud: idSolicitud,
-            aprobarPago : true
+            idSolicitud: id
         }).done(function(data){
             if(parseInt(data) != 0) {
                 mostrarMensaje("Se aprobó correctamente la solicitud.", "success");
@@ -812,12 +833,11 @@ function apruebaSolicitud() {
     }
 }
 
-function rechazarSolicitud() {
+function rechazarSolicitud(id) {
     msj = confirm("¿Estás seguro que deseas rechazar esta solicitud?");
     if(msj) {
-        $.post("controlador_aprobar_solicitud.php", {
-            idSolicitud: idSolicitud,
-            aprobarPago : false
+        $.post("controlador_rechazar_solicitud.php", {
+            idSolicitud: id
         }).done(function(data){
             if(parseInt(data) != 0) {
                 mostrarMensaje("Se rechazó correctamente la solicitud.", "success");
