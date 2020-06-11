@@ -1,6 +1,6 @@
 <?php
 
-include("util.php");
+include_once("util.php");
 $id = limpia_entrada($_POST["idSolicitud"]);
 
 session_start();
@@ -8,7 +8,7 @@ session_start();
 if(checkPriv("ver-todas-solicitudes")) {
         echo aprobarSolicitud($id);
 } else {
-    echo "Hubo un error";
+    echo 0;
 }
 
 ?>
