@@ -4,9 +4,6 @@ $_POST["idPerro"] = limpia_entrada($_POST["idPerro"]);
 session_start();
 if(checkPriv("editar-perro")):
     $info = getDogInfoById($_POST["idPerro"]);
-
-    //print_r($info);
-
 ?>
     <div class="uk-modal-dialog uk-modal-body uk-border-rounded">
         <div class="uk-modal-title">

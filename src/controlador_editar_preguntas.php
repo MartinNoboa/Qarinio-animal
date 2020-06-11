@@ -5,6 +5,7 @@
     $datosp = limpia_entradas($_POST["datosp"]);
 
 
+if(checkPriv("editar-info-contacto")) {
     $jsonString = file_get_contents('preguntas.json');
     $data = json_decode($jsonString, true);
     foreach ($data as $key => $entry) {
@@ -15,4 +16,5 @@
     }
     $newJsonString = json_encode($data);
     echo file_put_contents('preguntas.json', $newJsonString);
+}
 ?>

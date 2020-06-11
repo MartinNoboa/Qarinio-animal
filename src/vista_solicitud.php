@@ -1,7 +1,5 @@
 <?php
     include_once("util.php");
-
-
     $idSolicitud = $_POST['idSolicitud'];
 
 ?>

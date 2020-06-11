@@ -930,6 +930,38 @@ function muestraSolicitudPagoUR(id) {
             $("#actualizarMetodo")[0].onclick = actualizarMetodoPago;
             UIkit.modal($("#urpago")).show();
         }
+        if(document.getElementById("paypal-button-container-cuota")){
+            paypal.Buttons({
+                createOrder: function(data, actions) {
+                    let cantidad = document.getElementById("paypal-cuota-rec").value;
+                    // This function sets up the details of the transaction, including the amount and line item details.
+                    return actions.order.create({
+                        purchase_units: [{
+                            description: "Cuota de Recuperación",
+                            amount: {
+                                value: cantidad.toString(),
+                            }
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    // This function captures the funds from the transaction.
+                    $.post("PayPalCliente.php?caso=cuotaRecuperacion",{
+                        oId:data["orderID"],
+                        sId:id
+                    });
+                    return actions.order.capture().then(function(details) {
+                        // This function shows a transaction success message to your buyer.
+                        mostrarMensaje('Muchas gracias, tu pago ha sido realizado. Puede tardar hasta 48 horas en verificarse', 'success');
+                        UIkit.modal($("#urpago")).hide();
+                    });
+                }
+            }).render('#paypal-button-container-cuota');
+            //This function displays Smart Payment Buttons on your web page.
+
+            //---PayPal---------------------------------
+        }
+
     });
 }
 
@@ -952,4 +984,21 @@ function actualizarMetodoPago() {
 
         });
     }
+}
+
+function submitEditarCuota(){
+    if(confirm("¿Estas seguro de modificar la cuota de recuperación?")){
+       $.post("controlador_editar_cuota.php", {
+           cuota : $("#cuota").val()
+        }).done(function (data) {
+            if(parseInt(data)!== 0) {
+                mostrarMensaje("Se actualizó la cuota de recuperación exitosamente","success");
+            } else {
+                mostrarMensaje("Hubo un error al actualizar la cuota de recuperación","danger");
+            }
+        });
+
+
+    }//terminacion del if confirm
+
 }

@@ -88,8 +88,15 @@ function modifyDb($dml){
     return $res;
 }
 
+function getCuota(){
+    $sql= "SELECT * FROM cuotaDeRecuperacion";
+    return mysqli_fetch_array(sqlqry($sql))[0];
+}
 
-
+function setCuota($cuota) {
+    $sql = "UPDATE cuotaDeRecuperacion SET cuota=$cuota WHERE true";
+    return modifyDb($sql);
+}
 
 function recuperarUsuarios(){
     $sql = "SELECT u.nombre,u.nombre,r.rol from usuario u, rol r, usuario_rol ur WHERE u.idUsuario=ur.idUsuario AND r.idRol=ur.idRol";
@@ -558,6 +565,15 @@ WHERE u.idUsuario=s.idUsuario AND p.idPerro=s.idPerro AND u.idUsuario=$id AND s.
             </div>
             </td>";
         }
+        elseif($row['Pago'] == 9) { //en proceso
+            $tabla .= "<td class=\"uk-text-center\">
+            <div class = 'urpago' idSolicitud =" .$row["idSolicitud"].">
+            <a class=\"uk-link-text\">
+            <span class=\"uk-text-center uk-text-warning\" uk-icon=\"icon: clock\" uk-tooltip=\"title: Tu pago está en proceso\"></span>
+            </a>
+            </div>
+            </td>";
+        }
         $tabla .= '<td ><button type="submit" name="btn-elimina-solicitud" id="'.$row['idSolicitud'].'" class="uk-button-danger uk-button-small uk-button uk-border-rounded uk-align-center" uk-tooltip="title: Cancelar solicitud" onclick="muestraAlert('.$row['idSolicitud'].')"><span uk-icon="icon: trash"></span></button></td>';
         $tabla .= "</tr>";
     }
@@ -683,6 +699,7 @@ function muestraTodasSolicitudes($estado, $nombre){
     $sql = "SELECT u.nombre as 'nombre', u.apellido as 'apellido',s.idSolicitud as 'idSolicitud', p.nombre as 'Perro', s.estadoFormulario as 'Formulario',s.estadoEntrevista as 'Entrevista', s.estadoPago as 'Pago', s.aprobada as 'aprobada'
             FROM usuario as u,solicitud as s, perros as p
             WHERE u.idUsuario = s.idUsuario AND p.idPerro = s.idPerro";
+
             
                 
     $nombrePerro = " AND p.nombre LIKE '%$nombre%'";
@@ -762,8 +779,10 @@ function rechazarSolicitud($idSolicitud) {
   }
 
 function aceptarSolicitud($idSolicitud) {
+
     $sql0="
     UPDATE solicitud SET activa=false WHERE idSolicitud='$idSolicitud'
+
     ";
     $sql1="
     UPDATE solicitud SET aprobada=true WHERE idSolicitud='$idSolicitud'
@@ -840,9 +859,12 @@ function actualizarEstadoPago($id,$estado){
 }
 
 function actualizarMetodoPago($id, $metodo){
-    $sql = "UPDATE solicitud SET metodoPago ='$metodo' WHERE idSolicitud = $id";
-    $result = sqlqry($sql);
-    return $result;
+    if($metodo=="Paypal"){
+        $sql = "UPDATE solicitud SET metodoPago='$metodo', estadoPago=4 WHERE idSolicitud=$id and estadoPago!=5";
+    } else{
+        $sql = "UPDATE solicitud SET metodoPago='$metodo', estadoPago=9 WHERE idSolicitud=$id and estadoPago!=5";
+    }
+    return sqlqry($sql);
 }
 
 function agregarOperador($email){
@@ -899,4 +921,32 @@ function eliminaOperador($id) {
     WHERE ur.idUsuario=$id
     AND r.rol='operador'";
     return modifyDb($sql1);
+}
+
+function muestraDonaciones() {
+    $sql = "
+    SELECT d.*, u.nombre as 'nombre'
+    FROM donacion d, usuario u
+    WHERE d.idUsuario IS NULL OR u.idUsuario=d.idUsuario
+    group by d.numeroTransaccion
+    order by fechaDonacion
+    ";
+    $result = sqlqry($sql);
+    $tabla = "";
+    while ($row = mysqli_fetch_array($result)) {
+        $tabla .= "<tr>";
+        if($row['idUsuario']==NULL) {
+            $row['nombre']="Anónimo";
+        }
+        $tabla .= "<td>".$row['nombre']."</td>";
+        $tabla .= "<td>".$row['monto']."</td>";
+        $tabla .= "<td>".$row['cuota']."</td>";
+        $tabla .= "<td>".$row['numeroTransaccion']."</td>";
+        $tabla .= "<td>".$row['fechaDonacion']."</td>";
+        $tabla .= "</tr>";
+    }
+
+    return $tabla;
+
+
 }
