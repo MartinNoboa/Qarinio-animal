@@ -933,3 +933,21 @@ function actualizarMetodoPago() {
         });
     }
 }
+
+function submitEditarContacto(){
+    if(confirm("¿Estas seguro de modificar la cuota de recuperación?")){
+       $.post("controlador_editar_contacto.php", {
+           cuota : $("#cuota").val()
+        }).done(function (data) {
+            if(parseInt(data)!== 0) {
+                mostrarMensaje("Se actualizó la información de contacto exitosamente","success");
+            } else {
+                mostrarMensaje("Hubo un error al actualizar la información de contacto ","danger");
+            }
+            mostrarCuota();
+        });
+
+
+    }//terminacion del if confirm
+
+}
