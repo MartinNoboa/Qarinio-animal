@@ -55,13 +55,13 @@
      <img src="img/errorDog.png" alt="">
     <h3>Este link es invalido o ha expirado, por favor intenta de nuevo</h3>
     <div class="uk-container">
-        <a class='boton-info uk-button uk-button-text uk-text-meta' href="index.php">Inicio</a>
+        <a class='boton-info uk-button uk-button-text uk-text-meta' href="/">Inicio</a>
         |
-        <a class='boton-info uk-button uk-button-text uk-text-meta' href="catalogo.php">Nuestros Perros</a>
+        <a class='boton-info uk-button uk-button-text uk-text-meta' href="catalogo">Nuestros Perros</a>
         |
-        <a class='boton-info uk-button uk-button-text uk-text-meta' href="iniciarSesion.php">Iniciar Sesión</a>
+        <a class='boton-info uk-button uk-button-text uk-text-meta' href="iniciarSesion">Iniciar Sesión</a>
         |
-        <a class='boton-info uk-button uk-button-text uk-text-meta' href="cambiarContra.php">Cambiar mi Contraseña</a>
+        <a class='boton-info uk-button uk-button-text uk-text-meta' href="cambiarContra">Cambiar mi Contraseña</a>
     </div>
 </div>
 <?php
