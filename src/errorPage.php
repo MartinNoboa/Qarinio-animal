@@ -7,7 +7,7 @@
 
 <div class="uk-container uk-margin">
     <h1 class="uk-text-center">¡Algo salió mal!</h1>
-    <h4 class="uk-text-center">Error: <?= $err ?>, <?= $err<=500?"La página solicitada no existe":"Hubo un error en el servidor" ?></h4>
+    <h4 class="uk-text-center">Error: <?= $err ?>, <?= $err<500?"La página solicitada no existe":"Hubo un error en el servidor" ?></h4>
     <?= $err>=500?"<h2 class='uk-text-center'>Estamos trabajando para arreglarlo</h2>":"" ?>
     <?php
     switch($err){
