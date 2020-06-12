@@ -153,11 +153,11 @@ function mostrarPreguntas(){
         let i = 0;
         let concatenacion="";
         for(i=0;i<data.length;i++){
-            if(data[i].pregunta != "" && data[i].respuesta != ""){
+            if(data[i].pregunta !== "" && data[i].respuesta !== ""){
                concatenacion+=
                 '<li class="uk-closed"><a class="uk-accordion-title" href="#">'+
                 data[i].pregunta +"</a>"+
-                '<div class="uk-accordion-content"><p>'+data[i].respuesta + '</p></div>'+
+                '<div class="uk-accordion-content"><p>'+ data[i].respuesta + '</p></div>'+
                 "</li>";
                }
 
