@@ -159,7 +159,7 @@ function mostrarPreguntas(){
                concatenacion+=
                 '<li class="uk-closed"><a class="uk-accordion-title" href="#">'+
                 data[i].pregunta +"</a>"+
-                '<div class="uk-accordion-content"><p>'+ data[i].respuesta + '</p></div>'+
+                '<div class="uk-accordion-content"><p class="keep-blanks">'+ data[i].respuesta + '</p></div>'+
                 "</li>";
                }
 
