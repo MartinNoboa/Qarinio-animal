@@ -1,7 +1,7 @@
 html {
   scroll-behavior: smooth;
 }
-p {
+.keep-blanks {
     white-space: pre-wrap;
 }
 
