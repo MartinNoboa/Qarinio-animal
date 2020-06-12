@@ -34,11 +34,13 @@ function filtrarSolicitudes() {
         nombre: $("#nombre").val()
     }).done(function (data) {
         $("#tablaSolicitudes").html(data);
-        setELSolicitudes();
-        setELSolicitudesPago();
-        setELSolicitudesEntrevista();
-        setELAprobarSolicitudes();
-        setELRechazarSolicitudes();
+        if($("#estado").val()==1){
+            setELSolicitudes();
+            setELSolicitudesPago();
+            setELSolicitudesEntrevista();
+            setELAprobarSolicitudes();
+            setELRechazarSolicitudes();
+        }
     });
 }
 
