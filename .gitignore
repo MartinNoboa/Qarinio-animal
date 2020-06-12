@@ -6,5 +6,4 @@ gen
 loginsAdmin
 .htaccess
 src/img/perros/*.jpeg
-src/preguntas.json
-src/contacto.json
+src/*.json
