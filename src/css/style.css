@@ -1,6 +1,9 @@
 html {
   scroll-behavior: smooth;
 }
+p {
+    white-space: pre-wrap;
+}
 
 .dog-card-image {
   background-size:     cover;
