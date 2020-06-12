@@ -84,8 +84,8 @@
 
 ?>
 
-<div class = "uk-container uk-margin-xlarge-left uk-margin-xlarge-right">
-  <form method="post" action="crearCuenta.php" name='sign-up' id="sign-up">
+<div class = "uk-container uk-align-center">
+  <form method="post" action="crearCuenta.php" name='sign-up' id="sign-up" >
     <h1 class="uk-text-center uk-animation-slide-bottom">Crear Cuenta</h1>
     <hr class="uk-divider-icon">
       <div <?= $_SESSION["createState"]==2?"hidden":"" ?>>
