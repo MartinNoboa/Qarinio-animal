@@ -40,7 +40,7 @@
 
                         $ans .= "<option ". ($metodo==null?"selected":"") ." hidden value='' >No ha seleccionado un método de pago.</option>
                                  <option ". ($metodo=="Efectivo"?"selected":"") ." value='Efectivo'>Efectivo</option>
-                                 <option ". ($metodo=="Paypal"?"selected":"") ." value='Paypal'>Paypal</option>
+                                 <option ". ($metodo=="Paypal"?"selected":"") ." value='Paypal' disabled>PayPal (Disponible Próximamente)</option>
                                  <option ". ($metodo=="Transferencia"?"selected":"") ." value='Transferencia'>Transferencia</option>";
 
                         $ans .= " </select>";
