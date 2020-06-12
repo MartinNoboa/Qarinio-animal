@@ -73,7 +73,7 @@
                         <ul class="uk-slideshow-items">
                             <li>
                                <img src="img/landing/proceso.png" alt="" uk-cover>
-                                <div class="uk-overlay uk-light uk-position-bottom-center">
+                                <div class="uk-overlay uk-light uk-position-bottom-center uk-visible@m">
                                      <a href = "preguntasFrecuentes.php">Mas información en Preguntas Frecuentes</a>
                                 </div>
                             </li>
