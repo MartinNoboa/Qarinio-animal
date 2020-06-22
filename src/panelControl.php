@@ -19,6 +19,12 @@
         <button class="uk-button uk-button-primary uk-border-rounded" id="editar-cuota" type="button">Guardar</button>
     </div>
     <hr>
+    <div class="uk-animation-fade">
+        <h3>Link de Video</h3>
+        <input type="text" class="uk-input uk-border-rounded uk-width-medium" id="link" value="<?= getLink();  ?>">
+        <button class="uk-button uk-button-primary uk-border-rounded" id="editar-link" type="button">Guardar</button>
+    </div>
+    <hr>
     <div class=" uk-animation-fade">
         <h3>Información de Contacto</h3>
         <div id="seccion-contacto"></div>
@@ -40,6 +46,7 @@ include("_footer.html")
     document.getElementById("editar-preguntas").onclick=editarPreguntas;
     document.getElementById("editar-contacto").onclick=submitEditarContacto;
     document.getElementById("editar-cuota").onclick=submitEditarCuota;
+    document.getElementById("editar-link").onclick=submitEditarLink;
     mostrarContacto();
     mostrarEdicionContacto();
 </script>

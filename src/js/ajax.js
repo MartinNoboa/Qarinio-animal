@@ -1003,7 +1003,22 @@ function submitEditarCuota(){
     }//terminacion del if confirm
 
 }
+function submitEditarLink(){
+    if(confirm("¿Estas seguro de modificar el link del video?")){
+       $.post("controlador_editar_link.php", {
+           link : $("#link").val()
+        }).done(function (data) {
+            if(parseInt(data)!== 0) {
+                mostrarMensaje("Se actualizó el link exitosamente","success");
+            } else {
+                mostrarMensaje("Hubo un error al actualizar el link","danger");
+            }
+        });
 
+
+    }//terminacion del if confirm
+
+}
 
 //!!!!!!!!!!!!!!--------------------------------MANEJO DONACIONES ------------------!!!!!!!!!
 
