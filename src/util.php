@@ -293,7 +293,20 @@ function filterDogs($busq, $minA, $maxA, $male, $female, $peq, $med, $gra, $raz,
     return sqlqry($sql);
 }
 
+function mostrarPerros(){
+    
 
+    $sql = "
+        select
+            p.idPerro,
+            p.nombre
+        FROM perros as p,estado_perro as e
+        WHERE p.idPerro=e.idPerro
+        AND e.idEstado=1";
+
+    
+    return sqlqry($sql);
+}
 
 
     //función para eliminar una perro

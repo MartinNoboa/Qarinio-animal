@@ -13,6 +13,12 @@
             </form>
         </div>
     </div>
+
+    <div class="uk-section">
+        <iframe class="latestVideoEmbed uk-align-center" vnum='1' cid="UCOYe3Pg_dGV0U8MdxI8JBiQ" width="600" height="340" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <!-- QUIÉNES SOMOS -->
     <div class="uk-section">
         <div class="uk-container">
             <h2 class="uk-text-center">¿Quiénes Somos?</h2>
@@ -92,3 +98,23 @@ UIkit.parallax();
     UIkit.slideshow();
 </script>
 <?php include("_footer.html");?>
+<script>
+    var reqURL = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent("https://www.youtube.com/feeds/videos.xml?channel_id=");
+
+    function loadVideo(iframe) {
+    $.getJSON(reqURL + iframe.getAttribute('cid'),
+        function(data) {
+        var videoNumber = (iframe.getAttribute('vnum') ? Number(iframe.getAttribute('vnum')) : 0);
+        console.log(videoNumber);
+        var link = data.items[videoNumber].link;
+        id = link.substr(link.indexOf("=") + 1);
+        iframe.setAttribute("src", "https://youtube.com/embed/" + id + "?controls=0&autoplay=1");
+        }
+    );
+    }
+
+    var iframes = document.getElementsByClassName('latestVideoEmbed');
+    for (var i = 0, len = iframes.length; i < len; i++) {
+    loadVideo(iframes[i]);
+    }
+</script>
